@@ -64,7 +64,7 @@
 
 /mob/living/carbon/human/get_status_tab_items()
 	. = ..()
-	. += "Intent: [a_intent]"
+	. += "Combat mode: [combat_mode ? "On" : "Off"]"
 	. += "Move Mode: [m_intent]"
 	if(istype(wear_suit, /obj/item/clothing/suit/space))
 		var/obj/item/clothing/suit/space/S = wear_suit
@@ -1066,7 +1066,7 @@
 	return ..()
 
 /mob/living/carbon/human/mouse_buckle_handling(mob/living/M, mob/living/user)
-	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
+	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS)
 		return FALSE
 
 	//If they dragged themselves to you and you're currently aggressively grabbing them try to piggyback

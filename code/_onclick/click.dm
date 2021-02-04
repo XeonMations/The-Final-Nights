@@ -165,7 +165,7 @@
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
-		UnarmedAttack(A)
+		UnarmedAttack(A, FALSE, modifiers)
 		return
 
 	if(in_throw_mode)
@@ -187,15 +187,8 @@
 			W.melee_attack_chain(src, A, params)
 		else
 			if(ismob(A))
-				if(isliving(src))
-					var/mob/living/L = src
-					if(L.melee_professional)
-						changeNext_move(CLICK_CD_RANGE)
-					else
-						changeNext_move(CLICK_CD_MELEE)
-				else
-					changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A)
+				changeNext_move(CLICK_CD_MELEE)
+			UnarmedAttack(A, FALSE, modifiers)
 		return
 
 	//Can't reach anything else in lockers or other weirdness
@@ -286,30 +279,9 @@
 							else
 								UnarmedAttack(A)
 		else
-			if(istype(W, /obj/item/melee))
-				var/atom/B = melee_swing()
-				if(B)
-					W.melee_attack_chain(src, B, params)
-			else if(CanReach(A,W))
-				W.melee_attack_chain(src, A, params)
-
-		if(last_locc)
-			forceMove(last_locc)
-		return
-
-	if(istype(W, /obj/item/melee))
-		if(A)
-			if(CanReach(A,W))
-				melee_swing()
-				W.melee_attack_chain(src, A, params)
-			else
-				var/atom/B = melee_swing()
-				if(B)
-					W.melee_attack_chain(src, B, params)
-		else
-			var/atom/B = melee_swing()
-			if(B)
-				W.melee_attack_chain(src, B, params)
+			if(ismob(A))
+				changeNext_move(CLICK_CD_MELEE)
+			UnarmedAttack(A,1,modifiers)
 	else
 	//Standard reach turf to turf or reaching inside storage
 		if(CanReach(A,W))
@@ -438,8 +410,10 @@
  *
  * proximity_flag is not currently passed to attack_hand, and is instead used
  * in human click code to allow glove touches only at melee range.
+ *
+ * modifiers is the click modifiers this attack had, used for
  */
-/mob/proc/UnarmedAttack(atom/A, proximity_flag)
+/mob/proc/UnarmedAttack(atom/A, proximity_flag, modifiers)
 	if(ismob(A))
 		changeNext_move(CLICK_CD_MELEE)
 	return

@@ -131,7 +131,7 @@
 		return
 	. = ..()
 
-/obj/structure/window/attack_hand(mob/user)
+/obj/structure/window/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
@@ -139,7 +139,7 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 
-	if(user.a_intent != INTENT_HARM)
+	if(!user.combat_mode)
 		user.visible_message("<span class='notice'>[user] knocks on [src].</span>", \
 			"<span class='notice'>You knock on [src].</span>")
 		playsound(src, knocksound, 50, TRUE)
@@ -162,9 +162,9 @@
 
 	add_fingerprint(user)
 
-	if(I.tool_behaviour == TOOL_WELDER)
+	if(I.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 		if(atom_integrity < max_integrity)
-			if(!I.tool_start_check(user, amount = 0))
+			if(!I.tool_start_check(user, amount=0))
 				return
 
 			to_chat(user, span_notice("You begin repairing [src]..."))
@@ -352,10 +352,11 @@
 
 //this is shitcode but all of construction is shitcode and needs a refactor, it works for now
 //If you find this like 4 years later and construction still hasn't been refactored, I'm so sorry for this //Adding a timestamp, I found this in 2020, I hope it's from this year -Lemon
+//2021 AND STILLLL GOING STRONG
 /obj/structure/window/reinforced/attackby(obj/item/I, mob/living/user, params)
 	switch(state)
 		if(RWINDOW_SECURE)
-			if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HARM)
+			if(I.tool_behaviour == TOOL_WELDER && user.combat_mode)
 				user.visible_message("<span class='notice'>[user] holds \the [I] to the security screws on \the [src]...</span>",
 										"<span class='notice'>You begin heating the security screws on \the [src]...</span>")
 				if(I.use_tool(src, user, 150, volume = 100))
@@ -480,7 +481,7 @@
 /obj/structure/window/plasma/reinforced/attackby(obj/item/I, mob/living/user, params)
 	switch(state)
 		if(RWINDOW_SECURE)
-			if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HARM)
+			if(I.tool_behaviour == TOOL_WELDER && user.combat_mode)
 				user.visible_message("<span class='notice'>[user] holds \the [I] to the security screws on \the [src]...</span>",
 										"<span class='notice'>You begin heating the security screws on \the [src]...</span>")
 				if(I.use_tool(src, user, 180, volume = 100))
@@ -741,11 +742,11 @@
 	for (var/i in 1 to rand(1,4))
 		. += new /obj/item/paper/natural(location)
 
-/obj/structure/window/paperframe/attack_hand(mob/user)
+/obj/structure/window/paperframe/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
 		return
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		take_damage(4,BRUTE,MELEE, 0)
 		if(!QDELETED(src))
 			update_icon()
@@ -763,11 +764,11 @@
 	. = ..()
 	. += (atom_integrity < max_integrity) ? torn : paper
 
-/obj/structure/window/paperframe/attackby(obj/item/W, mob/user)
+/obj/structure/window/paperframe/attackby(obj/item/W, mob/living/user)
 	if(W.get_temperature())
 		fire_act(W.get_temperature())
 		return
-	if(user.a_intent == INTENT_HARM)
+	if(user.combat_mode)
 		return ..()
 	if(istype(W, /obj/item/paper) && atom_integrity < max_integrity)
 		user.visible_message(span_notice("[user] starts to patch the holes in \the [src]."))

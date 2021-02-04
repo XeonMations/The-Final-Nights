@@ -1041,14 +1041,7 @@
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_ATTACK_QDELETED "item_attack_qdeleted"
-///from base of /mob/proc/melee_swing()
-#define COMSIG_MOB_MELEE_SWING "mob_melee_swing"
-///from base of /mob/living/attackby(obj/item/I, mob/living/user, params)
-///	SEND_SIGNAL(src, COMSIG_MOB_ATTACKED_BY_MELEE, /*attacker =*/user, /*item =*/I, /*params =*/params)
-#define COMSIG_MOB_ATTACKED_BY_MELEE "mob_attacked_by_melee"
-///	SEND_SIGNAL(user, COMSIG_MOB_ATTACKING_MELEE, /*target =*/src, /*item =*/I, params)
-#define COMSIG_MOB_ATTACKING_MELEE "mob_attacking_melee"
-///from base of atom/attack_hand(): (mob/user)
+///from base of atom/attack_hand(): (mob/user, modifiers)
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"
 ///from base of /mob/living/attack_hand(mob/living/carbon/human/user)
 ///SEND_SIGNAL(user, COMSIG_MOB_LIVING_ATTACK_HAND, /*target =*/src)
