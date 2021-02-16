@@ -160,7 +160,7 @@
 			attached.bloodpool = attached.maxbloodpool
 			update_icon()
 
-/obj/machinery/iv_drip/attack_hand(mob/user)
+/obj/machinery/iv_drip/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

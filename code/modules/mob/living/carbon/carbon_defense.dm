@@ -150,7 +150,7 @@
 	return //so we don't call the carbon's attack_hand().
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/mob/living/carbon/attack_hand(mob/living/carbon/human/user, modifiers)
+/mob/living/carbon/attack_hand(mob/living/carbon/human/user, list/modifiers)
 
 	if(user.combat_mode)
 		do_rage_from_attack(user)
@@ -184,25 +184,25 @@
 	return FALSE
 
 
-/mob/living/carbon/attack_paw(mob/living/carbon/human/M, modifiers)
+/mob/living/carbon/attack_paw(mob/living/carbon/human/user, list/modifiers)
 
-	if(can_inject(M, TRUE))
+	if(try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
 		for(var/thing in diseases)
 			var/datum/disease/D = thing
 			if((D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN) && prob(85))
-				M.ContactContractDisease(D)
+				user.ContactContractDisease(D)
 
-	for(var/thing in M.diseases)
+	for(var/thing in user.diseases)
 		var/datum/disease/D = thing
 		if(D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN)
 			ContactContractDisease(D)
 
-	if(!M.combat_mode)
-		help_shake_act(M)
+	if(!user.combat_mode)
+		help_shake_act(user)
 		return FALSE
 
 	if(..()) //successful monkey bite.
-		for(var/thing in M.diseases)
+		for(var/thing in user.diseases)
 			var/datum/disease/D = thing
 			ForceContractDisease(D)
 		return TRUE

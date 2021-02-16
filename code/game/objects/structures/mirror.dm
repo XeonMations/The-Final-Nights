@@ -50,7 +50,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 	. = ..()
 	GLOB.las_mirrors -= src
 
-/obj/structure/mirror/attack_hand(mob/user)
+/obj/structure/mirror/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -169,7 +169,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/mirror, 28)
 			choosable_races += initial(S.id)
 	..()
 
-/obj/structure/mirror/magic/attack_hand(mob/user)
+/obj/structure/mirror/magic/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
