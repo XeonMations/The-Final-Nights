@@ -349,6 +349,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		state_open = FALSE //close the door
 		update_icon()
 
+/obj/machinery/washing_machine/attack_ai_secondary(mob/user, modifiers)
+	return attack_hand_secondary(user, modifiers)
+
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	if (!(flags_1 & NODECONSTRUCT_1))
 		new /obj/item/stack/sheet/metal(drop_location(), 2)
