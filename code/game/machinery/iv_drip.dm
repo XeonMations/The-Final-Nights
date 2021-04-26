@@ -98,9 +98,9 @@
 
 
 /obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
-	if(is_type_in_typecache(W, drip_containers))
-		if(beaker)
-			to_chat(user, "<span class='warning'>There is already a reagent container loaded!</span>")
+	if(is_type_in_typecache(W, drip_containers) || IS_EDIBLE(W))
+		if(reagent_container)
+			to_chat(user, "<span class='warning'>[reagent_container] is already loaded on [src]!</span>")
 			return
 		if(!user.transferItemToLoc(W, src))
 			return
@@ -194,7 +194,8 @@
 	if(!isliving(usr))
 		to_chat(usr, "<span class='warning'>You can't do that!</span>")
 		return
-
+	if (!usr.canUseTopic())
+		return
 	if(usr.incapacitated())
 		return
 	if(beaker)
@@ -210,7 +211,8 @@
 	if(!isliving(usr))
 		to_chat(usr, "<span class='warning'>You can't do that!</span>")
 		return
-
+	if (!usr.canUseTopic())
+		return
 	if(usr.incapacitated())
 		return
 	mode = !mode
