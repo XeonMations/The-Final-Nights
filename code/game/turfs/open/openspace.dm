@@ -5,17 +5,16 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 
 	anchored = TRUE
 
-	icon            = 'icons/turf/floors.dmi'
-	icon_state      = "grey"
-	plane           = TRANSPARENT_FLOOR_PLANE
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "grey"
+	plane = TRANSPARENT_FLOOR_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	//I don't know why the others are aligned but I shall do the same.
 	vis_flags = VIS_INHERIT_ID
 
 /turf/open/openspace
 	name = "open space"
 	desc = "Watch your step!"
-	icon_state = "transparent"
+	icon_state = "invisible"
 	baseturfs = /turf/open/openspace
 	baseturfs = /turf/open/openspace
 	intact = FALSE //this means wires go on top
