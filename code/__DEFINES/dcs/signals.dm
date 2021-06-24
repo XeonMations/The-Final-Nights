@@ -48,7 +48,9 @@
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
-///from base of atom/examine(): (/mob)
+/// From base of [atom/proc/attacby_secondary()]: (/obj/item/weapon, /mob/user, params)
+#define COMSIG_PARENT_ATTACKBY_SECONDARY "atom_attackby_secondary"
+///from base of atom/examine(): (/mob, list/examine_text)
 #define COMSIG_PARENT_EXAMINE "atom_examine"
 ///from base of atom/get_examine_name(): (/mob, list/overrides)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"
@@ -1022,6 +1024,11 @@
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 ///from base of obj/item/pre_attack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_PRE_ATTACK "item_pre_attack"
+/// From base of [/obj/item/proc/pre_attack_secondary()]: (atom/target, mob/user, params)
+#define COMSIG_ITEM_PRE_ATTACK_SECONDARY "item_pre_attack_secondary"
+	#define COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN (1<<0)
+	#define COMPONENT_SECONDARY_CONTINUE_ATTACK_CHAIN (1<<1)
+	#define COMPONENT_SECONDARY_CALL_NORMAL_ATTACK_CHAIN (1<<2)
 ///from base of obj/item/afterattack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, params)
