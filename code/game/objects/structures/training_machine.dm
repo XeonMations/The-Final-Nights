@@ -394,7 +394,9 @@
 
 /obj/item/training_toolbox/AltClick(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>You push the 'Lap' button on the toolbox's display.</span>")
+	if(!can_interact(user))
+		return
+	to_chat(user, span_notice("You push the 'Lap' button on the toolbox's display."))
 	lap_hits = initial(lap_hits)
 
 /obj/item/training_toolbox/examine(mob/user)

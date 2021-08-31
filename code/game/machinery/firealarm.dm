@@ -145,7 +145,8 @@
 
 /obj/machinery/firealarm/attack_hand(mob/user, list/modifiers)
 	if(buildstage != 2)
-		return ..()
+		return
+	. = ..()
 	add_fingerprint(user)
 	var/area/A = get_area(src)
 	if(A.fire)
