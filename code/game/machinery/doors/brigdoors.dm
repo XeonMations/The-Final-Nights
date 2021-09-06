@@ -59,8 +59,8 @@
 			if(C.id == id)
 				targets += C
 
-	if(!targets.len)
-		obj_break()
+	if(!length(doors) && !length(flashers) && length(closets))
+		atom_break()
 	update_appearance()
 
 

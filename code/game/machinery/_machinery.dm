@@ -523,8 +523,7 @@
 	transfer_fingerprints_to(new_frame)
 
 
-/obj/machinery/obj_break(damage_flag)
-	SHOULD_CALL_PARENT(TRUE)
+/obj/machinery/atom_break(damage_flag)
 	. = ..()
 	if(!(machine_stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
 		set_machine_stat(machine_stat | BROKEN)
@@ -679,8 +678,8 @@
 		. += "<span class='notice'>It looks broken and non-functional.</span>"
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += "<span class='warning'>It's on fire!</span>"
-		var/healthpercent = (obj_integrity/max_integrity) * 100
+			. += span_warning("It's on fire!")
+		var/healthpercent = (atom_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
 				. += "It looks slightly damaged."
