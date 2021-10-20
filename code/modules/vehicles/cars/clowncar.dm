@@ -26,7 +26,7 @@
 		var/mob/living/carbon/human/H = M
 		if(H.mind && H.mind.assigned_role == "Clown") //Ensures only clowns can drive the car. (Including more at once)
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
-			RegisterSignal(H, COMSIG_MOB_CLICKON, PROC_REF(FireCannon))
+			RegisterSignal(H, COMSIG_MOB_CLICKON, PROC_REF(fire_cannon_at))
 			M.log_message("has entered [src] as a possible driver", LOG_ATTACK)
 			return
 	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
@@ -186,15 +186,21 @@
 	for(var/mob/living/L in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
 		L.update_mouse_pointer()
 
-/obj/vehicle/sealed/car/clowncar/proc/FireCannon(mob/user, atom/A, params)
-	if(cannonmode && return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED).len)
-		var/mob/living/L = pick(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
-		mob_exit(L, TRUE)
-		flick("clowncar_recoil", src)
-		playsound(src, pick('sound/vehicles/carcannon1.ogg', 'sound/vehicles/carcannon2.ogg', 'sound/vehicles/carcannon3.ogg'), 75)
-		L.throw_at(A, 10, 2)
-		log_combat(user, L, "fired", src, "towards [A]") //this doesn't catch if the mob hits something between the car and the target
-		return COMSIG_MOB_CANCEL_CLICKON
+///Fires the cannon where the user clicks
+/obj/vehicle/sealed/car/clowncar/proc/fire_cannon_at(mob/user, atom/target, list/modifiers)
+	SIGNAL_HANDLER
+	if(cannonmode != CLOWN_CANNON_READY || !length(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED)))
+		return
+	//The driver can still examine things and interact with his inventory.
+	if(modifiers[SHIFT_CLICK] || (ismovable(target) && !isturf(target.loc)))
+		return
+	var/mob/living/unlucky_sod = pick(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
+	mob_exit(unlucky_sod, TRUE)
+	flick("clowncar_recoil", src)
+	playsound(src, pick('sound/vehicles/carcannon1.ogg', 'sound/vehicles/carcannon2.ogg', 'sound/vehicles/carcannon3.ogg'), 75)
+	unlucky_sod.throw_at(target, 10, 2)
+	log_combat(user, unlucky_sod, "fired", src, "towards [target]") //this doesn't catch if the mob hits something between the car and the target
+	return COMSIG_MOB_CANCEL_CLICKON
 
 /obj/vehicle/sealed/car/clowncar/proc/ThanksCounter()
 	thankscount++
