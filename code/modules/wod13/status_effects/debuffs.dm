@@ -270,9 +270,9 @@
 	to_chat(owner, "<span class='notice'>You attempt to remove the durathread strand from around your neck.</span>")
 	if(do_after(owner, 3.5 SECONDS, owner))
 		if(isliving(owner))
-			var/mob/living/L = owner
-			to_chat(owner, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
-			L.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
+			var/mob/living/living_owner = owner
+			to_chat(living_owner, span_notice("You succesfuly remove the durathread strand."))
+			living_owner.remove_status_effect(/datum/status_effect/strandling)
 
 //OTHER DEBUFFS
 /datum/status_effect/pacify
@@ -473,7 +473,7 @@
 /datum/status_effect/confusion/tick()
 	strength -= 1
 	if (strength <= 0)
-		owner.remove_status_effect(STATUS_EFFECT_CONFUSION)
+		owner.remove_status_effect(/datum/status_effect/confusion)
 		return
 
 /datum/status_effect/confusion/proc/set_strength(new_strength)
@@ -533,11 +533,11 @@
 		H.emote(pick("gasp", "gag", "choke"))
 
 /mob/living/proc/apply_necropolis_curse(set_curse)
-	var/datum/status_effect/necropolis_curse/C = has_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE)
+	var/datum/status_effect/necropolis_curse/C = has_status_effect(/datum/status_effect/necropolis_curse)
 	if(!set_curse)
 		set_curse = pick(CURSE_BLINDING, CURSE_SPAWNING, CURSE_WASTING, CURSE_GRASPING)
 	if(QDELETED(C))
-		apply_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE, set_curse)
+		apply_status_effect(/datum/status_effect/necropolis_curse, set_curse)
 	else
 		C.apply_curse(set_curse)
 		C.duration += 3000 //time added by additional curses

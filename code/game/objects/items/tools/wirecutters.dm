@@ -48,14 +48,12 @@
 	. = ..()
 	if(!random_color) //icon override
 		return
-	var/mutable_appearance/base_overlay = mutable_appearance(icon, "cutters_cutty_thingy")
-	base_overlay.appearance_flags = RESET_COLOR
-	. += base_overlay
-
-/obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
-	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
-		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
-		qdel(C.handcuffed)
+	else if(istype(attacked_carbon) && attacked_carbon.has_status_effect(/datum/status_effect/strandling))
+		user.visible_message(span_notice("[user] attempts to cut the durathread strand from around [attacked_carbon]'s neck."))
+		if(do_after(user, 1.5 SECONDS, attacked_carbon))
+			user.visible_message(span_notice("[user] succesfully cuts the durathread strand from around [attacked_carbon]'s neck."))
+			attacked_carbon.remove_status_effect(/datum/status_effect/strandling)
+			playsound(loc, usesound, 50, TRUE, -1)
 		return
 	else if(istype(C) && C.has_status_effect(STATUS_EFFECT_CHOKINGSTRAND))
 		to_chat(C, "<span class='notice'>You attempt to remove the durathread strand from around your neck.</span>")
