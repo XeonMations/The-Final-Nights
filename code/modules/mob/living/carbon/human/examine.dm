@@ -652,8 +652,8 @@
 	else if(isobserver(user))
 		var/mob/dead/observer/observer_user = user
 		if(!isavatar(observer_user))
-			. += "<span class='info'><b>Traits:</b> [get_quirk_string(FALSE, CAT_QUIRK_ALL)]</span>"
-	. += "*---------*</span>"
+			. += span_info("<b>Traits:</b> [get_quirk_string(FALSE, CAT_QUIRK_ALL)]")
+	. += "</span>"
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 

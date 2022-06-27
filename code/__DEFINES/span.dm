@@ -133,3 +133,5 @@
 // Spans that use embedded tgui components:
 // Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
+/// Adds a generic box around whatever message you're sending in chat. Really makes things stand out.
+#define examine_block(str) ("<div class='examine_block'>" + str + "</div>")
