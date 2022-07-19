@@ -39,6 +39,9 @@ DECLARE_LOG_NAMED(harddel_log, "harddels", START_LOG)
 DECLARE_LOG_NAMED(test_log, "tests", START_LOG)
 #endif
 
+GLOBAL_VAR(lua_log)
+GLOBAL_PROTECT(lua_log)
+
 GLOBAL_LIST_EMPTY(bombers)
 GLOBAL_PROTECT(bombers)
 

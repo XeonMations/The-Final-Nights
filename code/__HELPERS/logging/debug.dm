@@ -59,3 +59,7 @@
 	GLOB.logger.Log(LOG_CATEGORY_RUNTIME, text, data)
 #endif
 	SEND_TEXT(world.log, text)
+
+/// Logging for lua scripting
+/proc/log_lua(text)
+	WRITE_LOG(GLOB.lua_log, text)

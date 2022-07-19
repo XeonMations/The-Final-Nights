@@ -250,7 +250,15 @@ GLOBAL_VAR(restart_counter)
 
 	TgsReboot()
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
+	AUXTOOLS_FULL_SHUTDOWN(AUXLUA)
 	..()
+
+/world/Del()
+	AUXTOOLS_FULL_SHUTDOWN(AUXLUA)
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if (debug_server)
+		call(debug_server, "auxtools_shutdown")()
+	. = ..()
 
 /world/proc/update_status()
 

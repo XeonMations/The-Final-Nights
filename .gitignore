@@ -213,6 +213,11 @@ libprof.so
 # https://gist.github.com/Mothblocks/db5462aa84d7d6b1d1b1276b820f62da
 Tracy.exe
 
+# Built auxtools libraries and intermediate files
+aux*.dll
+libaux*.so
+aux*.pdb
+
 # JavaScript tools
 **/node_modules
 
