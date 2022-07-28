@@ -191,7 +191,7 @@
 		return TRUE
 
 
-/mob/living/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(!SSticker.HasRoundStarted())
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
@@ -273,7 +273,7 @@
 
 	return FALSE
 
-/mob/living/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	if(L.combat_mode)
 		if(HAS_TRAIT(L, TRAIT_PACIFISM))
 			to_chat(L, "<span class='warning'>You don't want to hurt anyone!</span>")

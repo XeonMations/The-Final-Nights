@@ -29,6 +29,9 @@
 				if("Nothing")
 					return
 
+/mob/living/simple_animal/drone/attack_drone_secondary(mob/living/simple_animal/drone/drone)
+	return SECONDARY_ATTACK_CALL_NORMAL
+
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/simple_animal/drone/attack_hand(mob/user, list/modifiers)
 	if(ishuman(user))

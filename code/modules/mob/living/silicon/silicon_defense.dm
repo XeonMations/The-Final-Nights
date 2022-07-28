@@ -45,7 +45,7 @@
 /mob/living/silicon/attack_paw(mob/living/user, list/modifiers)
 	return attack_hand(user, modifiers)
 
-/mob/living/silicon/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/silicon/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	if(!L.combat_mode)
 		visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")
 
@@ -80,6 +80,11 @@
 /mob/living/silicon/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.combat_mode)
 		return
+	return ..()
+
+/mob/living/silicon/attack_drone_secondary(mob/living/simple_animal/drone/M)
+	if(M.combat_mode)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
 /mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)

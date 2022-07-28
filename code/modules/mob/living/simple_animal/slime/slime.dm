@@ -273,7 +273,7 @@
 /mob/living/simple_animal/slime/attack_ui(slot, params)
 	return
 
-/mob/living/simple_animal/slime/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/simple_animal/slime/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
 	if(..()) //successful slime attack
 		if(M == src)
 			return
@@ -300,7 +300,7 @@
 	if(..()) //successful monkey bite.
 		attacked += 10
 
-/mob/living/simple_animal/slime/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/simple_animal/slime/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	if(..()) //successful larva bite.
 		attacked += 10
 
