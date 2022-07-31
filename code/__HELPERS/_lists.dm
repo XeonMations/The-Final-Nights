@@ -825,3 +825,28 @@
 			else if(value_1 != value_2)
 				return FALSE
 	return TRUE
+
+/// Returns a copy of the list where any element that is a datum is converted into a weakref
+/proc/weakrefify_list(list/target_list)
+	var/list/ret = list()
+	for(var/i in 1 to target_list.len)
+		var/key = target_list[i]
+		var/new_key = key
+		if(isdatum(key))
+			new_key = WEAKREF(key)
+		else if(islist(key))
+			new_key = weakrefify_list(key)
+		var/value
+		if(istext(key) || islist(key) || ispath(key) || isdatum(key) || key == world)
+			value = target_list[key]
+		if(isdatum(value))
+			value = WEAKREF(value)
+		else if(islist(value))
+			value = weakrefify_list(value)
+		var/list/to_add = list(new_key)
+		if(value)
+			to_add[new_key] = value
+		ret += to_add
+		if(i < target_list.len)
+			CHECK_TICK
+	return ret
