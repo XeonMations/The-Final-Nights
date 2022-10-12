@@ -246,11 +246,70 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		qdel(X)
 	return ..()
 
-/obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
-	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
-		return 0
+/// Called when an action associated with our item is deleted
+/obj/item/proc/on_action_deleted(datum/source)
+	SIGNAL_HANDLER
+
+	if(!(source in actions))
+		CRASH("An action ([source.type]) was deleted that was associated with an item ([src]), but was not found in the item's actions list.")
+
+	LAZYREMOVE(actions, source)
+
+/// Adds an item action to our list of item actions.
+/// Item actions are actions linked to our item, that are granted to mobs who equip us.
+/// This also ensures that the actions are properly tracked in the actions list and removed if they're deleted.
+/// Can be be passed a typepath of an action or an instance of an action.
+/obj/item/proc/add_item_action(action_or_action_type)
+
+	var/datum/action/action
+	if(ispath(action_or_action_type, /datum/action))
+		action = new action_or_action_type(src)
+	else if(istype(action_or_action_type, /datum/action))
+		action = action_or_action_type
 	else
-		return 1
+		CRASH("item add_item_action got a type or instance of something that wasn't an action.")
+
+	LAZYADD(actions, action)
+	RegisterSignal(action, COMSIG_PARENT_QDELETING, .proc/on_action_deleted)
+	if(ismob(loc))
+		// We're being held or are equipped by someone while adding an action?
+		// Then they should also probably be granted the action, given it's in a correct slot
+		var/mob/holder = loc
+		give_item_action(action, holder, holder.get_slot_by_item(src))
+
+	return action
+
+/// Removes an instance of an action from our list of item actions.
+/obj/item/proc/remove_item_action(datum/action/action)
+	if(!action)
+		return
+
+	UnregisterSignal(action, COMSIG_PARENT_QDELETING)
+	LAZYREMOVE(actions, action)
+	qdel(action)
+
+/// Called if this item is supposed to be a steal objective item objective. Only done at mapload
+/obj/item/proc/add_stealing_item_objective()
+	return
+
+/// Adds the weapon_description element, which shows the 'warning label' for especially dangerous objects. Override this for item types with special notes.
+/obj/item/proc/add_weapon_description()
+	AddElement(/datum/element/weapon_description)
+
+/**
+ * Checks if an item is allowed to be used on an atom/target
+ * Returns TRUE if allowed.
+ *
+ * Args:
+ * target_self - Whether we will check if we (src) are in target, preventing people from using items on themselves.
+ * not_inside - Whether target (or target's loc) has to be a turf.
+ */
+/obj/item/proc/check_allowed_items(atom/target, not_inside = FALSE, target_self = FALSE)
+	if(!target_self && (src in target))
+		return FALSE
+	if(not_inside && !isturf(target.loc) && !isturf(target))
+		return FALSE
+	return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
