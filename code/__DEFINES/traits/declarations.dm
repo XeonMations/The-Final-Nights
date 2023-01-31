@@ -335,3 +335,6 @@
 #define TRAIT_HARDENED_SOLES "trait_hardened_soles"
 //For handcuff breaking speed.
 #define TRAIT_CUFFBREAKER		"cuffbreaker"
+
+/// Properly wielded two handed item
+#define TRAIT_WIELDED "wielded"
