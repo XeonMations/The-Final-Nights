@@ -29,9 +29,9 @@ GLOBAL_PROTECT(href_token)
 	var/datum/help_ui/admin/admin_interface
 
 	var/datum/filter_editor/filteriffic
+	var/obj/machinery/computer/libraryconsole/admin_only_do_not_map_in_you_fucker/library_manager
 
 
-/datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
