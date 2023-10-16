@@ -239,12 +239,10 @@
 		return TRUE
 
 /mob/living/attack_paw(mob/living/carbon/human/user, list/modifiers)
-	if(isturf(loc) && istype(loc.loc, /area/start))
-		to_chat(user, "No attacking people at spawn, you jackass.")
-		return FALSE
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
 
-	if (user.apply_martial_art(src, modifiers))
-		return TRUE
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		if (user != src)
 			user.disarm(src)
@@ -255,8 +253,10 @@
 		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
 		return FALSE
 
-	if(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE))
-		to_chat(user, "<span class='warning'>You can't bite with your mouth covered!</span>")
+	if(!user.get_bodypart(BODY_ZONE_HEAD))
+		return FALSE
+	if(user.is_muzzled() || user.is_mouth_covered(ITEM_SLOT_MASK))
+		to_chat(user, span_warning("You can't bite with your mouth covered!"))
 		return FALSE
 	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 	if (prob(75))
