@@ -83,32 +83,49 @@
 		playsound_local(src, 'sound/misc/ui_toggleoffcombat.ogg', 25, FALSE) //Slightly modified version of the above
 
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(isitem(AM))
-		var/obj/item/thrown_item = AM
-		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
-		var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
-		if(nosell_hit)
-			skipcatch = TRUE
+	if(!isitem(AM))
+		// Filled with made up numbers for non-items.
+		if(check_block(AM, 30, "\the [AM.name]", THROWN_PROJECTILE_ATTACK, 0, BRUTE))
 			hitpush = FALSE
-
-		if(blocked)
-			return TRUE
-
-		if(thrown_item.thrownby)
-			log_combat(thrown_item.thrownby, src, "threw and hit", thrown_item)
-		if(nosell_hit)
-			return ..()
-		visible_message("<span class='danger'>[src] is hit by [thrown_item]!</span>", \
-						"<span class='userdanger'>You're hit by [thrown_item]!</span>")
-		if(!thrown_item.throwforce)
-			return
-		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration)
-		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, sharpness = thrown_item.get_sharpness(), wound_bonus = (nosell_hit * CANT_WOUND))
-		if(QDELETED(src)) //Damage can delete the mob.
-			return
+			skipcatch = TRUE
+			blocked = TRUE
+		else
+			playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1) //Item sounds are handled in the item itself
 		return ..()
 
-	playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1) //Item sounds are handled in the item itself
+	var/obj/item/thrown_item = AM
+	if(thrown_item.thrownby == WEAKREF(src)) //No throwing stuff at yourself to trigger hit reactions
+		return ..()
+
+	if(check_block(AM, thrown_item.throwforce, "\the [thrown_item.name]", THROWN_PROJECTILE_ATTACK, 0, thrown_item.damtype))
+		hitpush = FALSE
+		skipcatch = TRUE
+		blocked = TRUE
+
+	var/zone = get_random_valid_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
+	var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, blocked, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
+	if(nosell_hit)
+		skipcatch = TRUE
+		hitpush = FALSE
+
+	if(blocked)
+		return TRUE
+
+	var/mob/thrown_by = thrown_item.thrownby?.resolve()
+	if(thrown_by)
+		log_combat(thrown_by, src, "threw and hit", thrown_item)
+	if(nosell_hit)
+		return ..()
+	visible_message(span_danger("[src] is hit by [thrown_item]!"), \
+					span_userdanger("You're hit by [thrown_item]!"))
+	if(!thrown_item.throwforce)
+		return
+	var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration, "", FALSE, thrown_item.weak_against_armour)
+	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, sharpness = thrown_item.get_sharpness(), wound_bonus = (nosell_hit * CANT_WOUND))
+	if(QDELETED(src)) //Damage can delete the mob.
+		return
+	if(body_position == LYING_DOWN) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
+		hitpush = FALSE
 	return ..()
 
 /mob/living/fire_act()
@@ -192,10 +209,6 @@
 
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M, list/modifiers)
-	if(!SSticker.HasRoundStarted())
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
 	if(M.buckled)
 		if(M in buckled_mobs)
 			M.Feedstop()
@@ -203,6 +216,9 @@
 
 	if(HAS_TRAIT(src, TRAIT_PACIFISM))
 		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+
+	if(check_block(src, M.melee_damage_upper, "[M]'s glomp", MELEE_ATTACK, M.armour_penetration, M.melee_damage_type))
 		return FALSE
 
 	if (stat != DEAD)
@@ -213,30 +229,82 @@
 		to_chat(M, "<span class='danger'>You glomp [src]!</span>")
 		return TRUE
 
+	return FALSE
+
 /mob/living/attack_animal(mob/living/simple_animal/user, list/modifiers)
-	user.face_atom(src)
+	. = ..()
+	if(.)
+		return FALSE // looks wrong, but if the attack chain was cancelled we don't propogate it up to children calls. Yeah it's cringe.
+
 	if(user.melee_damage_upper == 0)
-		visible_message("<span class='notice'>\The [user] [user.friendly_verb_continuous] [src]!</span>", \
-						"<span class='notice'>\The [user] [user.friendly_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, "<span class='notice'>You [user.friendly_verb_simple] [src]!</span>")
+		if(user != src)
+			visible_message(
+				span_notice("[user] [user.friendly_verb_continuous] [src]!"),
+				span_notice("[user] [user.friendly_verb_continuous] you!"),
+				vision_distance = COMBAT_MESSAGE_RANGE,
+				ignored_mobs = user,
+			)
+			to_chat(user, span_notice("You [user.friendly_verb_simple] [src]!"))
 		return FALSE
+
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
 		return FALSE
 
+	var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
+	if(check_block(user, damage, "[user]'s [user.attack_verb_simple]", MELEE_ATTACK/*or UNARMED_ATTACK?*/, user.armour_penetration, user.melee_damage_type))
+		return FALSE
+
 	if(user.attack_sound)
-		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
+		playsound(src, user.attack_sound, 50, TRUE, TRUE)
+
 	user.do_attack_animation(src)
-	visible_message("<span class='danger'>\The [user] [user.attack_verb_continuous] [src]!</span>", \
-					"<span class='userdanger'>\The [user] [user.attack_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, user)
-	to_chat(user, "<span class='danger'>You [user.attack_verb_simple] [src]!</span>")
+	visible_message(
+		span_danger("[user] [user.attack_verb_continuous] [src]!"),
+		span_userdanger("[user] [user.attack_verb_continuous] you!"),
+		null,
+		COMBAT_MESSAGE_RANGE,
+		user,
+	)
+
+	var/dam_zone = dismembering_strike(user, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+	if(!dam_zone) //Dismemberment successful
+		return FALSE
+
+	var/armor_block = run_armor_check(user.zone_selected, MELEE, armour_penetration = user.armour_penetration)
+
+	to_chat(user, span_danger("You [user.attack_verb_simple] [src]!"))
 	log_combat(user, src, "attacked")
-	return TRUE
+	var/damage_done = apply_damage(
+		damage = damage,
+		damagetype = user.melee_damage_type,
+		def_zone = user.zone_selected,
+		blocked = armor_block,
+		wound_bonus = user.wound_bonus,
+		bare_wound_bonus = user.bare_wound_bonus,
+		sharpness = user.sharpness,
+		attack_direction = get_dir(user, src),
+	)
+	return damage_done
 
 /mob/living/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
-	if (user.apply_martial_art(src, modifiers))
+	if(.)
 		return TRUE
+
+	for(var/datum/surgery/operations as anything in surgeries)
+		if(user.combat_mode)
+			break
+		if(IS_IN_INVALID_SURGICAL_POSITION(src, operations))
+			continue
+		if(operations.next_step(user, modifiers))
+			return TRUE
+
+	var/martial_result = user.apply_martial_art(src, modifiers)
+	if (martial_result != MARTIAL_ATTACK_INVALID)
+		return martial_result
+
+	return FALSE
 
 /mob/living/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	var/martial_result = user.apply_martial_art(src, modifiers)
@@ -258,6 +326,10 @@
 	if(user.is_muzzled() || user.is_mouth_covered(ITEM_SLOT_MASK))
 		to_chat(user, span_warning("You can't bite with your mouth covered!"))
 		return FALSE
+
+	if(check_block(user, 1, "[user]'s bite", UNARMED_ATTACK, 0, BRUTE))
+		return FALSE
+
 	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 	if (HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER) || prob(75))
 		log_combat(user, src, "attacked")
@@ -276,8 +348,11 @@
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L, list/modifiers)
 	if(L.combat_mode)
 		if(HAS_TRAIT(L, TRAIT_PACIFISM))
-			to_chat(L, "<span class='warning'>You don't want to hurt anyone!</span>")
-			return
+			to_chat(L, span_warning("You don't want to hurt anyone!"))
+			return FALSE
+
+		if(check_block(L, 1, "[L]'s bite", UNARMED_ATTACK, 0, BRUTE))
+			return FALSE
 
 		L.do_attack_animation(src)
 		if(prob(90))
@@ -288,31 +363,36 @@
 			playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 			return TRUE
 		else
-			visible_message("<span class='danger'>[L.name]'s bite misses [src]!</span>", \
-							"<span class='danger'>You avoid [L.name]'s bite!</span>", "<span class='hear'>You hear the sound of jaws snapping shut!</span>", COMBAT_MESSAGE_RANGE, L)
-			to_chat(L, "<span class='warning'>Your bite misses [src]!</span>")
-	else
-		visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>", \
-						"<span class='notice'>[L.name] rubs its head against you.</span>", null, null, L)
-		to_chat(L, "<span class='notice'>You rub your head against [src].</span>")
-		return FALSE
+			visible_message(span_danger("[L.name]'s bite misses [src]!"), \
+							span_danger("You avoid [L.name]'s bite!"), span_hear("You hear the sound of jaws snapping shut!"), COMBAT_MESSAGE_RANGE, L)
+			to_chat(L, span_warning("Your bite misses [src]!"))
+			return FALSE
+
+	visible_message(span_notice("[L.name] rubs its head against [src]."), \
+					span_notice("[L.name] rubs its head against you."), null, null, L)
+	to_chat(L, span_notice("You rub your head against [src]."))
 	return FALSE
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/user, list/modifiers)
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		if(check_block(user, 0, "[user]'s tackle", MELEE_ATTACK, 0, BRUTE))
+			return FALSE
 		user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		return TRUE
+
 	if(user.combat_mode)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
 			return FALSE
+		if(check_block(user, user.melee_damage_upper, "[user]'s slash", MELEE_ATTACK, 0, BRUTE))
+			return FALSE
 		user.do_attack_animation(src)
 		return TRUE
-	else
-		visible_message("<span class='notice'>[user] caresses [src] with its scythe-like arm.</span>", \
-						"<span class='notice'>[user] caresses you with its scythe-like arm.</span>", null, null, user)
-		to_chat(user, "<span class='notice'>You caress [src] with your scythe-like arm.</span>")
-		return FALSE
+
+	visible_message(span_notice("[user] caresses [src] with its scythe-like arm."), \
+					span_notice("[user] caresses you with its scythe-like arm."), null, null, user)
+	to_chat(user, span_notice("You caress [src] with your scythe-like arm."))
+	return FALSE
 
 /mob/living/attack_hulk(mob/living/carbon/human/user)
 	..()
@@ -448,3 +528,16 @@
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
 		. |= R.expose_mob(src, methods, reagents[R], show_message, touch_protection)
+
+/// Simplified ricochet angle calculation for mobs (also the base version doesn't work on mobs)
+/mob/living/handle_ricochet(obj/projectile/ricocheting_projectile)
+	var/face_angle = get_angle_raw(ricocheting_projectile.x, ricocheting_projectile.pixel_x, ricocheting_projectile.pixel_y, ricocheting_projectile.p_y, x, y, pixel_x, pixel_y)
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180)))
+	ricocheting_projectile.set_angle(new_angle_s)
+	return TRUE
+
+/mob/living/proc/check_block(atom/hit_by, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, damage_type = BRUTE)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_CHECK_BLOCK, hit_by, damage, attack_text, attack_type, armour_penetration, damage_type) & SUCCESSFUL_BLOCK)
+		return TRUE
+
+	return FALSE

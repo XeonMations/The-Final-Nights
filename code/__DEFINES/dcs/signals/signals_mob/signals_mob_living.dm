@@ -143,3 +143,101 @@
 #define COMSIG_LIVING_EARLY_UNARMED_ATTACK "human_pre_attack_hand"
 /// from mob/living/*/UnarmedAttack(): (mob/living/source, atom/target, proximity, modifiers)
 #define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
+///From base of mob/living/MobBump(): (mob/bumped, mob/living/bumper)
+#define COMSIG_LIVING_PRE_MOB_BUMP "movable_pre_bump"
+	#define COMPONENT_LIVING_BLOCK_PRE_MOB_BUMP (1<<0)
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
+///From base of mob/living/Bump() (turf/closed)
+#define COMSIG_LIVING_WALL_BUMP "living_wall_bump"
+///From base of turf/closed/Exited() (turf/closed)
+#define COMSIG_LIVING_WALL_EXITED "living_wall_exited"
+///From base of mob/living/ZImpactDamage() (mob/living, levels, turf/t)
+#define COMSIG_LIVING_Z_IMPACT "living_z_impact"
+	#define NO_Z_IMPACT_DAMAGE (1<<0)
+
+/// From mob/living/try_speak(): (message, ignore_spam, forced)
+#define COMSIG_LIVING_TRY_SPEECH "living_vocal_speech"
+	/// Return if the mob can speak the message, regardless of any other signal returns or checks.
+	#define COMPONENT_CAN_ALWAYS_SPEAK (1<<0)
+	/// Return if the mob cannot speak.
+	#define COMPONENT_CANNOT_SPEAK (1<<1)
+
+/// From mob/living/treat_message(): (list/message_args)
+#define COMSIG_LIVING_TREAT_MESSAGE "living_treat_message"
+	/// The index of message_args that corresponds to the actual message
+	#define TREAT_MESSAGE_ARG 1
+	#define TREAT_TTS_MESSAGE_ARG 2
+	#define TREAT_TTS_FILTER_ARG 3
+
+///From obj/item/toy/crayon/spraycan
+#define COMSIG_LIVING_MOB_PAINTED "living_mob_painted"
+
+///From mob/living/proc/wabbajack(): (randomize_type)
+#define COMSIG_LIVING_PRE_WABBAJACKED "living_mob_wabbajacked"
+	/// Return to stop the rest of the wabbajack from triggering.
+	#define STOP_WABBAJACK (1<<0)
+///From mob/living/proc/on_wabbajack(): (mob/living/new_mob)
+#define COMSIG_LIVING_ON_WABBAJACKED "living_wabbajacked"
+
+/// From /datum/status_effect/shapechange_mob/on_apply(): (mob/living/shape)
+#define COMSIG_LIVING_SHAPESHIFTED "living_shapeshifted"
+/// From /datum/status_effect/shapechange_mob/after_unchange(): (mob/living/caster)
+#define COMSIG_LIVING_UNSHAPESHIFTED "living_unshapeshifted"
+
+///From /obj/effect/rune/convert/do_sacrifice() : (list/invokers)
+#define COMSIG_LIVING_CULT_SACRIFICED "living_cult_sacrificed"
+	/// Return to stop the sac from occurring
+	#define STOP_SACRIFICE (1<<0)
+	/// Don't send a message for sacrificing this thing, we have our own
+	#define SILENCE_SACRIFICE_MESSAGE (1<<1)
+
+/// From /mob/living/befriend() : (mob/living/new_friend)
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+
+/// From /obj/item/proc/pickup(): (/obj/item/picked_up_item)
+#define COMSIG_LIVING_PICKED_UP_ITEM "living_picked_up_item"
+
+/// From /mob/living/unfriend() : (mob/living/old_friend)
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"
+
+/// From /obj/effect/temp_visual/resonance/burst() : (mob/creator, mob/living/hit_living)
+#define COMSIG_LIVING_RESONATOR_BURST "living_resonator_burst"
+
+/// From /obj/projectile/attempt_parry() : (obj/projectile/parried_projectile)
+#define COMSIG_LIVING_PROJECTILE_PARRYING "living_projectile_parrying"
+	/// Return to allow the parry to happen
+	#define ALLOW_PARRY (1<<0)
+
+/// From /obj/projectile/on_parry() : (obj/projectile/parried_projectile)
+#define COMSIG_LIVING_PROJECTILE_PARRIED "living_projectile_parried"
+	/// Return to prevent the projectile from executing any code in on_parry()
+	#define INTERCEPT_PARRY_EFFECTS (1<<0)
+
+/// From /turf/closed/mineral/gibtonite/defuse() : (det_time)
+#define COMSIG_LIVING_DEFUSED_GIBTONITE "living_defused_gibtonite"
+
+/// From /obj/item/kinetic_crusher/afterattack() : (mob/living/target, obj/item/kinetic_crusher/crusher, backstabbed)
+#define COMSIG_LIVING_CRUSHER_DETONATE "living_crusher_detonate"
+
+/// From /obj/structure/geyser/attackby() : (obj/structure/geyser/geyser)
+#define COMSIG_LIVING_DISCOVERED_GEYSER "living_discovered_geyser"
+
+/// From /datum/ai/behavior/climb_tree/perform() : (mob/living/basic/living_pawn)
+#define COMSIG_LIVING_CLIMB_TREE "living_climb_tree"
+
+///from /mob/living/proc/check_block(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
+#define COMSIG_LIVING_CHECK_BLOCK "living_check_block"
+	#define SUCCESSFUL_BLOCK (1<<0)
+
+/// Sent on a mob from /datum/component/mob_chain when component is attached with it as the "front" : (mob/living/basic/tail)
+#define COMSIG_MOB_GAINED_CHAIN_TAIL "living_gained_chain_tail"
+/// Sent on a mob from /datum/component/mob_chain when component is detached from it as the "front" : (mob/living/basic/tail)
+#define COMSIG_MOB_LOST_CHAIN_TAIL "living_detached_chain_tail"
+/// Sent from a 'contract chain' button on a mob chain
+#define COMSIG_MOB_CHAIN_CONTRACT "living_chain_contracted"
+
+/// Sent from a mob to their loc when starting to remove cuffs on itself
+#define COMSIG_MOB_REMOVING_CUFFS "living_removing_cuffs"
+/// Sent as a reply to above from any atom that wishs to stop self-cuff removal
+#define COMSIG_MOB_BLOCK_CUFF_REMOVAL (1<<0)
