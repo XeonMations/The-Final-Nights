@@ -486,11 +486,13 @@
 	var/list/result
 	if(client)
 		LAZYINITLIST(client.recent_examines)
-		if(isnull(client.recent_examines[A]) || client.recent_examines[A] < world.time)
-			result = A.examine(src)
-			client.recent_examines[A] = world.time + EXAMINE_MORE_TIME // set the value to when the examine cooldown ends
-			RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(clear_from_recent_examines), override=TRUE) // to flush the value if deleted early
-			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), A), EXAMINE_MORE_TIME)
+		var/ref_to_atom = REF(A)
+		var/examine_time = client.recent_examines[ref_to_atom]
+		if(examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW))
+			var/list/result = A.examine_more(src)
+			if(!length(result))
+				result += span_notice("<i>You examine [A] closer, but find nothing of interest...</i>")
+			result_combined = examine_block(jointext(result, "<br>"))
 			handle_eye_contact(A)
 		else
 			result = A.examine_more(src)
