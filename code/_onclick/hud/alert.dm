@@ -847,8 +847,12 @@ so as to remain in compliance with the most up-to-date laws."
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
 		return
 	if(usr != owner)
-		return
-	if(master)
+		return FALSE
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
+		to_chat(usr, boxed_message(jointext(examine(usr), "\n")))
+		return FALSE
+	if(master && click_master)
 		return usr.client.Click(master, location, control, params)
 
 	return TRUE

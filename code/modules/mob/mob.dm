@@ -491,20 +491,20 @@
 		if(examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW))
 			var/list/result = A.examine_more(src)
 			if(!length(result))
-				result += span_notice("<i>You examine [A] closer, but find nothing of interest...</i>")
-			result_combined = examine_block(jointext(result, "<br>"))
+				result += span_notice("<i>You examine [examinify] closer, but find nothing of interest...</i>")
+			result_combined = boxed_message(jointext(result, "<br>"))
 			handle_eye_contact(A)
+
 		else
 			result = A.examine_more(src)
 	else
 		result = A.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
 
-	if(result.len)
-		for(var/i in 1 to (length(result) - 1))
-			result[i] += "\n"
-
-	to_chat(src, examine_block("<span class='infoplain'>[result.Join()]</span>"))
-	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
+	if(!result_combined)
+		var/list/result = examinify.examine(src)
+		var/atom_title = examinify.examine_title(src, thats = TRUE)
+		SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
+		result_combined = (atom_title ? fieldset_block("[atom_title]", jointext(result, "<br>"), "boxed_message") : boxed_message(jointext(result, "<br>")))
 
 
 /mob/proc/blind_examine_check(atom/examined_thing)

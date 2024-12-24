@@ -1290,12 +1290,18 @@
 			else
 				gender_description = "<font color='red'><b>[M.gender]</b></font>"
 
-		to_chat(src.owner, "<b>Info about [M.name]:</b> ", confidential = TRUE)
-		to_chat(src.owner, "Mob type = [M.type]; Gender = [gender_description] Damage = [health_description]", confidential = TRUE)
-		to_chat(src.owner, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;", confidential = TRUE)
-		to_chat(src.owner, "Location = [location_description];", confidential = TRUE)
-		to_chat(src.owner, "[special_role_description]", confidential = TRUE)
-		to_chat(src.owner, ADMIN_FULLMONTY_NONAME(M), confidential = TRUE)
+		//Full Output
+		var/exportable_text = "[span_bold("Info about [subject.name]:")]<br>"
+		exportable_text += "Key - [span_bold(subject.key)]<br>"
+		exportable_text += "Mob Type - [subject.type]<br>"
+		exportable_text += "Gender - [gender_description]<br>"
+		exportable_text += "[health_description]<br>"
+		exportable_text += "Name: [span_bold(subject.name)] - Real Name: [subject.real_name] - Mind Name: [subject.mind?"[subject.mind.name]":""]<br>"
+		exportable_text += "Location is [location_description]<br>"
+		exportable_text += "[special_role_description]<br>"
+		exportable_text += ADMIN_FULLMONTY_NONAME(subject)
+
+		to_chat(src.owner, boxed_message(exportable_text), confidential = TRUE)
 
 	else if(href_list["addjobslot"])
 		if(!check_rights(R_ADMIN))
