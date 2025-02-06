@@ -1,3 +1,4 @@
+#ifndef DISABLE_DREAMLUAU
 #define MAX_LOG_REPEAT_LOOKBACK 5
 
 GLOBAL_VAR_INIT(IsLuaCall, FALSE)
@@ -199,3 +200,4 @@ GLOBAL_PROTECT(lua_usr)
 	references -= to_clear
 
 #undef MAX_LOG_REPEAT_LOOKBACK
+#endif

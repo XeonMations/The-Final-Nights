@@ -340,6 +340,9 @@ GLOBAL_VAR(restart_counter)
 
 /world/proc/on_tickrate_change()
 	SStimer?.reset_buckets()
+#ifndef DISABLE_DREAMLUAU
+	DREAMLUAU_SET_EXECUTION_LIMIT_MILLIS(tick_lag * 100)
+#endif
 
 /world/proc/convert_saves_to_json(path_to_save)
 	// Determine the path variables to use based on our host OS

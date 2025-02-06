@@ -1,3 +1,13 @@
+#ifndef DISABLE_DREAMLUAU
+/proc/wrap_lua_get_var(datum/thing, var_name)
+	SHOULD_NOT_SLEEP(TRUE)
+	if(thing == world)
+		return world.vars[var_name]
+	if(ref(thing) == "\[0xe000001\]") //This weird fucking thing is like global.vars, but it's not a list and vars is not a valid index for it and I really don't fucking know.
+		return global.vars[var_name]
+	if(thing.can_vv_get(var_name))
+		return thing.vars[var_name]
+
 /proc/wrap_lua_set_var(datum/thing_to_set, var_name, value)
 	SHOULD_NOT_SLEEP(TRUE)
 	thing_to_set.vv_edit_var(var_name, value)
@@ -35,3 +45,4 @@
 	var/result = list("status" = "print", "param" = print_message)
 	INVOKE_ASYNC(target_state, /datum/lua_state.proc/log_result, result, TRUE)
 	log_lua("[target_state]: [print_message]")
+#endif
