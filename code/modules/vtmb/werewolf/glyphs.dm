@@ -1,67 +1,40 @@
-proc/get_front_location(var/mob/user)
-	var/turf/T = get_turf(user)  // Get the current turf of the user
-	var/turf/front_T  // Variable to store the turf in front of the user// Determine the direction the user is facing and get the turf in that direction
-	switch(user.dir)
-		if(NORTH)
-			front_T = locate(T.x, T.y + 1, T.z)
-		if(SOUTH)
-			front_T = locate(T.x, T.y - 1, T.z)
-		if(EAST)
-			front_T = locate(T.x + 1, T.y, T.z)
-		if(WEST)
-			front_T = locate(T.x - 1, T.y, T.z)
-	return front_T
-
 /obj/item/melee/charcoal_stick
     name = "charcoal stick"
     desc = "A piece of burnt charcoal."
     icon = 'icons/obj/crayons.dmi'
     icon_state = "crayonblack"
     w_class = WEIGHT_CLASS_SMALL
-    var/drawing_glyph = FALSE
-    var/list/scribing = list()
+    var/list/rituals = list()
     force = 1
 
 /obj/item/melee/charcoal_stick/Initialize()
     . = ..()
-    for(var/i in subtypesof(/obj/effect/garou_glyph))
+    for(var/i in subtypesof(/obj/effect/decal/garou_glyph))
         if(i)
-            var/obj/garou_glyph/G = new i(src)
-            scribing |= G
+            var/obj/effect/decal/garou_glyph/G = new i(src)
+            rituals |= list(G.name)
 
-/obj/item/melee/charcoal_stick/interact(mob/user)
-	. = ..()
-	var/turf/front_T = get_front_location(user)
-	if(isgarou(user) || iswerewolf(user))
-		if(!scribing.len)
-			for(var/i in subtypesof(/obj/garou_glyph))
-				var/obj/garou_glyph/G = new i(user)
-				scribing += G
-		var/scribing_choice = input(user, "Choose a glyph to draw:") as null|anything in scribing
-		if(scribing_choice)
-			drawing_glyph = TRUE
-			if(do_after(user, 10, user))  // Ensure the delay is correctly specified
-				new scribing_choice(front_T)  // Place the glyph on the turf
-		else
-			return
-
-
-/*/obj/item/melee/charcoal_stick/afterattack(atom/target, mob/user, proximity)
-    var/turf/T = get_turf(target)
-    if(isgarou(user) || iswerewolf(user))
-        if(!scribing.len)
-            for(var/i in subtypesof(/obj/garou_glyph))
-                var/obj/garou_glyph/G = new i(user)
-                scribing += G
-                qdel(G)
-        var/scribing_choice = input(user, "Choose a glyph to draw:") as null|anything in scribing
-        if(scribing_choice)
-            if(do_after(user, 5, user))  // Ensure the delay is correctly specified
-                new scribing_choice(T)  // Place the glyph on the turf
+/obj/item/melee/charcoal_stick/attack_obj(turf/T, mob/living/user)
+    if(rituals.len == 0)
+        user << "There are no glyphs available."
+        return
     else
-        return*/
+        var/choice = input(user, "Select a glyph to draw.", "Glyph Selection") in rituals
+        if(choice)
+            var/obj/effect/decal/garou_glyph/glyph = pick(typesof(/obj/effect/decal/garou_glyph))
+            if(glyph)
+                drawing = true
+                if(do_after(user, 5, user))
+                    drawing = FALSE
+                    new glyph(T.loc)
+                    user.visible_message("<span class='notice'>[user] starts drawing a glyph onto [T]...</span>")
+                else
+                    drawing = FALSE
+            else
+                user.visible_message("<span class='notice'>You fail to draw a glyph.</span>")
+        return
 
-/obj/effect/garou_glyph
+/obj/effect/decal/garou_glyph
     name = "glyph"
     var/garou_name = "basic glyph"
     desc = "An odd collection of symbols drawn in what seems to be charcoal."
@@ -72,27 +45,31 @@ proc/get_front_location(var/mob/user)
     resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
     layer = SIGIL_LAYER
     var/scribe_delay = 1 SECONDS //how long the glyph takes to create
+	var/drawing = false
 
-/obj/effect/garou_glyph/wyrm
+/obj/effect/decal/garou_glyph/wyrm
     name = "Strange Funny Glyph"
     garou_name = "wyrm glyph"
     icon = 'code/modules/wod13/icons.dmi'
     icon_state = "wyrm"
     color = "#000000"
+	drawing = true
 
-/obj/effect/garou_glyph/vampire
+/obj/effect/decal/garou_glyph/vampire
     name = "Strange Weird Glyph"
     garou_name = "vampire glyph"
     icon = 'code/modules/wod13/icons.dmi'
     icon_state = "vampire"
     color = "#000000"
+	drawing = true
 
-/obj/effect/garou_glyph/kinfolk
+/obj/effect/decal/garou_glyph/kinfolk
     name = "Strange Silly Glyph"
     garou_name = "kinfolk glyph"
     icon = 'code/modules/wod13/icons.dmi'
     icon_state = "kinfolk"
     color = "#000000"
+	drawing = true
 
 /*/obj/item/charcoal_stick
 	name = "charcoal stick"
