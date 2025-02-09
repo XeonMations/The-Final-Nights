@@ -32,6 +32,7 @@
 	see_in_dark = 2
 	verb_say = "woofs"
 	rotate_on_lying = 0
+	initial_language_holder = /datum/language_holder/werewolf_transformed
 
 	movement_type = GROUND // [ChillRaccoon] - fucking flying werewolfes is a meme
 
