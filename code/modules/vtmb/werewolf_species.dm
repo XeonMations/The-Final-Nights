@@ -16,7 +16,6 @@
 	whitelisted = TRUE
 	selectable = TRUE
 	var/glabro = FALSE
-	species_language_holder = /datum/language_holder/werewolf
 
 /datum/action/garouinfo
 	name = "About Me"
