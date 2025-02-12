@@ -3432,6 +3432,7 @@
 #include "code\modules\vtmb\werewolf\auspice.dm"
 #include "code\modules\vtmb\werewolf\gifts.dm"
 #include "code\modules\vtmb\werewolf\glyphs.dm"
+#include "code\modules\vtmb\werewolf\howling.dm"
 #include "code\modules\vtmb\werewolf\totems.dm"
 #include "code\modules\vtmb\werewolf\tribes.dm"
 #include "code\modules\wod13\ambient.dm"

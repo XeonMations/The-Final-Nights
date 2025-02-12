@@ -109,6 +109,9 @@
 /mob/living/carbon/werewolf/Initialize()
 	var/datum/action/gift/rage_heal/GH = new()
 	GH.Grant(src)
+	var/datum/action/gift/howling/howl = new()
+	howl.Grant(src)
+
 	add_verb(src, /mob/living/proc/mob_sleep)
 	add_verb(src, /mob/living/proc/toggle_resting)
 
@@ -219,6 +222,7 @@
 	. = ..()
 	var/datum/action/change_apparel/A = new()
 	A.Grant(src)
+
 //	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
 /mob/living/carbon/werewolf/lupus/Initialize()
