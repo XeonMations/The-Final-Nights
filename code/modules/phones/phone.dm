@@ -30,7 +30,6 @@
 	sim_card = new()
 	sim_card.phone_weakref = WEAKREF(src)
 	phone_radio = new()
-	register_context()
 	RegisterSignal(sim_card, COMSIG_PHONE_RING, PROC_REF(ring))
 	RegisterSignal(sim_card, COMSIG_PHONE_RING_TIMEOUT, PROC_REF(ring_timeout))
 
