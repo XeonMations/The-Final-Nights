@@ -8,6 +8,9 @@
 //skips preceding invalid characters
 #define hex2num(X) text2num(X, 16)
 
+/// Handles text formatting for item use hints in examine text
+#define EXAMINE_HINT(text) ("<b>" + text + "</b>")
+
 #define span_notice(str) ("<span class='notice'>" + str + "</span>")
 #define span_warning(str) ("<span class='warning'>" + str + "</span>")
 // TFN EDIT START

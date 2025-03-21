@@ -27,14 +27,6 @@
 	. = ..()
 	. += span_notice("[EXAMINE_HINT("Interact")] to crush it in your hands.")
 
-/obj/item/sim_card/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	. = ..()
-
-	context[SCREENTIP_CONTEXT_LMB] = "Crush SIM Card"
-	. = CONTEXTUAL_SCREENTIP_SET
-
-	return . || NONE
-
 /obj/item/sim_card/attack_self(mob/user, modifiers)
 	. = ..()
 
@@ -43,6 +35,6 @@
 		balloon_alert(user, "you crush [src]!")
 		new /obj/effect/decal/cleanable/robot_debris(get_turf(user))
 		qdel(src)
-		return CLICK_ACTION_SUCCESS
-	return CLICK_ACTION_BLOCKING
+		return TRUE
+	return FALSE
 

@@ -53,23 +53,6 @@
 	else
 		. += span_notice("You can [EXAMINE_HINT("Insert")] a SIM card.")
 
-/obj/item/flip_phone/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	. = ..()
-
-	context[SCREENTIP_CONTEXT_RMB] = "Toggle Screen"
-	. = CONTEXTUAL_SCREENTIP_SET
-	context[SCREENTIP_CONTEXT_ALT_LMB] = "Toggle Screen"
-	. = CONTEXTUAL_SCREENTIP_SET
-
-	if(sim_card)
-		context[SCREENTIP_CONTEXT_CTRL_LMB] = "Remove [sim_card]"
-		. = CONTEXTUAL_SCREENTIP_SET
-	else
-		context[SCREENTIP_CONTEXT_LMB] = "Insert SIM Card"
-		. = CONTEXTUAL_SCREENTIP_SET
-
-	return . || NONE
-
 /obj/item/flip_phone/attack_self(mob/user, modifiers)
 	. = ..()
 	if(!(phone_flags & PHONE_OPEN))
@@ -78,11 +61,11 @@
 
 /obj/item/flip_phone/click_alt(mob/user)
 	toggle_screen(user)
-	return CLICK_ACTION_SUCCESS
+	return TRUE
 
 /obj/item/flip_phone/attack_self_secondary(mob/user, modifiers)
 	toggle_screen(user)
-	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return TRUE
 
 /obj/item/flip_phone/item_ctrl_click(mob/user)
 	if(!(user.is_holding(src)))
@@ -96,9 +79,9 @@
 		phone_flags |= PHONE_NO_SIM
 		UnregisterSignal(COMSIG_PHONE_RING)
 		UnregisterSignal(COMSIG_PHONE_RING_TIMEOUT)
-		return CLICK_ACTION_SUCCESS
+		return TRUE
 	balloon_alert(user, "no sim card!")
-	return CLICK_ACTION_BLOCKING
+	return FALSE
 
 /obj/item/flip_phone/attackby(obj/item/attacking_item, mob/user, params)
 	if(istype(attacking_item, /obj/item/sim_card))
@@ -112,7 +95,7 @@
 		phone_flags &= ~PHONE_NO_SIM
 		RegisterSignal(sim_card, COMSIG_PHONE_RING, PROC_REF(ring))
 		RegisterSignal(sim_card, COMSIG_PHONE_RING_TIMEOUT, PROC_REF(ring_timeout))
-		return ITEM_INTERACT_SUCCESS
+		return TRUE
 	return ..()
 
 /obj/item/flip_phone/ui_status(mob/user, datum/ui_state/state)
