@@ -480,31 +480,31 @@
 	var/list/howls = list(
 		"attack" = list(
 			"menu" = "Attack",
-			"message" = "A tribe howls a fierce call to attack!"
+			"message" = "A wolf howls a fierce call to attack!"
 		),
 		"retreat" = list(
 			"menu" = "Retreat",
-			"message" = "A tribe howls a warning to retreat!"
+			"message" = "A wolf howls a warning to retreat!"
 		),
 		"help" = list(
 			"menu" = "Help",
-			"message" = "A tribe howls a desperate plea for help!"
+			"message" = "A wolf howls a desperate plea for help!"
 		),
 		"gather" = list(
 			"menu" = "Gather",
-			"message" = "A tribe howls to gather the pack!"
+			"message" = "A wolf howls to gather the pack!"
 		),
 		"victory" = list(
 			"menu" = "Victory",
-			"message" = "A tribe howls in celebration of victory!"
+			"message" = "A wolf howls in celebration of victory!"
 		),
 		"dying" = list(
 			"menu" = "Dying",
-			"message" = "A tribe howls in pain and despair!"
+			"message" = "A wolf howls in pain and despair!"
 		),
 		"mourning" = list(
 			"menu" = "Mourning",
-			"message" = "A tribe howls in deep mourning for the fallen!"
+			"message" = "A wolf howls in deep mourning for the fallen!"
 		)
 	)
 

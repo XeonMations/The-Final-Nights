@@ -360,7 +360,6 @@ Key procs
 								/datum/language/english = list(LANGUAGE_ATOM),
 								/datum/language/primal_tongue = list(LANGUAGE_ATOM))
 	spoken_languages = list(/datum/language/garou_tongue = list(LANGUAGE_ATOM),
-								/datum/language/english = list(LANGUAGE_ATOM),
 								/datum/language/primal_tongue = list(LANGUAGE_ATOM))
 
 /datum/language_holder/empty

@@ -1411,6 +1411,23 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(!alloww && !bypass)
 						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[clane.name] RESTRICTED\]</font></td></tr>"
 						continue
+			if(pref_species.name == "Garou")
+				if(tribe)
+					var/alloww = FALSE
+					for(var/i in job.allowed_tribes)
+						if(i == auspice.tribe )
+							alloww = TRUE
+					if(!alloww && !bypass)
+						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[auspice.tribe] RESTRICTED\]</font></td></tr>"
+						continue
+				if(auspice)
+					var/alloww = FALSE
+					for(var/i in job.allowed_auspice)
+						if(i == auspice.name)
+							alloww = TRUE
+					if(!alloww && !bypass)
+						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[auspice.name] RESTRICTED\]</font></td></tr>"
+						continue
 			if((job_preferences[SSjob.overflow_role] == JP_LOW) && (rank != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
