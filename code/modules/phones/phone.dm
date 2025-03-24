@@ -152,7 +152,7 @@
 		phone_flags |= PHONE_OPEN
 	icon_state = (phone_flags & PHONE_OPEN) ? "phone2" : "phone0"
 	inhand_icon_state = (phone_flags & PHONE_OPEN) ? "phone2" : "phone0"
-	update_appearance()
+	update_icon()
 
 /obj/item/flip_phone/proc/initialize_phone_call(mob/user)
 	if(!sim_card)
