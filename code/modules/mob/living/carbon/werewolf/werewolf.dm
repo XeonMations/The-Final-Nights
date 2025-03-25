@@ -1,24 +1,12 @@
 /mob/living/carbon/werewolf/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	. = ..()
-	if(message)
-//		if(istype(loc, /obj/effect/dummy/chameleon))
-//			var/obj/effect/dummy/chameleon/C = loc
-//			C.say("[message]")
-//			return
-		if(length(GLOB.auspex_list))
-			for(var/mob/living/carbon/human/H in GLOB.auspex_list)
-				if(H)
-					to_chat(H, "<span class='scream_away'><b>[name]</b> says, \"[message]\"</span>")
-//		var/ending = copytext_char(message, -1)
-//		var/list/message_mods = list()
-//		message = get_message_mods(message, message_mods)
-//		if(message_mods[WHISPER_MODE] != MODE_WHISPER)
-//			if(ending == "?")
-//				playsound(get_turf(src), 'code/modules/wod13/sounds/wolf_ask.ogg', 75, TRUE)
-//			else if(ending == "!")
-//				playsound(get_turf(src), 'code/modules/wod13/sounds/wolf_yell.ogg', 100, TRUE)
-//			else
-//				playsound(get_turf(src), 'code/modules/wod13/sounds/wolf_speak.ogg', 75, TRUE)
+	if(!message)
+		return
+	if(!length(GLOB.auspex_list))
+		return
+	for(var/mob/living/carbon/human/H in GLOB.auspex_list)
+		if(H)
+			to_chat(H, "<span class='scream_away'><b>[name]</b> says, \"[message]\"</span>")
 
 /mob/living/carbon/werewolf
 	name = "werewolf"
@@ -28,7 +16,6 @@
 	faction = list("Gaia")
 	ventcrawler = VENTCRAWLER_NONE
 	pass_flags = 0
-//	sight = SEE_MOBS
 	see_in_dark = 2
 	verb_say = "woofs"
 	rotate_on_lying = 0
@@ -91,7 +78,7 @@
 		if(step_variable == 2)
 			step_variable = 0
 			playsound(get_turf(src), 'code/modules/wod13/sounds/werewolf_step.ogg', 50, FALSE)
-	..()
+	. = ..()
 
 /mob/living/carbon/proc/epic_fall(var/apply_stun_self = TRUE, var/apply_stun_others = TRUE)
 	playsound(get_turf(src), 'code/modules/wod13/sounds/werewolf_fall.ogg', 100, FALSE)
@@ -191,13 +178,11 @@
 	melee_damage_upper = 65
 	health = 250
 	maxHealth = 250
-//	speed = -1  doesn't work on carbons
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/pounce_cooldown = 0
 	var/pounce_cooldown_time = 30
 	pixel_w = -8
-//	deathsound = 'sound/voice/hiss6.ogg'
 	bodyparts = list(
 		/obj/item/bodypart/chest/crinos,
 		/obj/item/bodypart/head/crinos,
@@ -219,7 +204,6 @@
 	. = ..()
 	var/datum/action/change_apparel/A = new()
 	A.Grant(src)
-//	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
 /mob/living/carbon/werewolf/lupus/Initialize()
 	. = ..()
