@@ -16,11 +16,9 @@
 /obj/item/sim_card/Initialize(mapload)
 	. = ..()
 	phone_number = SSphones.generate_phone_number(src)
-	register_context()
 
 /obj/item/sim_card/Destroy(force)
 	. = ..()
-	UnregisterSignal(src)
 	SSphones.assigned_phone_numbers.Remove(src)
 
 /obj/item/sim_card/examine(mob/user)

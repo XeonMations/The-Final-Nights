@@ -68,9 +68,9 @@
 
 /obj/item/flip_phone/item_ctrl_click(mob/user)
 	if(!(user.is_holding(src)))
-		return CLICK_ACTION_ANY
+		return FALSE
 	if(!sim_card)
-		balloon_alert(user, "no sim card!"
+		balloon_alert(user, "no sim card!")
 		return FALSE
 	if(do_after(user, 2 SECONDS, src))
 		balloon_alert(user, "you remove \the [sim_card]!")

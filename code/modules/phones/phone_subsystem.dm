@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(phones)
 /datum/controller/subsystem/phones/Initialize()
 	for(var/frequency in 1 to USABLE_RADIO_FREQUENCIES_FOR_PHONES)
 		usable_frequencies += frequency
-	return SS_INIT_SUCCESS
+	return TRUE
 
 //Generates a random phone number from the available ranges, seven digits, starts with a 5.
 /datum/controller/subsystem/phones/proc/random_number()
