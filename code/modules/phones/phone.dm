@@ -69,7 +69,10 @@
 /obj/item/flip_phone/item_ctrl_click(mob/user)
 	if(!(user.is_holding(src)))
 		return CLICK_ACTION_ANY
-	if(sim_card && do_after(user, 2 SECONDS, src))
+	if(!sim_card)
+		balloon_alert(user, "no sim card!"
+		return FALSE
+	if(do_after(user, 2 SECONDS, src))
 		balloon_alert(user, "you remove \the [sim_card]!")
 		end_phone_call()
 		user.put_in_hands(sim_card)
@@ -79,7 +82,6 @@
 		UnregisterSignal(COMSIG_PHONE_RING)
 		UnregisterSignal(COMSIG_PHONE_RING_TIMEOUT)
 		return TRUE
-	balloon_alert(user, "no sim card!")
 	return FALSE
 
 /obj/item/flip_phone/attackby(obj/item/attacking_item, mob/user, params)
