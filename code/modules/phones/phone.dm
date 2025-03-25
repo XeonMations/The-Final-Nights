@@ -88,7 +88,7 @@
 	if(istype(attacking_item, /obj/item/sim_card))
 		if(sim_card)
 			balloon_alert(user, "[sim_card] already installed!")
-			return ITEM_INTERACT_BLOCKING
+			return FALSE
 		balloon_alert(user, "you insert \the [attacking_item]!")
 		sim_card = attacking_item
 		user.transferItemToLoc(attacking_item, src)
