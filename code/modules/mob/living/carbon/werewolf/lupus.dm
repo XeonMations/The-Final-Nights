@@ -26,6 +26,7 @@
 //		/obj/item/bodypart/l_leg,
 //		)
 	var/hispo = FALSE
+	var/is_dog = FALSE
 
 /datum/movespeed_modifier/lupusform
 	multiplicative_slowdown = -0.7
