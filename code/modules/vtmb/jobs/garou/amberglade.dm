@@ -5,6 +5,9 @@
 	allowed_species = list("Garou")
 	allowed_tribes = list("Wendigo", "Uktena", "Red Talons")
 
+
+
+
 /datum/job/vamp/garou/amberglade/council
 	title = "Amberglade Council Member"
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
@@ -28,7 +31,7 @@
 
 	liver_traits = list(TRAIT_ROYAL_METABOLISM)
 
-	display_order = JOB_DISPLAY_ORDER_
+	display_order = JOB_DISPLAY_ORDER_AMBERGLADE
 
 	minimal_masquerade = 5
 

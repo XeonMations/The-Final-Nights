@@ -5,8 +5,11 @@
 	allowed_species = list("Garou")
 	allowed_tribes = list("Glasswalkers", "Bone Gnawers", "Children of Gaia")
 
+
+
+
 /datum/job/vamp/garou/paintedcity/council
-	title = "Painted City Council Member"
+	title = "Painted City Council"
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list("The Litany")
 
@@ -15,7 +18,7 @@
 	supervisors = "The Litany and Yourself."
 
 	req_admin_notify = 1
-	minimal_player_age = 14
+	minimal_player_age = 25
 	exp_requirements = 180
 	exp_type_department = EXP_TYPE_PAINTED_CITY
 
@@ -28,10 +31,9 @@
 
 	liver_traits = list(TRAIT_ROYAL_METABOLISM)
 
-	display_order = JOB_DISPLAY_ORDER_
+	display_order = JOB_DISPLAY_ORDER_PAINTEDCITY
 
 	minimal_masquerade = 5
-	allowed_auspice =( )
 
 	my_contact_is_important = TRUE
 	known_contacts = list(
@@ -44,11 +46,9 @@
 	name = "City Sept Councillor"
 	jobtype = /datum/job/vamp/garou/paintedcity/council
 
-	id = /obj/item/card/id/prince
-	glasses = /obj/item/clothing/glasses/vampire/sun
+	id = /obj/item/card/id/garou/citycouncil
 	gloves = /obj/item/clothing/gloves/vampire/latex
 	uniform =  /obj/item/clothing/under/vampire/prince
-	suit = /obj/item/clothing/suit/vampire/trench/alt
 	shoes = /obj/item/clothing/shoes/vampire
 	l_pocket = /obj/item/vamp/phone/prince
 	r_pocket = /obj/item/vamp/keys/prince
@@ -68,6 +68,7 @@
 /obj/effect/landmark/start/garou/painted/council
 	name = "City Sept Council"
 	icon_state = "Prince"
+	color = "#00FF00"
 
 /datum/job/vamp/garou/paintedcity/keeper
 	title = "Painted City Keeper"
