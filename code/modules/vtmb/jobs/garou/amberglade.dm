@@ -5,13 +5,13 @@
 	allowed_species = list("Garou")
 	allowed_tribes = list("Wendigo", "Uktena", "Red Talons")
 
-/datum/job/vamp/garou/amberglade/elder
-	title = "Amberglade Elder"
+/datum/job/vamp/garou/amberglade/council
+	title = "Amberglade Council Member"
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list("The Litany")
 
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 3
+	spawn_positions = 3
 	supervisors = "The Litany and Yourself."
 
 	req_admin_notify = 1
@@ -19,7 +19,7 @@
 	exp_requirements = 180
 	exp_type_department = EXP_TYPE_PAINTED_CITY
 
-	outfit = /datum/outfit/job/garou/gladeelder
+	outfit = /datum/outfit/job/garou/gladecouncil
 
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
@@ -39,11 +39,10 @@
 	v_duty = "You are the top dog of this city."
 	experience_addition = 25
 
-/datum/outfit/job/garou/gladeelder
-	name = "Forest Sept Elder"
-	jobtype = /datum/job/vamp/garou/amberglade/elder
+/datum/outfit/job/garou/gladecouncil
+	name = "Forest Sept Council"
+	jobtype = /datum/job/vamp/garou/amberglade/council
 
-	ears = /obj/item/p25radio
 	id = /obj/item/card/id/prince
 	glasses = /obj/item/clothing/glasses/vampire/sun
 	gloves = /obj/item/clothing/gloves/vampire/latex
@@ -59,23 +58,20 @@
 	satchel = /obj/item/storage/backpack/satchel
 	duffelbag = /obj/item/storage/backpack/duffelbag
 
-	implants = list(/obj/item/implant/mindshield)
-//	accessory = /obj/item/clothing/accessory/medal/gold/captain
-
 /datum/outfit/job/garou/gladeelder/pre_equip(mob/living/carbon/human/H)
 	..()
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/vampire/prince/female
 		shoes = /obj/item/clothing/shoes/vampire/heels
 
-/obj/effect/landmark/start/garou/amberglade/elder
-	name = "Prince"
+/obj/effect/landmark/start/garou/amberglade/council
+	name = "Amberglade Sept Council"
 	icon_state = "Prince"
 
 /datum/job/vamp/garou/amberglade/keeper
 	title = "Amberglade Keeper"
 
-/datum/job/vamp/garou/amberglade/trutcatcher
+/datum/job/vamp/garou/amberglade/truthcatcher
 	title = "Amberglade Truthcatcher"
 
 /datum/job/vamp/garou/amberglade/warder
