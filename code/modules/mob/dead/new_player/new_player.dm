@@ -336,7 +336,7 @@
 		return JOB_UNAVAILABLE_GENERATION
 	if((client.prefs.masquerade < job.minimal_masquerade) && !bypass)
 		return JOB_UNAVAILABLE_MASQUERADE
-	if((client.prefs.rank < job.minimal_rank) && !bypass)
+	if((client.prefs.renownrank < job.minimal_renownrank) && !bypass)
 		return JOB_UNAVAILABLE_RANK
 	if(!job.allowed_species.Find(client.prefs.pref_species.name) && !bypass)
 		return JOB_UNAVAILABLE_SPECIES
