@@ -300,6 +300,8 @@
 			return "[jobtitle] is already filled to capacity."
 		if(JOB_UNAVAILABLE_GENERATION)
 			return "Your generation is too young for [jobtitle]."
+		if(JOB_UNAVAILABLE_RANK)
+			return "Your renown rank is too low for [jobtitle]."
 		if(JOB_UNAVAILABLE_SPECIES)
 			return "Your species cannot be [jobtitle]."
 		if(JOB_UNAVAILABLE_SPECIES_LIMITED)
@@ -334,6 +336,8 @@
 		return JOB_UNAVAILABLE_GENERATION
 	if((client.prefs.masquerade < job.minimal_masquerade) && !bypass)
 		return JOB_UNAVAILABLE_MASQUERADE
+	if((client.prefs.rank < job.minimal_rank) && !bypass)
+		return JOB_UNAVAILABLE_RANK
 	if(!job.allowed_species.Find(client.prefs.pref_species.name) && !bypass)
 		return JOB_UNAVAILABLE_SPECIES
 	if ((job.species_slots[client.prefs.pref_species.name] == 0) && !bypass)

@@ -75,7 +75,8 @@
 	var/minimal_generation = 13
 	///Minimum Masquerade level necessary to do this job.
 	var/minimal_masquerade = 1
-
+	///Minimum Renown Rank (garou) necessary to do this job.
+	var/minimal_rank
 	///List of species that are allowed to do this job.
 	var/list/allowed_species = list("Vampire")
 	///List of species that are limited to a certain amount of that species doing this job.

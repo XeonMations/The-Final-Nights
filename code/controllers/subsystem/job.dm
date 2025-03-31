@@ -107,6 +107,8 @@ SUBSYSTEM_DEF(job)
 			return FALSE
 		if((player.client.prefs.masquerade < job.minimal_masquerade) && !bypass)
 			return FALSE
+		if((player.client.prefs.rank < job.minimal_rank) && !bypass)
+			return FALSE
 		if(!job.allowed_species.Find(player.client.prefs.pref_species.name) && !bypass)
 			return FALSE
 		if ((job.species_slots[player.client.prefs.pref_species.name] == 0) && !bypass)
@@ -147,6 +149,9 @@ SUBSYSTEM_DEF(job)
 			continue
 		if((player.client.prefs.generation > job.minimal_generation) && !bypass)
 			JobDebug("FOC player not enough generation, Player: [player]")
+			continue
+		if((player.client.prefs.rank > job.minimal_rank) && !bypass)
+			JobDebug("FOC player not enough renown rank, Player: [player]")
 			continue
 		if((player.client.prefs.masquerade < job.minimal_masquerade) && !bypass)
 			JobDebug("FOC player not enough masquerade, Player: [player]")
@@ -215,6 +220,10 @@ SUBSYSTEM_DEF(job)
 
 		if(player.client.prefs.generation > job.minimal_generation)
 			JobDebug("GRJ player not enough generation, Player: [player]")
+			continue
+
+		if(player.client.prefs.rank < job.minimal_rank)
+			JobDebug("GRJ player not enough renown rank, Player: [player]")
 			continue
 
 		if(player.client.prefs.masquerade < job.minimal_masquerade)
@@ -430,6 +439,10 @@ SUBSYSTEM_DEF(job)
 
 				if((player.client.prefs.generation > job.minimal_generation) && !bypass)
 					JobDebug("DO player not enough generation, Player: [player]")
+					continue
+
+				if((player.client.prefs.rank > job.minimal_rank) && !bypass)
+					JobDebug("DO player not enough renown rank, Player: [player]")
 					continue
 
 				if((player.client.prefs.masquerade < job.minimal_masquerade) && !bypass)
