@@ -380,6 +380,7 @@
 		"laundromat"
 	)
 
+//GAROU KEYS
 /obj/item/vamp/keys/techstore
 	name = "Tech Store keys"
 	accesslocks = list(
@@ -400,6 +401,8 @@
 		"coggie"
 	)
 	color = "#339933"
+
+//JOB KEYS
 
 /obj/item/vamp/keys/graveyard
 	name = "Graveyard keys"
