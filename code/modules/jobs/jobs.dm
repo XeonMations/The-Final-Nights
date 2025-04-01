@@ -102,15 +102,28 @@ GLOBAL_LIST_INIT(gang_positions, list(
 ))
 
 GLOBAL_LIST_INIT(painted_positions, list(
-    "PAINTED CITY RANKS HERE",
+    "Painted City Councillor",
+	"Painted City Keeper",
+	"Painted City Truthcatcher",
+	"Painted City Warder",
+	"Painted City Guardian"
 ))
 
 GLOBAL_LIST_INIT(amberglade_positions, list(
-    "AMBERGLADE RANKS HERE",
+    "Amberglade Councillor",
+	"Amberglade Keeper",
+	"Amberglade Truthcatcher",
+	"Amberglade Warder",
+	"Amberglade Guardian"
 ))
 
 GLOBAL_LIST_INIT(spiral_positions, list(
-    "SPIRAL RANKS HERE",
+    "Endron Branch Leader",
+	"Endron Executive",
+	"Endron Internal Affairs Agent",
+	"Endron Chief of Security",
+	"Endron Security Agent",
+	"Endron Employee"
 ))
 
 GLOBAL_LIST_INIT(ss13, list(
