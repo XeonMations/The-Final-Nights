@@ -2113,6 +2113,8 @@
 #include "code\modules\clothing\under\jobs\Plasmaman\medsci.dm"
 #include "code\modules\clothing\under\jobs\Plasmaman\security.dm"
 #include "code\modules\custom_examine_text\custom_examine_text.dm"
+#include "code\modules\debugging\debugger.dm"
+#include "code\modules\debugging\tracy.dm"
 #include "code\modules\detectivework\detective_work.dm"
 #include "code\modules\detectivework\evidence.dm"
 #include "code\modules\detectivework\footprints_and_rag.dm"

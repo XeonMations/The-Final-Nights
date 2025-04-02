@@ -1011,27 +1011,25 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(GLOB.tracy_initialized)
+	if(Tracy.enabled)
 		to_chat(usr, span_warning("byond-tracy is already running!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
 		return
-	else if(GLOB.tracy_init_error)
-		to_chat(usr, span_danger("byond-tracy failed to initialize during an earlier attempt: [GLOB.tracy_init_error]"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
+	else if(Tracy.error)
+		to_chat(usr, span_danger("byond-tracy failed to initialize during an earlier attempt: [Tracy.error]"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
 		return
 	message_admins(span_adminnotice("[key_name_admin(usr)] is trying to start the byond-tracy profiler."))
 	log_admin("[key_name(usr)] is trying to start the byond-tracy profiler.")
-	GLOB.tracy_initialized = FALSE
-	GLOB.tracy_init_reason = "[usr.ckey]"
-	world.init_byond_tracy()
-	if(GLOB.tracy_init_error)
-		to_chat(usr, span_danger("byond-tracy failed to initialize: [GLOB.tracy_init_error]"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
-		message_admins(span_adminnotice("[key_name_admin(usr)] tried to start the byond-tracy profiler, but it failed to initialize ([GLOB.tracy_init_error])"))
-		log_admin("[key_name(usr)] tried to start the byond-tracy profiler, but it failed to initialize ([GLOB.tracy_init_error])")
+	if(!Tracy.enable("[usr.ckey]"))
+		var/error = Tracy.error || "N/A"
+		to_chat(usr, span_danger("byond-tracy failed to initialize: [error]"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
+		message_admins(span_adminnotice("[key_name_admin(usr)] tried to start the byond-tracy profiler, but it failed to initialize ([error])"))
+		log_admin("[key_name(usr)] tried to start the byond-tracy profiler, but it failed to initialize ([error])")
 		return
 	to_chat(usr, span_notice("byond-tracy successfully started!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
 	message_admins(span_adminnotice("[key_name_admin(usr)] started the byond-tracy profiler."))
 	log_admin("[key_name(usr)] started the byond-tracy profiler.")
-	if(GLOB.tracy_log)
-		rustg_file_write("[GLOB.tracy_log]", "[GLOB.log_directory]/tracy.loc")
+	if(Tracy.trace_path)
+		rustg_file_write("[Tracy.trace_path]", "[GLOB.log_directory]/tracy.loc")
 
 /client/proc/queue_tracy()
 	set category = "Debug"
