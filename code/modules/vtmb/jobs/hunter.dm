@@ -28,18 +28,6 @@
 		my_name = pick(GLOB.first_names_female)
 	var/my_surname = pick(GLOB.last_names)
 	H.fully_replace_character_name(null,"[my_name] [my_surname]")
-//	for(var/atom/movable/screen/blood/B in H.hud_used.infodisplay)
-//		B.icon_state = null
-//	for(var/atom/movable/screen/healths/HE in H.hud_used.infodisplay)
-//		HE.icon = 'code/modules/wod13/ghoul_health.dmi'
-//	for(var/atom/movable/screen/drinkblood/DB in H.hud_used.static_inventory)
-//		DB.icon_state = null
-//	for(var/atom/movable/screen/bloodheal/BH in H.hud_used.static_inventory)
-//		BH.icon_state = null
-//	for(var/atom/movable/screen/bloodpower/BP in H.hud_used.static_inventory)
-//		BP.icon_state = null
-//	for(var/atom/movable/screen/disciplines/DI in H.hud_used.static_inventory)
-//		DI.icon_state = null
 	for(var/datum/action/A in H.actions)
 		if(A.vampiric)
 			A.Remove(H)
@@ -102,7 +90,7 @@
 	var/datum/objective/martyr/die_objective = new
 	die_objective.owner = owner
 	objectives += die_objective
-	owner.current.playsound_local(get_turf(owner.current), 'code/modules/wod13/sounds/orthodox_start.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'code/modules/wod13/sounds/orthodox_start.ogg', 100, FALSE, use_reverb = FALSE)
 	return ..()
 
 /datum/antagonist/hunter/on_removal()
