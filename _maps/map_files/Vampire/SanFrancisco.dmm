@@ -6447,9 +6447,7 @@
 "bQo" = (
 /obj/structure/table/wood,
 /obj/item/vtm_artifact/rand,
-/obj/machinery/button/curtain{
-	id = malkav
-	},
+/obj/machinery/button/curtain,
 /obj/item/paper_bin{
 	pixel_y = 8;
 	pixel_x = -10
