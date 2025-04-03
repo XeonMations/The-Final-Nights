@@ -13807,9 +13807,7 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/ghetto)
 "dXN" = (
-/obj/machinery/camera{
-	dir = 8
-	},
+/obj/machinery/camera/directional/east,
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/techshop)
 "dXR" = (
@@ -81967,7 +81965,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/melee/vampirearms/baseball,
-/obj/machinery/camera,
+/obj/machinery/camera/directional/north,
 /obj/machinery/cell_charger{
 	pixel_y = 10
 	},
