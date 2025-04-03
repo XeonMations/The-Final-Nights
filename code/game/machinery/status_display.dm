@@ -162,7 +162,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/evac, 32)
 //makes it go on the wall when built
 /obj/machinery/status_display/Initialize(mapload, ndir, building)
 	. = ..()
-	update_appearance()
+	update_icon()
 
 /obj/machinery/status_display/evac/Initialize(mapload)
 	. = ..()
@@ -200,7 +200,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/evac, 32)
 
 /obj/machinery/status_display/evac/examine(mob/user)
 	. = ..()
-		. += "The display is blank."
+	. += "The display is blank."
 
 /obj/machinery/status_display/evac/receive_signal(datum/signal/signal)
 	switch(signal.data["command"])

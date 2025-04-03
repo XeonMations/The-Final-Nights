@@ -24,9 +24,6 @@
 	if(A.always_unpowered)
 		to_chat(user, span_warning("You cannot place [src] in this area!"))
 		return
-	if(check_wall_item(T, floor_to_wall, wall_external))
-		to_chat(user, span_warning("There's already an item on this wall!"))
-		return
 
 	return TRUE
 
@@ -72,7 +69,7 @@
 	if(W.tool_behaviour == TOOL_WRENCH && (metal_amt || glass_amt))
 		to_chat(user, span_notice("You dismantle [src]."))
 		if(metal_amt)
-			new /obj/item/stack/sheet/iron(get_turf(src), metal_amt)
+			new /obj/item/stack/sheet/metal(get_turf(src), metal_amt)
 		if(glass_amt)
 			new /obj/item/stack/sheet/glass(get_turf(src), glass_amt)
 		qdel(src)

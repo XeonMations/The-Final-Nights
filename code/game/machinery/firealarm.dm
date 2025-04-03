@@ -45,7 +45,7 @@
 	if(building)
 		buildstage = 0
 		panel_open = TRUE
-	update_appearance()
+	update_icon()
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
 
@@ -326,18 +326,16 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26)
 	if (machine_stat & (NOPOWER|BROKEN))
 		return
 	var/area/A = get_area(src)
-	if (!A || !A.party)
+	if (!A)
 		return
-	A.party = FALSE
 	A.cut_overlay(party_overlay)
 
 /obj/machinery/firealarm/partyalarm/alarm()
 	if (machine_stat & (NOPOWER|BROKEN))
 		return
 	var/area/A = get_area(src)
-	if (!A || A.party || A.name == "Space")
+	if (!A || A.name == "Space")
 		return
-	A.party = TRUE
 	if (!party_overlay)
 		party_overlay = iconstate2appearance('icons/turf/areas.dmi', "party")
 	A.add_overlay(party_overlay)
