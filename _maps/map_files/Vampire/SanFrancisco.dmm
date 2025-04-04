@@ -66005,7 +66005,7 @@
 "sZF" = (
 /obj/transfer_point_vamp{
 	name = "Shadowlands Portal";
-	id = Enoch
+	id = "Enoch"
 	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/trujah)
