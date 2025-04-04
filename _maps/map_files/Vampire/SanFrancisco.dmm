@@ -29909,7 +29909,7 @@
 /obj/effect/decal/trash,
 /obj/transfer_point_vamp{
 	name = "Shadowlands Portal";
-	id = Enoch
+	id = "Enoch"
 	},
 /turf/open/floor/wood,
 /area/vtm/interior/penumbra/enoch)
@@ -33270,7 +33270,7 @@
 "jGV" = (
 /obj/effect/decal/wallpaper/paper/darkred/low,
 /obj/structure/curtain/cloth/fancy/mechanical/luxurious{
-	id = sheriffcurtain
+	id = "sheriffcurtain"
 	},
 /turf/closed/wall/vampwall/rich/low/window/reinforced,
 /area/vtm/interior/millennium_tower/f3)
