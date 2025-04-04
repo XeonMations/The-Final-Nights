@@ -20482,7 +20482,9 @@
 /turf/open/floor/plating/asphalt,
 /area/vtm)
 "fTM" = (
-/obj/structure/curtain/cloth/fancy/mechanical/luxurious,
+/obj/structure/curtain/cloth/fancy/mechanical/luxurious{
+	id = malkav
+	},
 /turf/closed/wall/vampwall/painted/low/window,
 /area/vtm/clinic/haven)
 "fTO" = (
