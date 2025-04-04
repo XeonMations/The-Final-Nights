@@ -22746,7 +22746,9 @@
 /turf/open/floor/plating/gummaguts,
 /area/vtm/interior/techshop)
 "gBp" = (
-/obj/structure/curtain/cloth/fancy/mechanical/luxurious,
+/obj/structure/curtain/cloth/fancy/mechanical/luxurious{
+	id = lasombraprim
+	},
 /turf/closed/wall/vampwall/rich/old/low/window/reinforced,
 /area/vtm/church/interior/haven)
 "gBs" = (
@@ -58678,7 +58680,9 @@
 /area/vtm/interior/bianchiBank)
 "qWc" = (
 /obj/structure/table/wood/fancy/black,
-/obj/machinery/button/curtain,
+/obj/machinery/button/curtain{
+	id = lasombraprim
+	},
 /turf/open/floor/plating/church,
 /area/vtm/church/interior/haven)
 "qWf" = (
@@ -65386,6 +65390,7 @@
 /obj/item/paper_bin,
 /obj/item/pen/fountain,
 /obj/machinery/button/curtain{
+	id = lasombraprim;
 	pixel_y = 11
 	},
 /turf/open/floor/carpet/royalblack,
@@ -71238,7 +71243,9 @@
 /turf/open/floor/plating/granite,
 /area/vtm/interior/millennium_tower)
 "uDd" = (
-/obj/structure/curtain/cloth/fancy/mechanical/luxurious,
+/obj/structure/curtain/cloth/fancy/mechanical/luxurious{
+	id = lasombraprim
+	},
 /obj/effect/decal/wallpaper/blue/low,
 /turf/closed/wall/vampwall/rich/old/low/window/reinforced,
 /area/vtm/church/interior/haven)
