@@ -30380,7 +30380,7 @@
 	dir = 1
 	},
 /obj/transfer_point_vamp{
-	id = Graveyard4
+	id = "Graveyard4"
 	},
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm)
