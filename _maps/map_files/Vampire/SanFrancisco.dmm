@@ -59932,7 +59932,7 @@
 /area/vtm/hotel)
 "ron" = (
 /obj/structure/curtain/cloth/fancy/mechanical{
-	id = banu
+	id = "banu"
 	},
 /turf/closed/wall/vampwall/painted/low/window/reinforced,
 /area/vtm/interior/banu/haven)
