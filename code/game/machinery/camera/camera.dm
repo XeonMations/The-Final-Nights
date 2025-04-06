@@ -1,7 +1,3 @@
-#define CAMERA_UPGRADE_XRAY 1
-#define CAMERA_UPGRADE_EMP_PROOF 2
-#define CAMERA_UPGRADE_MOTION 4
-
 /obj/machinery/camera
 	name = "security camera"
 	desc = "It's used to monitor rooms."

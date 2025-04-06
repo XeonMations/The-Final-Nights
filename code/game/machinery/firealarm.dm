@@ -344,3 +344,5 @@
 	if (!party_overlay)
 		party_overlay = iconstate2appearance('icons/turf/areas.dmi', "party")
 	A.add_overlay(party_overlay)
+
+#undef FIREALARM_COOLDOWN
