@@ -116,3 +116,10 @@
 #define RCD_WINDOW_DIRECTIONAL "directional"
 #define RCD_WINDOW_NORMAL "glass"
 #define RCD_WINDOW_REINFORCED "reinforced glass"
+
+//Migrated from components/construction.dm due to widespread use outside of local file
+#define FORWARD 1
+#define BACKWARD -1
+
+#define ITEM_DELETE "delete"
+#define ITEM_MOVE_INSIDE "move_inside"

@@ -364,3 +364,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/status_display/ai, 32)
 #undef FONT_COLOR
 #undef FONT_STYLE
 #undef SCROLL_SPEED
+
+#undef SD_BLANK
+#undef SD_EMERGENCY
+#undef SD_MESSAGE
+#undef SD_PICTURE
