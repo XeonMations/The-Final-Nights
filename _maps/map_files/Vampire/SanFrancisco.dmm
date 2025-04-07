@@ -38846,6 +38846,10 @@
 /obj/item/vampire_stake,
 /turf/open/floor/plating/rough/cave,
 /area/vtm/interior)
+"ldy" = (
+/obj/vampire_car/police/unmarked,
+/turf/open/floor/plating/asphalt,
+/area/vtm/interior/police)
 "ldz" = (
 /obj/structure/vampdoor/simple{
 	dir = 4
@@ -200584,7 +200588,7 @@ lxf
 bJU
 lxf
 bJU
-bJU
+ldy
 tbs
 mwS
 mwS
