@@ -243,13 +243,33 @@
 
 /obj/item/clothing/under/vampire/janitor
 	name = "janitorial uniform"
-	desc = "Your job? Toilets 'n boilers, boilers 'n toilets, plus that one boilin' toilet."
+	desc = "Another night, another mess to clean."
 	icon_state = "janitor"
 
 /obj/item/clothing/under/vampire/nurse
 	name = "nurse scrubs"
 	desc = "Some sterile clothes."
 	icon_state = "nurse"
+
+/obj/item/clothing/under/vampire/nurse/nurseb
+	name = "black nurse scrubs"
+	desc = "Some sterile clothes."
+	icon_state = "nurseb"
+
+/obj/item/clothing/under/vampire/nurse/nurseg
+	name = "green nurse scrubs"
+	desc = "Some sterile clothes."
+	icon_state = "nurseg"
+
+/obj/item/clothing/under/vampire/nurse/nursep
+	name = "pink nurse scrubs"
+	desc = "Some sterile clothes."
+	icon_state = "nursep"
+
+/obj/item/clothing/under/vampire/nurse/nursec
+	name = "cyan nurse scrubs"
+	desc = "Some sterile clothes."
+	icon_state = "nursec"
 
 /obj/item/clothing/under/vampire/graveyard
 	desc = "There'll be some GRAVE consequences for taking this off!"
