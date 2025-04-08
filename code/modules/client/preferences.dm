@@ -154,6 +154,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/generation = DEFAULT_GENERATION
 	var/generation_bonus = 0
 
+	//Renown
+	var/renownrank = 0
+	var/honor = 0
+	var/glory = 0
+	var/wisdom = 0
+
 	//Masquerade
 	var/masquerade = 5
 
@@ -256,6 +262,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	info_known = INFO_KNOWN_UNKNOWN
 	masquerade = initial(masquerade)
 	generation = initial(generation)
+	renownrank = initial(renownrank)
 	dharma_level = initial(dharma_level)
 	hun = initial(hun)
 	po = initial(po)
@@ -329,6 +336,110 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(text)
 		var/coolfont = "<font face='Percolator'>[text]</font>"
 		return coolfont
+
+/proc/RankName(rank)
+	switch(rank)
+		if(0)
+			return "Unknown"
+		if(1)
+			return "Cliath"
+		if(2)
+			return "Fostern"
+		if(3)
+			return "Adren"
+		if(4)
+			return "Athro"
+		if(5)
+			return "Elder"
+		if(6)
+			return "Legend"
+
+/proc/RankDesc(rank)
+	switch(rank)
+		if(0)
+			return "You are not known to other Garou. Why?"
+		if(1)
+			return "You have completed your rite of passage as a Cliath."
+		if(2)
+			return "Fosterns have challenged for their rank and become proven members of Garou society."
+		if(3)
+			return "With proven work, wit, and function, Adren are higher echelons of Garou society, better known for control."
+		if(4)
+			return "A disciplined lieutenant and trusted Garou to your peers, you have respect and renown within the city as an Athro."
+		if(5)
+			return "One of the renowned names of the region, you are known as outstanding in California to some degree, worthy of the title of Elder."
+		if(6)
+			return "You're a Legendary NPC."
+
+/datum/preferences/proc/AuspiceRankUp(mob/user,currentrank)
+	switch(auspice.name)
+		if("Ahroun")
+			switch(renownrank)
+				if(0)
+					if(glory >= 2 && honor >= 1) return TRUE
+				if(1)
+					if(glory >= 4 && honor >= 1 && wisdom >= 1) return TRUE
+				if(2)
+					if(glory >= 6 && honor >= 3 && wisdom >= 1) return TRUE
+				if(3)
+					if(glory >= 9 && honor >= 4 && wisdom >= 2) return TRUE
+				if(4)
+					if(glory >= 10 && honor >= 9 && wisdom >= 4) return TRUE
+
+		if("Galliard")
+			switch(renownrank)
+				if(0)
+					if(glory >= 2 && wisdom >= 1) return TRUE
+				if(1)
+					if(glory >= 4 && wisdom >= 2) return TRUE
+				if(2)
+					if(glory >= 4 && honor >= 2 && wisdom >= 4) return TRUE
+				if(3)
+					if(glory >= 7 && honor >= 2 && wisdom >= 6) return TRUE
+				if(4)
+					if(glory >= 9 && honor >= 5 && wisdom >= 9) return TRUE
+
+		if("Philodox")
+			switch(renownrank)
+				if(0)
+					if(honor >= 3) return TRUE
+				if(1)
+					if(glory >= 1 && honor >= 4 && wisdom >= 1) return TRUE
+				if(2)
+					if(glory >= 2 && honor >= 6 && wisdom >= 2) return TRUE
+				if(3)
+					if(glory >= 3 && honor >= 8 && wisdom >= 4) return TRUE
+				if(4)
+					if(glory >= 4 && honor >= 10 && wisdom >= 9) return TRUE
+
+		if("Theurge")
+			switch(renownrank)
+				if(0)
+					if(wisdom >= 3) return TRUE
+				if(1)
+					if(glory >= 1 && wisdom >= 5) return TRUE
+				if(2)
+					if(glory >= 2 && honor >= 1 && wisdom >= 7) return TRUE
+				if(3)
+					if(glory >= 4 && honor >= 2 && wisdom >= 9) return TRUE
+				if(4)
+					if(glory >= 4 && honor >= 9 && wisdom >= 10) return TRUE
+
+		if("Ragabash")
+			switch(renownrank)
+				if(0)
+					if((glory+honor+wisdom) >= 3) return TRUE
+				if(1)
+					if((glory+honor+wisdom) >= 7) return TRUE
+				if(2)
+					if((glory+honor+wisdom) >= 13) return TRUE
+				if(3)
+					if((glory+honor+wisdom) >= 19) return TRUE
+				if(4)
+					if((glory+honor+wisdom) >= 25) return TRUE
+
+	return FALSE
+
 
 /datum/preferences/proc/ShowChoices(mob/user)
 	if(!SSatoms.initialized)
@@ -422,39 +533,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</tr></table>"
 
 			dat += "<h2>[make_font_cool("BODY")]</h2>"
-			/*
-			dat += "<BR>"
-			var/max_death = 6
-			if(pref_species.name == "Vampire")
-				switch(generation)
-					if(13)
-						max_death = 6
-					if(12)
-						max_death = 6
-					if(11)
-						max_death = 5
-					if(10)
-						max_death = 4
-					if(9)
-						max_death = 3
-					if(8)
-						max_death = 2
-					if(7)
-						max_death = 2
-					if(6)
-						max_death = 1
-					if(5)
-						max_death = 1
-					if(4)
-						max_death = 1
-					if(3)
-						max_death = 1
-
-			dat += "<b>[pref_species.name == "Vampire" ? "Torpor" : "Clinical Death"] Count:</b> [torpor_count]/[max_death]"
-			if(true_experience >= 3*(14-generation) && torpor_count > 0)
-				dat += " <a href='byond://?_src_=prefs;preference=torpor_restore;task=input'>Restore ([5*(14-generation)])</a><BR>"
-			dat += "<BR>"
-			*/
 			dat += "<a href='byond://?_src_=prefs;preference=all;task=random'>Random Body</A> "
 
 			dat += "<table width='100%'><tr><td width='24%' valign='top'>"
@@ -496,7 +574,50 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "<b>Yin/Yang</b>: [yin]/[yang] <a href='byond://?_src_=prefs;preference=chibalance;task=input'>Adjust</a><BR>"
 					dat += "<b>Hun/P'o</b>: [hun]/[po] <a href='byond://?_src_=prefs;preference=demonbalance;task=input'>Adjust</a><BR>"
 				if("Werewolf")
+					var/gloryXP = max(5, glory * 10)
+					var/honorXP = max(5, honor * 10)
+					var/wisdomXP =  max(5, wisdom * 10)
 					dat += "<b>Veil:</b> [masquerade]/5<BR>"
+					switch(tribe)
+						if("Ronin")
+							dat += "Renown matters little to you, now."
+						if("Black Spiral Dancers")
+							dat += "<b>Infamy:</b> [glory]/10<BR>"
+							if(gloryXP <= true_experience && glory < 10)
+								dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Raise Infamy ([gloryXP])</a><BR>"
+							dat += "<b>Power:</b> [honor]/10<BR>"
+							if(honorXP <= true_experience && honor < 10)
+								dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Raise Power ([honorXP])</a><BR>"
+							dat += "<b>Cunning:</b> [wisdom]/10<BR>"
+							if(wisdomXP <= true_experience && wisdom < 10)
+								dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Raise Cunning ([wisdomXP])</a><BR>"
+						else
+							dat += "<b>Glory:</b> [glory]/10<BR>"
+							if(gloryXP <= true_experience && glory < 10)
+								dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Raise Glory ([gloryXP])</a><BR>"
+							dat += "<b>Honor:</b> [honor]/10<BR>"
+							if(honorXP <= true_experience && honor < 10)
+								dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Raise Honor ([honorXP])</a><BR>"
+							dat += "<b>Wisdom:</b> [wisdom]/10<BR>"
+							if(wisdomXP <= true_experience && wisdom < 10)
+								dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Raise Wisdom ([wisdomXP])</a><BR>"
+					dat += "<b>Renown Rank:</b> [RankName(renownrank)]<br>"
+					dat += "[RankDesc(renownrank)]<BR>"
+					var/canraise = 0
+					if(SSwhitelists.is_whitelisted(user.ckey, TRUSTED_PLAYER))
+						if(renownrank < MAX_TRUSTED_RANK)
+							canraise = 1
+					else
+						if(renownrank < MAX_PUBLIC_RANK)
+							canraise = 1
+					if(canraise)
+						canraise = AuspiceRankUp()
+					if(canraise)
+						var/rank_cost = 50
+						dat += " <a href='byond://?_src_=prefs;preference=renownrank;task=input'>Raise Renown Rank ([rank_cost])</a><BR>"
+
+					else
+						dat += "<BR>"
 				if("Ghoul")
 					dat += "<b>Masquerade:</b> [masquerade]/5<BR>"
 
@@ -545,6 +666,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							zalupa = auspice.wendigo[i]
 						if ("Black Spiral Dancers")
 							zalupa = auspice.spiral[i]
+						if ("Ronin")
+							zalupa = null // will change this
 					var/datum/action/T = new zalupa()
 					gifts_text += "[T.name], "
 				for(var/i in auspice.gifts)
@@ -1420,6 +1543,26 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(!alloww && !bypass)
 						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[clane.name] RESTRICTED\]</font></td></tr>"
 						continue
+			if(pref_species.name == "Garou")
+				if(tribe)
+					var/alloww = FALSE
+					for(var/i in job.allowed_tribes)
+						if(i == auspice.tribe )
+							alloww = TRUE
+					if(!alloww && !bypass)
+						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[auspice.tribe] RESTRICTED\]</font></td></tr>"
+						continue
+				if(auspice)
+					var/alloww = FALSE
+					for(var/i in job.allowed_auspice)
+						if(i == auspice.name)
+							alloww = TRUE
+					if(!alloww && !bypass)
+						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[auspice.name] RESTRICTED\]</font></td></tr>"
+						continue
+				if((renownrank < job.minimal_renownrank) && !bypass)
+					HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[job.minimal_renownrank] RENOWN RANK REQUIRED\]</font></td></tr>"
+					continue
 			if((job_preferences[SSjob.overflow_role] == JP_LOW) && (rank != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
@@ -2390,6 +2533,32 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 								is_enlightened = FALSE
 							if(MORALITY_ENLIGHTENMENT)
 								is_enlightened = TRUE
+
+				if("renownrank")
+					var/cost = 50
+					if ((true_experience < cost) || (renownrank >= 5) || !(pref_species.id == "garou"))
+						return
+					true_experience -= cost
+					renownrank = renownrank+1
+
+				if("renownglory")
+					var/cost = max(5, glory * 10)
+					if ((true_experience < cost) || (glory >= 10) || !(pref_species.id == "garou"))
+						return
+					true_experience -= cost
+					glory = glory+1
+				if("renownhonor")
+					var/cost = max(5, honor * 10)
+					if ((true_experience < cost) || (honor >= 10) || !(pref_species.id == "garou"))
+						return
+					true_experience -= cost
+					honor = honor+1
+				if("renownwisdom")
+					var/cost = max(5, wisdom * 10)
+					if ((true_experience < cost) || (wisdom >= 10) || !(pref_species.id == "garou"))
+						return
+					true_experience -= cost
+					wisdom = wisdom+1
 
 				if("dharmarise")
 					if ((true_experience < min((dharma_level * 5), 20)) || (dharma_level >= 6) || !(pref_species.id == "kuei-jin"))
