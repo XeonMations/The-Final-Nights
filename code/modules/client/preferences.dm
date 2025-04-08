@@ -1547,10 +1547,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(tribe)
 					var/alloww = FALSE
 					for(var/i in job.allowed_tribes)
-						if(i == auspice.tribe )
+						if(i == tribe)
 							alloww = TRUE
 					if(!alloww && !bypass)
-						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[auspice.tribe] RESTRICTED\]</font></td></tr>"
+						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[tribe] RESTRICTED\]</font></td></tr>"
 						continue
 				if(auspice)
 					var/alloww = FALSE
