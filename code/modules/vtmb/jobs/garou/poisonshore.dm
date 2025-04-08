@@ -7,7 +7,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Board and Yourself."
-	selection_color = "#013b23"
+	selection_color = "#015334"
 
 	req_admin_notify = 1
 	minimal_player_age = 25
@@ -72,7 +72,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Branch Lead, and yourself."
-	selection_color = "#013b23"
+	selection_color = "#015334"
 
 	req_admin_notify = 1
 	minimal_player_age = 25
@@ -124,7 +124,7 @@
 
 /obj/effect/landmark/start/garou/spiral/executive
 	name = "Endron Executive"
-	icon_state = "Seneschal"
+	icon_state = "Clerk"
 
 /datum/job/vamp/garou/spiral/affairs
 	title = "Endron Internal Affairs Agent"
@@ -135,7 +135,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Branch Lead."
-	selection_color = "#013b23"
+	selection_color = "#015334"
 
 	req_admin_notify = 1
 	minimal_player_age = 25
@@ -187,7 +187,7 @@
 
 /obj/effect/landmark/start/garou/spiral/affairs
 	name = "Endron Internal Affairs Agent"
-	icon_state = "Seneschal"
+	icon_state = "Clerk"
 
 /datum/job/vamp/garou/spiral/secchief
 	title = "Endron Chief of Security"
@@ -198,7 +198,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Branch Lead."
-	selection_color = "#013b23"
+	selection_color = "#015334"
 
 	req_admin_notify = 1
 	minimal_player_age = 25
@@ -235,6 +235,7 @@
 	uniform =  /obj/item/clothing/under/pentex/pentex_turtleneck
 	shoes = /obj/item/clothing/shoes/vampire/jackboots
 	gloves = /obj/item/clothing/gloves/vampire/work
+	head = /obj/item/clothing/head/pentex/pentex_beret
 	suit = /obj/item/clothing/suit/vampire/vest
 	glasses = /obj/item/clothing/glasses/vampire/sun
 	l_pocket = /obj/item/vamp/phone
@@ -246,7 +247,7 @@
 	satchel = /obj/item/storage/backpack/satchel
 	duffelbag = /obj/item/storage/backpack/duffelbag
 
-/obj/effect/landmark/start/garou/spiral/affairs
+/obj/effect/landmark/start/garou/spiral/secchief
 	name = "Endron Chief of Security"
 	icon_state = "Sheriff"
 
@@ -259,7 +260,7 @@
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "The Branch Lead and the Security Chief."
-	selection_color = "#013b23"
+	selection_color = "#015334"
 
 	req_admin_notify = 1
 	minimal_player_age = 25
@@ -314,7 +315,7 @@
 	allowed_species = list("Vampire", "Ghoul", "Human", "Werewolf")
 	department_head = list("Endron International")
 	faction = "Vampire"
-	selection_color = "#013b23"
+	selection_color = "#015334"
 
 	total_positions = 5
 	spawn_positions = 5

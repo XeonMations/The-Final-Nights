@@ -150,7 +150,7 @@ GLOBAL_LIST_INIT(position_categories, list(
     EXP_TYPE_TZIMISCE = list("jobs" = tzimisce_positions, "color" = "#fa0207"),
 	EXP_TYPE_PAINTED_CITY = list("jobs" = painted_positions, "color" = "#7195ad"),
     EXP_TYPE_AMBERGLADE = list("jobs" = amberglade_positions, "color" = "#69e430"),
-    EXP_TYPE_SPIRAL = list("jobs" = spiral_positions, "color" = "#013b23")
+    EXP_TYPE_SPIRAL = list("jobs" = spiral_positions, "color" = "#015334")
 ))
 
 
