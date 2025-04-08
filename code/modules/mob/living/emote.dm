@@ -193,6 +193,23 @@
 	message_mime = "giggles silently!"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
+
+/datum/emote/living/giggle/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/human_user = user
+	if(human_user.physique == FEMALE)
+		return pick(
+			'sound/mobs/humanoids/human/giggle/female_giggle_1.ogg',
+			'sound/mobs/humanoids/human/giggle/female_giggle_2.ogg',
+			)
+	return pick(
+		'sound/mobs/humanoids/human/giggle/male_giggle_1.ogg',
+		'sound/mobs/humanoids/human/giggle/male_giggle_2.ogg',
+		'sound/mobs/humanoids/human/giggle/male_giggle_3.ogg',
+		)
+
 /datum/emote/living/glare
 	key = "glare"
 	key_third_person = "glares"
