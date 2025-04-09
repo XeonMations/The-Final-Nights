@@ -10,12 +10,11 @@
 				return
 	..()
 
-/mob/living/carbon/proc/rollfrenzy()
+/mob/living/carbon/proc/rollfrenzy(var/frenzyoverride = 0)
 	if(client)
 		var/mob/living/carbon/human/H
 		if(ishuman(src))
 			H = src
-
 		if(isgarou(src) || iswerewolf(src))
 			to_chat(src, "I'm full of <span class='danger'><b>ANGER</b></span>, and I'm about to flare up in <span class='danger'><b>RAGE</b></span>. Rolling...")
 		else if(iskindred(src))
@@ -35,12 +34,14 @@
 			frenzydicepool = max(1, round(H.morality_path.score/2))
 			frenzydiff = frenzy_hardness
 		else if(isgarou(src) || iswerewolf(src))
-			frenzydicepool = max(1, max(round(H.wisdom/2),H.renownrank))
+			frenzydicepool = max(1, max(round(wisdom/2),renownrank))
 			frenzydiff = frenzy_hardness
-		check = SSroll.storyteller_roll(frenzydicepool, difficulty = frenzydiff, mobs_to_show_output = H)
+		if(frenzyoverride)
+			frenzydiff = frenzyoverride
+		check = SSroll.storyteller_roll(frenzydicepool, difficulty = frenzydiff, mobs_to_show_output = src)
 		switch(check)
 			if(DICE_FAILURE)
-				src.enter_frenzymod()
+				enter_frenzymod()
 				if(iskindred(src))
 					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100*H.clane.frenzymod)
 					SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN)
@@ -48,7 +49,7 @@
 					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100)
 				frenzy_hardness = initial(src.frenzy_hardness)
 			if(DICE_CRIT_FAILURE)
-				src.enter_frenzymod()
+				enter_frenzymod()
 				if(iskindred(src))
 					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200*H.clane.frenzymod)
 					SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN)

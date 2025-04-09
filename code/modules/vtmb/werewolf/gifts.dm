@@ -276,7 +276,7 @@
 		if(target_area)
 			target_turfs = get_area_turfs(owner, target_z = 1, subtypes=FALSE)
 		for(var/mob/living/carbon/target in target_turfs)
-			var/tmp/is_wyrm = 0
+			var/is_wyrm = 0
 			if(iscathayan(target))
 				var/mob/living/carbon/human/kj = target
 				if(!kj.check_kuei_jin_alive())

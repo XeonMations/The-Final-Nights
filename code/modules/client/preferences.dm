@@ -270,6 +270,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	yang = initial(yang)
 	chi_types = list()
 	chi_levels = list()
+	renownrank = initial(renownrank)
+	honor = initial(honor)
+	glory = initial(glory)
+	wisdom = initial(wisdom)
 	archetype = pick(subtypesof(/datum/archetype))
 	var/datum/archetype/A = new archetype()
 	physique = A.start_physique
@@ -1543,7 +1547,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(!alloww && !bypass)
 						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[clane.name] RESTRICTED\]</font></td></tr>"
 						continue
-			if(pref_species.name == "Garou")
+			if(pref_species.name == "Werewolf")
 				if(tribe)
 					var/alloww = FALSE
 					for(var/i in job.allowed_tribes)
