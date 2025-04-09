@@ -194,21 +194,10 @@
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 
-/datum/emote/living/giggle/get_sound(mob/living/user)
-	if(!ishuman(user))
+/datum/emote/living/giggle/get_sound(mob/living/carbon/human/user)
+	if(!istype(user))
 		return
-
-	var/mob/living/carbon/human/human_user = user
-	if(human_user.physique == FEMALE)
-		return pick(
-			'sound/mobs/humanoids/human/giggle/female_giggle_1.ogg',
-			'sound/mobs/humanoids/human/giggle/female_giggle_2.ogg',
-			)
-	return pick(
-		'sound/mobs/humanoids/human/giggle/male_giggle_1.ogg',
-		'sound/mobs/humanoids/human/giggle/male_giggle_2.ogg',
-		'sound/mobs/humanoids/human/giggle/male_giggle_3.ogg',
-		)
+	return user.dna.species.get_giggle_sound(user)
 
 /datum/emote/living/glare
 	key = "glare"

@@ -2332,3 +2332,15 @@ GLOBAL_LIST_EMPTY(selectable_races)
 
 /datum/species/proc/get_hiss_sound(mob/living/carbon/human/human)
 	return 'sound/mobs/humanoids/human/hiss/human_hiss.ogg'
+
+/datum/species/proc/get_giggle_sound(mob/living/carbon/human/human)
+	if(human.body_type == FEMALE)
+		return pick(
+				'sound/mobs/humanoids/human/giggle/female_giggle_1.ogg',
+				'sound/mobs/humanoids/human/giggle/female_giggle_2.ogg',
+			)
+	return pick(
+				'sound/mobs/humanoids/human/giggle/male_giggle_1.ogg',
+				'sound/mobs/humanoids/human/giggle/male_giggle_2.ogg',
+				'sound/mobs/humanoids/human/giggle/male_giggle_3.ogg',
+			)
