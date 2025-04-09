@@ -5,7 +5,7 @@
 
 	selection_color = "#69e430"
 	faction = "Vampire"
-	allowed_species = list("Garou")
+	allowed_species = list("Werewolf")
 	allowed_tribes = list("Wendigo")
 
 	total_positions = 3
@@ -64,7 +64,7 @@
 
 	selection_color = "#69e430"
 	faction = "Vampire"
-	allowed_species = list("Garou")
+	allowed_species = list("Werewolf")
 	allowed_tribes = list("Wendigo")
 
 	total_positions = 1
@@ -123,7 +123,7 @@
 
 	selection_color = "#69e430"
 	faction = "Vampire"
-	allowed_species = list("Garou")
+	allowed_species = list("Werewolf")
 	allowed_tribes = list("Wendigo")
 
 	total_positions = 1
@@ -182,7 +182,7 @@
 
 	selection_color = "#69e430"
 	faction = "Vampire"
-	allowed_species = list("Garou")
+	allowed_species = list("Werewolf")
 	allowed_tribes = list("Wendigo")
 
 	total_positions = 1
@@ -245,7 +245,7 @@
 
 	selection_color = "#69e430"
 	faction = "Vampire"
-	allowed_species = list("Garou")
+	allowed_species = list("Werewolf")
 	allowed_tribes = list("Wendigo")
 
 	total_positions = 5
