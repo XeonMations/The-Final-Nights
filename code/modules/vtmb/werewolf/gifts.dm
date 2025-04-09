@@ -226,20 +226,29 @@
 	name = "Scent Of The True Form"
 	desc = "This Gift allows the Garou to determine the true nature of a person."
 	button_icon_state = "scent_of_the_true_form"
-	rage_req = 1
+	gnosis_req = 1
 
 /datum/action/gift/scent_of_the_true_form/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
-		var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-		abductor_hud.add_hud_to(owner)
-		spawn(200)
-			abductor_hud.remove_hud_from(owner)
+		if(HAS_TRAIT(owner, TRAIT_SCENTTRUEFORM))
+			REMOVE_TRAIT(owner, TRAIT_SCENTTRUEFORM, src)
+			to_chat(owner, "<span class='notice'>You allow the essence of the spirit to leave your senses.</span>")
+
+		else
+			ADD_TRAIT(owner, TRAIT_SCENTTRUEFORM, src)
+			to_chat(owner, "<span class='notice'>Your nose gains a clarity for the supernal around you...</span>")
+
 
 /datum/action/gift/truth_of_gaia
 	name = "Truth Of Gaia"
 	desc = "As judges of the Litany, Philodox have the ability to sense whether others have spoken truth or falsehood."
 	button_icon_state = "truth_of_gaia"
+
+/datum/action/gift/truth_of_gaia/Trigger()
+	. = ..()
+//	if(allowed_to_proceed)
+//
 
 /datum/action/gift/mothers_touch
 	name = "Mother's Touch"
@@ -255,20 +264,37 @@
 
 /datum/action/gift/sense_wyrm
 	name = "Sense Wyrm"
-	desc = "This Gift allows the werewolf to sense the presence of Wyrm."
+	desc = "This Gift allows the werewolf to trace the location of all wyrm-tainted entities within the area."
 	button_icon_state = "sense_wyrm"
 	rage_req = 1
 
 /datum/action/gift/sense_wyrm/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/C = owner
-		C.sight = SEE_MOBS|SEE_OBJS
-		playsound(get_turf(owner), 'code/modules/wod13/sounds/sense_wyrm.ogg', 75, FALSE)
-		to_chat(owner, "<span class='notice'>You feel your sense sharpening...</span>")
-		spawn(200)
-			C.sight = initial(C.sight)
-			to_chat(owner, "<span class='warning'>You no longer sense anything more than normal...</span>")
+		var/target_area = get_area(owner)
+		var/list/target_turfs
+		if(target_area)
+			target_turfs = get_area_turfs(owner, target_z = 1, subtypes=FALSE)
+		for(var/mob/living/carbon/target in target_turfs)
+			var/tmp/is_wyrm = 0
+			if(iscathayan(target))
+				var/mob/living/carbon/human/kj = target
+				if(!kj.check_kuei_jin_alive())
+					is_wyrm = 1
+			if (iskindred(target))
+				var/mob/living/carbon/human/vampire = target
+				if ((vampire.morality_path.score < 7) || vampire.client?.prefs?.is_enlightened)
+					is_wyrm = 1
+				if ((vampire.clane?.name == "Baali") || ( (vampire.client?.prefs?.is_enlightened && (vampire.morality_path.score > 7)) || (!vampire.client?.prefs?.is_enlightened && (vampire.morality_path.score < 4)) ))
+					is_wyrm = 1
+			if (isgarou(target) || iswerewolf(target))
+				var/mob/living/carbon/wolf = target
+				switch(wolf.auspice.tribe)
+					if ("Black Spiral Dancers")
+						is_wyrm = 1
+			if(is_wyrm)
+				to_chat(owner, "A stain is found at [get_area_name(target)], X:[target.x] Y:[target.y].")
+				is_wyrm = 0
 
 /datum/action/gift/spirit_speech
 	name = "Spirit Speech"

@@ -337,7 +337,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var/coolfont = "<font face='Percolator'>[text]</font>"
 		return coolfont
 
-
 /proc/RankName(rank)
 	switch(rank)
 		if(0)
@@ -441,6 +440,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	return FALSE
 
+
 /datum/preferences/proc/ShowChoices(mob/user)
 	if(!SSatoms.initialized)
 		to_chat(user, span_warning("Please wait for the game to do a little more setup first...!"))
@@ -533,39 +533,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</tr></table>"
 
 			dat += "<h2>[make_font_cool("BODY")]</h2>"
-			/*
-			dat += "<BR>"
-			var/max_death = 6
-			if(pref_species.name == "Vampire")
-				switch(generation)
-					if(13)
-						max_death = 6
-					if(12)
-						max_death = 6
-					if(11)
-						max_death = 5
-					if(10)
-						max_death = 4
-					if(9)
-						max_death = 3
-					if(8)
-						max_death = 2
-					if(7)
-						max_death = 2
-					if(6)
-						max_death = 1
-					if(5)
-						max_death = 1
-					if(4)
-						max_death = 1
-					if(3)
-						max_death = 1
-
-			dat += "<b>[pref_species.name == "Vampire" ? "Torpor" : "Clinical Death"] Count:</b> [torpor_count]/[max_death]"
-			if(true_experience >= 3*(14-generation) && torpor_count > 0)
-				dat += " <a href='byond://?_src_=prefs;preference=torpor_restore;task=input'>Restore ([5*(14-generation)])</a><BR>"
-			dat += "<BR>"
-			*/
 			dat += "<a href='byond://?_src_=prefs;preference=all;task=random'>Random Body</A> "
 
 			dat += "<table width='100%'><tr><td width='24%' valign='top'>"
@@ -617,23 +584,23 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if("Black Spiral Dancers")
 							dat += "<b>Infamy:</b> [glory]/10<BR>"
 							if(gloryXP <= true_experience && glory < 10)
-								dat +=" <a href='?_src_=prefs;preference=renownglory;task=input'>Raise Infamy ([gloryXP])</a><BR>"
+								dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Raise Infamy ([gloryXP])</a><BR>"
 							dat += "<b>Power:</b> [honor]/10<BR>"
 							if(honorXP <= true_experience && honor < 10)
-								dat +=" <a href='?_src_=prefs;preference=renownhonor;task=input'>Raise Power ([honorXP])</a><BR>"
+								dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Raise Power ([honorXP])</a><BR>"
 							dat += "<b>Cunning:</b> [wisdom]/10<BR>"
 							if(wisdomXP <= true_experience && wisdom < 10)
-								dat +=" <a href='?_src_=prefs;preference=renownwisdom;task=input'>Raise Cunning ([wisdomXP])</a><BR>"
+								dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Raise Cunning ([wisdomXP])</a><BR>"
 						else
 							dat += "<b>Glory:</b> [glory]/10<BR>"
 							if(gloryXP <= true_experience && glory < 10)
-								dat +=" <a href='?_src_=prefs;preference=renownglory;task=input'>Raise Glory ([gloryXP])</a><BR>"
+								dat +=" <a href='byond://?_src_=prefs;preference=renownglory;task=input'>Raise Glory ([gloryXP])</a><BR>"
 							dat += "<b>Honor:</b> [honor]/10<BR>"
 							if(honorXP <= true_experience && honor < 10)
-								dat +=" <a href='?_src_=prefs;preference=renownhonor;task=input'>Raise Honor ([honorXP])</a><BR>"
+								dat +=" <a href='byond://?_src_=prefs;preference=renownhonor;task=input'>Raise Honor ([honorXP])</a><BR>"
 							dat += "<b>Wisdom:</b> [wisdom]/10<BR>"
 							if(wisdomXP <= true_experience && wisdom < 10)
-								dat +=" <a href='?_src_=prefs;preference=renownwisdom;task=input'>Raise Wisdom ([wisdomXP])</a><BR>"
+								dat +=" <a href='byond://?_src_=prefs;preference=renownwisdom;task=input'>Raise Wisdom ([wisdomXP])</a><BR>"
 					dat += "<b>Renown Rank:</b> [RankName(renownrank)]<br>"
 					dat += "[RankDesc(renownrank)]<BR>"
 					var/canraise = 0
@@ -647,7 +614,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						canraise = AuspiceRankUp()
 					if(canraise)
 						var/rank_cost = 50
-						dat += " <a href='?_src_=prefs;preference=renownrank;task=input'>Raise Renown Rank ([rank_cost])</a><BR>"
+						dat += " <a href='byond://?_src_=prefs;preference=renownrank;task=input'>Raise Renown Rank ([rank_cost])</a><BR>"
 
 					else
 						dat += "<BR>"
@@ -1580,10 +1547,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(tribe)
 					var/alloww = FALSE
 					for(var/i in job.allowed_tribes)
-						if(i == auspice.tribe )
+						if(i == tribe)
 							alloww = TRUE
 					if(!alloww && !bypass)
-						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[auspice.tribe] RESTRICTED\]</font></td></tr>"
+						HTML += "<font color=#290204>[rank]</font></td><td><font color=#290204> \[[tribe] RESTRICTED\]</font></td></tr>"
 						continue
 				if(auspice)
 					var/alloww = FALSE
@@ -3431,12 +3398,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.maxHealth = round((initial(character.maxHealth)+(initial(character.maxHealth)/4)*(character.physique + character.additional_physique)))
 		character.health = character.maxHealth
 		switch(tribe)
-			if("Wendigo")
+			if("Wendigo","Galestalkers","Children of Gaia","Ghost Council","Hart Wardens")
 				character.yin_chi = 1
 				character.max_yin_chi = 1
 				character.yang_chi = 5 + (auspice_level * 2)
 				character.max_yang_chi = 5 + (auspice_level * 2)
-			if("Glasswalkers")
+			if("Glasswalkers","Bone Gnawers")
 				character.yin_chi = 1 + auspice_level
 				character.max_yin_chi = 1 + auspice_level
 				character.yang_chi = 5 + auspice_level
@@ -3446,6 +3413,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				character.max_yin_chi = 1 + auspice_level * 2
 				character.yang_chi = 5
 				character.max_yang_chi = 5
+		character.honor = honor
+		character.wisdom = wisdom
+		character.glory = glory
+		character.renownrank = renownrank
 	if(pref_species.name == "Kuei-Jin")
 		character.maxHealth = round((initial(character.maxHealth)+(initial(character.maxHealth)/4)*(character.physique + character.additional_physique)))
 		character.health = character.maxHealth
