@@ -27,9 +27,11 @@
 		SEND_SOUND(src, sound('code/modules/wod13/sounds/bloodneed.ogg', 0, 0, 50))
 		var/check
 		if(iscathayan(src))
-			check = SSroll.storyteller_roll(max(1, mind.dharma.Hun), min(10, (mind.dharma.level*2)-max_demon_chi), src)
-		else
-			check = SSroll.storyteller_roll(max(1, round(H.morality_path.score/2)), min(frenzy_chance_boost, frenzy_hardness), src)
+			check = SSroll.storyteller_roll(max(1, mind.dharma.Hun), difficulty = min(10, (mind.dharma.level*2)-max_demon_chi), mobs_to_show_output = H)
+		else if(iskindred(src))
+			check = SSroll.storyteller_roll(max(1, round(H.morality_path.score/2)), difficulty = min(frenzy_chance_boost, frenzy_hardness), mobs_to_show_output = H)
+		else if(isgarou(src) || iswerewolf(src))
+			check = SSroll.storyteller_roll(max(1, (round(H.wisdom/2)+H.renownrank)), difficulty = min(frenzy_chance_boost, frenzy_hardness), mobs_to_show_output = H)
 		switch(check)
 			if(DICE_FAILURE)
 				enter_frenzymod()
@@ -62,7 +64,7 @@
 	in_frenzy = TRUE
 	add_client_colour(/datum/client_colour/glass_colour/red)
 	demon_chi = 0
-	adjust_rage(-10, src, TRUE)
+//	adjust_rage(-10, src, TRUE)
 	GLOB.frenzy_list += src
 
 /mob/living/carbon/proc/exit_frenzymod()

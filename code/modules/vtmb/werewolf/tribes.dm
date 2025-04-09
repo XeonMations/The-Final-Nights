@@ -220,3 +220,33 @@
 				H.werewolf_armor = initial(H.werewolf_armor)
 				to_chat(owner, "<span class='warning'>Your skin is natural again...</span>")
 				owner.color = "#FFFFFF"
+
+
+/datum/action/gift/guise_of_the_hound
+	name = "Infest"
+	desc = "Call forth the vermin in the area to serve you against your enemies."
+	button_icon_state = "infest"
+	rage_req = 1
+
+/datum/action/gift/infest
+	name = "Infest"
+	desc = "Call forth the vermin in the area to serve you against your enemies."
+	button_icon_state = "infest"
+	rage_req = 1
+	gnosis_req = 1
+
+/datum/action/gift/infest/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		ADD_TRAIT(owner, TRAIT_THUNDERSHOT, src)
+		to_chat(owner, "<span class='notice'>You feel your fingers tingling with electricity...!</span>")
+		spawn(100)
+			REMOVE_TRAIT(owner, TRAIT_THUNDERSHOT, src)
+			to_chat(owner, "<span class='notice'>The buzz in your fingertips ebbs...</span>")
+
+/datum/action/gift/gift_of_the_termite
+	name = "Gift of the Termite"
+	desc = "Call forth the vermin in the area to serve you against your enemies."
+	button_icon_state = "gift_of_the_termite"
+	rage_req = 1
+	gnosis_req = 1

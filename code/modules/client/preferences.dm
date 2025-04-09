@@ -3398,12 +3398,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.maxHealth = round((initial(character.maxHealth)+(initial(character.maxHealth)/4)*(character.physique + character.additional_physique)))
 		character.health = character.maxHealth
 		switch(tribe)
-			if("Wendigo")
+			if("Wendigo","Galestalkers","Children of Gaia","Ghost Council","Hart Wardens")
 				character.yin_chi = 1
 				character.max_yin_chi = 1
 				character.yang_chi = 5 + (auspice_level * 2)
 				character.max_yang_chi = 5 + (auspice_level * 2)
-			if("Glasswalkers")
+			if("Glasswalkers","Bone Gnawers")
 				character.yin_chi = 1 + auspice_level
 				character.max_yin_chi = 1 + auspice_level
 				character.yang_chi = 5 + auspice_level
@@ -3413,6 +3413,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				character.max_yin_chi = 1 + auspice_level * 2
 				character.yang_chi = 5
 				character.max_yang_chi = 5
+		character.honor = honor
+		character.wisdom = wisdom
+		character.glory = glory
+		character.renownrank = renownrank
 	if(pref_species.name == "Kuei-Jin")
 		character.maxHealth = round((initial(character.maxHealth)+(initial(character.maxHealth)/4)*(character.physique + character.additional_physique)))
 		character.health = character.maxHealth
