@@ -29,6 +29,18 @@
 		/datum/action/gift/burning_scars = 3
 	)
 
+	var/list/bonegnawer = list(
+		/datum/action/gift/guise_of_the_hound = 1,
+		/datum/action/gift/infest = 2,
+		/datum/action/gift/gift_of_the_termite = 3
+	)
+
+	var/list/ronin = list(
+		/datum/action/gift/guise_of_the_hound = 1,
+		/datum/action/gift/stoic_pose = 2,
+		/datum/action/gift/smooth_move = 3
+	)
+
 /datum/auspice/proc/on_gain(var/mob/living/carbon/C)
 	C.update_rage_hud()
 	C.transformator.lupus_form.auspice = src
@@ -58,6 +70,24 @@
 		if("Wendigo")
 			for(var/i in 1 to level)
 				var/zalupa = wendigo[i]
+				var/datum/action/A = new zalupa()
+				A.Grant(C)
+				var/datum/action/A1 = new zalupa()
+				A1.Grant(C.transformator.lupus_form)
+				var/datum/action/A2 = new zalupa()
+				A2.Grant(C.transformator.crinos_form)
+		if("Bone Gnawer")
+			for(var/i in 1 to level)
+				var/zalupa = bonegnawer[i]
+				var/datum/action/A = new zalupa()
+				A.Grant(C)
+				var/datum/action/A1 = new zalupa()
+				A1.Grant(C.transformator.lupus_form)
+				var/datum/action/A2 = new zalupa()
+				A2.Grant(C.transformator.crinos_form)
+		if("Ronin")
+			for(var/i in 1 to level)
+				var/zalupa = bonegnawer[i]
 				var/datum/action/A = new zalupa()
 				A.Grant(C)
 				var/datum/action/A1 = new zalupa()

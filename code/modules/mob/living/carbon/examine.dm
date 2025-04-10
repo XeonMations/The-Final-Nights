@@ -160,9 +160,9 @@
 				var/mob/living/carbon/wolf = src
 
 				switch(wolf.auspice.tribe)
-					if ("Wendigo")
+					if ("Wendigo","Children of Gaia")
 						wyld_taint++
-					if ("Glasswalkers")
+					if ("Glasswalkers","Bone Gnawers")
 						weaver_taint++
 					if ("Black Spiral Dancers")
 						wyrm_taint = VERY_TAINTED
