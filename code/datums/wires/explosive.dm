@@ -123,3 +123,14 @@
 /datum/wires/explosive/gibtonite/explode()
 	var/obj/item/gibtonite/P = holder
 	P.GibtoniteReaction(null, 2)
+
+/datum/wires/explosive/sun_bomb
+	holder_type = /obj/item/grenade/sun_bomb
+	duds_number = 1
+
+/datum/wires/explosive/sun_bomb/interactable(mob/user)
+	return TRUE
+
+/datum/wires/explosive/sun_bomb/explode()
+	var/obj/item/grenade/sun_bomb/P = holder
+	P.detonate()
