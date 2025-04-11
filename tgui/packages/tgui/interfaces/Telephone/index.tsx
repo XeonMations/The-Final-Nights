@@ -1,13 +1,29 @@
-import { classes } from 'tgui-core/react';
-import { useBackend } from '../backend';
-import { Box, Button, Flex, Stack, Dimmer, Section } from 'tgui-core/components';
-import { Window } from '../layouts';
+import { useBackend } from 'tgui/backend';
+import { Window } from 'tgui/layouts';
+import {
+  Box,
+  Button,
+  Dimmer,
+  Flex,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { BooleanLike, classes } from 'tgui-core/react';
+
+type Data = {
+  calling: BooleanLike;
+  online: BooleanLike;
+  talking: BooleanLike;
+  my_number: string;
+  choosed_number: string;
+  calling_user?: string;
+};
 
 const CallingWindow = (props) => {
   const { act } = useBackend();
   return (
     <Dimmer>
-      <Section transparent>
+      <Section>
         <Box inline ml={1}>
           {'Calling...'}
         </Box>
@@ -26,7 +42,7 @@ const CallingWindow = (props) => {
   );
 };
 const NumpadWindow = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<Data>();
   const { my_number, choosed_number } = data;
   return (
     <Box m="6px">
@@ -71,11 +87,11 @@ const NumpadWindow = (props) => {
 };
 
 const TalkingWindow = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<Data>();
   const { calling_user, talking } = data;
   return (
     <Dimmer>
-      <Section transparent>
+      <Section>
         {talking ? (
           <>
             <Box inline ml={1}>
@@ -132,7 +148,7 @@ const PhoneKeypad = (props) => {
     <Box width="185px">
       <Stack>
         {keypadKeys.map((keyColumn, i) => (
-          <Stack.Item key={keyColumn[0]}>
+          <Stack.Item key={keyColumn[i]}>
             {keyColumn.map((key) => (
               <Button
                 fluid
@@ -178,7 +194,7 @@ const PhoneKeypad = (props) => {
 };
 
 export const Telephone = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<Data>();
   const { online, calling } = data;
   return (
     <Window width={200} height={470} theme="retro">
