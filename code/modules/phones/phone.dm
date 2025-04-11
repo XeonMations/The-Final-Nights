@@ -115,6 +115,7 @@
 	var/list/data = list()
 	data["dialed_number"] = dialed_number
 	data["my_number"] = sim_card ? sim_card.phone_number : "No SIM card inserted."
+	data["calling"] = (phone_flags & PHONE_CALLING) ? TRUE : FALSE
 	data["being_called"] = (phone_flags & PHONE_RINGING) ? TRUE : FALSE
 	data["in_call"] = (phone_flags & PHONE_IN_CALL) ? TRUE : FALSE
 	data["calling_user"] = incoming_sim_card.phone_number
@@ -156,22 +157,28 @@
 	inhand_icon_state = (phone_flags & PHONE_OPEN) ? "phone2" : "phone0"
 	update_icon()
 
+/*
+// Proc used for intializing a phone call, if secure_frequqncy isn't set, the phone is calling someone.
+// If secure_frequency is set, the phone is being called by someone.
+*/
 /obj/item/flip_phone/proc/initialize_phone_call(mob/user)
 	if(!sim_card)
 		balloon_alert(user, "no SIM card installed!")
 		return
 	if(!secure_frequency)
 		secure_frequency = SSphones.initiate_phone_call(sim_card, dialed_number)
+		phone_flags |= PHONE_CALLING
 	if(secure_frequency)
 		phone_radio.set_frequency(secure_frequency)
-		phone_radio.set_broadcasting(TRUE)
-		phone_radio.set_listening(TRUE)
+		phone_radio.broadcasting = TRUE
+		phone_radio.listening = TRUE
 		phone_flags |= PHONE_IN_CALL
+		phone_flags &= ~PHONE_CALLING
 
 /obj/item/flip_phone/proc/end_phone_call()
 	phone_radio.set_frequency(0)
-	phone_radio.set_broadcasting(FALSE)
-	phone_radio.set_listening(FALSE)
+	phone_radio.broadcasting = FALSE
+	phone_radio.listening = FALSE
 	secure_frequency = null
 	SSphones.end_phone_call(sim_card, dialed_number)
 	phone_flags &= ~PHONE_IN_CALL
