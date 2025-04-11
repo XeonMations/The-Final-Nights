@@ -1,11 +1,11 @@
 /obj/item/sim_card
 	name = "\improper SIM card"
 	desc = "A SIM card with a phone number attached to it."
-	icon = 'icons/wod13/items/items.dmi'
+	icon = 'code/modules/wod13/items.dmi'
 	icon_state = "book" //WOD13TODO: Replace this with actual SIM card icon later.
 	inhand_icon_state = "book"
-	lefthand_file = 'icons/wod13/lefthand.dmi'
-	righthand_file = 'icons/wod13/righthand.dmi'
+	lefthand_file = 'code/modules/wod13/lefthand.dmi'
+	righthand_file = 'code/modules/wod13/righthand.dmi'
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF | ACID_PROOF

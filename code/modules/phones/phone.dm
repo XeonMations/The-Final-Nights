@@ -1,11 +1,11 @@
 /obj/item/flip_phone
 	name = "flip phone"
 	desc = "A portable device to call anyone you want."
-	icon = 'icons/wod13/items/items.dmi'
+	icon = 'code/modules/wod13/items.dmi'
 	icon_state = "phone0"
 	inhand_icon_state = "phone0"
-	lefthand_file = 'icons/wod13/lefthand.dmi'
-	righthand_file = 'icons/wod13/righthand.dmi'
+	lefthand_file = 'code/modules/wod13/lefthand.dmi'
+	righthand_file = 'code/modules/wod13/righthand.dmi'
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -58,15 +58,13 @@
 		toggle_screen(user)
 	ui_interact()
 
-/obj/item/flip_phone/click_alt(mob/user)
+/obj/item/flip_phone/AltClick(mob/user)
+	. = ..()
 	toggle_screen(user)
 	return TRUE
 
-/obj/item/flip_phone/attack_self_secondary(mob/user, modifiers)
-	toggle_screen(user)
-	return TRUE
-
-/obj/item/flip_phone/item_ctrl_click(mob/user)
+/obj/item/flip_phone/CtrlClick(mob/user)
+	. = ..()
 	if(!(user.is_holding(src)))
 		return FALSE
 	if(!sim_card)
