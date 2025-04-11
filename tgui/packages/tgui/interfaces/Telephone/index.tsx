@@ -1,211 +1,212 @@
-import { useBackend } from 'tgui/backend';
+import { useState } from 'react';
+import { useBackend, useSharedState } from 'tgui/backend';
 import { Window } from 'tgui/layouts';
-import {
-  Box,
-  Button,
-  Dimmer,
-  Flex,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-import { BooleanLike, classes } from 'tgui-core/react';
+import { Box, Icon, Stack } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
 
-type Data = {
+import { ScreenContacts } from './ScreenContacts';
+import { ScreenHome } from './ScreenHome';
+import { ScreenCalling, ScreenInCall } from './ScreenInCall';
+import { ScreenIRC, ScreenViewingChannel } from './ScreenIRC';
+import { ScreenMessages } from './ScreenMessages';
+import { ScreenPhone } from './ScreenPhone';
+import { ScreenRecents } from './ScreenRecents';
+
+export type Contact = {
+  name: string;
+  number: string;
+};
+
+export type PhoneHistoryEntry = {
+  type: string;
+  name: string;
+  number: string;
+  time: string;
+};
+
+export type Comment = {
+  body: string;
+  author: string;
+  time_stamp: string;
+};
+
+export type Message = {
+  body: string;
+  caption: string;
+  author: string;
+  time_stamp: string;
+  comments: Comment[];
+};
+
+export type NewscasterChannel = {
+  censored: BooleanLike;
+  messages: Message[];
+};
+
+export type NewscasterChannelEntry = {
+  name: string;
+  censored: BooleanLike;
+  ref: string;
+};
+
+export type Data = {
   calling: BooleanLike;
   online: BooleanLike;
   talking: BooleanLike;
   my_number: string;
   choosed_number: string;
   calling_user?: string;
+  our_number: string;
+  silence: BooleanLike;
+
+  published_numbers: Contact[];
+  our_contacts: Contact[];
+  our_blocked_contacts: Contact[];
+
+  phone_history: PhoneHistoryEntry[];
+
+  newscaster_channels: NewscasterChannelEntry[];
+  viewing_channel: null | NewscasterChannel;
 };
 
-const CallingWindow = (props) => {
-  const { act } = useBackend();
-  return (
-    <Dimmer>
-      <Section>
-        <Box inline ml={1}>
-          {'Calling...'}
-        </Box>
-        <br />
-        <Box inline ml={1}>
-          <Button
-            icon="phone-slash"
-            color="red"
-            onClick={() => {
-              act('hang');
-            }}
-          />
-        </Box>
-      </Section>
-    </Dimmer>
-  );
-};
-const NumpadWindow = (props) => {
+export enum NavigableApps {
+  // Browser, // TODO: Set up a server wiki that allows iframes
+  Phone,
+  Recents,
+  Contacts,
+  Messages,
+  IRC,
+}
+
+const PhysicalScreen = (props: {
+  app: NavigableApps | null;
+  setApp: React.Dispatch<React.SetStateAction<NavigableApps | null>>;
+}) => {
   const { act, data } = useBackend<Data>();
-  const { my_number, choosed_number } = data;
+  const { app, setApp } = props;
+
+  if (data.calling) {
+    return <ScreenCalling />;
+  } else if (data.online) {
+    return <ScreenInCall />;
+  } else if (data.viewing_channel) {
+    return <ScreenViewingChannel setApp={setApp} />;
+  }
+
+  const [enteredNumber, setEnteredNumber] = useSharedState('enteredNumber', '');
+
+  switch (app) {
+    case NavigableApps.Phone: {
+      return (
+        <ScreenPhone
+          enteredNumber={enteredNumber}
+          setEnteredNumber={setEnteredNumber}
+          setApp={setApp}
+        />
+      );
+    }
+    case NavigableApps.Contacts: {
+      return (
+        <ScreenContacts
+          enteredNumber={enteredNumber}
+          setEnteredNumber={setEnteredNumber}
+          setApp={setApp}
+        />
+      );
+    }
+    case NavigableApps.Recents: {
+      return <ScreenRecents />;
+    }
+    case NavigableApps.Messages: {
+      return <ScreenMessages />;
+    }
+    case NavigableApps.IRC: {
+      return <ScreenIRC />;
+    }
+    default: {
+      return <ScreenHome setApp={setApp} />;
+    }
+  }
+};
+
+const NavigationBar = (props: {
+  app: NavigableApps | null;
+  setApp: React.Dispatch<React.SetStateAction<NavigableApps | null>>;
+}) => {
+  const { act, data } = useBackend<Data>();
+  const { app, setApp } = props;
+
+  let textColor = '#fff';
+  if (
+    app === NavigableApps.Phone ||
+    app === NavigableApps.Contacts ||
+    app === NavigableApps.Recents ||
+    app === NavigableApps.Messages ||
+    app === NavigableApps.IRC ||
+    data.viewing_channel
+  ) {
+    textColor = '#000';
+  }
+
+  let backgroundColor: string | null = null;
+  if (
+    app === NavigableApps.Phone ||
+    app === NavigableApps.Contacts ||
+    app === NavigableApps.Recents ||
+    app === NavigableApps.Messages ||
+    app === NavigableApps.IRC ||
+    data.viewing_channel
+  ) {
+    backgroundColor = '#0004';
+  }
+
   return (
-    <Box m="6px">
-      <Flex mb={1.5}>
-        <Flex.Item width="155px">
-          <Box height="60px" className="Telephone__displayBox">
-            {my_number}
+    <Box position="fixed" bottom={0} left={0} right={0} height={3}>
+      <Stack
+        fill
+        textColor={textColor}
+        backgroundColor={backgroundColor}
+        align="center"
+        justify="space-around"
+      >
+        <Stack.Item>
+          <Box textAlign="center">
+            <Icon name="bars" rotation={90} size={1.5} />
           </Box>
-        </Flex.Item>
-        <Flex.Item>
-          <Flex justifyContent="space-between" alignItems="center">
-            <Button
-              icon="book"
-              fontSize="20px"
-              lineHeight={1}
-              textAlign="center"
-              width="35px"
-              height="40px"
-              className="Telephone__Button Telephone__Button--keypad"
-              onClick={() => act('contacts')}
-            />
-            <Button
-              icon="wrench"
-              fontSize="20px"
-              lineHeight={1}
-              textAlign="center"
-              width="35x"
-              height="40px"
-              className="Telephone__Button Telephone__Button--settings"
-              onClick={() => act('settings')}
-            />
-          </Flex>
-        </Flex.Item>
-      </Flex>
-      <Flex ml="3px">
-        <Flex.Item>
-          <PhoneKeypad phoneNumber={choosed_number} />
-        </Flex.Item>
-      </Flex>
-    </Box>
-  );
-};
-
-const TalkingWindow = (props) => {
-  const { act, data } = useBackend<Data>();
-  const { calling_user, talking } = data;
-  return (
-    <Dimmer>
-      <Section>
-        {talking ? (
-          <>
-            <Box inline ml={1}>
-              {'Current call: ' + calling_user}
-            </Box>
-            <br />
-            <Box inline ml={1}>
-              <Button
-                icon="phone-slash"
-                color="red"
-                onClick={() => {
-                  act('hang');
-                }}
-              />
-            </Box>
-          </>
-        ) : (
-          <>
-            <Box inline ml={1}>
-              {'Calling to ' + calling_user + '...'}
-            </Box>
-            <br />
-            <Box inline ml={1}>
-              <Button
-                icon="phone"
-                color="green"
-                onClick={() => {
-                  act('accept');
-                }}
-              />
-              <Button
-                icon="phone-slash"
-                color="red"
-                onClick={() => {
-                  act('decline');
-                }}
-              />
-            </Box>
-          </>
-        )}
-      </Section>
-    </Dimmer>
-  );
-};
-
-const PhoneKeypad = (props) => {
-  const { act } = useBackend();
-  const keypadKeys = [
-    ['1', '4', '7', '_', 'C'],
-    ['2', '5', '8', '0', '+'],
-    ['3', '6', '9', '#'],
-  ];
-  return (
-    <Box width="185px">
-      <Stack>
-        {keypadKeys.map((keyColumn, i) => (
-          <Stack.Item key={keyColumn[i]}>
-            {keyColumn.map((key) => (
-              <Button
-                fluid
-                bold
-                key={key}
-                mb="6px"
-                content={key}
-                textAlign="center"
-                fontSize="40px"
-                lineHeight={1.25}
-                width="55px"
-                className={classes([
-                  'Telephone__Button',
-                  'Telephone__Button--keypad',
-                  'Telephone__Button--' + key,
-                ])}
-                onClick={() => act('keypad', { value: key })}
-              />
-            ))}
-            {i === 2 && (
-              <Button
-                fluid
-                bold
-                mb="6px"
-                icon="phone"
-                textAlign="center"
-                fontSize="40px"
-                lineHeight={1.25}
-                width="55px"
-                className={classes([
-                  'Telephone__Button',
-                  'Telephone__Button--keypad',
-                  'Telephone__Button--Call',
-                ])}
-                onClick={() => act('call')}
-              />
-            )}
-          </Stack.Item>
-        ))}
+        </Stack.Item>
+        <Stack.Item
+          onClick={() => {
+            act('viewing_newscaster_channel', { ref: null });
+            setApp(null);
+          }}
+          className="Telephone__HomeButton"
+          width={8}
+          height="100%"
+        >
+          <Stack align="center" justify="center" fill>
+            <Stack.Item>
+              <Icon name="square-o" size={1.5} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Box textAlign="center">
+            <Icon name="chevron-left" size={1.5} />
+          </Box>
+        </Stack.Item>
       </Stack>
     </Box>
   );
 };
 
 export const Telephone = (props) => {
-  const { act, data } = useBackend<Data>();
-  const { online, calling } = data;
+  const [app, setApp] = useState<NavigableApps | null>(null);
+
   return (
-    <Window width={200} height={470} theme="retro">
-      <Window.Content>
-        {calling ? (
-          <CallingWindow />
-        ) : online ? (
-          <TalkingWindow />
-        ) : (
-          <NumpadWindow />
-        )}
+    <Window width={285} height={521}>
+      <Window.Content fitted>
+        <PhysicalScreen app={app} setApp={setApp} />
+        <NavigationBar app={app} setApp={setApp} />
       </Window.Content>
     </Window>
   );

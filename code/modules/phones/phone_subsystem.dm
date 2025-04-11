@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(phones)
 		to_chat(usr, span_notice("The number you have dialed is not in service."))
 		return
 
-	var/obj/item/flip_phone/phone = called_sim_card.phone_weakref?.resolve()
+	var/obj/item/smartphone/phone = called_sim_card.phone_weakref?.resolve()
 	if(!phone)
 		CRASH("SIM card without a phone weakref. This should not be happening.")
 	if(phone.phone_flags & PHONE_IN_CALL)
