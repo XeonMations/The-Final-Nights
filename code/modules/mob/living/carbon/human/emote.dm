@@ -138,6 +138,12 @@
 		return FALSE
 	return ..()
 
+/datum/emote/living/carbon/human/tut
+	key = "tut"
+	key_third_person = "tuts"
+	message = "tuts."
+	emote_type = EMOTE_AUDIBLE
+
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
