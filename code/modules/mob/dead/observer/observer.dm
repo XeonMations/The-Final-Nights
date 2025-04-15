@@ -151,6 +151,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 10)
 
 /mob/dead/observer/Destroy()
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(data_huds_on)
 		remove_data_huds()
 
