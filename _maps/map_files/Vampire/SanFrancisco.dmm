@@ -10978,8 +10978,11 @@
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
 "dcl" = (
-/obj/structure/flora/ausbushes/stalkybush,
-/turf/closed/wall/vampwall/wood,
+/obj/effect/decal/shadow,
+/obj/effect/decal/support,
+/turf/open/floor/plating/vampocean{
+	density = 0
+	},
 /area/vtm/forest)
 "dct" = (
 /obj/effect/decal/shadow{
@@ -12211,13 +12214,6 @@
 /area/vtm/interior/gnawer)
 "duy" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/corgi{
-	icon = 'code/modules/wod13/werewolf_lupus.dmi';
-	icon_dead = null;
-	icon_state = "white";
-	name = "Lupus Wolfkin";
-	desc = "A white timber wolf."
-	},
 /turf/open/floor/plating/vampdirt,
 /area/vtm/forest)
 "duA" = (
@@ -12704,8 +12700,7 @@
 /turf/open/floor/plating/bacotell,
 /area/vtm/interior/shop)
 "dBK" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/closed/wall/vampwall/wood,
+/turf/open/floor/plating/vampwood,
 /area/vtm/forest)
 "dBU" = (
 /obj/machinery/light{
@@ -14722,6 +14717,12 @@
 /obj/structure/table/wood/fancy/red,
 /turf/open/floor/carpet/lone,
 /area/vtm/interior/chantry)
+"eiJ" = (
+/obj/structure/railing{
+	layer = 4
+	},
+/turf/open/floor/plating/vampwood,
+/area/vtm/forest)
 "eiK" = (
 /obj/structure/chair/sofa/corp/left,
 /obj/structure/coclock,
@@ -19339,6 +19340,10 @@
 /obj/effect/decal/wallpaper/paper/darkred,
 /turf/closed/wall/vampwall/rich/low,
 /area/vtm/jazzclub)
+"fzd" = (
+/obj/effect/decal/trash,
+/turf/open/floor/plating/vampdirt,
+/area/vtm/forest)
 "fzj" = (
 /obj/item/bedsheet/random,
 /obj/structure/bed,
@@ -24745,6 +24750,12 @@
 	},
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/interior)
+"gYw" = (
+/obj/effect/decal/shadow,
+/turf/open/floor/plating/vampocean{
+	density = 0
+	},
+/area/vtm/forest)
 "gYK" = (
 /obj/effect/decal/bordur{
 	dir = 1
@@ -25984,7 +25995,11 @@
 /area/vtm/sewer)
 "hrX" = (
 /obj/structure/flora/stump,
-/turf/open/floor/plating/dirt/dark,
+/turf/open/floor/plating/vampdirt{
+	base_icon_state = "greenerdirt";
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "greenerdirt"
+	},
 /area/vtm/forest)
 "hsi" = (
 /obj/effect/decal/bordur{
@@ -27207,7 +27222,7 @@
 /area/vtm)
 "hLe" = (
 /obj/effect/decal/cleanable/greenglow,
-/turf/open/floor/plating/dirt/jungle,
+/turf/open/floor/plating/vampdirt,
 /area/vtm/forest)
 "hLn" = (
 /obj/effect/decal/cleanable/glitter,
@@ -28503,8 +28518,11 @@
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/endron_facility/restricted)
 "icB" = (
-/obj/structure/flora/tree/dead,
-/turf/open/floor/plating/dirt/jungle,
+/obj/effect/decal/trash,
+/obj/effect/decal/trash{
+	icon_state = "trash8"
+	},
+/turf/open/floor/plating/vampdirt,
 /area/vtm/forest)
 "icG" = (
 /obj/effect/decal/bordur,
@@ -39449,6 +39467,17 @@
 /obj/effect/decal/wallpaper/blue/low,
 /turf/closed/wall/vampwall/painted/low/window/reinforced,
 /area/vtm/interior/bianchiBank)
+"lmj" = (
+/mob/living/simple_animal/pet/dog/corgi{
+	icon = 'code/modules/wod13/mobs.dmi';
+	icon_dead = "dog_dead";
+	icon_state = "dog";
+	name = "Lupus Wolfkin";
+	desc = "A white timber wolf.";
+	icon_living = "dog"
+	},
+/turf/open/floor/plating/vampgrass,
+/area/vtm/forest)
 "lmo" = (
 /obj/structure/chair/sofa/corp/corner,
 /mob/living/carbon/human/npc/incel,
@@ -41394,7 +41423,15 @@
 /turf/open/floor/carpet/black,
 /area/vtm/interior/millennium_tower/f4)
 "lRO" = (
-/turf/open/floor/plating/dirt/jungle,
+/mob/living/simple_animal/pet/dog/corgi{
+	icon = 'code/modules/wod13/mobs.dmi';
+	icon_dead = "dog_dead";
+	icon_state = "dog";
+	name = "Lupus Wolfkin";
+	desc = "A white timber wolf.";
+	icon_living = "dog"
+	},
+/turf/open/floor/plating/vampdirt,
 /area/vtm/forest)
 "lRQ" = (
 /obj/structure/chair/office,
@@ -42350,6 +42387,17 @@
 	},
 /turf/open/floor/plating/roofwalk,
 /area/vtm/interior/oldchurch)
+"mgw" = (
+/obj/structure/railing{
+	layer = 4
+	},
+/obj/effect/decal/pallet{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/structure/lattice,
+/turf/open/floor/plating/vampcrossableocean,
+/area/vtm/forest)
 "mgG" = (
 /obj/structure/vampfence/rich,
 /turf/open/floor/plating/rough/cave,
@@ -48083,7 +48131,18 @@
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/financialdistrict)
 "nKM" = (
-/turf/open/floor/plating/dirt/jungle/wasteland,
+/obj/structure/railing{
+	dir = 1;
+	layer = 4;
+	pixel_y = 16
+	},
+/obj/structure/lattice,
+/obj/effect/decal/shadow{
+	icon_state = "shadow-alt";
+	pixel_y = 32;
+	layer = 3.7
+	},
+/turf/open/floor/plating/vampcrossableocean,
 /area/vtm/forest)
 "nKO" = (
 /obj/effect/landmark/start/vdoctor,
@@ -58866,7 +58925,11 @@
 /obj/item/stack/sheet/animalhide/generic{
 	anchored = 1
 	},
-/turf/open/floor/plating/dirt/dark,
+/turf/open/floor/plating/vampdirt{
+	base_icon_state = "greenerdirt";
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "greenerdirt"
+	},
 /area/vtm/forest)
 "qKO" = (
 /obj/effect/decal/bordur{
@@ -61047,7 +61110,11 @@
 /obj/effect/turf_decal/weather/dirt{
 	dir = 5
 	},
-/turf/open/floor/plating/dirt/dark,
+/turf/open/floor/plating/vampdirt{
+	base_icon_state = "greenerdirt";
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "greenerdirt"
+	},
 /area/vtm/forest)
 "rob" = (
 /turf/closed/wall/vampwall/rich,
@@ -61126,6 +61193,10 @@
 	icon_state = "rock2"
 	},
 /turf/open/floor/plating/vampdirt,
+/area/vtm/forest)
+"roC" = (
+/obj/item/melee/vampirearms/shovel,
+/turf/open/floor/plating/vampgrass,
 /area/vtm/forest)
 "roD" = (
 /obj/structure/table/wood,
@@ -65757,7 +65828,15 @@
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/techshop)
 "sAa" = (
-/turf/open/floor/plating/dirt/dark,
+/turf/open/floor/plating/vampdirt{
+	base_icon_state = "greenerdirt";
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "greenerdirt"
+	},
+/area/vtm/forest)
+"sAb" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/turf/open/floor/plating/vampdirt,
 /area/vtm/forest)
 "sAd" = (
 /obj/structure/trashbag,
@@ -68392,6 +68471,18 @@
 	},
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/millennium_tower/f4)
+"tqn" = (
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/corgi{
+	icon = 'code/modules/wod13/mobs.dmi';
+	icon_dead = "dog_dead";
+	icon_state = "dog";
+	name = "Lupus Wolfkin";
+	desc = "A white timber wolf.";
+	icon_living = "dog"
+	},
+/turf/open/floor/plating/vampgrass,
+/area/vtm/forest)
 "tqp" = (
 /obj/machinery/photocopier,
 /obj/machinery/light/prince{
@@ -68944,9 +69035,12 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior/baali)
 "tym" = (
-/turf/open/floor/plating/dirt/dark{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+/obj/structure/railing{
+	layer = 4
 	},
+/obj/structure/lattice,
+/obj/effect/decal/pallet,
+/turf/open/floor/plating/vampcrossableocean,
 /area/vtm/forest)
 "typ" = (
 /mob/living/simple_animal/pet/cat/vampire,
@@ -69426,11 +69520,15 @@
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/millennium_tower/ventrue)
 "tFb" = (
-/mob/living/simple_animal/hostile/beastmaster{
-	name = "Lupus Wolfkin";
-	desc = "A brown timber wolf."
+/obj/structure/railing{
+	layer = 4
 	},
-/turf/open/floor/plating/vampdirt,
+/obj/effect/decal/pallet{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/effect/decal/pallet,
+/turf/open/floor/plating/vampwood,
 /area/vtm/forest)
 "tFl" = (
 /turf/closed/wall/vampwall/painted/low/window,
@@ -70303,6 +70401,19 @@
 "tSA" = (
 /turf/closed/wall/vampwall/rock,
 /area/vtm/pacificheights/forest)
+"tSE" = (
+/obj/structure/railing{
+	dir = 1;
+	layer = 4;
+	pixel_y = 16
+	},
+/obj/effect/decal/shadow{
+	icon_state = "shadow-alt";
+	pixel_y = 32;
+	layer = 3.7
+	},
+/turf/open/floor/plating/vampwood,
+/area/vtm/forest)
 "tSY" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -77837,7 +77948,11 @@
 /area/vtm/interior/millennium_tower)
 "wap" = (
 /obj/effect/decal/cleanable/ash/large,
-/turf/open/floor/plating/dirt/dark,
+/turf/open/floor/plating/vampdirt{
+	base_icon_state = "greenerdirt";
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "greenerdirt"
+	},
 /area/vtm/forest)
 "wav" = (
 /obj/structure/vampdoor/wood{
@@ -79988,6 +80103,10 @@
 /obj/fusebox,
 /turf/open/floor/plating/parquetry/rich,
 /area/vtm/interior/millennium_tower/f3)
+"wHd" = (
+/obj/effect/decal/litter,
+/turf/open/floor/plating/vampwood,
+/area/vtm/forest)
 "wHe" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 4
@@ -81300,6 +81419,25 @@
 	},
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/laundromat)
+"xbq" = (
+/obj/structure/railing{
+	dir = 1;
+	layer = 4;
+	pixel_y = 16
+	},
+/obj/structure/lattice,
+/obj/effect/decal/shadow{
+	icon_state = "shadow-alt";
+	pixel_y = 32;
+	layer = 3.7
+	},
+/obj/effect/decal/pallet{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/effect/decal/pallet,
+/turf/open/floor/plating/vampcrossableocean,
+/area/vtm/forest)
 "xbv" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -83989,6 +84127,9 @@
 /turf/open/floor/plating/toilet,
 /area/vtm/clinic/haven)
 "xMM" = (
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
 /turf/open/floor/plating/rough/cave,
 /area/vtm/forest)
@@ -487791,7 +487932,7 @@ sDZ
 sDZ
 sDZ
 sDZ
-sDZ
+upu
 sDZ
 sDZ
 sDZ
@@ -488048,8 +488189,8 @@ qia
 qia
 qia
 qia
-qia
-qia
+cjV
+dBK
 qia
 qia
 qia
@@ -488306,9 +488447,9 @@ hly
 hly
 hly
 hly
-hly
-hly
-hly
+tSE
+tFb
+dcl
 hly
 qia
 qia
@@ -488563,9 +488704,9 @@ hly
 hly
 hly
 hly
-hly
-hly
-hly
+xbq
+mgw
+gYw
 hly
 hly
 hly
@@ -488820,9 +488961,9 @@ hly
 hly
 hly
 hly
-hly
-hly
-hly
+nKM
+tym
+gYw
 hly
 hly
 hly
@@ -489077,9 +489218,9 @@ hly
 hly
 hly
 hly
-hly
-hly
-hly
+tSE
+eiJ
+dcl
 hly
 hly
 hly
@@ -489333,10 +489474,10 @@ hly
 hly
 hly
 hly
-qia
-qia
-qia
-qia
+cjV
+dBK
+wHd
+cjV
 hly
 hly
 hly
@@ -489592,7 +489733,7 @@ qia
 qia
 qia
 qia
-qia
+dBK
 qia
 hly
 hly
@@ -489746,7 +489887,7 @@ dEh
 mIV
 jEJ
 jEJ
-lRO
+qia
 sAa
 uYg
 kXx
@@ -490003,8 +490144,8 @@ dEh
 mIV
 gfq
 jEJ
-lRO
-lRO
+qia
+qia
 uYg
 kXx
 uYg
@@ -490107,7 +490248,7 @@ sNw
 sDZ
 sDZ
 sDZ
-qia
+fzd
 qia
 hly
 hly
@@ -490260,12 +490401,12 @@ dhc
 dhc
 mIV
 jEJ
-lRO
-lRO
+qia
+qia
 prV
 kXx
 kXx
-lRO
+sAa
 sDZ
 sDZ
 sDZ
@@ -490368,7 +490509,7 @@ sDZ
 qia
 xKI
 qia
-qia
+icB
 hly
 hly
 hly
@@ -490517,12 +490658,12 @@ dhc
 dhc
 mIV
 oGd
-lRO
-icB
+qia
+odv
 kXx
 kXx
 kXx
-lRO
+qia
 sDZ
 sDZ
 sDZ
@@ -490774,13 +490915,13 @@ dhc
 dhc
 mIV
 jEJ
-lRO
+qia
 hLe
 kXx
-nKM
+qia
 kXx
-lRO
-lRO
+qia
+qia
 hLe
 sDZ
 sDZ
@@ -491031,15 +491172,15 @@ dhc
 dhc
 mIV
 jEJ
-lRO
+qia
 kXx
 kXx
-lRO
+qia
 prV
 kXx
-icB
+odv
 sDZ
-lRO
+qia
 wCF
 sDZ
 sDZ
@@ -491288,13 +491429,13 @@ dhc
 dhc
 mIV
 jEJ
-lRO
+qia
 kXx
-lRO
-lRO
+qia
+qia
 hLe
 kXx
-lRO
+qia
 sDZ
 sDZ
 sDZ
@@ -491545,15 +491686,15 @@ dhc
 dhc
 mIV
 jEJ
-lRO
-lRO
+qia
+qia
 sDZ
 sDZ
-lRO
-lRO
-lRO
-lRO
-lRO
+qia
+qia
+qia
+qia
+qia
 sDZ
 sNw
 sDZ
@@ -491803,11 +491944,11 @@ dhc
 mIV
 jEJ
 sDZ
-lRO
+qia
 sDZ
 sDZ
-lRO
-lRO
+qia
+qia
 sDZ
 sDZ
 sDZ
@@ -492060,11 +492201,11 @@ dhc
 mIV
 jEJ
 sDZ
-lRO
+qia
 sDZ
 sDZ
 sDZ
-lRO
+qia
 sDZ
 sDZ
 sDZ
@@ -492317,7 +492458,7 @@ mIV
 mIV
 jEJ
 sDZ
-lRO
+qia
 sDZ
 sDZ
 sDZ
@@ -492574,7 +492715,7 @@ jEJ
 jEJ
 jEJ
 sDZ
-lRO
+qia
 sDZ
 sNw
 sDZ
@@ -493210,7 +493351,7 @@ hly
 hly
 hly
 hly
-hly
+qia
 jEJ
 jEJ
 jEJ
@@ -497335,7 +497476,7 @@ sDZ
 wSW
 qia
 qia
-qia
+sAb
 qia
 laE
 laE
@@ -497590,8 +497731,8 @@ sDZ
 oGL
 tnG
 sDZ
-sDZ
-dBK
+gYr
+nrc
 nrc
 nrc
 nrc
@@ -497848,7 +497989,7 @@ sDZ
 sDZ
 pte
 sDZ
-dcl
+nrc
 rAJ
 laE
 laE
@@ -499909,7 +500050,7 @@ huA
 xxV
 sDZ
 sDZ
-tFb
+qia
 qia
 qia
 qia
@@ -500166,7 +500307,7 @@ qia
 huA
 qia
 qia
-qia
+lRO
 qia
 qia
 qia
@@ -500374,7 +500515,7 @@ sDZ
 sDZ
 sDZ
 ggo
-aEa
+tqn
 aEa
 sDZ
 cjV
@@ -502209,13 +502350,13 @@ laE
 sDZ
 sDZ
 kHM
-sDZ
+roC
 sDZ
 sDZ
 jBv
 qia
 qia
-tym
+qia
 qia
 kFN
 diG
@@ -502472,7 +502613,7 @@ sDZ
 vTn
 bDl
 sDZ
-tym
+sAa
 qia
 kFN
 gGH
@@ -502991,7 +503132,7 @@ qia
 sDZ
 pte
 sDZ
-sDZ
+lmj
 duy
 jEJ
 gfq
@@ -515510,7 +515651,7 @@ oRN
 oRN
 oRN
 jEJ
-dhc
+kfi
 dhc
 dhc
 dhc
@@ -518845,7 +518986,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+kfi
 jEJ
 oRN
 oRN
@@ -519360,7 +519501,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+kfi
 jEJ
 oRN
 oRN
@@ -519623,7 +519764,7 @@ jEJ
 jEJ
 jEJ
 jEJ
-dhc
+kfi
 dhc
 dhc
 dhc
