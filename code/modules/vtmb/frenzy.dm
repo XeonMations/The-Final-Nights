@@ -10,57 +10,59 @@
 				return
 	..()
 
-/mob/living/carbon/proc/rollfrenzy()
+/mob/living/carbon/proc/rollfrenzy(var/frenzyoverride = 0)
 	if(client)
+		var/mob/living/carbon/target = src
 		var/mob/living/carbon/human/H
 		if(ishuman(src))
 			H = src
-
-		if(isgarou(src) || iswerewolf(src))
-			to_chat(src, "I'm full of <span class='danger'><b>ANGER</b></span>, and I'm about to flare up in <span class='danger'><b>RAGE</b></span>. Rolling...")
-		else if(iskindred(src))
-			to_chat(src, "I need <span class='danger'><b>BLOOD</b></span>. The <span class='danger'><b>BEAST</b></span> is calling. Rolling...")
-		else if(iscathayan(src))
-			to_chat(src, "My <span class='danger'><b>P'o</b></span> is awakening. Rolling...")
+		if(isgarou(target) || iswerewolf(target))
+			to_chat(target, "I'm full of <span class='danger'><b>ANGER</b></span>, and I'm about to flare up in <span class='danger'><b>RAGE</b></span>. Rolling...")
+		else if(iskindred(target))
+			to_chat(target, "I need <span class='danger'><b>BLOOD</b></span>. The <span class='danger'><b>BEAST</b></span> is calling. Rolling...")
+		else if(iscathayan(target))
+			to_chat(target, "My <span class='danger'><b>P'o</b></span> is awakening. Rolling...")
 		else
-			to_chat(src, "I'm too <span class='danger'><b>AFRAID</b></span> to continue doing this. Rolling...")
-		SEND_SOUND(src, sound('code/modules/wod13/sounds/bloodneed.ogg', 0, 0, 50))
+			to_chat(target, "I'm too <span class='danger'><b>AFRAID</b></span> to continue doing this. Rolling...")
+		SEND_SOUND(target, sound('code/modules/wod13/sounds/bloodneed.ogg', 0, 0, 50))
 		var/check
 		var/frenzydicepool = 1
 		var/frenzydiff = 4
-		if(iscathayan(src))
+		if(iscathayan(target))
 			frenzydicepool = max(1, mind.dharma.Hun)
 			frenzydiff = min(6, (mind.dharma.level*2)-max_demon_chi)
-		else if(iskindred(src))
+		else if(iskindred(target))
 			frenzydicepool = max(1, round(H.morality_path.score/2))
 			frenzydiff = frenzy_hardness
-		else if(isgarou(src) || iswerewolf(src))
-			frenzydicepool = max(1, max(round(H.wisdom/2),H.renownrank))
+		else if(isgarou(target) || iswerewolf(target))
+			frenzydicepool = max(1, max(round(wisdom/2),renownrank))
 			frenzydiff = frenzy_hardness
-		check = SSroll.storyteller_roll(frenzydicepool, difficulty = frenzydiff, mobs_to_show_output = H)
+		if(frenzyoverride)
+			frenzydiff = frenzyoverride
+		check = SSroll.storyteller_roll(frenzydicepool, difficulty = frenzydiff, mobs_to_show_output = target)
 		switch(check)
 			if(DICE_FAILURE)
-				src.enter_frenzymod()
-				if(iskindred(src))
-					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100*H.clane.frenzymod)
+				target.enter_frenzymod()
+				if(iskindred(target))
+					addtimer(CALLBACK(target, PROC_REF(exit_frenzymod)), 100*H.clane.frenzymod)
 					SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN)
 				else
-					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 100)
-				frenzy_hardness = initial(src.frenzy_hardness)
+					addtimer(CALLBACK(target, PROC_REF(exit_frenzymod)), 100)
+				frenzy_hardness = initial(target.frenzy_hardness)
 			if(DICE_CRIT_FAILURE)
-				src.enter_frenzymod()
-				if(iskindred(src))
-					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200*H.clane.frenzymod)
+				target.enter_frenzymod()
+				if(iskindred(target))
+					addtimer(CALLBACK(target, PROC_REF(exit_frenzymod)), 200*H.clane.frenzymod)
 					SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN)
 				else
-					addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 200)
-				frenzy_hardness = initial(src.frenzy_hardness)
+					addtimer(CALLBACK(target, PROC_REF(exit_frenzymod)), 200)
+				frenzy_hardness = initial(target.frenzy_hardness)
 			if(DICE_CRIT_WIN)
-				frenzy_hardness = max(initial(src.frenzy_hardness), src.frenzy_hardness-1)
-				if(iskindred(src))
+				frenzy_hardness = max(initial(target.frenzy_hardness), target.frenzy_hardness-1)
+				if(iskindred(target))
 					SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_UP)
 			else
-				frenzy_hardness = min(10, src.frenzy_hardness+1)
+				frenzy_hardness = min(10, target.frenzy_hardness+1)
 
 /mob/living/carbon/proc/enter_frenzymod()
 	if (in_frenzy)
@@ -70,7 +72,8 @@
 	in_frenzy = TRUE
 	add_client_colour(/datum/client_colour/glass_colour/red)
 	demon_chi = 0
-	adjust_rage(-10, src, TRUE)
+	if(isgarou(src) || iswerewolf(src))
+		adjust_rage(-10, src, TRUE)
 	GLOB.frenzy_list += src
 
 /mob/living/carbon/proc/exit_frenzymod()
