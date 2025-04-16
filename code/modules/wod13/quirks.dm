@@ -128,7 +128,7 @@ Dancer
 	name = "Non Intellectual"
 	desc = "You feel more than you think about the world; you gain experience slower."
 	mob_trait = TRAIT_NON_INT
-	value = -3
+	value = -2
 	gain_text = "<span class='warning'>You feel dumb.</span>"
 	lose_text = "<span class='notice'>You don't feel dumb anymore.</span>"
 
