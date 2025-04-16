@@ -181,11 +181,11 @@
 	lupus.masquerade = trans.masquerade
 	lupus.nutrition = trans.nutrition
 	if(trans.auspice.tribe == "Black Spiral Dancers" || HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
-		lupus_form.wyrm_tainted = 1
+		lupus.wyrm_tainted = 1
 	if(HAS_TRAIT(trans, TRAIT_DOGWOLF))
-		lupus_form.is_dog = TRUE
+		lupus.is_dog = TRUE
 	else
-		lupus_form.is_dog = FALSE
+		lupus.is_dog = FALSE
 	lupus.mind = trans.mind
 	lupus.update_blood_hud()
 	transfer_damage(trans, lupus)
@@ -216,7 +216,7 @@
 	crinos.masquerade = trans.masquerade
 	crinos.nutrition = trans.nutrition
 	if(trans.auspice.tribe == "Black Spiral Dancers" || HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
-		crinos_form.wyrm_tainted = 1
+		crinos.wyrm_tainted = 1
 	crinos.mind = trans.mind
 	crinos.update_blood_hud()
 	crinos.physique = crinos.physique+3
