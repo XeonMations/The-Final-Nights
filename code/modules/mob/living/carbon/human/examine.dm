@@ -515,9 +515,9 @@
 				var/mob/living/carbon/wolf = src
 				is_kin++
 				switch(wolf.auspice.tribe)
-					if ("Galestalkers","Children of Gaia","Ghost Council","Hart Wardens")
+					if ("Galestalkers","Children of Gaia","Ghost Council","Hart Wardens","Get of Fenris","Black Furies","Silver Fangs","Silent Striders","Red Talons")
 						wyld_taint++
-					if ("Glasswalkers","Bone Gnawers")
+					if ("Glasswalkers","Bone Gnawers","Shadow Lords")
 						weaver_taint++
 					if ("Black Spiral Dancers")
 						wyrm_taint = VERY_TAINTED

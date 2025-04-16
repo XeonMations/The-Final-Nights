@@ -170,6 +170,17 @@
 		owner.visible_message("<span class='danger'>[owner.name] crackles with static electricity!</span>", "<span class='danger'>You crackle with static electricity, charging up your Gift!</span>")
 		if(do_after(owner, 3 SECONDS))
 			playsound(owner, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+			if(CheckZoneMasquerade(owner))
+				var/mob/living/carbon/human/H
+				var/mob/living/carbon/werewolf/W
+				if(ishuman(owner))
+					H = owner
+				else
+					W = owner
+				if(H)
+					H.adjust_veil(-1)
+				if(W)
+					W.adjust_veil(-1)
 			for(var/mob/living/L in orange(6, owner))
 				if(L)
 					L.electrocute_act(30, owner, siemens_coeff = 1, flags = NONE)
@@ -285,3 +296,64 @@
 	if(allowed_to_proceed)
 		var/mob/living/carbon/H = owner
 		H.put_in_active_hand(new /obj/item/melee/touch_attack/werewolf/gift_of_the_termite(H))
+
+
+/datum/action/gift/shroud
+	name = "Shroud"
+	desc = "Call together the shadows, blocking line of sight."
+	button_icon_state = "shroud"
+	rage_req = 1
+
+/datum/action/gift/shroud/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/atom/movable/shadow
+		shadow = new(owner)
+		shadow.set_light(5, -10)
+		spawn(20 SECONDS)
+			if (shadow)
+				QDEL_NULL(shadow)
+
+/datum/action/gift/coils_of_the_serpent
+	name = "Coils of the Serpent"
+	desc = "Summon forth tendrils of shadow to assault an opponent."
+	button_icon_state = "coils_of_the_serpent"
+	rage_req = 1
+
+/datum/action/gift/coils_of_the_serpent/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			if(H.CheckEyewitness(H, H, 7, FALSE))
+				H.adjust_veil(-1)
+			H.drop_all_held_items()
+			H.put_in_r_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
+			H.put_in_l_hand(new /obj/item/melee/vampirearms/knife/gangrel/lasombra(owner))
+			for(var/obj/item/melee/vampirearms/knife/gangrel/lasombra/arm in H.contents)
+				arm.name = "\improper shadow coil"
+				arm.desc = "Squeeze tight."
+				spawn(20 SECONDS)
+					qdel(arm)
+
+/datum/action/gift/banish_totem
+	name = "Banish Totem"
+	desc = "Choose a target. Dissolve the gnosis and connection they hold temporarily to their totem."
+	button_icon_state = "banish_totem"
+	rage_req = 3
+	gnosis_req = 2
+
+/datum/action/gift/banish_totem/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/list/targets = list()
+		for(var/mob/living/carbon/werewolf/wtarget in orange(7,owner))
+			targets += wtarget
+		for(var/mob/living/carbon/human/htarget in orange(7,owner))
+			targets += htarget
+		var/mob/living/carbon/target = tgui_input_list(owner, "Select a target", "Banish Totem", sortList(targets))
+		if(target && (iswerewolf(target) || isgarou(target)))
+			if(target.auspice.gnosis > 0)
+				target.auspice.gnosis = 0
+				to_chat(target, "<span class='userdanger'>You feel your tie to your totem snap, gnosis leaving you...!</span>")
+				to_chat(owner, "<span class='userdanger'>You feel [target.name]'s gnostic ties fray...!</span>")

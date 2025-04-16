@@ -74,5 +74,10 @@
 
 /mob/living/carbon/werewolf/lupus/Life()
 	if(hispo)
-		CheckEyewitness(src, src, 7, FALSE)
+		if(CheckEyewitness(src, src, 7, FALSE))
+			H.adjust_veil(-1,random = -1)
+	else
+		if(!is_dog)
+			if(CheckEyewitness(src, src, 4, FALSE))
+				H.adjust_veil(-1,threshold = 4)
 	..()

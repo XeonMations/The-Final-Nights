@@ -459,7 +459,7 @@
 	name = "claws"
 	icon_state = "gangrel"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 6
+	force = 10
 	armour_penetration = 100	//It's magical damage
 	block_chance = 20
 	item_flags = DROPDEL
@@ -471,11 +471,11 @@
 		return
 	if(isliving(target))
 		var/mob/living/L = target
-		L.apply_damage(8, CLONE)
+		L.apply_damage(10, CLONE)
 
 /obj/item/melee/vampirearms/knife/gangrel/lasombra
 	name = "shadow tentacle"
-	force = 7
+	force = 10
 	armour_penetration = 100
 	block_chance = 0
 	icon_state = "lasombra"
@@ -486,8 +486,8 @@
 		return
 	if(isliving(target))
 		var/mob/living/L = target
-		L.apply_damage(8, CLONE)
-		L.apply_damage(8, BURN)
+		L.apply_damage(10, BURN)
+		L.apply_damage(10, CLONE)
 
 /obj/item/melee/touch_attack/werewolf
 	name = "\improper falling touch"
@@ -519,7 +519,12 @@
 		return
 	if(istype(target,/turf/closed/wall))
 		var/turf/closed/wall/twall = target
+		for(var/obj/matrix in orange(1,twall))
+			to_chat(user, "This particular wall feels reinforced too harshly by the veil to dissolve.")
+			return
 		twall.dismantle_wall(1,0)
+		if(user.CheckEyewitness(user, user, 7, FALSE))
+			user.adjust_veil(-2)
 	return ..()
 
 /obj/item/melee/vampirearms/knife/gangrel/Initialize()
