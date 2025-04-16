@@ -7,6 +7,7 @@
 	faction = "Vampire"
 	allowed_species = list("Werewolf")
 	allowed_tribes = list("Galestalkers","Ghost Council","Hart Wardens")
+	minimal_renownrank = 4
 
 	total_positions = 3
 	spawn_positions = 3
@@ -67,6 +68,7 @@
 	allowed_species = list("Werewolf")
 	allowed_tribes = list("Galestalkers","Ghost Council","Hart Wardens")
 
+	minimal_renownrank = 3
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Litany and the Council."
@@ -129,6 +131,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Litany and the Council."
+	minimal_renownrank = 2
 
 	req_admin_notify = 1
 	minimal_player_age = 25
@@ -185,6 +188,7 @@
 	allowed_species = list("Werewolf")
 	allowed_tribes = list("Galestalkers","Ghost Council","Hart Wardens")
 
+	minimal_renownrank = 3
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Litany and the Council."

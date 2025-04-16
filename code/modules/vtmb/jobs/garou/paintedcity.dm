@@ -12,6 +12,7 @@
 	spawn_positions = 3
 	supervisors = "The Litany and Yourself."
 
+	minimal_renownrank = 4
 	req_admin_notify = 1
 	minimal_player_age = 25
 	exp_requirements = 180
@@ -67,6 +68,7 @@
 	allowed_species = list("Werewolf")
 	allowed_tribes = list("Glasswalkers", "Bone Gnawers", "Children of Gaia")
 
+	minimal_renownrank = 3
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Litany and the Council."
@@ -130,6 +132,7 @@
 	spawn_positions = 1
 	supervisors = "The Litany and the Council."
 
+	minimal_renownrank = 2
 	req_admin_notify = 1
 	minimal_player_age = 25
 	exp_requirements = 100
@@ -188,6 +191,7 @@
 	spawn_positions = 1
 	supervisors = "The Litany and the Council."
 
+	minimal_renownrank = 3
 	req_admin_notify = 1
 	minimal_player_age = 25
 	exp_requirements = 100

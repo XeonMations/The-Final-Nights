@@ -92,7 +92,7 @@
 				zalupa = hartwardens[i]
 			if("Glasswalkers")
 				zalupa = glasswalker[i]
-			if("Bone Gnawer")
+			if("Bone Gnawers")
 				zalupa = bonegnawer[i]
 			if("Children of Gaia")
 				zalupa = childrenofgaia[i]

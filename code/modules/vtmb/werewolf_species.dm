@@ -64,7 +64,7 @@
 		dat += "<b>Cruelty</b>: [host.blood] + [host.additional_blood]<BR>"
 		dat += "<b>Lockpicking</b>: [host.lockpicking] + [host.additional_lockpicking]<BR>"
 		dat += "<b>Athletics</b>: [host.athletics] + [host.additional_athletics]<BR><BR>"
-		dat += "<b>Gnosis</b>: [host.gnosis]<BR>"
+		dat += "<b>Gnosis</b>: [host.auspice.gnosis]<BR>"
 		dat += "<b>Rank</b>: [RankName(host.renownrank)]<BR>"
 		dat += "<b>Honor</b>: [host.honor]<BR>"
 		dat += "<b>Glory</b>: [host.glory]<BR>"
