@@ -272,7 +272,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	info_known = INFO_KNOWN_UNKNOWN
 	masquerade = initial(masquerade)
 	generation = initial(generation)
-	renownrank = initial(renownrank)
 	dharma_level = initial(dharma_level)
 	hun = initial(hun)
 	po = initial(po)
@@ -588,6 +587,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "<b>Yin/Yang</b>: [yin]/[yang] <a href='byond://?_src_=prefs;preference=chibalance;task=input'>Adjust</a><BR>"
 					dat += "<b>Hun/P'o</b>: [hun]/[po] <a href='byond://?_src_=prefs;preference=demonbalance;task=input'>Adjust</a><BR>"
 				if("Werewolf")
+					if(!glory)
+						glory = 0
+					if(!honor)
+						honor = 0
+					if(!wisdom)
+						wisdom = 0
+					if(!renownrank)
+						renownrank = 0
 					var/gloryXP = max(5, glory * 10)
 					var/honorXP = max(5, honor * 10)
 					var/wisdomXP =  max(5, wisdom * 10)
@@ -3468,7 +3475,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				character.max_yin_chi = 1 + auspice_level
 				character.yang_chi = 5 + auspice_level
 				character.max_yang_chi = 5 + auspice_level
-			if("Black Spiral Dancers")
+			if("Black Spiral Dancers","Ghost Council")
 				character.yin_chi = 1 + auspice_level * 2
 				character.max_yin_chi = 1 + auspice_level * 2
 				character.yang_chi = 5
