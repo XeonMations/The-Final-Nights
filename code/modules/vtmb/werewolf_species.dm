@@ -56,6 +56,19 @@
 			for(var/datum/antagonist/A in host.mind.antag_datums)
 				if(A.objectives)
 					dat += "[printobjectives(A.objectives)]<BR>"
+		var/masquerade_level = " have followed the rules tonight."
+		switch(host.masquerade)
+			if(4)
+				masquerade_level = " have made a faux pas tonight."
+			if(3)
+				masquerade_level = " have made a few issues tonight."
+			if(2)
+				masquerade_level = " have erred tonight."
+			if(1)
+				masquerade_level = " have acted foolishly and caused an uproar."
+			if(0)
+				masquerade_level = " should beg our totem for forgiveness."
+		dat += "My sect thinks I[masquerade_level]<BR>"
 
 		dat += "<b>Physique</b>: [host.physique] + [host.additional_physique]<BR>"
 		dat += "<b>Dexterity</b>: [host.dexterity] + [host.additional_dexterity]<BR>"
