@@ -161,7 +161,7 @@ Dancer
 
 /datum/quirk/unbondable
 	name = "Unbondable"
-	desc = "The vitae of Caine might be addictive, but you don't find."
+	desc = "The vitae of Caine might be addictive, but you don't find any such tie to the origin."
 	mob_trait = TRAIT_UNBONDABLE
 	value = 4
 	gain_text = "<span class='warning'>You feel free of fetters.</span>"
