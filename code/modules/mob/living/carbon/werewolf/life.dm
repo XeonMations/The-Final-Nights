@@ -61,26 +61,26 @@
 
 			if(istype(get_area(src), /area/vtm/interior/penumbra))
 				if((last_veil_restore + 5000 SECONDS) < world.time)
-					adjust_veil(1, 3, -1)
+					adjust_veil(1, 4, -1)
 					last_veil_restore = world.time
 
 			switch(auspice.tribe)
 				if("Galestalkers","Ghost Council","Hart Wardens")
 					if(istype(get_area(src), /area/vtm/forest))
-						if((last_veil_restore + 8000 SECONDS) <= world.time && src.masquerade < 5 && src.masquerade > 2)
-							adjust_veil(1, 2, -1)
+						if((last_veil_restore + 8000 SECONDS) <= world.time && src.masquerade < 5)
+							adjust_veil(1, 3, -1)
 							last_veil_restore = world.time
 
 				if("Glasswalkers","Bone Gnawers","Children of Gaia")
 					if(istype(get_area(src), /area/vtm/interior/glasswalker))
-						if((last_veil_restore + 8000 SECONDS) <= world.time && src.masquerade < 5 && src.masquerade > 2)
-							adjust_veil(1, 2, -1)
+						if((last_veil_restore + 8000 SECONDS) <= world.time && src.masquerade < 5)
+							adjust_veil(1, 3, -1)
 							last_veil_restore = world.time
 
 				if("Black Spiral Dancers")
-					if(istype(get_area(src), /area/vtm/interior/endron_facility) && src.masquerade < 5 && src.masquerade > 2)
+					if(istype(get_area(src), /area/vtm/interior/endron_facility) && src.masquerade < 5)
 						if((last_veil_restore + 8000 SECONDS) <= world.time)
-							adjust_veil(1, 2, -1)
+							adjust_veil(1, 3, -1)
 							last_veil_restore = world.time
 
 /mob/living/carbon/werewolf/crinos/Life()

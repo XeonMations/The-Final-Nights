@@ -231,7 +231,7 @@
 /datum/action/gift/guise_of_the_hound/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
-		if(HAS_TRAIT(owner,TRAIT_DOGWOLF))
+		if(!HAS_TRAIT(owner,TRAIT_DOGWOLF))
 			ADD_TRAIT(owner, TRAIT_DOGWOLF, src)
 			to_chat(owner, "<span class='notice'>You feel your canid nature softening!</span>")
 		else

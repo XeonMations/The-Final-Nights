@@ -76,7 +76,7 @@
 					. += "<b>You know [p_them()] as a fostern of the [auspice.tribe].</b>"
 					isknown = 1
 			if(3,4,5,6)
-				. += "<b>You know [p_them()] as an [RankName()] [auspice.name] of the [auspice.tribe].</b>"
+				. += "<b>You know [p_them()] as an [RankName(src.renownrank)] [auspice.name] of the [auspice.tribe].</b>"
 				isknown = 1
 		if(isknown)
 			switch(honor)
