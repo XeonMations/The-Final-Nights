@@ -115,16 +115,6 @@
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	SEND_SIGNAL(src, COMSIG_LIVING_STOPPED_LEANING)
 
-
-/// You fall on your face if you get teleported while leaning
-/mob/living/proc/teleport_away_while_leaning(datum/source)
-	SIGNAL_HANDLER
-	// Make sure we unregister signal handlers and reset animation
-	stop_leaning()
-	// -1000 aura
-	visible_message(span_notice("[src] falls flat on [p_their()] face from losing [p_their()] balance!"), span_warning("You fall suddenly as the object you were leaning on vanishes from contact with you!"))
-	Knockdown(3 SECONDS)
-
 /mob/living/proc/fall_into(datum/source, atom/moved, direction)
 	SIGNAL_HANDLER
 
