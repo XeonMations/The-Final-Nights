@@ -280,10 +280,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	yang = initial(yang)
 	chi_types = list()
 	chi_levels = list()
-	renownrank = initial(renownrank)
-	honor = initial(honor)
-	glory = initial(glory)
-	wisdom = initial(wisdom)
+	renownrank = 0
+	honor = 0
+	glory = 0
+	wisdom = 0
 	archetype = pick(subtypesof(/datum/archetype))
 	var/datum/archetype/A = new archetype()
 	physique = A.start_physique

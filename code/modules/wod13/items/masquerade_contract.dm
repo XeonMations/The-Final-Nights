@@ -24,13 +24,18 @@
 		to_chat(user, "No available Masquerade breakers in city...")
 
 
-/obj/item/masquerade_contract/werewolf
+/obj/item/veil_contract
 	name = "\improper brass pocketwatch"
 	desc = "The hands do not tell the time, but a spirit's blessing on this fetish points you to dangers to the veil. <b>CLICK ON the clock to see possible breakers for catching. Shame or execute the offender for crimes against the nation.</b>"
 	icon = 'icons/obj/items_and_weapons.dmi'
+	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "pocketwatch"
+	item_flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_SMALL
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/masquerade_contract/werewolf/attack_self(mob/user)
+/obj/item/veil_contract/attack_self(mob/user)
 	. = ..()
 	if(length(GLOB.masquerade_breakers_list))
 		var/turf/UT = get_turf(user)
