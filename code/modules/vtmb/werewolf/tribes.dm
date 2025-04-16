@@ -346,6 +346,7 @@
 /datum/action/gift/banish_totem/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
+		var/valid_tribe = FALSE
 		var/list/targets = list()
 		for(var/mob/living/carbon/werewolf/wtarget in orange(7,owner))
 			targets += wtarget
@@ -353,7 +354,9 @@
 			targets += htarget
 		var/mob/living/carbon/target = tgui_input_list(owner, "Select a target", "Banish Totem", sortList(targets))
 		if(target && (iswerewolf(target) || isgarou(target)))
-			if(target.auspice.gnosis > 0)
+			valid_tribe = target.auspice.tribe
+		for(var/mob/living/carbon/targetted in targets)
+			if(targetted && targetted.auspice.tribe == valid_tribe)
 				target.auspice.gnosis = 0
 				to_chat(target, "<span class='userdanger'>You feel your tie to your totem snap, gnosis leaving you...!</span>")
 				to_chat(owner, "<span class='userdanger'>You feel [target.name]'s gnostic ties fray...!</span>")
