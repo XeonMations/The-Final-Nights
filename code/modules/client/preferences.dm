@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/archetype = /datum/archetype/average
 
 	var/breed = "Homid"
-	var/tribe = "Wendigo"
+	var/tribe = "Galestalkers"
 	var/datum/auspice/auspice = new /datum/auspice/ahroun()
 	var/werewolf_color = "black"
 	var/werewolf_scar = 0
@@ -666,12 +666,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					switch (tribe)
 						if ("Glasswalkers")
 							zalupa = auspice.glasswalker[i]
-						if ("Wendigo")
-							zalupa = auspice.wendigo[i]
+						if ("Galestalkers")
+							zalupa = auspice.galestalkers[i]
 						if ("Black Spiral Dancers")
 							zalupa = auspice.spiral[i]
 						if ("Ronin")
-							zalupa = null // will change this
+							zalupa = auspice.ronin[i]
 					var/datum/action/T = new zalupa()
 					gifts_text += "[T.name], "
 				for(var/i in auspice.gifts)
@@ -1752,6 +1752,22 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(species_restricted)
 						lock_reason = "[pref_species.name] restricted."
 						quirk_conflict = TRUE
+				if(length(Q.allowed_clans) && "Kindred" == pref_species.name)
+					var/clan_restricted = TRUE
+					for(var/i in Q.allowed_clans)
+						if(i == clane.name)
+							clan_restricted = FALSE
+					if(clan_restricted)
+						lock_reason = "[clane.name] restricted."
+						quirk_conflict = TRUE
+				if(length(Q.allowed_tribes) && "Werewolf" == pref_species.name)
+					var/tribe_restricted = TRUE
+					for(var/i in Q.allowed_tribes)
+						if(i == tribe)
+							tribe_restricted = FALSE
+					if(tribe_restricted)
+						lock_reason = "[tribe] restricted."
+						quirk_conflict = TRUE
 				qdel(Q)
 
 			if(quirk_conflict && lock_reason != "Mood is disabled.")
@@ -2436,7 +2452,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(slotlocked || !(pref_species.id == "garou"))
 						return
 
-					var/new_tribe = tgui_input_list(user, "Choose your Tribe:", "Tribe", sortList(list("Wendigo", "Glasswalkers", "Black Spiral Dancers")))
+					var/new_tribe = tgui_input_list(user, "Choose your Tribe:", "Tribe", sortList(list("Galestalkers","Ghost Council","Hart Wardens", "Children of Gaia","Glasswalkers","Bone Gnawers","Ronin","Black Spiral Dancers")))
 					if (new_tribe)
 						tribe = new_tribe
 
@@ -3402,7 +3418,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.maxHealth = round((initial(character.maxHealth)+(initial(character.maxHealth)/4)*(character.physique + character.additional_physique)))
 		character.health = character.maxHealth
 		switch(tribe)
-			if("Wendigo","Galestalkers","Children of Gaia","Ghost Council","Hart Wardens")
+			if("Galestalkers","Children of Gaia","Ghost Council","Hart Wardens")
 				character.yin_chi = 1
 				character.max_yin_chi = 1
 				character.yang_chi = 5 + (auspice_level * 2)

@@ -510,6 +510,18 @@
 			L.toggle_resting()
 	return ..()
 
+/obj/item/melee/touch_attack/werewolf/gift_of_the_termite
+	name = "\improper gift of the termite"
+	desc = "REJECT ALL BOUNDARIES."
+
+/obj/item/melee/touch_attack/werewolf/gift_of_the_termite/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!proximity)
+		return
+	if(istype(target,/turf/closed/wall))
+		var/turf/closed/wall/twall = target
+		twall.dismantle_wall(1,0)
+	return ..()
+
 /obj/item/melee/vampirearms/knife/gangrel/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)

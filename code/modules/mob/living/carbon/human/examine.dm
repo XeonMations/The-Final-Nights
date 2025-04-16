@@ -62,7 +62,44 @@
 			if(INFO_KNOWN_CLAN_ONLY)
 				if(same_clan)
 					. += "<b>You know [p_them()] as a [job]. You are of the same bloodline.</b>"
-
+	if((isgarou(user) || iswerewolf(user)) && isgarou(src) && is_face_visible())
+		var/isknown = 0
+		var/mob/living/carbon/human/werewolf = user
+		var/same_tribe = werewolf.auspice?.tribe == auspice?.tribe
+		switch(renownrank)
+			if(1)
+				if(same_tribe)
+					. += "<b>You know [p_them()] as a cliath of the [auspice.tribe].</b>"
+					isknown = 1
+			if(2)
+				if(same_tribe)
+					. += "<b>You know [p_them()] as a fostern of the [auspice.tribe].</b>"
+					isknown = 1
+			if(3,4,5,6)
+				. += "<b>You know [p_them()] as an [RankName()] [auspice.name] of the [auspice.tribe].</b>"
+				isknown = 1
+		if(isknown)
+			switch(honor)
+				if(4,5,6)
+					. += "<i>In the local Garou, you have heard of [t_his] claim to good conduct.</i>"
+				if(7,8,9)
+					. += "<i>In the local Garou, you have heard of [t_his] claim to honor.</i>"
+				if(10)
+					. += "<i>In the local Garou, you have heard of [t_his] claim to chivalry.</i>"
+			switch(wisdom)
+				if(4,5,6)
+					. += "<i>In the local Garou, you have heard of [t_his] claim to insight.</i>"
+				if(7,8,9)
+					. += "<i>In the local Garou, you have heard of [t_his] claim to wisdom.</i>"
+				if(10)
+					. += "<i>In the local Garou, you have heard of [t_his] claim to sagacity.</i>"
+			switch(glory)
+				if(4,5,6)
+					. += "<i>In the local Garou, you have heard of [t_his] claim to bravery.</i>"
+				if(7,8,9)
+					. += "<i>In the local Garou, you have heard of [t_his] claim to valor.</i>"
+				if(10)
+					. += "<i>In the local Garou, you have heard of [t_his] claim to glory.</i>"
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING) && !(w_uniform.item_flags & EXAMINE_SKIP))
 		//accessory
@@ -484,6 +521,16 @@
 						weaver_taint++
 					if ("Black Spiral Dancers")
 						wyrm_taint = VERY_TAINTED
+				if(HAS_TRAIT(wolf,TRAIT_WYRMTAINTED))
+					wyrm_taint++
+					wyld_taint--
+					weaver_taint--
+				if(istype(wolf,/mob/living/carbon/werewolf))
+					var/mob/living/carbon/werewolf/werewolf = src
+					if(werewolf.wyrm_tainted)
+						wyrm_taint++
+						wyld_taint--
+						weaver_taint--
 			if(!seems_alive)
 				msg += "<span class='purple'><i>You recognize their scent as cold and lifeless.</i></span><br>"
 			if(HAS_TRAIT(user, TRAIT_SCENTTRUEFORM))

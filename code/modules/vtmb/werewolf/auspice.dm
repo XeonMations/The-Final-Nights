@@ -7,11 +7,23 @@
 	var/start_gnosis = 1
 	var/gnosis = 1
 	var/base_breed = "Homid"
-	var/tribe = "Wendigo"
+	var/tribe = "Galestalkers"
 	var/list/gifts = list()
 	var/force_abomination = FALSE
 
-	var/list/wendigo = list(
+	var/list/galestalkers = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
+	var/list/ghostcouncil = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
+	var/list/hartwardens = list(
 		/datum/action/gift/stoic_pose = 1,
 		/datum/action/gift/freezing_wind = 2,
 		/datum/action/gift/bloody_feast = 3
@@ -23,62 +35,71 @@
 		/datum/action/gift/elemental_improvement = 3
 	)
 
+	var/list/bonegnawer = list(
+		/datum/action/gift/guise_of_the_hound = 1,
+		/datum/action/gift/infest = 2,
+		/datum/action/gift/gift_of_the_termite = 3
+	)
+
+	var/list/childrenofgaia = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
 	var/list/spiral = list(
 		/datum/action/gift/stinky_fur = 1,
 		/datum/action/gift/venom_claws = 2,
 		/datum/action/gift/burning_scars = 3
 	)
 
+	var/list/ronin = list(
+		/datum/action/gift/guise_of_the_hound = 1,
+		/datum/action/gift/stoic_pose = 2,
+		/datum/action/gift/smooth_move = 3
+	)
+
 /datum/auspice/proc/on_gain(var/mob/living/carbon/C)
 	C.update_rage_hud()
-
-	var/mob/living/carbon/werewolf/lupus/lupus = C.transformator.lupus_form?.resolve()
-	var/mob/living/carbon/werewolf/crinos/crinos = C.transformator.crinos_form?.resolve()
-
-	lupus?.auspice = src
-	lupus?.dna = C.dna
-	crinos?.auspice = src
-	crinos?.dna = C.dna
-
-
+	C.transformator.lupus_form.auspice = src
+	C.transformator.lupus_form.dna = C.dna
+	C.transformator.crinos_form.auspice = src
+	C.transformator.crinos_form.dna = C.dna
 	rage = start_rage
 	if(length(gifts))
 		for(var/i in gifts)
 			var/datum/action/A1 = new i()
 			A1.Grant(C)
 			var/datum/action/A2 = new i()
-			A2.Grant(lupus)
+			A2.Grant(C.transformator.lupus_form)
 			var/datum/action/A3 = new i()
-			A3.Grant(crinos)
+			A3.Grant(C.transformator.crinos_form)
 
-	switch(tribe)
-		if("Glasswalkers")
-			for(var/i in 1 to level)
-				var/zalupa = glasswalker[i]
-				var/datum/action/A = new zalupa()
-				A.Grant(C)
-				var/datum/action/A1 = new zalupa()
-				A1.Grant(lupus)
-				var/datum/action/A2 = new zalupa()
-				A2.Grant(crinos)
-		if("Wendigo")
-			for(var/i in 1 to level)
-				var/zalupa = wendigo[i]
-				var/datum/action/A = new zalupa()
-				A.Grant(C)
-				var/datum/action/A1 = new zalupa()
-				A1.Grant(lupus)
-				var/datum/action/A2 = new zalupa()
-				A2.Grant(crinos)
-		if("Black Spiral Dancers")
-			for(var/i in 1 to level)
-				var/zalupa = spiral[i]
-				var/datum/action/A = new zalupa()
-				A.Grant(C)
-				var/datum/action/A1 = new zalupa()
-				A1.Grant(lupus)
-				var/datum/action/A2 = new zalupa()
-				A2.Grant(crinos)
+	for(var/i in 1 to level)
+		var/zalupa
+		switch(tribe)
+			if("Galestalkers")
+				zalupa = galestalkers[i]
+			if("Ghost Council")
+				zalupa = ghostcouncil[i]
+			if("Hart Wardens")
+				zalupa = hartwardens[i]
+			if("Glasswalkers")
+				zalupa = glasswalker[i]
+			if("Bone Gnawer")
+				zalupa = bonegnawer[i]
+			if("Children of Gaia")
+				zalupa = childrenofgaia[i]
+			if("Ronin")
+				zalupa = ronin[i]
+			if("Black Spiral Dancers")
+				zalupa = spiral[i]
+		var/datum/action/A = new zalupa()
+		A.Grant(C)
+		var/datum/action/A1 = new zalupa()
+		A1.Grant(C.transformator.lupus_form)
+		var/datum/action/A2 = new zalupa()
+		A2.Grant(C.transformator.crinos_form)
 
 /datum/auspice/ahroun
 	name = "Ahroun"

@@ -1,7 +1,7 @@
 /mob/living/carbon/werewolf/lupus
 	name = "wolf"
 	icon_state = "black"
-	icon = 'code/modules/wod13/werewolf_lupus.dmi'
+	icon = 'code/modules/wod13/tfn_lupus.dmi'
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/food/meat/slab = 5)
@@ -33,6 +33,10 @@
 
 /mob/living/carbon/werewolf/lupus/update_icons()
 	cut_overlays()
+	if(is_dog)
+		icon = 'code/modules/wod13/werewolf_lupus.dmi'
+	else
+		icon = 'code/modules/wod13/tfn_lupus.dmi'
 
 	var/laid_down = FALSE
 
