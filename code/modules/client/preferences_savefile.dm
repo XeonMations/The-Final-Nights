@@ -412,6 +412,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["humanity"], path_score)
 	READ_FILE(S["enlightement"], is_enlightened)
 	READ_FILE(S["true_experience"], true_experience)
+	READ_FILE(S["physique"], physique)
 	READ_FILE(S["dexterity"], dexterity)
 	READ_FILE(S["social"], social)
 	READ_FILE(S["mentality"], mentality)
@@ -639,7 +640,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	lover				= sanitize_integer(lover, 0, 1, initial(lover))
 	masquerade				= sanitize_integer(masquerade, 0, 5, initial(masquerade))
 	// TFN EDIT START: gen tweaks
-	generation				= sanitize_integer(generation, 8, 14, initial(generation))
+	generation				= sanitize_integer(generation, 7, 14, initial(generation))
 	generation_bonus				= sanitize_integer(generation_bonus, 0, 5, initial(generation_bonus))
 	// TFN EDIT END
 	hair_color			= sanitize_hexcolor(hair_color, 3, 0)
