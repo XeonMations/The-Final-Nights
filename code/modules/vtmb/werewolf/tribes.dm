@@ -357,6 +357,6 @@
 			valid_tribe = target.auspice.tribe
 		for(var/mob/living/carbon/targetted in targets)
 			if(targetted && targetted.auspice.tribe == valid_tribe)
-				target.auspice.gnosis = 0
-				to_chat(target, "<span class='userdanger'>You feel your tie to your totem snap, gnosis leaving you...!</span>")
-				to_chat(owner, "<span class='userdanger'>You feel [target.name]'s gnostic ties fray...!</span>")
+				targetted.auspice.gnosis = 0
+				to_chat(targetted, "<span class='userdanger'>You feel your tie to your totem snap, gnosis leaving you...!</span>")
+				to_chat(owner, "<span class='danger'>You feel [target.name]'s gnostic ties fray...!</span>")
