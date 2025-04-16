@@ -39,8 +39,6 @@
 	leaning_mob = leaner
 	if(!iscarbon(dropped) && !iscyborg(dropped)) //Are we not a cyborg or carbon?
 		return FALSE
-	if(!(usr == leaner)) //Are we trying to lean someone else?
-		return FALSE
 	if(leaner.incapacitated(ignore_restraints = TRUE) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
 		return FALSE
 	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING)) //Are we leaning already?
@@ -50,7 +48,9 @@
 	if(!is_currently_leanable) //Is the object currently able to be leaned on?
 		return FALSE
 
-	leaner.apply_status_effect(STATUS_EFFECT_LEANING, source, leaning_offset)
+	var/mob/living/forced_mob = ((usr != leaner) ? usr : null)
+
+	leaner.apply_status_effect(STATUS_EFFECT_LEANING, source, leaning_offset, forced_mob)
 	return TRUE
 
 /datum/component/leanable/proc/on_density_change()
@@ -65,8 +65,9 @@
  *
  * * atom/lean_target - the target the mob is trying to lean on
  * * leaning_offset - pixel offset to apply on the mob when leaning
+ * * forced_mob - the mob which is forcing us to lean (if applicable)
  */
-/mob/living/proc/start_leaning(atom/lean_target, leaning_offset)
+/mob/living/proc/start_leaning(atom/lean_target, leaning_offset, forced_mob)
 	var/new_x = lean_target.pixel_x + base_pixel_x + body_position_pixel_x_offset
 	var/new_y = lean_target.pixel_y + base_pixel_y + body_position_pixel_y_offset
 	switch(get_dir(src, lean_target))
@@ -80,8 +81,8 @@
 	animate(src, 0.2 SECONDS, pixel_x = new_x, pixel_y = new_y)
 	ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	visible_message(
-		span_notice("[src] leans against [lean_target]."),
-		span_notice("You lean against [lean_target]."),
+		span_notice(forced_mob ? "[forced_mob] forces [src] to lean against [lean_target]" : "[src] leans against [lean_target]."),
+		span_notice(forced_mob ? "[forced_mob] forces you to lean against [lean_target]" : "You lean against [lean_target]."),
 	)
 	leaned_object = lean_target
 	RegisterSignal(src, list(
