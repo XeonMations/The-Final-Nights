@@ -81,8 +81,8 @@
 	animate(src, 0.2 SECONDS, pixel_x = new_x, pixel_y = new_y)
 	ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	visible_message(
-		span_notice(forced_mob ? "[forced_mob] forces [src] to lean against [lean_target]" : "[src] leans against [lean_target]."),
-		span_notice(forced_mob ? "[forced_mob] forces you to lean against [lean_target]" : "You lean against [lean_target]."),
+		span_notice(forced_mob ? "[forced_mob] forces [src] to lean against [lean_target]." : "[src] leans against [lean_target]."),
+		span_notice(forced_mob ? "[forced_mob] forces you to lean against [lean_target]." : "You lean against [lean_target]."),
 	)
 	leaned_object = lean_target
 	RegisterSignal(src, list(
