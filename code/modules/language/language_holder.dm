@@ -305,6 +305,12 @@ Key procs
 	spoken_languages = list(/datum/language/english = list(LANGUAGE_ATOM),
 							/datum/language/russian = list(LANGUAGE_ATOM))
 
+/datum/language_holder/moth
+	understood_languages = list(/datum/language/english = list(LANGUAGE_ATOM),
+								/datum/language/corax = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/english = list(LANGUAGE_ATOM),
+							/datum/language/corax = list(LANGUAGE_ATOM))
+
 /datum/language_holder/skeleton
 	understood_languages = list(/datum/language/english = list(LANGUAGE_ATOM))
 	spoken_languages = list(/datum/language/english = list(LANGUAGE_ATOM))
