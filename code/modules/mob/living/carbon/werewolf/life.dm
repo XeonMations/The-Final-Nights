@@ -83,6 +83,19 @@
 							adjust_veil(1, 3, -1)
 							last_veil_restore = world.time
 
+/datum/species/garou/spec_life(mob/living/carbon/human/H)
+	. = ..()
+	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE))
+		if(H.CheckEyewitness(H, H, 7, FALSE))
+			H.adjust_veil(-1,random = -1)
+
+	if((H.last_bloodpool_restore + 60 SECONDS) <= world.time)
+		H.last_bloodpool_restore = world.time
+		H.bloodpool = min(H.maxbloodpool, H.bloodpool+1)
+	if(glabro)
+		if(H.CheckEyewitness(H, H, 3, FALSE))
+			H.adjust_veil(-1,random = -1)
+
 /mob/living/carbon/werewolf/crinos/Life()
 	. = ..()
 	if(CheckEyewitness(src, src, 5, FALSE))
@@ -132,7 +145,7 @@
 				if(masquerade+amount > threshold)
 					amount = threshold-masquerade
 				masquerade = min(5, masquerade+amount)
-		if(random != 0)
+		if(random < 0 || random > 0)
 			var/random_renown = pick("Honor","Wisdom","Glory")
 			switch(random_renown)
 				if("Honor")

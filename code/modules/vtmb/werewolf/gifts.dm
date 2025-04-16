@@ -86,6 +86,8 @@
 		var/mob/living/carbon/H = owner
 		playsound(get_turf(owner), 'code/modules/wod13/sounds/inspiration.ogg', 75, FALSE)
 		H.emote("scream")
+		if(H.CheckEyewitness(src, src, 7, FALSE))
+			H.adjust_veil(-1)
 		for(var/mob/living/carbon/C in range(5, owner))
 			if(C)
 				if(iswerewolf(C) || isgarou(C))
@@ -111,6 +113,8 @@
 			H.dna.species.punchdamagehigh = 20
 			H.agg_damage_plus = 5
 			to_chat(owner, "<span class='notice'>You feel your claws sharpening...</span>")
+			if(H.CheckEyewitness(H, H, 7, FALSE))
+				H.adjust_veil(-1)
 			spawn(150)
 				H.dna.species.attack_verb = initial(H.dna.species.attack_verb)
 				H.dna.species.attack_sound = initial(H.dna.species.attack_sound)

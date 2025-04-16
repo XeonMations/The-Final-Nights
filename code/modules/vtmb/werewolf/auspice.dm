@@ -18,9 +18,9 @@
 	)
 
 	var/list/ghostcouncil = list(
-		/datum/action/gift/stoic_pose = 1,
-		/datum/action/gift/freezing_wind = 2,
-		/datum/action/gift/bloody_feast = 3
+		/datum/action/gift/shroud = 1,
+		/datum/action/gift/coils_of_the_serpent = 2,
+		/datum/action/gift/banish_totem = 3
 	)
 
 	var/list/hartwardens = list(
@@ -42,6 +42,42 @@
 	)
 
 	var/list/childrenofgaia = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
+	var/list/getoffenris = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
+	var/list/blackfuries = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
+	var/list/silentstriders = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
+	var/list/shadowlords = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
+	var/list/redtalons = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
+	var/list/silverfangs = list(
 		/datum/action/gift/stoic_pose = 1,
 		/datum/action/gift/freezing_wind = 2,
 		/datum/action/gift/bloody_feast = 3
@@ -100,6 +136,18 @@
 				zalupa = ronin[i]
 			if("Black Spiral Dancers")
 				zalupa = spiral[i]
+			if("Get of Fenris")
+				zalupa = getoffenris[i]
+			if("Black Furies")
+				zalupa = blackfuries[i]
+			if("Silver Fangs")
+				zalupa = silverfangs[i]
+			if("Silent Striders")
+				zalupa = silentstriders[i]
+			if("Shadow Lords")
+				zalupa = shadowlords[i]
+			if("Red Talons")
+				zalupa = redtalons[i]
 		var/datum/action/A = new zalupa()
 		A.Grant(C)
 		var/datum/action/A1 = new zalupa()
