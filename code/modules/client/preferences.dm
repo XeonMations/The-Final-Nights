@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /proc/RankName(rank)
 	switch(rank)
 		if(0)
-			return "Unknown"
+			return "Cub"
 		if(1)
 			return "Cliath"
 		if(2)
@@ -678,6 +678,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							zalupa = auspice.glasswalker[i]
 						if ("Galestalkers")
 							zalupa = auspice.galestalkers[i]
+						if ("Bone Gnawers")
+							zalupa = auspice.bonegnawer[i]
+						if ("Ghost Council")
+							zalupa = auspice.ghostcouncil[i]
+						if ("Hart Wardens")
+							zalupa = auspice.hartwardens[i]
+						if ("Children of Gaia")
+							zalupa = auspice.childrenofgaia[i]
 						if ("Black Spiral Dancers")
 							zalupa = auspice.spiral[i]
 						if ("Ronin")

@@ -45,16 +45,8 @@
 			add_overlay(damage_overlay)
 
 	if(sprite_apparel)
-		switch(auspice.tribe)
-			if("Galestalkers")
-				var/mutable_appearance/clothing_overlay = mutable_appearance(icon, "galestalkers[sprite_apparel][laid_down ? "_rest" : ""]")
-				add_overlay(clothing_overlay)
-			if("Glasswalkers")
-				var/mutable_appearance/clothing_overlay = mutable_appearance(icon, "glasswalker[sprite_apparel][laid_down ? "_rest" : ""]")
-				add_overlay(clothing_overlay)
-			if("Black Spiral Dancers")
-				var/mutable_appearance/clothing_overlay = mutable_appearance(icon, "spiral[sprite_apparel][laid_down ? "_rest" : ""]")
-				add_overlay(clothing_overlay)
+		var/mutable_appearance/clothing_overlay = mutable_appearance(icon, "[auspice.tribe][sprite_apparel][laid_down ? "_rest" : ""]")
+		add_overlay(clothing_overlay)
 
 	if(sprite_hair)
 		var/mutable_appearance/hair_overlay = mutable_appearance(icon, "hair[sprite_hair][laid_down ? "_rest" : ""]")
