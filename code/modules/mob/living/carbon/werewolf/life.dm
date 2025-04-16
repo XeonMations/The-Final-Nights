@@ -60,26 +60,26 @@
 						rollfrenzy()
 
 			if(istype(get_area(src), /area/vtm/interior/penumbra))
-				if((last_veil_restore + 40 SECONDS) < world.time)
+				if((last_veil_restore + 5000 SECONDS) < world.time)
 					adjust_veil(1, src, TRUE)
 					last_veil_restore = world.time
 
 			switch(auspice.tribe)
-				if("Wendigo")
+				if("Galestalkers","Ghost Council","Hart Wardens")
 					if(istype(get_area(src), /area/vtm/forest))
-						if((last_veil_restore + 50 SECONDS) <= world.time)
+						if((last_veil_restore + 8000 SECONDS) <= world.time)
 							adjust_veil(1, src, TRUE)
 							last_veil_restore = world.time
 
-				if("Glasswalkers")
+				if("Glasswalkers","Bone Gnawers","Children of Gaia")
 					if(istype(get_area(src), /area/vtm/interior/glasswalker))
-						if((last_veil_restore + 50 SECONDS) <= world.time)
+						if((last_veil_restore + 8000 SECONDS) <= world.time)
 							adjust_veil(1, src, TRUE)
 							last_veil_restore = world.time
 
 				if("Black Spiral Dancers")
 					if(istype(get_area(src), /area/vtm/interior/endron_facility))
-						if((last_veil_restore + 50 SECONDS) <= world.time)
+						if((last_veil_restore + 8000 SECONDS) <= world.time)
 							adjust_veil(1, src, TRUE)
 							last_veil_restore = world.time
 

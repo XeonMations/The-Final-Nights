@@ -6,7 +6,7 @@
 	selection_color = "#69e430"
 	faction = "Vampire"
 	allowed_species = list("Werewolf")
-	allowed_tribes = list("Wendigo")
+	allowed_tribes = list("Galestalkers","Ghost Council","Hart Wardens")
 
 	total_positions = 3
 	spawn_positions = 3
@@ -65,7 +65,7 @@
 	selection_color = "#69e430"
 	faction = "Vampire"
 	allowed_species = list("Werewolf")
-	allowed_tribes = list("Wendigo")
+	allowed_tribes = list("Galestalkers","Ghost Council","Hart Wardens")
 
 	total_positions = 1
 	spawn_positions = 1
@@ -124,7 +124,7 @@
 	selection_color = "#69e430"
 	faction = "Vampire"
 	allowed_species = list("Werewolf")
-	allowed_tribes = list("Wendigo")
+	allowed_tribes = list("Galestalkers","Ghost Council","Hart Wardens")
 
 	total_positions = 1
 	spawn_positions = 1
@@ -183,7 +183,7 @@
 	selection_color = "#69e430"
 	faction = "Vampire"
 	allowed_species = list("Werewolf")
-	allowed_tribes = list("Wendigo")
+	allowed_tribes = list("Galestalkers","Ghost Council","Hart Wardens")
 
 	total_positions = 1
 	spawn_positions = 1
@@ -246,7 +246,7 @@
 	selection_color = "#69e430"
 	faction = "Vampire"
 	allowed_species = list("Werewolf")
-	allowed_tribes = list("Wendigo")
+	allowed_tribes = list("Galestalkers","Ghost Council","Hart Wardens")
 
 	total_positions = 5
 	spawn_positions = 5

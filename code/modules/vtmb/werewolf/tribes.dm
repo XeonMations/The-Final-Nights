@@ -34,7 +34,7 @@
 
 /datum/action/gift/freezing_wind
 	name = "Freezing Wind"
-	desc = "Garou of Wendigo Tribe can create a stream of cold, freezing wind, and strike her foes with it."
+	desc = "Garou of Galestalkers Tribe can create a stream of cold, freezing wind, and strike her foes with it."
 	button_icon_state = "freezing_wind"
 	rage_req = 1
 
@@ -223,30 +223,65 @@
 
 
 /datum/action/gift/guise_of_the_hound
-	name = "Infest"
-	desc = "Call forth the vermin in the area to serve you against your enemies."
-	button_icon_state = "infest"
+	name = "Guise of the Hound"
+	desc = "Wear the skin of the fleabitten dog to pass without concern."
+	button_icon_state = "guise_of_the_hound"
 	rage_req = 1
+
+/datum/action/gift/guise_of_the_hound/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		if(HAS_TRAIT(owner,TRAIT_DOGWOLF))
+			ADD_TRAIT(owner, TRAIT_DOGWOLF, src)
+			to_chat(owner, "<span class='notice'>You feel your canid nature softening!</span>")
+		else
+			REMOVE_TRAIT(owner, TRAIT_DOGWOLF, src)
+			to_chat(owner, "<span class='notice'>You feel your lupine nature intensifying!</span>")
 
 /datum/action/gift/infest
 	name = "Infest"
 	desc = "Call forth the vermin in the area to serve you against your enemies."
 	button_icon_state = "infest"
-	rage_req = 1
-	gnosis_req = 1
+	rage_req = 4
 
 /datum/action/gift/infest/Trigger()
 	. = ..()
 	if(allowed_to_proceed)
-		ADD_TRAIT(owner, TRAIT_THUNDERSHOT, src)
-		to_chat(owner, "<span class='notice'>You feel your fingers tingling with electricity...!</span>")
-		spawn(100)
-			REMOVE_TRAIT(owner, TRAIT_THUNDERSHOT, src)
-			to_chat(owner, "<span class='notice'>The buzz in your fingertips ebbs...</span>")
+		var/limit
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			limit = H.social + H.additional_social + H.more_companions
+			if(HAS_TRAIT(owner, TRAIT_ANIMAL_REPULSION))
+				limit = max(1,limit-2)
+			if(length(H.beastmaster) >= limit)
+				var/mob/living/simple_animal/hostile/beastmaster/beast = pick(H.beastmaster)
+				beast.death()
+			if(!length(H.beastmaster))
+				var/datum/action/beastmaster_stay/stay = new()
+				stay.Grant(H)
+				var/datum/action/beastmaster_deaggro/deaggro = new()
+				deaggro.Grant(H)
+
+			if(prob(50))
+				var/mob/living/simple_animal/hostile/beastmaster/rat/ratto = new(get_turf(H))
+				ratto.my_creator = H
+				H.beastmaster |= ratto
+				ratto.beastmaster = H
+			else
+				var/mob/living/simple_animal/hostile/beastmaster/cockroach/roach = new(get_turf(H))
+				roach.my_creator = H
+				H.beastmaster |= roach
+				roach.beastmaster = H
 
 /datum/action/gift/gift_of_the_termite
 	name = "Gift of the Termite"
-	desc = "Call forth the vermin in the area to serve you against your enemies."
+	desc = "Eat through structures. Obey no laws but the litany."
 	button_icon_state = "gift_of_the_termite"
-	rage_req = 1
-	gnosis_req = 1
+	rage_req = 3
+	gnosis_req = 2
+
+/datum/action/gift/gift_of_the_termite/Trigger()
+	. = ..()
+	if(allowed_to_proceed)
+		var/mob/living/carbon/H = owner
+		H.put_in_active_hand(new /obj/item/melee/touch_attack/werewolf/gift_of_the_termite(H))

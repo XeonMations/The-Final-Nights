@@ -108,6 +108,12 @@ INITIALIZE_IMMEDIATE(/obj/werewolf_holder/transformation)
 					lupus_form.masquerade = trans.masquerade
 					lupus_form.grant_language(/datum/language/primal_tongue, TRUE, TRUE)
 					lupus_form.nutrition = trans.nutrition
+					if(trans.auspice.tribe == "Black Spiral Dancers" || HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
+						lupus_form.wyrm_tainted = 1
+					if(HAS_TRAIT(trans, TRAIT_DOGWOLF))
+						lupus_form.is_dog = TRUE
+					else
+						lupus_form.is_dog = FALSE
 					lupus_form.mind = trans.mind
 					lupus_form.update_blood_hud()
 					transfer_damage(trans, lupus_form)
@@ -145,6 +151,8 @@ INITIALIZE_IMMEDIATE(/obj/werewolf_holder/transformation)
 					crinos_form.masquerade = trans.masquerade
 					crinos_form.grant_language(/datum/language/primal_tongue, TRUE, TRUE)
 					crinos_form.nutrition = trans.nutrition
+					if(trans.auspice.tribe == "Black Spiral Dancers" || HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
+						crinos_form.wyrm_tainted = 1
 					crinos_form.mind = trans.mind
 					crinos_form.update_blood_hud()
 					crinos_form.physique = crinos_form.physique+3
