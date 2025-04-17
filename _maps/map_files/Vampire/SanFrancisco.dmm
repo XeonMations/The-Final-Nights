@@ -5854,6 +5854,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
+/obj/effect/landmark/start/garou/painted/council,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "bBl" = (
@@ -12255,6 +12256,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/cog/caern)
 "dme" = (
@@ -20658,6 +20660,7 @@
 "fDt" = (
 /obj/structure/bed,
 /obj/item/bedsheet/random,
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "fDu" = (
@@ -34096,6 +34099,13 @@
 	},
 /turf/open/water,
 /area/vtm/forest)
+"jnW" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/landmark/start/garou/painted/keeper,
+/turf/open/floor/carpet,
+/area/vtm/interior/cog/caern)
 "job" = (
 /obj/structure/chair/sofa,
 /turf/open/floor/plating/rough,
@@ -38817,6 +38827,7 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/pantry)
 "kEk" = (
@@ -41334,6 +41345,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
+/obj/effect/landmark/start/garou/painted/warder,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "lnX" = (
@@ -41872,6 +41884,17 @@
 	},
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/park)
+"lwI" = (
+/obj/structure/table/wood,
+/obj/item/candle/infinite,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/forest)
 "lwK" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -44647,6 +44670,7 @@
 /area/vtm/anarch/basement)
 "mlE" = (
 /obj/structure/chair/wood,
+/obj/effect/landmark/start/garou/painted/council,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "mlK" = (
@@ -63731,6 +63755,9 @@
 "rlX" = (
 /obj/structure/table,
 /obj/item/paper_bin,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "rlY" = (
@@ -63876,7 +63903,7 @@
 /area/vtm/hotel)
 "ron" = (
 /obj/structure/curtain/cloth/fancy/mechanical{
-	id = banu
+	id = "banu"
 	},
 /turf/closed/wall/vampwall/painted/low/window/reinforced,
 /area/vtm/interior/banu/haven)
@@ -68326,6 +68353,8 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/pantry)
 "sux" = (
@@ -70381,6 +70410,12 @@
 /obj/item/toy/seashell,
 /turf/open/floor/plating/vampbeach,
 /area/vtm)
+"tbd" = (
+/obj/structure/table,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/turf/open/floor/carpet/green,
+/area/vtm/interior/wyrm_corrupted)
 "tbe" = (
 /obj/structure/table/wood,
 /turf/open/floor/carpet/black,
@@ -70886,6 +70921,13 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
+"thP" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/landmark/start/garou/painted/catcher,
+/turf/open/floor/carpet,
+/area/vtm/interior/cog/caern)
 "thT" = (
 /turf/open/floor/plating/asphalt,
 /area/vtm/pacificheights/old)
@@ -76218,7 +76260,7 @@
 /obj/item/paper_bin,
 /obj/item/pen/fountain,
 /obj/machinery/button/curtain{
-	id = banu;
+	id = "banu";
 	pixel_y = 12
 	},
 /turf/open/floor/plating/parquetry/old,
@@ -78947,7 +78989,7 @@
 /area/vtm/interior/banu/haven)
 "vvx" = (
 /obj/structure/curtain/cloth/fancy/mechanical{
-	id = banu
+	id = "banu"
 	},
 /turf/closed/wall/vampwall/painted/low/window,
 /area/vtm/interior/banu/haven)
@@ -83134,6 +83176,7 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/pantry)
 "wDh" = (
@@ -84857,6 +84900,7 @@
 /area/vtm/interior/cog/caern)
 "xcs" = (
 /obj/structure/chair/wood,
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/cog/caern)
 "xcu" = (
@@ -88153,6 +88197,14 @@
 /obj/effect/decal/wallpaper/red,
 /turf/closed/wall/vampwall/bar,
 /area/vtm/anarch)
+"xWN" = (
+/obj/structure/table,
+/obj/item/restraints/handcuffs,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/turf/open/floor/plating/vampplating/mono,
+/area/vtm/interior/endron_facility/restricted)
 "xWP" = (
 /obj/effect/decal/bordur{
 	dir = 4
@@ -102021,7 +102073,7 @@ xKh
 tCT
 pTb
 bBf
-bBf
+jnW
 pTb
 vgY
 xKh
@@ -102791,7 +102843,7 @@ xQg
 qaF
 tCT
 pTb
-lnH
+thP
 lnH
 pTb
 tCT
@@ -133966,7 +134018,7 @@ nYS
 puz
 hIj
 uKo
-qfu
+tbd
 fHM
 qfu
 oMY
@@ -143774,7 +143826,7 @@ psI
 psI
 psI
 psI
-rkN
+xWN
 dQN
 nYS
 uZb
@@ -505815,7 +505867,7 @@ fpd
 xUY
 tWL
 jxl
-rPb
+lwI
 pQi
 nrc
 mIV
