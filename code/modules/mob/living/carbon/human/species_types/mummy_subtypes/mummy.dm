@@ -7,5 +7,9 @@
 
 /datum/species/human/mummy/on_species_gain(mob/living/carbon/human/C)
 	. = ..()
+	ADD_TRAIT(C, MUMMY_REVIVAL, SPECIES_TRAIT)
 
-	ADD_TRAIT(C, MUMMY_REVIVAL, SPECIES_MUMMY)
+
+/datum/species/human/mummy/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	REMOVE_TRAIT(C, MUMMY_REVIVAL, SPECIES_TRAIT)
