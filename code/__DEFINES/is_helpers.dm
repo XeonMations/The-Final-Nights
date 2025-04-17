@@ -84,6 +84,11 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscathayan(A) (is_species(A,/datum/species/kuei_jin))
 #define isghoul(A) (is_species(A,/datum/species/ghoul))
 #define isgarou(A) (is_species(A,/datum/species/garou))
+#define ismummy(A) (is_species(A,/datum/species/human/mummy))
+#define ischaskimallki(A) (is_species(A,/datum/species/human/mummy/chaskimallki))
+#define isintimallki(A) (is_species(A,/datum/species/human/mummy/intimallki))
+#define ispachamallki(A) (is_species(A,/datum/species/human/mummy/pachamallki))
+#define isuchumallki(A) (is_species(A,/datum/species/human/mummy/uchumallki))
 
 //more carbon mobs
 

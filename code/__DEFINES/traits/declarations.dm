@@ -315,3 +315,6 @@
 
 //Trait for when a kindred turns on obfuscate. Supposed to make them invisible to normal sight.area
 #define TRAIT_OBFUSCATED "trait_obfuscated"
+
+//Trait used for mobs that revive under special conditions, for example: mummies.area
+#define MUMMY_REVIVAL "mummy_revival"
