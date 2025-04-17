@@ -3,3 +3,7 @@
 	name = "Pachamallki"
 	id = "pachamallki"
 	selectable = TRUE
+
+/datum/discipline_power/mummy_revival/pachamallki
+	name = "pachamallki"
+	desc = "pachamallki"

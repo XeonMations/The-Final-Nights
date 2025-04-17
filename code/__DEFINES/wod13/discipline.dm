@@ -30,7 +30,7 @@
 //bitflags to check for certain conditions determining ability to actually cast a discipline
 //flags overlap, like DISC_CHECK_CAPABLE covers DISC_CHECK_CONSCIOUS and DISC_CHECK_TORPOR
 ///Caster must not be in Torpor
-#define DISC_CHECK_TORPORED (1<<0)
+#define DISC_CHECK_NOT_TORPORED (1<<0)
 ///Caster must be conscious
 #define DISC_CHECK_CONSCIOUS (1<<1)
 ///Caster must be capable of taking actions (not stunned)
@@ -45,6 +45,8 @@
 #define DISC_CHECK_SPEAK (1<<6)
 ///Caster must be able to see
 #define DISC_CHECK_SEE (1<<7)
+//Caster must be IN torpor.
+#define DISC_CHECK_TORPORED (1<<8)
 
 //power type defines, will be useful when it's made generic
 ///Power is a Discipline of the Vampire: The Masquerade game line

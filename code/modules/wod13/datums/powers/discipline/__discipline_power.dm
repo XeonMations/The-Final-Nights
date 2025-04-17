@@ -170,9 +170,14 @@
 		return FALSE
 
 	//status checks
-	if ((check_flags & DISC_CHECK_TORPORED) && HAS_TRAIT(owner, TRAIT_TORPOR))
+	if ((check_flags & DISC_CHECK_NOT_TORPORED) && HAS_TRAIT(owner, TRAIT_TORPOR))
 		if (alert)
 			to_chat(owner, span_warning("You cannot cast [src] while in Torpor!"))
+		return FALSE
+
+	if ((check_flags & DISC_CHECK_TORPORED) && !HAS_TRAIT(owner, TRAIT_TORPOR))
+		if (alert)
+			to_chat(owner, span_warning("You cannot cast [src] while not in Torpor!"))
 		return FALSE
 
 	if ((check_flags & DISC_CHECK_CONSCIOUS) && HAS_TRAIT(owner, TRAIT_KNOCKEDOUT))

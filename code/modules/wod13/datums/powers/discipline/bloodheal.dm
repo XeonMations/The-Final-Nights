@@ -15,7 +15,7 @@
 	activate_sound = 'code/modules/wod13/sounds/bloodhealing.ogg'
 
 	level = 1
-	check_flags = DISC_CHECK_TORPORED
+	check_flags = DISC_CHECK_NOT_TORPORED
 	vitae_cost = 1
 
 	violates_masquerade = FALSE
