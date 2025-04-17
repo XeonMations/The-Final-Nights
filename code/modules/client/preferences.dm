@@ -699,6 +699,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							zalupa = auspice.getoffenris[i]
 						if ("Shadow Lords")
 							zalupa = auspice.shadowlords[i]
+						if ("Stargazers")
+							zalupa = auspice.stargazers[i]
 						if ("Silent Striders")
 							zalupa = auspice.silentstriders[i]
 						if ("Black Furies")
@@ -2490,7 +2492,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(slotlocked || !(pref_species.id == "garou"))
 						return
 
-					var/new_tribe = tgui_input_list(user, "Choose your Tribe:", "Tribe", sortList(list("Galestalkers","Ghost Council","Hart Wardens", "Children of Gaia","Glasswalkers","Bone Gnawers","Ronin","Black Spiral Dancers","Get of Fenris","Black Furies","Silver Fangs","Silent Striders","Shadow Lords","Red Talons")))
+					var/new_tribe = tgui_input_list(user, "Choose your Tribe:", "Tribe", sortList(list("Galestalkers","Ghost Council","Hart Wardens", "Children of Gaia","Glasswalkers","Bone Gnawers","Ronin","Black Spiral Dancers","Get of Fenris","Black Furies","Silver Fangs","Silent Striders","Shadow Lords","Red Talons", "Stargazers")))
 					if (new_tribe)
 						tribe = new_tribe
 
