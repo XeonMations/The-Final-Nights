@@ -79,9 +79,14 @@
 		dat += "<b>Athletics</b>: [host.athletics] + [host.additional_athletics]<BR><BR>"
 		dat += "<b>Gnosis</b>: [host.auspice.gnosis]<BR>"
 		dat += "<b>Rank</b>: [RankName(host.renownrank)]<BR>"
-		dat += "<b>Honor</b>: [host.honor]<BR>"
-		dat += "<b>Glory</b>: [host.glory]<BR>"
-		dat += "<b>Wisdom</b>: [host.wisdom]<BR>"
+		if(host.auspice.tribe == "Black Spiral Dancers")
+			dat += "<b>Power</b>: [host.honor]<BR>"
+			dat += "<b>Infamy</b>: [host.glory]<BR>"
+			dat += "<b>Cunning</b>: [host.wisdom]<BR>"
+		else
+			dat += "<b>Honor</b>: [host.honor]<BR>"
+			dat += "<b>Glory</b>: [host.glory]<BR>"
+			dat += "<b>Wisdom</b>: [host.wisdom]<BR>"
 		if(host.Myself)
 			if(host.Myself.Friend)
 				if(host.Myself.Friend.owner)
