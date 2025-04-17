@@ -92,7 +92,8 @@
 	var/list/ronin = list(
 		/datum/action/gift/guise_of_the_hound = 1,
 		/datum/action/gift/stoic_pose = 2,
-		/datum/action/gift/smooth_move = 3
+		/datum/action/gift/smooth_move = 3,
+		/datum/action/gift/shroud = 4
 	)
 
 /datum/auspice/proc/on_gain(var/mob/living/carbon/C)
