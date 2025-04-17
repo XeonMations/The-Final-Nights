@@ -1288,23 +1288,6 @@
 /obj/structure/table/wood,
 /obj/item/vamp/keys/children_of_gaia,
 /obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
-/obj/item/vamp/keys/children_of_gaia,
 /turf/open/floor/plating/rough/cave,
 /area/vtm/interior/gnawer)
 "arL" = (
@@ -5871,6 +5854,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
+/obj/effect/landmark/start/garou/painted/council,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "bBl" = (
@@ -11802,7 +11786,7 @@
 /turf/closed/wall/vampwall/city,
 /area/vtm/cabaret/basement)
 "dfP" = (
-/obj/effect/decal/garou_glyph/wendigo,
+/obj/effect/decal/garou_glyph/galestalkers,
 /turf/open/floor/plating/vampdirt,
 /area/vtm/forest)
 "dfV" = (
@@ -12272,6 +12256,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/cog/caern)
 "dme" = (
@@ -13593,6 +13578,11 @@
 	},
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/pacificheights/community)
+"dFR" = (
+/obj/effect/decal/graffiti,
+/obj/structure/fire_barrel,
+/turf/open/floor/plating/rough/cave,
+/area/vtm/interior/gnawer)
 "dFZ" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -14859,9 +14849,11 @@
 /area/vtm/interior/strip/elysium)
 "dZB" = (
 /obj/structure/table/wood,
-/obj/item/vamp/keys/children_of_gaia,
-/turf/open/floor/plating/parquetry/old,
-/area/vtm/interior/cog/pantry)
+/obj/item/charcoal_stick,
+/obj/item/charcoal_stick,
+/obj/item/charcoal_stick,
+/turf/open/floor/plating/vampplating/mono,
+/area/vtm/interior/endron_facility)
 "dZF" = (
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
@@ -17155,15 +17147,16 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/setite)
 "eIs" = (
-/obj/effect/decal/bordur{
-	dir = 8
+/obj/machinery/light{
+	pixel_y = 32
 	},
-/obj/structure/vampfence/rich,
-/obj/effect/turf_decal/siding/white{
-	dir = 1
-	},
-/turf/open/floor/plating/sidewalk/rich,
-/area/vtm/financialdistrict)
+/obj/structure/closet/crate/freezer/fridge,
+/obj/item/drinkable_bloodpack,
+/obj/item/drinkable_bloodpack,
+/obj/item/drinkable_bloodpack,
+/obj/item/drinkable_bloodpack,
+/turf/open/floor/plating/parquetry,
+/area/vtm/interior/millennium_tower/f3)
 "eIv" = (
 /obj/structure/bricks,
 /turf/open/floor/plating/vampdirt,
@@ -18145,6 +18138,10 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/plating/rough,
 /area/vtm/sewer/nosferatu_town)
+"eWi" = (
+/obj/effect/decal/garou_glyph/galestalkers,
+/turf/open/floor/plating/vampgrass,
+/area/vtm/forest)
 "eWA" = (
 /obj/structure/chair/plastic{
 	dir = 8;
@@ -20663,6 +20660,7 @@
 "fDt" = (
 /obj/structure/bed,
 /obj/item/bedsheet/random,
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "fDu" = (
@@ -34101,6 +34099,13 @@
 	},
 /turf/open/water,
 /area/vtm/forest)
+"jnW" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/landmark/start/garou/painted/keeper,
+/turf/open/floor/carpet,
+/area/vtm/interior/cog/caern)
 "job" = (
 /obj/structure/chair/sofa,
 /turf/open/floor/plating/rough,
@@ -38822,6 +38827,7 @@
 /obj/structure/chair/sofa/corp/right{
 	dir = 1
 	},
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/pantry)
 "kEk" = (
@@ -41339,6 +41345,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
+/obj/effect/landmark/start/garou/painted/warder,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "lnX" = (
@@ -41877,6 +41884,17 @@
 	},
 /turf/open/floor/plating/sidewalk/rich,
 /area/vtm/park)
+"lwI" = (
+/obj/structure/table/wood,
+/obj/item/candle/infinite,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/turf/open/floor/plating/parquetry/old,
+/area/vtm/forest)
 "lwK" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -44652,6 +44670,7 @@
 /area/vtm/anarch/basement)
 "mlE" = (
 /obj/structure/chair/wood,
+/obj/effect/landmark/start/garou/painted/council,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "mlK" = (
@@ -56563,6 +56582,9 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/mortar,
 /obj/item/pestle,
+/obj/item/charcoal_stick,
+/obj/item/charcoal_stick,
+/obj/item/charcoal_stick,
 /turf/open/floor/plating/rough/cave,
 /area/vtm/forest)
 "puc" = (
@@ -63733,6 +63755,9 @@
 "rlX" = (
 /obj/structure/table,
 /obj/item/paper_bin,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "rlY" = (
@@ -63878,7 +63903,7 @@
 /area/vtm/hotel)
 "ron" = (
 /obj/structure/curtain/cloth/fancy/mechanical{
-	id = banu
+	id = "banu"
 	},
 /turf/closed/wall/vampwall/painted/low/window/reinforced,
 /area/vtm/interior/banu/haven)
@@ -68328,6 +68353,8 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/pantry)
 "sux" = (
@@ -68533,6 +68560,9 @@
 "sxD" = (
 /obj/structure/table,
 /obj/item/stack/medical/suture,
+/obj/item/charcoal_stick,
+/obj/item/charcoal_stick,
+/obj/item/charcoal_stick,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/caern)
 "sxJ" = (
@@ -70380,6 +70410,12 @@
 /obj/item/toy/seashell,
 /turf/open/floor/plating/vampbeach,
 /area/vtm)
+"tbd" = (
+/obj/structure/table,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/turf/open/floor/carpet/green,
+/area/vtm/interior/wyrm_corrupted)
 "tbe" = (
 /obj/structure/table/wood,
 /turf/open/floor/carpet/black,
@@ -70885,6 +70921,13 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
+"thP" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/landmark/start/garou/painted/catcher,
+/turf/open/floor/carpet,
+/area/vtm/interior/cog/caern)
 "thT" = (
 /turf/open/floor/plating/asphalt,
 /area/vtm/pacificheights/old)
@@ -71985,13 +72028,10 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/millennium_tower/ventrue)
 "txm" = (
-/obj/item/drinkable_bloodpack,
-/obj/item/drinkable_bloodpack,
-/obj/item/drinkable_bloodpack,
-/obj/structure/closet/crate/freezer/fridge,
-/obj/item/drinkable_bloodpack,
-/turf/open/floor/plating/parquetry,
-/area/vtm/interior/millennium_tower/f3)
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/turf/open/floor/plating/vampplating/mono,
+/area/vtm/interior/millennium_tower)
 "txn" = (
 /obj/weapon_showcase,
 /turf/open/floor/plating/parquetry/old,
@@ -76220,7 +76260,7 @@
 /obj/item/paper_bin,
 /obj/item/pen/fountain,
 /obj/machinery/button/curtain{
-	id = banu;
+	id = "banu";
 	pixel_y = 12
 	},
 /turf/open/floor/plating/parquetry/old,
@@ -78949,7 +78989,7 @@
 /area/vtm/interior/banu/haven)
 "vvx" = (
 /obj/structure/curtain/cloth/fancy/mechanical{
-	id = banu
+	id = "banu"
 	},
 /turf/closed/wall/vampwall/painted/low/window,
 /area/vtm/interior/banu/haven)
@@ -83136,6 +83176,7 @@
 /obj/structure/chair/sofa/corp/left{
 	dir = 1
 	},
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/carpet,
 /area/vtm/interior/cog/pantry)
 "wDh" = (
@@ -84859,6 +84900,7 @@
 /area/vtm/interior/cog/caern)
 "xcs" = (
 /obj/structure/chair/wood,
+/obj/effect/landmark/start/garou/painted/guardian,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/cog/caern)
 "xcu" = (
@@ -88155,6 +88197,14 @@
 /obj/effect/decal/wallpaper/red,
 /turf/closed/wall/vampwall/bar,
 /area/vtm/anarch)
+"xWN" = (
+/obj/structure/table,
+/obj/item/restraints/handcuffs,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/obj/item/veil_contract,
+/turf/open/floor/plating/vampplating/mono,
+/area/vtm/interior/endron_facility/restricted)
 "xWP" = (
 /obj/effect/decal/bordur{
 	dir = 4
@@ -95839,7 +95889,7 @@ wTq
 mIV
 mIV
 cLV
-oWH
+dFR
 arK
 jfC
 jfC
@@ -102023,7 +102073,7 @@ xKh
 tCT
 pTb
 bBf
-bBf
+jnW
 pTb
 vgY
 xKh
@@ -102793,7 +102843,7 @@ xQg
 qaF
 tCT
 pTb
-lnH
+thP
 lnH
 pTb
 tCT
@@ -133968,7 +134018,7 @@ nYS
 puz
 hIj
 uKo
-qfu
+tbd
 fHM
 qfu
 oMY
@@ -141699,7 +141749,7 @@ iZq
 wWN
 aEM
 aEM
-aEM
+dZB
 wWN
 tzz
 tzz
@@ -143776,7 +143826,7 @@ psI
 psI
 psI
 psI
-rkN
+xWN
 dQN
 nYS
 uZb
@@ -173481,7 +173531,7 @@ hVU
 hXm
 hXm
 oJk
-dZB
+wcC
 sZY
 vEB
 atu
@@ -189846,7 +189896,7 @@ guG
 ihd
 ydL
 beO
-beO
+txm
 rXD
 uvX
 msa
@@ -191901,7 +191951,7 @@ lld
 mAD
 rdU
 rdU
-eIs
+rdU
 rdU
 wCR
 rdU
@@ -315523,7 +315573,7 @@ spH
 mnf
 mnf
 pOu
-edg
+eIs
 bAK
 gTA
 rPD
@@ -315780,7 +315830,7 @@ oXo
 kno
 kno
 peh
-txm
+bAK
 bAK
 phy
 liV
@@ -488971,7 +489021,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 mIV
 jEJ
 jEJ
@@ -493333,7 +493383,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jvr
 oOl
 oOl
@@ -493590,7 +493640,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jvr
 jvr
 jvr
@@ -493847,13 +493897,13 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
 mIV
 jEJ
 qia
@@ -497161,7 +497211,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 oYz
 oYz
 jEJ
@@ -497418,7 +497468,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 jEJ
@@ -497675,7 +497725,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jlm
 qia
@@ -497932,7 +497982,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 tuz
 qia
@@ -498189,7 +498239,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 qia
@@ -498446,7 +498496,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 oYz
 jEJ
 jEJ
@@ -502813,7 +502863,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 nYS
 nYS
 nYS
@@ -503070,7 +503120,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 jgj
 jgj
@@ -503133,7 +503183,7 @@ jEJ
 nYS
 nYS
 nYS
-dhc
+mIV
 jEJ
 jEJ
 sDZ
@@ -503327,7 +503377,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 tWt
 tWt
@@ -503390,8 +503440,8 @@ jEJ
 nYS
 nYS
 nYS
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 jEJ
@@ -503584,7 +503634,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 aPR
 tWt
@@ -503648,11 +503698,11 @@ nYS
 nYS
 nYS
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -503841,7 +503891,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 tWt
 tWt
@@ -503909,8 +503959,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -504098,7 +504148,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 tWt
 tWt
@@ -504167,9 +504217,9 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+kfi
 jEJ
 jEJ
 sDZ
@@ -504355,7 +504405,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 ltY
 tWt
@@ -504425,9 +504475,9 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 jEJ
 jEJ
 jEJ
@@ -504480,7 +504530,7 @@ sDZ
 sDZ
 sDZ
 sDZ
-sDZ
+eWi
 qia
 qia
 nrc
@@ -504612,7 +504662,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 jgj
 jgj
@@ -504684,10 +504734,10 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
 jEJ
 sDZ
 sDZ
@@ -504869,7 +504919,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 kQA
 xhw
@@ -504944,7 +504994,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 jEJ
@@ -505012,7 +505062,7 @@ sDZ
 sDZ
 pte
 jEJ
-dhc
+mIV
 jEJ
 jEJ
 jEJ
@@ -505126,7 +505176,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 wHX
 oYy
@@ -505201,10 +505251,10 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
 jEJ
 sDZ
 sDZ
@@ -505269,10 +505319,10 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
 jEJ
 aPm
 qia
@@ -505281,7 +505331,7 @@ sDZ
 laE
 jEJ
 mIV
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -505383,7 +505433,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 eUZ
 pLC
@@ -505461,7 +505511,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 jEJ
@@ -505525,11 +505575,11 @@ sDZ
 sDZ
 jEJ
 jEJ
+mIV
+mIV
 dhc
 dhc
-dhc
-dhc
-dhc
+mIV
 jEJ
 jEJ
 jEJ
@@ -505537,7 +505587,7 @@ jEJ
 jEJ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -505574,15 +505624,15 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 ckk
@@ -505640,7 +505690,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 aUT
 hav
@@ -505718,9 +505768,9 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 jEJ
 jEJ
 jEJ
@@ -505781,20 +505831,20 @@ qia
 qia
 jEJ
 jEJ
+mIV
+mIV
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -505817,7 +505867,7 @@ fpd
 xUY
 tWL
 jxl
-rPb
+lwI
 pQi
 nrc
 mIV
@@ -505897,7 +505947,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 rRX
 ltY
@@ -505977,9 +506027,9 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 jEJ
 sDZ
 sDZ
@@ -506037,8 +506087,8 @@ qia
 qia
 jEJ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -506154,7 +506204,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 guD
 ltY
@@ -506236,7 +506286,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 sDZ
@@ -506293,8 +506343,8 @@ jEJ
 jEJ
 jEJ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -506411,7 +506461,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 qvU
 pLC
@@ -506493,8 +506543,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 jEJ
@@ -506535,7 +506585,7 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
+mIV
 jEJ
 jEJ
 laE
@@ -506545,12 +506595,12 @@ vKl
 laE
 jEJ
 jEJ
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -506668,7 +506718,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 tNr
 ltY
@@ -506751,9 +506801,9 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -506791,9 +506841,9 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 jEJ
 jEJ
 laE
@@ -506801,8 +506851,8 @@ laE
 laE
 laE
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -506925,7 +506975,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 ogV
 sbp
@@ -507010,8 +507060,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 sDZ
 sDZ
@@ -507047,18 +507097,18 @@ sDZ
 sDZ
 sDZ
 jEJ
+mIV
+mIV
 dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 jEJ
 jEJ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -507182,7 +507232,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jgj
 jgj
 jgj
@@ -507268,7 +507318,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -507304,18 +507354,18 @@ sDZ
 sDZ
 sDZ
 jEJ
+mIV
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -507439,7 +507489,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 nYS
 nYS
 nYS
@@ -507525,7 +507575,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -507561,6 +507611,7 @@ sDZ
 sDZ
 sDZ
 jEJ
+mIV
 dhc
 dhc
 dhc
@@ -507597,8 +507648,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
 mIV
 jEJ
 fdM
@@ -507782,7 +507832,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 sDZ
@@ -507818,7 +507868,7 @@ sDZ
 sNw
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -508039,8 +508089,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -508075,7 +508125,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -508297,8 +508347,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 sDZ
 sDZ
@@ -508332,6 +508382,7 @@ sDZ
 sDZ
 sDZ
 jEJ
+mIV
 dhc
 dhc
 dhc
@@ -508370,15 +508421,14 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -508555,7 +508605,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -508589,7 +508639,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -508812,7 +508862,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -508846,7 +508896,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -509069,7 +509119,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -509103,7 +509153,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -509326,7 +509376,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 sDZ
@@ -509360,8 +509410,8 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -509583,8 +509633,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 sDZ
 sDZ
@@ -509618,7 +509668,7 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -509841,7 +509891,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -509875,7 +509925,7 @@ sNw
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -510098,7 +510148,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -510132,7 +510182,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -510355,7 +510405,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -510389,7 +510439,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -510612,7 +510662,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 sDZ
@@ -510646,7 +510696,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -510869,8 +510919,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 sDZ
 sDZ
@@ -510903,7 +510953,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -511127,7 +511177,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -511160,7 +511210,7 @@ sNw
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -511384,7 +511434,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -511417,7 +511467,7 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -511641,7 +511691,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -511673,8 +511723,8 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -511898,7 +511948,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 sDZ
@@ -511930,7 +511980,7 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -512155,8 +512205,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 sDZ
 sDZ
@@ -512186,8 +512236,8 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -512413,7 +512463,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -512442,8 +512492,8 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -512632,6 +512682,15 @@ ckk
 ckk
 ckk
 ahs
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -512661,16 +512720,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -512699,8 +512749,8 @@ sDZ
 sNw
 sDZ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -512927,7 +512977,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -512957,7 +513007,7 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -513184,7 +513234,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -513214,7 +513264,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -513441,7 +513491,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -513471,8 +513521,8 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -513698,7 +513748,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -513729,7 +513779,7 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -513955,7 +514005,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -513986,7 +514036,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -514212,7 +514262,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -514243,7 +514293,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -514469,7 +514519,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -514500,7 +514550,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -514726,7 +514776,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 sDZ
@@ -514757,7 +514807,7 @@ sDZ
 jEJ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -514983,8 +515033,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -515012,9 +515062,9 @@ sNw
 sDZ
 sDZ
 jEJ
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -515241,8 +515291,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -515269,8 +515319,8 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -515499,8 +515549,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -515527,7 +515577,7 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -515757,8 +515807,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 sDZ
 sDZ
@@ -515784,9 +515834,9 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -516015,7 +516065,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -516043,8 +516093,8 @@ sNw
 jEJ
 jEJ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -516272,7 +516322,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 sDZ
 sDZ
@@ -516301,7 +516351,7 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -516529,7 +516579,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 sDZ
@@ -516558,7 +516608,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -516786,8 +516836,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -516815,7 +516865,7 @@ sDZ
 sDZ
 sDZ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -517044,8 +517094,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -517072,7 +517122,7 @@ jEJ
 jEJ
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -517302,8 +517352,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 sDZ
@@ -517326,10 +517376,10 @@ jEJ
 jEJ
 jEJ
 jEJ
-dhc
-dhc
-dhc
-dhc
+mIV
+gfq
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -517560,14 +517610,14 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 jEJ
 jEJ
 jEJ
-dhc
+mIV
 jEJ
 qia
 qia
@@ -517580,10 +517630,10 @@ sDZ
 sDZ
 jEJ
 jEJ
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -517818,13 +517868,13 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
 jEJ
 jEJ
 qia
@@ -517836,8 +517886,8 @@ jEJ
 jEJ
 jEJ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -518081,19 +518131,19 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 qia
 qia
 jEJ
 jEJ
 jEJ
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -518328,25 +518378,25 @@ dhc
 dhc
 dhc
 dhc
+mIV
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
 jEJ
 qia
 qia
 jEJ
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -518584,24 +518634,24 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 jEJ
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
 jEJ
 fVz
 qia
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -518841,7 +518891,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 fVz
@@ -518849,16 +518899,16 @@ jEJ
 jEJ
 jEJ
 jEJ
+mIV
+mIV
 dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 fVz
 qia
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -519098,7 +519148,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 gtm
 fVz
@@ -519107,15 +519157,15 @@ fVz
 fVz
 jEJ
 jEJ
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 jEJ
 jEJ
 qia
 qia
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -519355,7 +519405,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 fVz
 fVz
@@ -519364,7 +519414,7 @@ dCL
 fVz
 fVz
 jEJ
-dhc
+mIV
 jEJ
 jEJ
 jEJ
@@ -519372,7 +519422,7 @@ fVz
 qia
 fVz
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -519612,7 +519662,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 fVz
 fVz
@@ -519629,7 +519679,7 @@ fVz
 qia
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -519869,7 +519919,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 fVz
 bCg
@@ -519885,8 +519935,8 @@ fVz
 fVz
 fVz
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -520126,7 +520176,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 fVz
 fVz
@@ -520142,7 +520192,7 @@ fVz
 fVz
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -520383,7 +520433,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 fVz
 fVz
@@ -520398,8 +520448,8 @@ fVz
 jEJ
 jEJ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -520640,7 +520690,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 gtm
 fVz
@@ -520653,9 +520703,9 @@ fVz
 fVz
 jEJ
 jEJ
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -520897,7 +520947,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 fVz
 fVz
@@ -520909,8 +520959,8 @@ fVz
 fVz
 fVz
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -521154,7 +521204,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 fVz
 fVz
@@ -521166,7 +521216,7 @@ fVz
 fVz
 fVz
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -521411,7 +521461,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 fVz
 fVz
@@ -521423,7 +521473,7 @@ fVz
 bCg
 fVz
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -521668,7 +521718,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 fVz
@@ -521680,7 +521730,7 @@ fVz
 fVz
 fVz
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -521925,8 +521975,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 fVz
 gtm
@@ -521937,7 +521987,7 @@ gtm
 fVz
 fVz
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -522183,7 +522233,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 fVz
 fVz
@@ -522194,7 +522244,7 @@ bAb
 fVz
 fVz
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -522440,7 +522490,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 fVz
@@ -522451,7 +522501,7 @@ fVz
 fVz
 fVz
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -522697,8 +522747,8 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 fVz
 fVz
@@ -522708,7 +522758,7 @@ gtm
 fVz
 jEJ
 jEJ
-dhc
+mIV
 dhc
 dhc
 dhc
@@ -522955,7 +523005,7 @@ dhc
 dhc
 dhc
 dhc
-dhc
+mIV
 jEJ
 jEJ
 fVz
@@ -522964,8 +523014,8 @@ fVz
 fVz
 jEJ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -523212,16 +523262,16 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
+mIV
+mIV
 jEJ
 jEJ
 jEJ
 jEJ
 jEJ
 jEJ
-dhc
-dhc
+mIV
+mIV
 dhc
 dhc
 dhc
@@ -523470,14 +523520,14 @@ dhc
 dhc
 dhc
 dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
-dhc
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
+mIV
 dhc
 dhc
 dhc
