@@ -943,7 +943,7 @@
 		// Handle job slot/tater cleanup.
 		var/job = mob_occupant.mind.assigned_role
 		crew_member["job"] = job
-		SSjob.FreeRole(job)
+		SSjob.FreeRole(job, mob_occupant)
 		mob_occupant.mind.special_role = null
 	else
 		crew_member["job"] = "N/A"
