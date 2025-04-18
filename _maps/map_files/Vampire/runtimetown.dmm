@@ -1275,7 +1275,6 @@
 /obj/structure/window/reinforced/indestructable{
 	dir = 1
 	},
-/turf/closed/wall/vampwall/market/low,
 /area/vtm/interior/shop)
 "Po" = (
 /obj/item/paper_bin,

@@ -4059,10 +4059,6 @@
 /area/vtm/interior/tzimisce_manor)
 "bex" = (
 /obj/effect/decal/wallpaper/red/low,
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 1000000
-	},
 /obj/effect/decal/wallpaper/red/low,
 /turf/closed/wall/vampwall/rich/low/window,
 /area/vtm/jazzclub)
@@ -4734,10 +4730,6 @@
 "bnF" = (
 /obj/machinery/shower{
 	pixel_y = 7
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
-	max_integrity = 1000000
 	},
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/interior/tzimisce_manor)
@@ -7647,9 +7639,6 @@
 /area/vtm/interior/tzimisce_manor)
 "cfZ" = (
 /obj/structure/closet/crate/large{
-	pixel_y = 10
-	},
-/obj/structure/closet/crate/large{
 	pixel_x = 6;
 	pixel_y = 20
 	},
@@ -8418,10 +8407,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/vtm/jazzclub)
 "coY" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 1000000
-	},
 /turf/closed/wall/vampwall/rich/low/window,
 /area/vtm/interior/millennium_tower/ventrue)
 "cpj" = (
@@ -9547,7 +9532,6 @@
 	pixel_x = -3;
 	pixel_y = -5
 	},
-/obj/structure/closet/crate/large,
 /obj/structure/closet/crate/large{
 	pixel_y = 10
 	},
@@ -17646,10 +17630,6 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/bianchiBank)
 "eXF" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 4;
-	max_integrity = 1000000
-	},
 /turf/closed/wall/vampwall/junk/alt/low/window,
 /area/vtm/interior/setite)
 "eXM" = (
@@ -19619,9 +19599,6 @@
 /obj/vehicle/ridden/janicart/upgraded,
 /obj/effect/turf_decal/siding/white{
 	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/vjanitor)
@@ -21643,10 +21620,6 @@
 /area/vtm/interior/endron_facility/restricted)
 "gbb" = (
 /obj/effect/decal/wallpaper/red/low,
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 1000000
-	},
 /turf/closed/wall/vampwall/rich/low/window,
 /area/vtm/jazzclub)
 "gbm" = (
@@ -25536,7 +25509,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = 19;
 	max_integrity = 3500;
-	name = "reinforced shutters"
+	name = "Reinforced shutters"
 	},
 /turf/open/floor/plating/parquetry/rich,
 /area/vtm/interior/tzimisce_manor)
@@ -27640,10 +27613,6 @@
 /turf/open/floor/plating/roofwalk/cobblestones,
 /area/vtm/jazzclub)
 "hKx" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
-	max_integrity = 1000000
-	},
 /turf/closed/wall/vampwall/rich/low/window,
 /area/vtm/jazzclub)
 "hKy" = (
@@ -28878,10 +28847,6 @@
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/vjanitor)
 "ich" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 100000
-	},
 /turf/closed/wall/vampwall/city/low/window,
 /area/vtm/interior/laundromat)
 "icj" = (
@@ -35544,10 +35509,6 @@
 /turf/closed/wall/vampwall/rich/low/window,
 /area/vtm/jazzclub)
 "jYD" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
-	max_integrity = 1000000
-	},
 /obj/machinery/shower{
 	pixel_y = 7
 	},
@@ -43214,7 +43175,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = 19;
 	max_integrity = 3500;
-	name = "reinforced shutters"
+	name = "Reinforced shutters"
 	},
 /turf/open/floor/plating/parquetry/rich,
 /area/vtm/interior/tzimisce_manor)
@@ -50889,10 +50850,6 @@
 /turf/open/floor/carpet,
 /area/vtm/anarch)
 "oqb" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 1000000
-	},
 /obj/effect/decal/wallpaper/red/low,
 /turf/closed/wall/vampwall/rich/low/window,
 /area/vtm/jazzclub)
@@ -52392,10 +52349,6 @@
 /turf/open/floor/plating/vampcarpet,
 /area/vtm/interior/techshop)
 "oJL" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8;
-	max_integrity = 1000000
-	},
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/interior/tzimisce_manor)
 "oJZ" = (
@@ -53123,10 +53076,6 @@
 /area/vtm/interior/techshop)
 "oTm" = (
 /obj/structure/curtain/bounty,
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 1000000
-	},
 /obj/effect/decal/wallpaper/gold/low,
 /turf/closed/wall/vampwall/rich/low/window/reinforced,
 /area/vtm/interior/millennium_tower/ventrue)
@@ -73202,10 +73151,6 @@
 /area/vtm/interior/setite)
 "uvV" = (
 /obj/structure/curtain/bounty,
-/obj/structure/window/reinforced/tinted{
-	dir = 4;
-	max_integrity = 1000000
-	},
 /turf/closed/wall/vampwall/painted/low/window/reinforced,
 /area/vtm/interior/millennium_tower/ventrue)
 "uvX" = (
@@ -76100,7 +76045,6 @@
 /turf/open/floor/plating/vampcarpet,
 /area/vtm/interior/millennium_tower)
 "vnu" = (
-/turf/open/space/basic,
 /turf/closed/wall/vampwall/rich/old,
 /area/vtm/interior/cog/pantry)
 "vnJ" = (
@@ -78693,10 +78637,6 @@
 /turf/open/floor/carpet/lone,
 /area/vtm/interior/millennium_tower/ventrue)
 "vZw" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 100000
-	},
 /turf/closed/wall/vampwall/rich/low/window,
 /area/vtm/interior/millennium_tower)
 "vZB" = (
@@ -81131,7 +81071,7 @@
 /obj/machinery/door/poddoor/shutters/armory{
 	damage_deflection = 60;
 	max_integrity = 300;
-	name = "panic room shutters";
+	name = "Panic room shutters";
 	id = 12;
 	dir = 4
 	},
@@ -82412,10 +82352,6 @@
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
 "xdr" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 100000
-	},
 /obj/structure/barricade/wooden/crude,
 /obj/structure/barricade/wooden/crude,
 /obj/structure/barricade/wooden,
@@ -83326,10 +83262,6 @@
 /turf/closed/wall/vampwall/rich/low/window,
 /area/vtm/interior/millennium_tower/ventrue)
 "xqJ" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	max_integrity = 1000000
-	},
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/crude,
 /turf/closed/wall/vampwall/brick/low/window,
@@ -84309,10 +84241,6 @@
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/shop)
 "xFB" = (
-/obj/structure/closet/crate/large{
-	pixel_x = 6;
-	pixel_y = 10
-	},
 /obj/structure/closet/crate/large{
 	pixel_x = 6;
 	pixel_y = 10
