@@ -25509,7 +25509,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = 19;
 	max_integrity = 3500;
-	name = "Reinforced shutters"
+	name = "Reinforced shutter"
 	},
 /turf/open/floor/plating/parquetry/rich,
 /area/vtm/interior/tzimisce_manor)
@@ -43175,7 +43175,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = 19;
 	max_integrity = 3500;
-	name = "Reinforced shutters"
+	name = "Reinforced shutter"
 	},
 /turf/open/floor/plating/parquetry/rich,
 /area/vtm/interior/tzimisce_manor)
@@ -81071,7 +81071,7 @@
 /obj/machinery/door/poddoor/shutters/armory{
 	damage_deflection = 60;
 	max_integrity = 300;
-	name = "Panic room shutters";
+	name = "Panic room shutter";
 	id = 12;
 	dir = 4
 	},

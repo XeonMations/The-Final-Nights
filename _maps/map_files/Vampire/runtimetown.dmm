@@ -1272,9 +1272,7 @@
 "Pg" = (
 /obj/structure/table/reinforced,
 /obj/machinery/mineral/equipment_vendor/fastfood/america,
-/obj/structure/window/reinforced/indestructable{
-	dir = 1
-	},
+/obj/structure/window/reinforced/indestructable,
 /area/vtm/interior/shop)
 "Po" = (
 /obj/item/paper_bin,
