@@ -9434,10 +9434,7 @@
 /area/vtm)
 "cEd" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/suit/vampire/jacket/better{
-	armor = list("melee"=45,"bullet"=45,"laser"=10,"energy"=10,"bomb"=35,"bio"=0,"rad"=0,"fire"=45,"acid"=10,"wound"=35);
-	name = "armored leather jacket"
-	},
+/obj/item/clothing/suit/vampire/jacket/better/armored,
 /obj/item/ammo_box/vampire/c9mm/silver,
 /obj/item/ammo_box/vampire/c556/silver,
 /obj/item/ammo_box/vampire/c44/silver,
@@ -38854,11 +38851,7 @@
 "kWr" = (
 /obj/structure/dresser,
 /obj/item/instrument/violin/golden,
-/obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "armored trenchcoat"
-	},
+/obj/item/clothing/suit/vampire/trench/alt/armored,
 /turf/open/floor/carpet/orange,
 /area/vtm/interior/strip/toreador)
 "kWs" = (
@@ -73741,11 +73734,7 @@
 /obj/item/clothing/glasses/vampire/sun,
 /obj/item/clothing/shoes/vampire,
 /obj/item/clothing/shoes/vampire/heels,
-/obj/item/clothing/suit/vampire/trench/alt{
-	armor = list("melee"=50,"bullet"=50,"laser"=50,"energy"=10,"bomb"=40,"bio"=0,"rad"=0,"fire"=40,"acid"=10,"wound"=25);
-	max_integrity = 1000;
-	name = "armored trenchcoat"
-	},
+/obj/item/clothing/suit/vampire/trench/alt/armored,
 /obj/machinery/light/prince{
 	pixel_y = 32
 	},
