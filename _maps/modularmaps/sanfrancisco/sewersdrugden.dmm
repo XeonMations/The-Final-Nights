@@ -154,15 +154,6 @@
 /obj/machinery/light/small{
 	pixel_y = 18
 	},
-/obj/machinery/light/small{
-	pixel_y = 18
-	},
-/obj/machinery/light/small{
-	pixel_y = 18
-	},
-/obj/machinery/light/small{
-	pixel_y = 18
-	},
 /turf/open/floor/plating/rough,
 /area/vtm/sewer)
 "EZ" = (
@@ -171,15 +162,6 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /obj/structure/table,
-/obj/machinery/light/small{
-	pixel_y = 18
-	},
-/obj/machinery/light/small{
-	pixel_y = 18
-	},
-/obj/machinery/light/small{
-	pixel_y = 18
-	},
 /obj/machinery/light/small{
 	pixel_y = 18
 	},
