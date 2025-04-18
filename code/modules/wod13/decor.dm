@@ -960,9 +960,9 @@
 			qdel(general_record)
 
 	if(mob_occupant.bloodhunted)
-			SSbloodhunt.hunted -= mob_occupant
-			mob_occupant.bloodhunted = FALSE
-			SSbloodhunt.update_shit()
+		SSbloodhunt.hunted -= mob_occupant
+		mob_occupant.bloodhunted = FALSE
+		SSbloodhunt.update_shit()
 
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(TRUE))
