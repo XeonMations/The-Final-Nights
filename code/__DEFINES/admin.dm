@@ -6,6 +6,7 @@
 #define MUTE_PRAY		(1<<2)
 #define MUTE_ADMINHELP	(1<<3)
 #define MUTE_DEADCHAT	(1<<4)
+#define MUTE_INTERNET_REQUEST (1<<5)
 #define MUTE_ALL		(~0)
 
 //Some constants for DB_Ban
@@ -66,7 +67,14 @@
 #define AREACOORD(src) "[src ? src.Admin_Coordinates_Readable(TRUE) : "nonexistent location"]"
 #define ADMIN_COORDJMP(src) "[src ? src.Admin_Coordinates_Readable(FALSE, TRUE) : "nonexistent location"]"
 #define ADMIN_VERBOSEJMP(src) "[src ? src.Admin_Coordinates_Readable(TRUE, TRUE) : "nonexistent location"]"
-#define ADMIN_INDIVIDUALLOG(user) "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];individuallog=[REF(user)]'>LOGS</a>)"
+#define ADMIN_INDIVIDUALLOG(user) "(<a href='?_src_=holder;[HrefToken(forceGlobal = TRUE)];individuallog=[REF(user)]'>LOGS</a>)"
+#define ADMIN_TAG(datum) "(<A href='?src=[REF(src)];[HrefToken(forceGlobal = TRUE)];tag_datum=[REF(datum)]'>TAG</a>)"
+#define ADMIN_LUAVIEW(state) "(<a href='?_src_=holder;[HrefToken(forceGlobal = TRUE)];lua_state=[REF(state)]'>VIEW STATE</a>)"
+#define ADMIN_LUAVIEW_CHUNK(state, log_index) "(<a href='?_src_=holder;[HrefToken(forceGlobal = TRUE)];lua_state=[REF(state)];log_index=[log_index]'>VIEW CODE</a>)"
+/// Displays "(SHOW)" in the chat, when clicked it tries to show atom(paper). First you need to set the request_state variable to TRUE for the paper.
+#define ADMIN_SHOW_PAPER(atom) "(<A href='?_src_=holder;[HrefToken(forceGlobal = TRUE)];show_paper=[REF(atom)]'>SHOW</a>)"
+/// Displays "(PLAY)" in the chat, when clicked it tries to play internet sounds from the request.
+#define ADMIN_PLAY_INTERNET(text, credit) "(<A href='?_src_=holder;[HrefToken(forceGlobal = TRUE)];play_internet=[url_encode(text)];credit=[credit]'>PLAY</a>)"
 
 /atom/proc/Admin_Coordinates_Readable(area_name, admin_jump_ref)
 	var/turf/T = Safe_COORD_Location()
@@ -140,6 +148,22 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 //ie mafia, ctf
 #define GHOSTROLE_MINIGAME			(1<<4)
 
+//smite defines
+
+#define LIGHTNING_BOLT_DAMAGE 75
+#define LIGHTNING_BOLT_ELECTROCUTION_ANIMATION_LENGTH 40
+
+/// for [/proc/check_asay_links], if there are any actionable refs in the asay message, this index in the return list contains the new message text to be printed
+#define ASAY_LINK_NEW_MESSAGE_INDEX "!asay_new_message"
+/// for [/proc/check_asay_links], if there are any admin pings in the asay message, this index in the return list contains a list of admins to ping
+#define ASAY_LINK_PINGED_ADMINS_INDEX "!pinged_admins"
+
+/// When passed in as the duration for ban_panel, will make the ban default to permanent
+#define BAN_PANEL_PERMANENT "permanent"
+
+/// Used in logging uses of admin verbs (and sometimes some non-admin or debug verbs) to the blackbox
+/// Only pass it a string key, the verb being used.
+#define BLACKBOX_LOG_ADMIN_VERB(the_verb) SSblackbox.record_feedback("tally", "admin_verb", 1, the_verb)
 
 //Migrated from deadchat_control.dm due to use outside local. Admin powers belong in adminstuff defines
 #define DEMOCRACY_MODE "democracy"
@@ -152,4 +176,3 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 #define INTERVIEW_DENIED 	"interview_denied"
 /// State when an interview has had no action on it yet
 #define INTERVIEW_PENDING	"interview_pending"
-

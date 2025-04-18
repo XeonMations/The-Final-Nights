@@ -306,7 +306,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 		if(istype(I, /obj/item/paper))
 			X = I
 			itemname = X.name
-			info = X.info
+			info = X.default_raw_text
 		else
 			P = I
 			itemname = P.name

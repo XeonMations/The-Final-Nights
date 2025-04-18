@@ -301,3 +301,25 @@ rough example of the "cone" made by the 3 dirs checked
 ///A do nothing proc
 /proc/pass(...)
 	return
+///Returns the src and all recursive contents, but skipping going any deeper if an atom has a specific trait.
+/atom/proc/get_all_contents_skipping_traits(skipped_trait)
+	. = list(src)
+	if(!skipped_trait)
+		CRASH("get_all_contents_skipping_traits called without a skipped_trait")
+	var/i = 0
+	while(i < length(.))
+		var/atom/checked_atom = .[++i]
+		if(HAS_TRAIT(checked_atom, skipped_trait))
+			continue
+		. += checked_atom.contents
+
+///Returns a list of all locations (except the area) the movable is within.
+/proc/get_nested_locs(atom/movable/atom_on_location, include_turf = FALSE)
+	. = list()
+	var/atom/location = atom_on_location.loc
+	var/turf/our_turf = get_turf(atom_on_location)
+	while(location && location != our_turf)
+		. += location
+		location = location.loc
+	if(our_turf && include_turf) //At this point, only the turf is left, provided it exists.
+		. += our_turf

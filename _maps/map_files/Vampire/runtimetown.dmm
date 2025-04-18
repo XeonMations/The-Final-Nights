@@ -13,6 +13,10 @@
 /obj/item/gun/ballistic/automatic/vampire/m1911,
 /turf/open/floor/plating/rough,
 /area/vtm/pacificheights)
+"aO" = (
+/obj/machinery/fax/admin/camarilla,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "ba" = (
 /obj/machinery/mineral/equipment_vendor/fastfood/clothing,
 /obj/structure/table,
@@ -138,6 +142,10 @@
 /obj/machinery/mineral/equipment_vendor/fastfood/bubway,
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/shop)
+"em" = (
+/obj/machinery/fax/aasimites,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "en" = (
 /obj/item/vamp/keys/camarilla,
 /turf/open/floor/plating/asphalt,
@@ -552,6 +560,10 @@
 	},
 /turf/open/floor/plating/vampdirt,
 /area/vtm/supply)
+"ts" = (
+/obj/machinery/fax/endron,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "tu" = (
 /obj/vampire_car/track/volkswagen{
 	dir = 4;
@@ -736,10 +748,18 @@
 	},
 /turf/open/floor/plating/rough,
 /area/vtm/pacificheights)
+"AC" = (
+/obj/machinery/fax/admin/glasswalker,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "AE" = (
 /obj/structure/bookcase/random/adult,
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/shop)
+"AT" = (
+/obj/machinery/fax/admin/anarch,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "AX" = (
 /obj/structure/table/wood,
 /obj/item/vtm_artifact/weekapaug_thistle,
@@ -913,6 +933,10 @@
 	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/shop)
+"EX" = (
+/obj/machinery/fax/glasswalker,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "Fg" = (
 /turf/closed/wall/vampwall/brick,
 /area/vtm/interior/shop)
@@ -924,10 +948,13 @@
 /area/vtm/pacificheights)
 "FB" = (
 /obj/effect/decal/stock{
-	icon_state = "stock";
 	dir = 1
 	},
 /turf/open/floor/plating/asphalt,
+/area/vtm/pacificheights)
+"FD" = (
+/obj/machinery/fax/admin/police,
+/turf/open/floor/plating/vampbeach,
 /area/vtm/pacificheights)
 "FG" = (
 /obj/effect/decal/cardboard,
@@ -1006,7 +1033,7 @@
 /area/vtm/pacificheights)
 "Hg" = (
 /obj/item/paper{
-	info = "Error room!!"
+	default_raw_text = "Error room!!"
 	},
 /turf/open/floor/plating/rough/cave,
 /area/vtm/pacificheights)
@@ -1049,6 +1076,10 @@
 	},
 /turf/open/floor/plating/vampdirt/rails,
 /area/vtm/supply)
+"IX" = (
+/obj/machinery/fax/admin/aasimites,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "Jo" = (
 /obj/structure/closet/crate/freezer/blood,
 /obj/item/drinkable_bloodpack,
@@ -1062,6 +1093,10 @@
 "Jv" = (
 /obj/item/vtm_artifact/rand,
 /turf/open/floor/plating/parquetry/old,
+/area/vtm/pacificheights)
+"JE" = (
+/obj/machinery/fax/tremere,
+/turf/open/floor/plating/vampbeach,
 /area/vtm/pacificheights)
 "JG" = (
 /obj/structure/table,
@@ -1097,6 +1132,9 @@
 	icon_state = "trash7"
 	},
 /turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
+"Ln" = (
+/turf/open/floor/light,
 /area/vtm/pacificheights)
 "Lw" = (
 /obj/structure/table,
@@ -1219,6 +1257,10 @@
 	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/shop)
+"OX" = (
+/obj/machinery/fax/admin/endron,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "OZ" = (
 /obj/structure/table,
 /obj/item/ammo_box/magazine/vampaug,
@@ -1235,6 +1277,11 @@
 	},
 /turf/closed/wall/vampwall/market/low,
 /area/vtm/interior/shop)
+"Po" = (
+/obj/item/paper_bin,
+/obj/item/pen/fourcolor,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "Ps" = (
 /obj/structure/table/wood,
 /turf/open/floor/plating/parquetry/old,
@@ -1266,6 +1313,10 @@
 /obj/machinery/light{
 	pixel_y = 32
 	},
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
+"Rb" = (
+/obj/machinery/fax/police,
 /turf/open/floor/plating/vampbeach,
 /area/vtm/pacificheights)
 "Re" = (
@@ -1333,6 +1384,10 @@
 /obj/effect/gibspawner/human,
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/shop)
+"Tw" = (
+/obj/machinery/fax/anarch,
+/turf/open/floor/plating/vampbeach,
+/area/vtm/pacificheights)
 "TL" = (
 /obj/structure/table,
 /obj/item/ammo_box/magazine/m44,
@@ -1557,6 +1612,10 @@
 /obj/structure/table/wood,
 /obj/item/vtm_artifact/odious_chalice,
 /turf/open/floor/plating/parquetry/old,
+/area/vtm/pacificheights)
+"Zf" = (
+/obj/machinery/fax/camarilla,
+/turf/open/floor/plating/vampbeach,
 /area/vtm/pacificheights)
 "Zw" = (
 /obj/structure/table,
@@ -1971,9 +2030,9 @@ rW
 rW
 Fs
 NR
+IX
 NR
-NR
-NR
+em
 NR
 NR
 NR
@@ -2005,9 +2064,9 @@ VQ
 ik
 Fs
 NR
+AT
 NR
-NR
-NR
+Tw
 NR
 NR
 NR
@@ -2039,9 +2098,9 @@ VQ
 ik
 Fs
 NR
+aO
 NR
-NR
-NR
+Zf
 NR
 NR
 NR
@@ -2073,9 +2132,9 @@ VQ
 ik
 YL
 NR
-NR
-NR
-NR
+OX
+Ln
+ts
 NR
 NR
 NR
@@ -2107,9 +2166,9 @@ VQ
 ik
 Fs
 NR
+AC
 NR
-NR
-NR
+EX
 NR
 NR
 NR
@@ -2141,9 +2200,9 @@ VQ
 ik
 Fs
 NR
+FD
 NR
-NR
-NR
+Rb
 NR
 NR
 NR
@@ -2175,9 +2234,9 @@ VQ
 ik
 Fs
 NR
+Po
 NR
-NR
-NR
+JE
 NR
 NR
 NR
