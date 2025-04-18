@@ -936,7 +936,7 @@
 				matrixing = FALSE
 	return TRUE
 
-/obj/matrix/proc/cryoMob(mob/living/mob_occupant, obj/pod)
+/obj/matrix/proc/cryoMob(mob/living/mob_occupant)
 	var/list/crew_member = list()
 	crew_member["name"] = mob_occupant.real_name
 	if(mob_occupant.mind && mob_occupant.mind.assigned_role)
@@ -944,6 +944,7 @@
 		var/job = mob_occupant.mind.assigned_role
 		crew_member["job"] = job
 		SSjob.FreeRole(job)
+		mob_occupant.mind.special_role = null
 	else
 		crew_member["job"] = "N/A"
 
@@ -957,6 +958,11 @@
 	for(var/datum/data/record/general_record as anything in GLOB.data_core.general)
 		if(general_record.fields["name"] == mob_occupant.real_name)
 			qdel(general_record)
+
+	if(mob_occupant.bloodhunted)
+			SSbloodhunt.hunted -= mob_occupant
+			mob_occupant.bloodhunted = FALSE
+			SSbloodhunt.update_shit()
 
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(TRUE))
