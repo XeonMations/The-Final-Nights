@@ -43,29 +43,29 @@ GLOBAL_LIST_EMPTY(auspices_list)
 	for(var/spath in subtypesof(/datum/species))
 		var/datum/species/S = new spath()
 		GLOB.species_list[S.id] = spath
-	sortList(GLOB.species_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	sort_list(GLOB.species_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	for(var/spath in subtypesof(/datum/vampireclane))
 		var/datum/vampireclane/S = new spath()
 		GLOB.clanes_list[S.name] = spath
-	sortList(GLOB.clanes_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	sort_list(GLOB.clanes_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	for(var/spath in subtypesof(/datum/auspice))
 		var/datum/auspice/S = new spath()
 		GLOB.auspices_list[S.name] = spath
-	sortList(GLOB.auspices_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	sort_list(GLOB.auspices_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	// TFN EDIT ADDITION START: morality system
 	for(var/spath in subtypesof(/datum/morality))
 		var/datum/morality/S = new spath()
 		GLOB.morality_list[S.name] = spath
-	sortList(GLOB.morality_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	sort_list(GLOB.morality_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
 	// TFN EDIT END
 
 	//Surgeries
 	for(var/path in subtypesof(/datum/surgery))
 		GLOB.surgeries_list += new path()
-	sortList(GLOB.surgeries_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	sort_list(GLOB.surgeries_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	// Hair Gradients - Initialise all /datum/sprite_accessory/gradient into an list indexed by gradient-style name
 	for(var/path in subtypesof(/datum/sprite_accessory/gradient))
@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(auspices_list)
 /proc/init_crafting_recipes(list/crafting_recipes)
 	for(var/path in subtypesof(/datum/crafting_recipe))
 		var/datum/crafting_recipe/recipe = new path()
-		recipe.reqs = sortList(recipe.reqs, GLOBAL_PROC_REF(cmp_crafting_req_priority))
+		recipe.reqs = sort_list(recipe.reqs, GLOBAL_PROC_REF(cmp_crafting_req_priority))
 		crafting_recipes += recipe
 	return crafting_recipes
 
@@ -120,7 +120,6 @@ GLOBAL_LIST_EMPTY(auspices_list)
 GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 	/obj/item/radio/intercom,
 	/obj/item/storage/secure/safe,
-	/obj/machinery/bounty_board,
 	/obj/machinery/button,
 	/obj/machinery/computer/security/telescreen,
 	/obj/machinery/computer/security/telescreen/entertainment,
