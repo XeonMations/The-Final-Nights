@@ -7647,7 +7647,6 @@
 /area/vtm/interior/tzimisce_manor)
 "cfZ" = (
 /obj/structure/closet/crate/large{
-	 = .2;
 	pixel_y = 10
 	},
 /obj/structure/closet/crate/large{
