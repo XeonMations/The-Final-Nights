@@ -83,6 +83,12 @@
 		/datum/action/gift/bloody_feast = 3
 	)
 
+	var/list/stargazers = list(
+		/datum/action/gift/stoic_pose = 1,
+		/datum/action/gift/freezing_wind = 2,
+		/datum/action/gift/bloody_feast = 3
+	)
+
 	var/list/spiral = list(
 		/datum/action/gift/stinky_fur = 1,
 		/datum/action/gift/venom_claws = 2,
@@ -148,6 +154,8 @@
 				zalupa = shadowlords[i]
 			if("Red Talons")
 				zalupa = redtalons[i]
+			if("Stargazers")
+				zalupa = stargazers[i]
 		var/datum/action/A = new zalupa()
 		A.Grant(C)
 		var/datum/action/A1 = new zalupa()
