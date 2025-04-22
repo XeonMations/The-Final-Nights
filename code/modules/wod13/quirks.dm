@@ -546,7 +546,7 @@ Dancer
 	desc = "You can't recover your masquerade at all."
 	value = -2
 	mob_trait = TRAIT_VIOLATOR
-	allowed_species = list("Vampire", "Ghoul", "Kuei-Jin")
+	allowed_species = list("Vampire", "Ghoul")
 
 /datum/quirk/irongullet
 	name = "Iron Gullet"
