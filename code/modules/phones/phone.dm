@@ -20,7 +20,7 @@
 	// The phone history of the phone.
 	var/list/phone_history_list = list()
 	// Currently viewed newscaster channel. Used for IRC Announcements
-	var/viewing_newscaster_channel = ""
+	var/obj/machinery/newscaster/irc_channel
 	//Current sound to play when the phone is ringing.
 	var/call_sound = 'code/modules/wod13/sounds/call.ogg'
 	/// Do we have a SIM card?
@@ -42,6 +42,7 @@
 	phone_radio = new()
 	RegisterSignal(sim_card, COMSIG_PHONE_RING, PROC_REF(ring))
 	RegisterSignal(sim_card, COMSIG_PHONE_RING_TIMEOUT, PROC_REF(ring_timeout))
+	irc_channel = new()
 
 /obj/item/smartphone/Destroy(force)
 	. = ..()
@@ -176,6 +177,7 @@
 		))
 	data["phone_history"] = phone_history
 
+	/*
 	var/list/newscaster_channels = list()
 	for(var/datum/newscaster/feed_channel/CHANNEL in GLOB.news_network.network_channels)
 		UNTYPED_LIST_ADD(newscaster_channels, list(
@@ -211,7 +213,9 @@
 						"comments" = comments,
 					))
 			data["viewing_channel"] = channel_data
+	*/
 
+	data["viewing_channel"] = list(newscaster_information_request(user))
 	return data
 
 /obj/item/smartphone/ui_act(action, params, datum/tgui/ui)
@@ -259,10 +263,6 @@
 				GLOB.published_numbers += sim_card.phone_number
 				GLOB.published_number_names += name
 				to_chat(usr, span_notice("Your number is now published."))
-			return TRUE
-
-		if("viewing_newscaster_channel")
-			viewing_newscaster_channel = params["ref"]
 			return TRUE
 
 		if("add_contact")
@@ -350,6 +350,98 @@
 				playsound(loc, 'sound/machines/terminal_select.ogg', 15, TRUE)
 			return TRUE
 	return FALSE
+
+/obj/item/smartphone/proc/newscaster_information_request(mob/user)
+	var/list/data = list()
+	var/list/message_list = list()
+
+	data["user"] = list()
+	data["user"]["name"] = user.name
+	data["user"]["job"] = "N/A"
+	data["user"]["department"] = "N/A"
+
+	data["photo_data"] = !isnull(irc_channel.current_image)
+	data["creating_channel"] = irc_channel.creating_channel
+	data["creating_comment"] = irc_channel.creating_comment
+	data["viewing_wanted"] = irc_channel.viewing_wanted
+
+	//Here is all the UI_data sent about the current wanted issue, as well as making a new one in the UI.
+	data["making_wanted_issue"] = !(GLOB.news_network.wanted_issue?.active)
+	data["criminal_name"] = irc_channel.criminal_name
+	data["crime_description"] = irc_channel.crime_description
+	var/list/wanted_info = list()
+	if(GLOB.news_network.wanted_issue)
+		var/has_wanted_issue = !isnull(GLOB.news_network.wanted_issue.img)
+		if(has_wanted_issue)
+			user << browse_rsc(GLOB.news_network.wanted_issue.img, "wanted_photo.png")
+		wanted_info = list(list(
+			"active" = GLOB.news_network.wanted_issue.active,
+			"criminal" = GLOB.news_network.wanted_issue.criminal,
+			"crime" = GLOB.news_network.wanted_issue.body,
+			"author" = GLOB.news_network.wanted_issue.scanned_user,
+			"image" = (has_wanted_issue ? "wanted_photo.png" : null)
+		))
+
+	//Code breaking down the channels that have been made on-station thus far. ha
+	//Then, breaks down the messages that have been made on those channels.
+	if(irc_channel.current_channel)
+		for(var/datum/feed_message/feed_message as anything in irc_channel.current_channel.messages)
+			var/photo_ID = null
+			var/list/comment_list
+			if(feed_message.img)
+				user << browse_rsc(feed_message.img, "tmp_photo[feed_message.message_ID].png")
+				photo_ID = "tmp_photo[feed_message.message_ID].png"
+			for(var/datum/feed_comment/comment_message as anything in feed_message.comments)
+				comment_list += list(list(
+					"auth" = comment_message.author,
+					"body" = comment_message.body,
+					"time" = comment_message.time_stamp,
+				))
+			message_list += list(list(
+				"auth" = feed_message.author,
+				"body" = feed_message.body,
+				"time" = feed_message.time_stamp,
+				"channel_num" = feed_message.parent_ID,
+				"censored_message" = feed_message.body_censor,
+				"censored_author" = feed_message.author_censor,
+				"ID" = feed_message.message_ID,
+				"photo" = photo_ID,
+				"comments" = comment_list
+			))
+
+
+	data["viewing_channel"] = irc_channel.current_channel?.channel_ID
+	data["paper"] = irc_channel.paper_remaining
+	//Here we display all the information about the current channel.
+	data["channelName"] = irc_channel.current_channel?.channel_name
+	data["channelAuthor"] = irc_channel.current_channel?.author
+
+	if(!irc_channel.current_channel)
+		data["channelAuthor"] = "Nanotrasen Inc"
+		data["channelDesc"] = "Welcome to Newscaster Net. Interface & News networks Operational."
+		data["channelLocked"] = TRUE
+	else
+		data["channelDesc"] = irc_channel.current_channel.channel_desc
+		data["channelLocked"] = irc_channel.current_channel.locked
+		data["channelCensored"] = irc_channel.current_channel.censored
+
+	//We send all the information about all messages in existence.
+	data["messages"] = message_list
+	data["wanted"] = wanted_info
+
+	var/list/formatted_requests = list()
+	var/list/formatted_applicants = list()
+	for (var/datum/station_request/request as anything in GLOB.request_list)
+		formatted_requests += list(list("owner" = request.owner, "value" = request.value, "description" = request.description, "acc_number" = request.req_number))
+		if(request.applicants)
+			for(var/datum/bank_account/applicant_bank_account as anything in request.applicants)
+				formatted_applicants += list(list("name" = applicant_bank_account.account_holder, "request_id" = request.owner_account.account_id, "requestee_id" = applicant_bank_account.account_id))
+	data["requests"] = formatted_requests
+	data["applicants"] = formatted_applicants
+	data["bountyValue"] = irc_channel.bounty_value
+	data["bountyText"] = irc_channel.bounty_text
+
+	return data
 
 /obj/item/smartphone/proc/toggle_screen(mob/user)
 	if(phone_flags & PHONE_OPEN)
