@@ -9,7 +9,6 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 	/mob/dead/observer/verb/observe,
 	/mob/dead/observer/verb/register_pai_candidate,
 	/mob/dead/observer/verb/stay_dead,
-	/mob/dead/observer/verb/reenter_corpse,
 	/mob/dead/observer/proc/dead_tele,
 	/mob/dead/observer/proc/open_spawners_menu,
 ))
