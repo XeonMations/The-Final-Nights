@@ -310,9 +310,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Move(NewLoc, direct, glide_size_override = 32)
 	..()
 
-/mob/dead/observer/verb/reenter_corpse()
+/mob/dead/observer/verb/reenter_body()
 	set category = "Ghost"
-	set name = "Re-enter Corpse"
+	set name = "Re-enter Body"
+
+	reenter_corpse()
+
+/mob/dead/observer/proc/reenter_corpse()
 	if(!client)
 		return
 	if(!mind || QDELETED(mind.current))

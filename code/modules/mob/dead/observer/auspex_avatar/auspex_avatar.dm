@@ -26,7 +26,6 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 	add_to_avatar_list()
 
 	remove_verb(src, GLOB.avatar_banned_verbs)
-	add_verb(src, /mob/dead/observer/avatar/verb/reenter_body)
 
 	sight = NONE
 	movement_type = FLYING | GROUND | PHASING
@@ -50,37 +49,41 @@ GLOBAL_LIST_INIT(avatar_banned_verbs, list(
 	auspex_avatar.client = src.client
 	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTEARS
 	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTWHISPER
-	auspex_avatar.client.prefs.chat_toggles ^= CHAT_DEAD
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTSIGHT
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTRADIO
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTPDA
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_GHOSTLAWS
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_LOGIN_LOGOUT
+	auspex_avatar.client.prefs.chat_toggles &= ~CHAT_DEAD
 	auspex_avatar.client.show_popup_menus = 0
 
 	auspex_avatar.overlay_fullscreen("film_grain", /atom/movable/screen/fullscreen/film_grain, rand(1, 9))
 
 	return auspex_avatar
 
-/mob/dead/observer/avatar/verb/reenter_body()
-	set category = "Ghost"
-	set name = "Re-enter Body"
+/mob/dead/observer/avatar/reenter_corpse()
 	if(!client)
-		return
+		return FALSE
 	if(!mind || QDELETED(mind.current))
 		to_chat(src, span_warning("You have no body."))
-		return
+		return FALSE
 	if(!can_reenter_corpse)
 		to_chat(src, span_warning("You cannot re-enter your body."))
-		return
+		return FALSE
 
 	var/mob/living/carbon/human/original_body = mind.current
 	var/turf/current_turf = get_turf(src)
 	var/turf/body_turf = get_turf(original_body)
 
 	if(isnull(body_turf) || isnull(current_turf))
-		return
+		return FALSE
 	if(!(body_turf == current_turf))
 		to_chat(src, span_warning("Your body is not here. It is located at coordinates: [body_turf.x], [body_turf.y], [body_turf.z]."))
 		to_chat(src, span_warning("Your current coordinates are: [current_turf.x], [current_turf.y], [current_turf.z]."))
+		return FALSE
 	if(mind.current.key && mind.current.key[1] != "@")	//makes sure we don't accidentally kick any clients
 		to_chat(usr, span_warning("Another consciousness is in your body...It is resisting you."))
-		return
+		return FALSE
 
 	client.view_size.setDefault(getScreenSize(client.prefs.widescreenpref))//Let's reset so people can't become allseeing gods
 	SStgui.on_transfer(src, mind.current)
