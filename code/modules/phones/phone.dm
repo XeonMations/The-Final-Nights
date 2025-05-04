@@ -215,7 +215,7 @@
 			data["viewing_channel"] = channel_data
 	*/
 
-	data["viewing_channel"] = list(newscaster_information_request(user))
+	data += newscaster_information_request(user)
 	return data
 
 /obj/item/smartphone/ui_act(action, params, datum/tgui/ui)
