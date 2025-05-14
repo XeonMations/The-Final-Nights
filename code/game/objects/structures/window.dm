@@ -300,7 +300,7 @@
 	if(QDELETED(src) || !fulltile)
 		return
 
-	if((updates & UPDATE_SMOOTHING) && (smoothing_flags & USES_SMOOTHING))
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
 
 	var/ratio = atom_integrity / max_integrity

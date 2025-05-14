@@ -208,8 +208,6 @@
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/item/clothing/glasses/regular/proc/on_entered(datum/source, atom/movable/movable)
 	SIGNAL_HANDLER
