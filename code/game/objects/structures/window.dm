@@ -297,26 +297,17 @@
 //merges adjacent full-tile windows into one
 /obj/structure/window/update_overlays()
 	. = ..()
-	if(!QDELETED(src))
-		if(!fulltile)
-			return
+	if(QDELETED(src) || !fulltile)
+		return
 
-		var/ratio = atom_integrity / max_integrity
-		ratio = CEILING(ratio*4, 1) * 25
+	if((updates & UPDATE_SMOOTHING) && (smoothing_flags & USES_SMOOTHING))
+		QUEUE_SMOOTH(src)
 
 	var/ratio = atom_integrity / max_integrity
 	ratio = CEILING(ratio*4, 1) * 25
-	cut_overlay(crack_overlay)
 	if(ratio > 75)
 		return
-	crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
-	. += crack_overlay
-
-		cut_overlay(crack_overlay)
-		if(ratio > 75)
-			return
-		crack_overlay = mutable_appearance('code/modules/wod13/32x48.dmi', "damage[ratio]", -(layer+0.1))
-		. += crack_overlay
+	. += mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
 
 /obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
 	return null
