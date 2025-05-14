@@ -105,14 +105,6 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/data(src)
 
-/obj/item/storage/box/disks_nanite
-	name = "nanite program disks box"
-	illustration = "disk_kit"
-
-/obj/item/storage/box/disks_nanite/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/disk/nanite_program(src)
-
 // Ordinary survival box
 /obj/item/storage/box/survival
 	var/mask_type = /obj/item/clothing/mask/breath
@@ -997,33 +989,6 @@
 	for(var/i in 1 to 7)
 		new/obj/item/grenade/chem_grenade/holy(src)
 
-/obj/item/storage/box/stockparts/basic //for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
-	name = "box of stock parts"
-	desc = "Contains a variety of basic stock parts."
-
-/obj/item/storage/box/stockparts/basic/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/stock_parts/capacitor = 3,
-		/obj/item/stock_parts/scanning_module = 3,
-		/obj/item/stock_parts/manipulator = 3,
-		/obj/item/stock_parts/micro_laser = 3,
-		/obj/item/stock_parts/matter_bin = 3)
-	generate_items_inside(items_inside,src)
-
-/obj/item/storage/box/stockparts/deluxe
-	name = "box of deluxe stock parts"
-	desc = "Contains a variety of deluxe stock parts."
-	icon_state = "syndiebox"
-
-/obj/item/storage/box/stockparts/deluxe/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/stock_parts/capacitor/quadratic = 3,
-		/obj/item/stock_parts/scanning_module/triphasic = 3,
-		/obj/item/stock_parts/manipulator/femto = 3,
-		/obj/item/stock_parts/micro_laser/quadultra = 3,
-		/obj/item/stock_parts/matter_bin/bluespace = 3)
-	generate_items_inside(items_inside,src)
-
 /obj/item/storage/box/dishdrive
 	name = "DIY Dish Drive Kit"
 	desc = "Contains everything you need to build your own Dish Drive!"
@@ -1035,8 +1000,6 @@
 		/obj/item/stack/cable_coil/five = 1,
 		/obj/item/circuitboard/machine/dish_drive = 1,
 		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/screwdriver = 1,
 		/obj/item/wrench = 1)
 	generate_items_inside(items_inside,src)
@@ -1083,7 +1046,6 @@
 		/obj/item/card/emag=1,\
 		/obj/item/stack/spacecash/c1000=50,\
 		/obj/item/healthanalyzer/advanced=1,\
-		/obj/item/disk/tech_disk/debug=1,\
 		/obj/item/uplink/debug=1,\
 		/obj/item/uplink/nuclear/debug=1,\
 		/obj/item/storage/box/beakers/bluespace=1,\
@@ -1260,35 +1222,6 @@
 	new/obj/item/skillchip/quickercarry(src)
 	new/obj/item/skillchip/quickercarry(src)
 
-/obj/item/storage/box/swab
-	name = "box of microbiological swabs"
-	desc = "Contains a number of sterile swabs for collecting microbiological samples."
-	illustration = "swab"
-
-/obj/item/storage/box/swab/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/swab(src)
-
-/obj/item/storage/box/petridish
-	name = "box of petridishes"
-	desc = "This box purports to contain a number of high rim petridishes."
-	illustration = "petridish"
-
-/obj/item/storage/box/petridish/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/petri_dish(src)
-
-/obj/item/storage/box/plumbing
-	name = "box of plumbing supplies"
-	desc = "Contains a small supply of pipes, water recyclers, and metal to connect to the rest of the station."
-
-/obj/item/storage/box/plumbing/PopulateContents()
-	var/list/items_inside = list(
-		/obj/item/stock_parts/water_recycler = 2,
-		/obj/item/stack/sheet/metal/ten = 1,
-		)
-	generate_items_inside(items_inside, src)
-
 /obj/item/storage/box/tail_pin
 	name = "pin the tail on the corgi supplies"
 	desc = "For ages 10 and up. ...Why is this even on a space station? Aren't you a little old for babby games?" //Intentional typo.
@@ -1297,34 +1230,3 @@
 	for(var/i in 1 to 3)
 		new /obj/item/poster/tail_board(src)
 		new /obj/item/tail_pin(src)
-
-/obj/item/storage/box/stabilized //every single stabilized extract from xenobiology
-	name = "box of stabilized extracts"
-	icon_state = "syndiebox"
-
-/obj/item/storage/box/stabilized/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/slimecross/stabilized/grey=1,\
-		/obj/item/slimecross/stabilized/orange=1,\
-		/obj/item/slimecross/stabilized/purple=1,\
-		/obj/item/slimecross/stabilized/blue=1,\
-		/obj/item/slimecross/stabilized/metal=1,\
-		/obj/item/slimecross/stabilized/yellow=1,\
-		/obj/item/slimecross/stabilized/darkpurple=1,\
-		/obj/item/slimecross/stabilized/darkblue=1,\
-		/obj/item/slimecross/stabilized/silver=1,\
-		/obj/item/slimecross/stabilized/bluespace=1,\
-		/obj/item/slimecross/stabilized/sepia=1,\
-		/obj/item/slimecross/stabilized/cerulean=1,\
-		/obj/item/slimecross/stabilized/pyrite=1,\
-		/obj/item/slimecross/stabilized/red=1,\
-		/obj/item/slimecross/stabilized/green=1,\
-		/obj/item/slimecross/stabilized/pink=1,\
-		/obj/item/slimecross/stabilized/gold=1,\
-		/obj/item/slimecross/stabilized/oil=1,\
-		/obj/item/slimecross/stabilized/black=1,\
-		/obj/item/slimecross/stabilized/lightpink=1,\
-		/obj/item/slimecross/stabilized/adamantine=1,\
-		/obj/item/slimecross/stabilized/rainbow=1,\
-		)
-	generate_items_inside(items_inside,src)

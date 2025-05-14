@@ -16,12 +16,6 @@
 	var/rating_amount = 1
 	var/list/processor_contents
 
-/obj/machinery/processor/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		rating_amount = B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating_speed = M.rating
-
 /obj/machinery/processor/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
@@ -44,7 +38,7 @@
 	LAZYREMOVE(processor_contents, what)
 
 /obj/machinery/processor/proc/select_recipe(X)
-	for (var/type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
+	for (var/type in subtypesof(/datum/food_processor_process))
 		var/datum/food_processor_process/recipe = new type()
 		if (!istype(X, recipe.input) || !istype(src, recipe.required_machine))
 			continue
@@ -160,58 +154,3 @@
 /obj/machinery/processor/container_resist_act(mob/living/user)
 	user.forceMove(drop_location())
 	user.visible_message("<span class='notice'>[user] crawls free of the processor!</span>")
-
-/obj/machinery/processor/slime
-	name = "slime processor"
-	desc = "An industrial grinder with a sticker saying appropriated for science department. Keep hands clear of intake area while operating."
-	circuit = /obj/item/circuitboard/machine/processor/slime
-
-/obj/machinery/processor/slime/adjust_item_drop_location(atom/movable/AM)
-	var/static/list/slimecores = subtypesof(/obj/item/slime_extract)
-	var/i = 0
-	if(!(i = slimecores.Find(AM.type))) // If the item is not found
-		return
-	if (i <= 16) // If in the first 12 slots
-		AM.pixel_x = AM.base_pixel_x - 12 + ((i%4)*8)
-		AM.pixel_y = AM.base_pixel_y - 12 + (round(i/4)*8)
-		return i
-	var/ii = i - 16
-	AM.pixel_x = AM.base_pixel_x - 8 + ((ii%3)*8)
-	AM.pixel_y = AM.base_pixel_y - 8 + (round(ii/3)*8)
-	return i
-
-/obj/machinery/processor/slime/process()
-	if(processing)
-		return
-	var/mob/living/simple_animal/slime/picked_slime
-	for(var/mob/living/simple_animal/slime/slime in range(1,src))
-		if(slime.loc == src)
-			continue
-		if(istype(slime, /mob/living/simple_animal/slime))
-			if(slime.stat)
-				picked_slime = slime
-				break
-	if(!picked_slime)
-		return
-	var/datum/food_processor_process/P = select_recipe(picked_slime)
-	if (!P)
-		return
-
-	visible_message("<span class='notice'>[picked_slime] is sucked into [src].</span>")
-	LAZYADD(processor_contents, picked_slime)
-	picked_slime.forceMove(src)
-
-/obj/machinery/processor/slime/process_food(datum/food_processor_process/recipe, atom/movable/what)
-	var/mob/living/simple_animal/slime/S = what
-	if (istype(S))
-		var/C = S.cores
-		if(S.stat != DEAD)
-			LAZYREMOVE(processor_contents, S)
-			S.forceMove(drop_location())
-			S.visible_message("<span class='notice'>[C] crawls free of the processor!</span>")
-			return
-		for(var/i in 1 to (C+rating_amount-1))
-			var/atom/movable/item = new S.coretype(drop_location())
-			adjust_item_drop_location(item)
-			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)
-	..()

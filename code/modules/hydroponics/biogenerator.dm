@@ -13,14 +13,9 @@
 	var/efficiency = 0
 	var/productivity = 0
 	var/max_items = 40
-	var/datum/techweb/stored_research
 	var/list/show_categories = list("Food", "Botany Chemicals", "Organic Materials")
 	/// Currently selected category in the UI
 	var/selected_cat
-
-/obj/machinery/biogenerator/Initialize()
-	. = ..()
-	stored_research = new /datum/techweb/specialized/autounlocking/biogenerator
 
 /obj/machinery/biogenerator/Destroy()
 	QDEL_NULL(beaker)
@@ -47,11 +42,6 @@
 	var/E = 0
 	var/P = 0
 	var/max_storage = 40
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		P += B.rating
-		max_storage = 40 * B.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		E += M.rating
 	efficiency = E
 	productivity = P
 	max_items = max_storage
@@ -139,18 +129,6 @@
 			if(user.transferItemToLoc(O, src))
 				to_chat(user, "<span class='info'>You put [O.name] in [src.name]</span>")
 		return TRUE //no afterattack
-	else if (istype(O, /obj/item/disk/design_disk))
-		user.visible_message("<span class='notice'>[user] begins to load \the [O] in \the [src]...</span>",
-			"<span class='notice'>You begin to load a design from \the [O]...</span>",
-			"<span class='hear'>You hear the chatter of a floppy drive.</span>")
-		processing = TRUE
-		var/obj/item/disk/design_disk/D = O
-		if(do_after(user, 10, target = src))
-			for(var/B in D.blueprints)
-				if(B)
-					stored_research.add_design(B)
-		processing = FALSE
-		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You cannot put this in [src.name]!</span>")
 
@@ -212,36 +190,6 @@
 
 	return TRUE
 
-/obj/machinery/biogenerator/proc/create_product(datum/design/D, amount)
-	if(!beaker || !loc)
-		return FALSE
-
-	if(ispath(D.build_path, /obj/item/stack))
-		if(!check_container_volume(D.make_reagents, amount))
-			return FALSE
-		if(!check_cost(D.materials, amount))
-			return FALSE
-
-		new D.build_path(drop_location(), amount)
-		for(var/R in D.make_reagents)
-			beaker.reagents.add_reagent(R, D.make_reagents[R]*amount)
-	else
-		var/i = amount
-		while(i > 0)
-			if(!check_container_volume(D.make_reagents))
-				say("Warning: Attached container does not have enough free capacity!")
-				return .
-			if(!check_cost(D.materials))
-				return .
-			if(D.build_path)
-				new D.build_path(loc)
-			for(var/R in D.make_reagents)
-				beaker.reagents.add_reagent(R, D.make_reagents[R])
-			. = 1
-			--i
-	update_appearance()
-	return .
-
 /obj/machinery/biogenerator/proc/detach(mob/living/user)
 	if(beaker)
 		if(can_interact(user))
@@ -255,11 +203,6 @@
 	if(machine_stat & BROKEN || panel_open)
 		return UI_CLOSE
 	return ..()
-
-/obj/machinery/biogenerator/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/research_designs),
-	)
 
 /obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -285,23 +228,11 @@
 	var/categories = show_categories.Copy()
 	for(var/V in categories)
 		categories[V] = list()
-	for(var/V in stored_research.researched_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(V)
-		for(var/C in categories)
-			if(C in D.category)
-				categories[C] += D
-
 	for(var/category in categories)
 		var/list/cat = list(
 			"name" = category,
 			"items" = (category == selected_cat ? list() : null))
 		for(var/item in categories[category])
-			var/datum/design/D = item
-			cat["items"] += list(list(
-				"id" = D.id,
-				"name" = D.name,
-				"cost" = D.materials[GET_MATERIAL_REF(/datum/material/biomass)]/efficiency,
-			))
 		data["categories"] += list(cat)
 
 	return data
@@ -322,16 +253,6 @@
 			var/amount = text2num(params["amount"])
 			amount = clamp(amount, 1, 10)
 			if(!amount)
-				return
-			var/id = params["id"]
-			if(!stored_research.researched_designs.Find(id))
-				stack_trace("ID did not map to a researched datum [id]")
-				return
-			var/datum/design/D = SSresearch.techweb_design_by_id(id)
-			if(D && !istype(D, /datum/design/error_design))
-				create_product(D, amount)
-			else
-				stack_trace("ID could not be turned into a valid techweb design datum [id]")
 				return
 			return TRUE
 		if("select")

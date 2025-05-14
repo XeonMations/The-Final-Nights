@@ -14,60 +14,6 @@
 
 //Loot tables
 
-GLOBAL_LIST_INIT(trash_loot, list(//junk: useless, very easy to get, or ghetto chemistry items
-	list(//trash
-		/obj/item/trash/can = 1,
-		/obj/item/trash/raisins = 1,
-		/obj/item/trash/candy = 1,
-		/obj/item/trash/cheesie = 1,
-		/obj/item/trash/chips = 1,
-		/obj/item/trash/popcorn = 1,
-		/obj/item/trash/sosjerky = 1,
-		/obj/item/trash/plate = 1,
-		/obj/item/trash/pistachios = 1,
-
-		/obj/item/poster/random_contraband = 1,
-		/obj/item/folder/yellow = 1,
-		/obj/item/hand_labeler = 1,
-		/obj/item/pen = 1,
-		/obj/item/paper = 1,
-		/obj/item/paper/crumpled = 1,
-		/obj/item/photo/old = 1,
-		/obj/item/disk/data = 1,
-		/obj/item/stack/sheet/cardboard = 1,
-		/obj/item/storage/box = 1,
-
-		/obj/item/reagent_containers/food/drinks/drinkingglass = 1,
-		/obj/item/coin/silver = 1,
-		/obj/effect/decal/cleanable/ash = 1,
-		/obj/item/cigbutt = 1,
-		/obj/item/camera = 1,
-		/obj/item/camera_film = 1,
-		/obj/item/light/bulb = 1,
-		/obj/item/light/tube = 1,
-		/obj/item/food/urinalcake = 1,
-
-		/obj/item/airlock_painter = 1,
-		/obj/item/airlock_painter/decal = 1,
-		/obj/item/rack_parts = 1,
-		/obj/item/clothing/mask/breath = 1,
-		/obj/item/shard = 1,
-
-		/obj/item/reagent_containers/pill/maintenance = 1,
-		/obj/item/toy/eightball = 1,
-		) = 8,
-
-	list(//tier 1 stock parts
-		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stock_parts/matter_bin = 1,
-		) = 1,
-	))
-
-
-
 GLOBAL_LIST_INIT(common_loot, list( //common: basic items
 	list(//tools
 		/obj/item/screwdriver = 1,
@@ -182,10 +128,6 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 		/obj/item/clothing/mask/muzzle = 1,
 		/obj/item/clothing/ears/earmuffs = 1,
 		/obj/item/clothing/gloves/color/black = 1,
-		) = 8,
-
-	list(//strange objects
-		/obj/item/relic = 5,
 		) = 8,
 
 	list(//construction and crafting

@@ -655,8 +655,6 @@
 					/obj/item/mecha_parts/part/ripley_left_arm,
 					/obj/item/mecha_parts/part/ripley_right_leg,
 					/obj/item/mecha_parts/part/ripley_left_leg,
-					/obj/item/stock_parts/capacitor,
-					/obj/item/stock_parts/scanning_module,
 					/obj/item/circuitboard/mecha/ripley/main,
 					/obj/item/circuitboard/mecha/ripley/peripherals,
 					/obj/item/mecha_parts/mecha_equipment/drill,
@@ -1041,56 +1039,6 @@
 	crate_name = "plasma assembly crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 
-/datum/supply_pack/science/raw_flux_anomaly
-	name = "Raw Flux Anomaly"
-	desc = "The raw core of a flux anomaly, ready to be implosion-compressed into a powerful artifact."
-	cost = CARGO_CRATE_VALUE * 10
-	access = ACCESS_TOXINS
-	access_view = ACCESS_TOXINS
-	contains = list(/obj/item/raw_anomaly_core/flux)
-	crate_name = "raw flux anomaly"
-	crate_type = /obj/structure/closet/crate/secure/science
-
-/datum/supply_pack/science/raw_grav_anomaly
-	name = "Raw Gravitational Anomaly"
-	desc = "The raw core of a gravitational anomaly, ready to be implosion-compressed into a powerful artifact."
-	cost = CARGO_CRATE_VALUE * 10
-	access = ACCESS_TOXINS
-	access_view = ACCESS_TOXINS
-	contains = list(/obj/item/raw_anomaly_core/grav)
-	crate_name = "raw pyro anomaly"
-	crate_type = /obj/structure/closet/crate/secure/science
-
-/datum/supply_pack/science/raw_vortex_anomaly
-	name = "Raw Vortex Anomaly"
-	desc = "The raw core of a vortex anomaly, ready to be implosion-compressed into a powerful artifact."
-	cost = CARGO_CRATE_VALUE * 10
-	access = ACCESS_TOXINS
-	access_view = ACCESS_TOXINS
-	contains = list(/obj/item/raw_anomaly_core/vortex)
-	crate_name = "raw vortex anomaly"
-	crate_type = /obj/structure/closet/crate/secure/science
-
-/datum/supply_pack/science/raw_bluespace_anomaly
-	name = "Raw Bluespace Anomaly"
-	desc = "The raw core of a bluespace anomaly, ready to be implosion-compressed into a powerful artifact."
-	cost = CARGO_CRATE_VALUE * 10
-	access = ACCESS_TOXINS
-	access_view = ACCESS_TOXINS
-	contains = list(/obj/item/raw_anomaly_core/bluespace)
-	crate_name = "raw bluespace anomaly"
-	crate_type = /obj/structure/closet/crate/secure/science
-
-/datum/supply_pack/science/raw_pyro_anomaly
-	name = "Raw Pyro Anomaly"
-	desc = "The raw core of a pyro anomaly, ready to be implosion-compressed into a powerful artifact."
-	cost = CARGO_CRATE_VALUE * 10
-	access = ACCESS_TOXINS
-	access_view = ACCESS_TOXINS
-	contains = list(/obj/item/raw_anomaly_core/pyro)
-	crate_name = "raw pyro anomaly"
-	crate_type = /obj/structure/closet/crate/secure/science
-
 /datum/supply_pack/science/robotics
 	name = "Robotics Assembly Crate"
 	desc = "The tools you need to replace those finicky humans with a loyal robot army! Contains four proximity sensors, two empty first aid kits, two health analyzers, two red hardhats, two mechanical toolboxes, and two cleanbot assemblies! Requires Robotics access to open."
@@ -1114,14 +1062,6 @@
 	crate_name = "robotics assembly crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 
-/datum/supply_pack/science/rped
-	name = "RPED crate"
-	desc = "Need to rebuild the ORM but science got annihialted after a bomb test? Buy this for the most advanced parts NT can give you."
-	cost = CARGO_CRATE_VALUE * 3
-	access_view = FALSE
-	contains = list(/obj/item/storage/part_replacer/cargo)
-	crate_name = "\improper RPED crate"
-
 /datum/supply_pack/science/shieldwalls
 	name = "Shield Generator Crate"
 	desc = "These high powered Shield Wall Generators are guaranteed to keep any unwanted lifeforms on the outside, where they belong! Contains four shield wall generators. Requires Teleporter access to open."
@@ -1142,18 +1082,6 @@
 	contains = list(/obj/item/clothing/head/helmet/monkey_sentience,
 					/obj/item/clothing/head/helmet/monkey_sentience)
 	crate_name = "monkey mind magnification crate"
-
-/datum/supply_pack/science/cytology
-	name = "Cytology supplies crate"
-	desc = "Did out of control specimens pulverize xenobiology? Here is some more supplies for further testing."
-	cost = CARGO_CRATE_VALUE * 3
-	access_view = ACCESS_XENOBIOLOGY
-	contains = list(/obj/structure/microscope,
-					/obj/item/biopsy_tool,
-					/obj/item/storage/box/petridish,
-					/obj/item/storage/box/petridish,
-					/obj/item/storage/box/swab)
-	crate_name = "cytology supplies crate"
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Service //////////////////////////////////////
@@ -2204,19 +2132,6 @@
 					/obj/item/training_toolbox
 					)
 	crate_name = "training toolbox crate"
-
-/datum/supply_pack/misc/blackmarket_telepad
-	name = "Black Market LTSRBT"
-	desc = "Need a faster and better way of transporting your illegal goods from and to the station? Fear not, the Long-To-Short-Range-Bluespace-Transceiver (LTSRBT for short) is here to help. Contains a LTSRBT circuit, two bluespace crystals, and one ansible."
-	cost = CARGO_CRATE_VALUE * 20
-	contraband = TRUE
-	contains = list(
-		/obj/item/circuitboard/machine/ltsrbt,
-		/obj/item/stack/ore/bluespace_crystal/artificial,
-		/obj/item/stack/ore/bluespace_crystal/artificial,
-		/obj/item/stock_parts/subspace/ansible
-	)
-	crate_name = "crate"
 
 ///Special supply crate that generates random syndicate gear up to a determined TC value
 /datum/supply_pack/misc/syndicate

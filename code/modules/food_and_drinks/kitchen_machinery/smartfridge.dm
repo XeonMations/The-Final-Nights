@@ -31,10 +31,6 @@
 			for(var/i in 1 to amount)
 				load(new typekey(src))
 
-/obj/machinery/smartfridge/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 1500 * B.rating
-
 /obj/machinery/smartfridge/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
@@ -382,40 +378,6 @@
 		return TRUE
 	return FALSE
 
-// -------------------------------------
-// Xenobiology Slime-Extract Smartfridge
-// -------------------------------------
-/obj/machinery/smartfridge/extract
-	name = "smart slime extract storage"
-	desc = "A refrigerated storage unit for slime extracts."
-	base_build_path = /obj/machinery/smartfridge/extract
-
-/obj/machinery/smartfridge/extract/accept_check(obj/item/O)
-	if(istype(O, /obj/item/slime_extract))
-		return TRUE
-	if(istype(O, /obj/item/slime_scanner))
-		return TRUE
-	return FALSE
-
-/obj/machinery/smartfridge/extract/preloaded
-	initial_contents = list(/obj/item/slime_scanner = 2)
-
-// -------------------------------------
-// Cytology Petri Dish Smartfridge
-// -------------------------------------
-/obj/machinery/smartfridge/petri
-	name = "smart petri dish storage"
-	desc = "A refrigerated storage unit for petri dishes."
-	base_build_path = /obj/machinery/smartfridge/petri
-
-/obj/machinery/smartfridge/petri/accept_check(obj/item/O)
-	if(istype(O, /obj/item/petri_dish))
-		return TRUE
-	return FALSE
-
-/obj/machinery/smartfridge/petri/preloaded
-	initial_contents = list(/obj/item/petri_dish = 5)
-
 // -------------------------
 // Organ Surgery Smartfridge
 // -------------------------
@@ -438,11 +400,6 @@
 	if(isorgan(O))
 		var/obj/item/organ/organ = O
 		organ.organ_flags |= ORGAN_FROZEN
-
-/obj/machinery/smartfridge/organ/RefreshParts()
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 20 * B.rating
-		repair_rate = max(0, STANDARD_ORGAN_HEALING * (B.rating - 1) * 0.5)
 
 /obj/machinery/smartfridge/organ/process(delta_time)
 	for(var/organ in contents)

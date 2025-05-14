@@ -41,7 +41,7 @@
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANUNCONSCIOUS|CANPUSH
 
-	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
+	var/cores = 0
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
 
 	var/powerlevel = 0 // 1-10 controls how much electricity they are generating
@@ -69,7 +69,7 @@
 	///////////TIME FOR SUBSPECIES
 
 	var/colour = "grey"
-	var/coretype = /obj/item/slime_extract/grey
+	var/coretype = null
 	var/list/slime_mutation[4]
 
 	var/static/list/slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
@@ -129,8 +129,6 @@
 	colour = new_colour
 	update_name()
 	slime_mutation = mutation_table(colour)
-	var/sanitizedcolour = replacetext(colour, " ", "")
-	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	regenerate_icons()
 
 /mob/living/simple_animal/slime/update_name()
@@ -390,18 +388,6 @@
 			return
 		var/hasOutput = FALSE //Have we outputted text?
 		var/hasFound = FALSE //Have we found an extract to be added?
-		for(var/obj/item/slime_extract/S in P.contents)
-			if(S.effectmod == effectmod)
-				SEND_SIGNAL(P, COMSIG_TRY_STORAGE_TAKE, S, get_turf(src), TRUE)
-				qdel(S)
-				applied++
-				hasFound = TRUE
-			if(applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-				to_chat(user, "<span class='notice'>You feed the slime as many of the extracts from the bag as you can, and it mutates!</span>")
-				playsound(src, 'sound/effects/attackblob.ogg', 50, TRUE)
-				spawn_corecross()
-				hasOutput = TRUE
-				break
 		if(!hasOutput)
 			if(!hasFound)
 				to_chat(user, "<span class='warning'>There are no extracts in the bag that this slime will accept!</span>")
@@ -412,19 +398,9 @@
 	..()
 
 /mob/living/simple_animal/slime/proc/spawn_corecross()
-	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)
 	visible_message("<span class='danger'>[src] shudders, its mutated core consuming the rest of its body!</span>")
 	playsound(src, 'sound/magic/smoke.ogg', 50, TRUE)
-	var/crosspath
-	for(var/X in crossbreeds)
-		var/obj/item/slimecross/S = X
-		if(initial(S.colour) == colour && initial(S.effect) == effectmod)
-			crosspath = S
-			break
-	if(crosspath)
-		new crosspath(loc)
-	else
-		visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
+	visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
 	qdel(src)
 
 /mob/living/simple_animal/slime/proc/apply_water()
@@ -504,6 +480,3 @@
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
-
-/mob/living/simple_animal/slime/add_cell_sample()
-	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SLIME, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)

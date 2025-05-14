@@ -22,18 +22,11 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler/Destroy()
 	GLOB.monkey_recyclers -= src
-	for(var/thing in connected)
-		var/obj/machinery/computer/camera_advanced/xenobio/console = thing
-		console.connected_recycler = null
 	connected.Cut()
 	return ..()
 
 /obj/machinery/monkey_recycler/RefreshParts()	//Ranges from 0.2 to 0.8 per monkey recycled
 	cube_production = 0
-	for(var/obj/item/stock_parts/manipulator/B in component_parts)
-		cube_production += B.rating * 0.1
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		cube_production += M.rating * 0.1
 
 /obj/machinery/monkey_recycler/examine(mob/user)
 	. = ..()

@@ -40,7 +40,6 @@
 	setDir(pick(GLOB.cardinals))
 	update_icon()
 	ConsumeTile()
-	AddElement(/datum/element/swabable, CELL_LINE_TABLE_BLOB, CELL_VIRUS_TABLE_GENERIC, 2, 2)
 
 /obj/structure/blob/proc/creation_action() //When it's created by the overmind, do this.
 	return

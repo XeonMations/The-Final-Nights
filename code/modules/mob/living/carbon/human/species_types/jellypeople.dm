@@ -16,7 +16,7 @@
 	heatmod = 0.5 // = 1/4x heat damage
 	burnmod = 0.5 // = 1/2x generic burn damage
 	payday_modifier = 0.75
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN
 	inherent_factions = list("slime")
 	species_language_holder = /datum/language_holder/jelly
 	ass_image = 'icons/ass/assslime.png'
@@ -118,7 +118,7 @@
 	say_mod = "says"
 	hair_color = "mutcolor"
 	hair_alpha = 150
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
@@ -228,14 +228,6 @@
 	spare.updateappearance(mutcolor_update=1)
 	spare.domutcheck()
 	spare.Move(get_step(H.loc, pick(NORTH,SOUTH,EAST,WEST)))
-
-
-	var/datum/component/nanites/owner_nanites = H.GetComponent(/datum/component/nanites)
-	if(owner_nanites)
-		//copying over nanite programs/cloud sync with 50% saturation in host and spare
-		owner_nanites.nanite_volume *= 0.5
-		spare.AddComponent(/datum/component/nanites, owner_nanites.nanite_volume)
-		SEND_SIGNAL(spare, COMSIG_NANITE_SYNC, owner_nanites, TRUE, TRUE) //The trues are to copy activation as well
 
 	H.blood_volume *= 0.45
 	H.notransform = 0
@@ -409,7 +401,7 @@
 	say_mod = "says"
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
 	var/obj/effect/dummy/luminescent_glow/glow
-	var/obj/item/slime_extract/current_extract
+	var/obj/item/current_extract
 	var/datum/action/innate/integrate_extract/integrate_extract
 	var/datum/action/innate/use_extract/extract_minor
 	var/datum/action/innate/use_extract/major/extract_major
@@ -504,29 +496,6 @@
 		return
 	CHECK_DNA_AND_SPECIES(H)
 
-	if(species.current_extract)
-		var/obj/item/slime_extract/S = species.current_extract
-		if(!H.put_in_active_hand(S))
-			S.forceMove(H.drop_location())
-		species.current_extract = null
-		to_chat(H, "<span class='notice'>You eject [S].</span>")
-		species.update_slime_actions()
-	else
-		var/obj/item/I = H.get_active_held_item()
-		if(istype(I, /obj/item/slime_extract))
-			var/obj/item/slime_extract/S = I
-			if(!S.Uses)
-				to_chat(H, "<span class='warning'>[I] is spent! You cannot integrate it.</span>")
-				return
-			if(!H.temporarilyRemoveItemFromInventory(S))
-				return
-			S.forceMove(H)
-			species.current_extract = S
-			to_chat(H, "<span class='notice'>You consume [I], and you feel it pulse within you...</span>")
-			species.update_slime_actions()
-		else
-			to_chat(H, "<span class='warning'>You need to hold an unused slime extract in your active hand!</span>")
-
 /datum/action/innate/use_extract
 	name = "Extract Minor Activation"
 	desc = "Pulse the slime extract with energized jelly to activate it."
@@ -560,8 +529,6 @@
 
 	if(species.current_extract)
 		species.extract_cooldown = world.time + 100
-		var/cooldown = species.current_extract.activate(H, species, activation_type)
-		species.extract_cooldown = world.time + cooldown
 
 /datum/action/innate/use_extract/major
 	name = "Extract Major Activation"

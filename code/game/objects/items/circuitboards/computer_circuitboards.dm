@@ -246,35 +246,10 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/launchpad
 
-/obj/item/circuitboard/computer/mech_bay_power_console
-	name = "Mech Bay Power Control Console (Computer Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/computer/mech_bay_power_console
-
-/obj/item/circuitboard/computer/mecha_control
-	name = "Exosuit Control Console (Computer Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/computer/mecha
-
-/obj/item/circuitboard/computer/nanite_chamber_control
-	name = "Nanite Chamber Control (Computer Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/computer/nanite_chamber_control
-
-/obj/item/circuitboard/computer/nanite_cloud_controller
-	name = "Nanite Cloud Control (Computer Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/computer/nanite_cloud_controller
-
 /obj/item/circuitboard/computer/rdconsole
 	name = "R&D Console (Computer Board)"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rdconsole
-
-/obj/item/circuitboard/computer/rdservercontrol
-	name = "R&D Server Control (Computer Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/computer/rdservercontrol
 
 /obj/item/circuitboard/computer/research
 	name = "Research Monitor (Computer Board)"
@@ -290,11 +265,6 @@
 	name = "Teleporter (Computer Board)"
 	icon_state = "science"
 	build_path = /obj/machinery/computer/teleporter
-
-/obj/item/circuitboard/computer/xenobiology
-	name = "Xenobiology Console (Computer Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/computer/camera_advanced/xenobio
 
 /obj/item/circuitboard/computer/scan_consolenew
 	name = "DNA Console (Computer Board)"

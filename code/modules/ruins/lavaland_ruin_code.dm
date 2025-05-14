@@ -1,16 +1,5 @@
 //If you're looking for spawners like ash walker eggs, check ghost_role_spawners.dm
 
-///Wizard tower item
-/obj/item/disk/design_disk/adv/knight_gear
-	name = "Magic Disk of Smithing"
-
-/obj/item/disk/design_disk/adv/knight_gear/Initialize()
-	. = ..()
-	var/datum/design/knight_armour/A = new
-	var/datum/design/knight_helmet/H = new
-	blueprints[1] = A
-	blueprints[2] = H
-
 //lavaland_surface_seed_vault.dmm
 //Seed Vault
 
@@ -23,28 +12,6 @@
 				/obj/item/seeds/berry/glow = 10,
 				/obj/item/seeds/sunflower/moonflower = 8
 				)
-
-//Free Golems
-
-/obj/item/disk/design_disk/golem_shell
-	name = "Golem Creation Disk"
-	desc = "A gift from the Liberator."
-	icon_state = "datadisk1"
-	max_blueprints = 1
-
-/obj/item/disk/design_disk/golem_shell/Initialize()
-	. = ..()
-	var/datum/design/golem_shell/G = new
-	blueprints[1] = G
-
-/datum/design/golem_shell
-	name = "Golem Shell Construction"
-	desc = "Allows for the construction of a Golem Shell."
-	id = "golem"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 40000)
-	build_path = /obj/item/golem_shell
-	category = list("Imported")
 
 /obj/item/golem_shell
 	name = "incomplete free golem shell"
