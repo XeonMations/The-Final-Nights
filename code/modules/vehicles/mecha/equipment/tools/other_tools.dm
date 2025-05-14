@@ -253,8 +253,8 @@
 			chassis.clearInternalDamage(int_dam_flag)
 			repaired = TRUE
 			break
-	if(h_boost<0 || chassis.atom_integrity < chassis.max_integrity)
-		chassis.atom_integrity += min(h_boost, chassis.max_integrity-chassis.atom_integrity)
+	if(h_boost<0 || chassis.get_integrity() < chassis.max_integrity)
+		chassis.update_integrity(chassis.get_integrity() + min(h_boost, chassis.max_integrity-chassis.get_integrity()))
 		repaired = TRUE
 	if(repaired)
 		if(!chassis.use_power(energy_drain))

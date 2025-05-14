@@ -72,8 +72,7 @@
 				return
 			continue
 
-		regen_obj.atom_integrity = clamp(regen_obj.atom_integrity + (regen_obj.max_integrity * cached_rate), 0, regen_obj.max_integrity)
-		if(regen_obj.atom_integrity == regen_obj.max_integrity)
+		if(!regen_obj.repair_damage(regen_obj.max_integrity * cached_rate))
 			processing -= regen_obj
 			if(!length(processing))
 				STOP_PROCESSING(SSobj, src)

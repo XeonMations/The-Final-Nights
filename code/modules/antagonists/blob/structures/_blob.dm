@@ -316,6 +316,7 @@
 		desc = "A thick wall of lifeless tendrils."
 
 /obj/structure/blob/normal/update_icon_state()
+	. = ..()
 	icon_state = "blob[(atom_integrity <= 15) ? "_damaged" : null]"
 
 	/// - [] TODO: Move this elsewhere

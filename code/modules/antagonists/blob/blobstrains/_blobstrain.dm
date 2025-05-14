@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 
 	for(var/obj/structure/blob/B as anything in overmind.all_blobs)
 		B.max_integrity *= max_structure_health_multiplier
-		B.atom_integrity *= max_structure_health_multiplier
+		B.update_integrity(B.get_integrity() * max_structure_health_multiplier)
 		B.update_appearance()
 
 	for(var/mob/living/simple_animal/hostile/blob/BM as anything in overmind.blob_mobs)
@@ -126,7 +126,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 
 	for(var/obj/structure/blob/B as anything in overmind.all_blobs)
 		B.max_integrity /= max_structure_health_multiplier
-		B.atom_integrity /= max_structure_health_multiplier
+		B.update_integrity(B.get_integrity() / max_structure_health_multiplier)
 
 	for(var/mob/living/simple_animal/hostile/blob/BM as anything in overmind.blob_mobs)
 		BM.maxHealth /= max_mob_health_multiplier
@@ -146,7 +146,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 	if(resource_delay <= world.time)
 		resource_delay = world.time + 10 // 1 second
 		overmind.add_points(point_rate+point_rate_bonus)
-	overmind.blob_core.atom_integrity = min(overmind.blob_core.max_integrity, overmind.blob_core.atom_integrity+base_core_regen+core_regen_bonus)
+	overmind.blob_core.update_integrity(min(overmind.blob_core.max_integrity, overmind.blob_core.get_integrity() + base_core_regen+core_regen_bonus))
 
 /datum/blobstrain/proc/attack_living(mob/living/L, list/nearby_blobs) // When the blob attacks people
 	send_message(L)
