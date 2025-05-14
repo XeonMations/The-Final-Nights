@@ -125,7 +125,7 @@
 		addtimer(CALLBACK(PROC_REF(update_other_id)), 5)
 	if(glass)
 		airlock_material = "glass"
-	if(security_level > AIRLOCK_SECURITY_IRON)
+	if(security_level > 2)
 		atom_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
 		max_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
 	else
@@ -451,71 +451,6 @@
 	var/mutable_appearance/sparks_overlay
 	var/mutable_appearance/note_overlay
 	var/mutable_appearance/seal_overlay
-	var/notetype = note_type()
-
-	switch(state)
-		if(AIRLOCK_CLOSED)
-			frame_state = AIRLOCK_FRAME_CLOSED
-			if(locked)
-				light_state = AIRLOCK_LIGHT_BOLTS
-			else if(emergency)
-				light_state = AIRLOCK_LIGHT_EMERGENCY
-		if(AIRLOCK_DENY)
-			frame_state = AIRLOCK_FRAME_CLOSED
-			light_state = AIRLOCK_LIGHT_DENIED
-		if(AIRLOCK_EMAG)
-			frame_state = AIRLOCK_FRAME_CLOSED
-		if(AIRLOCK_CLOSING)
-			frame_state = AIRLOCK_FRAME_CLOSING
-			light_state = AIRLOCK_LIGHT_CLOSING
-		if(AIRLOCK_OPEN)
-			frame_state = AIRLOCK_FRAME_OPEN
-		if(AIRLOCK_OPENING)
-			frame_state = AIRLOCK_FRAME_OPENING
-			light_state = AIRLOCK_LIGHT_OPENING
-
-	. += get_airlock_overlay(frame_state, icon, em_block = TRUE)
-	if(airlock_material)
-		. += get_airlock_overlay("[airlock_material]_[frame_state]", overlays_file, em_block = TRUE)
-	else
-		. += get_airlock_overlay("fill_[frame_state]", icon, em_block = TRUE)
-
-	if(lights && hasPower())
-		. += get_airlock_overlay("lights_[light_state]", overlays_file, em_block = FALSE)
-
-	if(panel_open)
-		. += get_airlock_overlay("panel_[frame_state][security_level ? "_protected" : null]", overlays_file, em_block = TRUE)
-	if(frame_state == AIRLOCK_FRAME_CLOSED && welded)
-		. += get_airlock_overlay("welded", overlays_file, em_block = TRUE)
-
-	if(airlock_state == AIRLOCK_EMAG)
-		. += get_airlock_overlay("sparks", overlays_file, em_block = FALSE)
-
-	if(hasPower())
-		if(frame_state == AIRLOCK_FRAME_CLOSED)
-			if(atom_integrity < integrity_failure * max_integrity)
-				. += get_airlock_overlay("sparks_broken", overlays_file, em_block = FALSE)
-			else if(atom_integrity < (0.75 * max_integrity))
-				. += get_airlock_overlay("sparks_damaged", overlays_file, em_block = FALSE)
-		else if(frame_state == AIRLOCK_FRAME_OPEN)
-			if(atom_integrity < (0.75 * max_integrity))
-				. += get_airlock_overlay("sparks_open", overlays_file, em_block = FALSE)
-
-		if(AIRLOCK_OPENING)
-			frame_overlay = get_airlock_overlay("opening", icon)
-			if(airlock_material)
-				filling_overlay = get_airlock_overlay("[airlock_material]_opening", overlays_file)
-			else
-				filling_overlay = get_airlock_overlay("fill_opening", icon)
-			if(lights && hasPower())
-				lights_overlay = get_airlock_overlay("lights_opening", overlays_file)
-			if(panel_open)
-				if(security_level)
-					panel_overlay = get_airlock_overlay("panel_opening_protected", overlays_file)
-				else
-					panel_overlay = get_airlock_overlay("panel_opening", overlays_file)
-			if(note)
-				note_overlay = get_airlock_overlay("[notetype]_opening", note_overlay_file)
 
 	cut_overlays()
 	add_overlay(frame_overlay)

@@ -55,7 +55,7 @@
 			user.visible_message(span_danger("[user] repairs \the <b>[src]</b>."), \
 				span_cult("You repair <b>[src]</b>, leaving [p_they()] at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability."))
 		else
-			to_chat(M, "<span class='cult'>You cannot repair [src], as [p_theyre()] undamaged!</span>")
+			to_chat(user, "<span class='cult'>You cannot repair [src], as [p_theyre()] undamaged!</span>")
 	else
 		..()
 

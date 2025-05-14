@@ -536,7 +536,7 @@
 	new /obj/item/shard(loc)
 	new /obj/item/shard(loc)
 
-/obj/machinery/newscaster/obj_break(damage_flag)
+/obj/machinery/newscaster/atom_break(damage_flag)
 	. = ..()
 	if(.)
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
