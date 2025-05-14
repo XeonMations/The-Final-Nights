@@ -301,7 +301,7 @@
 		if(!fulltile)
 			return
 
-		var/ratio = obj_integrity / max_integrity
+		var/ratio = atom_integrity / max_integrity
 		ratio = CEILING(ratio*4, 1) * 25
 
 	var/ratio = atom_integrity / max_integrity

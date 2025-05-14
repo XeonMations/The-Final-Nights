@@ -53,7 +53,7 @@
 		unwrenched_plaque.desc = desc
 		unwrenched_plaque.engraved = engraved
 	unwrenched_plaque.icon_state = icon_state
-	unwrenched_plaque.obj_integrity = obj_integrity
+	unwrenched_plaque.atom_integrity = atom_integrity
 	unwrenched_plaque.setDir(dir)
 	qdel(src) //The plaque structure on the wall goes poof and only the plaque item from unwrenching remains.
 	return TRUE
@@ -183,6 +183,6 @@
 		placed_plaque.desc = desc
 		placed_plaque.engraved = engraved
 	placed_plaque.icon_state = icon_state
-	placed_plaque.obj_integrity = obj_integrity
+	placed_plaque.atom_integrity = atom_integrity
 	placed_plaque.setDir(dir)
 	qdel(src)

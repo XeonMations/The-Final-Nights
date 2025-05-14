@@ -373,7 +373,7 @@
 					else
 						occupant.throw_alert("charge", /atom/movable/screen/alert/emptycell)
 
-			var/integrity = obj_integrity/max_integrity*100
+			var/integrity = atom_integrity/max_integrity*100
 			switch(integrity)
 				if(30 to 45)
 					occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 1)
@@ -383,30 +383,6 @@
 					occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 3)
 				else
 					occupant.throw_alert("charge", /atom/movable/screen/alert/emptycell)
-
-		var/integrity = atom_integrity/max_integrity*100
-		switch(integrity)
-			if(30 to 45)
-				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 1)
-			if(15 to 35)
-				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 2)
-			if(-INFINITY to 15)
-				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 3)
-			else
-				occupant.clear_alert("mech damage")
-		var/atom/checking = occupant.loc
-		// recursive check to handle all cases regarding very nested occupants,
-		// such as brainmob inside brainitem inside MMI inside mecha
-		while(!isnull(checking))
-			if(isturf(checking))
-				// hit a turf before hitting the mecha, seems like they have been moved out
-				occupant.clear_alert("charge")
-				occupant.clear_alert("mech damage")
-				occupant = null
-				break
-			else if (checking == src)
-				break  // all good
-			checking = checking.loc
 
 	if(mecha_flags & LIGHTS_ON)
 		var/lights_energy_drain = 2
