@@ -664,7 +664,7 @@
 	var/preview_text = copytext_char(flavor_text, 1, 110)
 	// What examine_tgui.dm uses to determine if flavor text appears as "Obscured".
 	var/face_obscured = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
-	if(!face_obscured || (face_obscured && client.prefs.show_flavor_text_when_masked))
+	if(!face_obscured || (face_obscured && client?.prefs.show_flavor_text_when_masked))
 		flavor_text_to_show = span_notice("[preview_text]... <a href='byond://?src=[REF(src)];view_flavortext=1'>\[Look closer?\]</a>")
 
 	return flavor_text_to_show
