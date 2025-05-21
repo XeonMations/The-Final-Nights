@@ -1291,15 +1291,15 @@
 				gender_description = "<font color='red'><b>[M.gender]</b></font>"
 
 		//Full Output
-		var/exportable_text = "[span_bold("Info about [subject.name]:")]<br>"
-		exportable_text += "Key - [span_bold(subject.key)]<br>"
-		exportable_text += "Mob Type - [subject.type]<br>"
+		var/exportable_text = "[span_bold("Info about [M.name]:")]<br>"
+		exportable_text += "Key - [span_bold(M.key)]<br>"
+		exportable_text += "Mob Type - [M.type]<br>"
 		exportable_text += "Gender - [gender_description]<br>"
 		exportable_text += "[health_description]<br>"
-		exportable_text += "Name: [span_bold(subject.name)] - Real Name: [subject.real_name] - Mind Name: [subject.mind?"[subject.mind.name]":""]<br>"
+		exportable_text += "Name: [span_bold(M.name)] - Real Name: [M.real_name] - Mind Name: [M.mind?"[M.mind.name]":""]<br>"
 		exportable_text += "Location is [location_description]<br>"
 		exportable_text += "[special_role_description]<br>"
-		exportable_text += ADMIN_FULLMONTY_NONAME(subject)
+		exportable_text += ADMIN_FULLMONTY_NONAME(M)
 
 		to_chat(src.owner, boxed_message(exportable_text), confidential = TRUE)
 
