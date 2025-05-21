@@ -502,7 +502,7 @@
 			result[i] += "\n"
 
 	to_chat(src, examine_block("<span class='infoplain'>[result.Join()]</span>"))
-	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
+	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
 
 /mob/proc/blind_examine_check(atom/examined_thing)
