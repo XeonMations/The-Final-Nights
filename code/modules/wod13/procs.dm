@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/AdjustMasquerade(value, forced = FALSE)
+/mob/living/carbon/human/proc/AdjustMasquerade(var/value, var/forced = FALSE)
 	if(!iskindred(src) && !isghoul(src) && !iscathayan(src))
 		return
 	if(!GLOB.canon_event)

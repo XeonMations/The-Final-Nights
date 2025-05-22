@@ -24,6 +24,7 @@
 		else
 			to_chat(src, "I'm too <span class='danger'><b>AFRAID</b></span> to continue doing this. Rolling...")
 		SEND_SOUND(src, sound('code/modules/wod13/sounds/bloodneed.ogg', 0, 0, 50))
+
 		var/check
 		var/frenzydicepool = 1
 		var/frenzydiff = 4
@@ -199,13 +200,6 @@
 
 /datum/species/kindred/spec_life(mob/living/carbon/human/H)
 	. = ..()
-	if(H.clan?.name == "Baali")
-		if(istype(get_area(H), /area/vtm/church))
-			if(prob(25))
-				to_chat(H, "<span class='warning'>You don't belong here!</span>")
-				H.adjustFireLoss(20)
-				H.adjust_fire_stacks(6)
-				H.IgniteMob()
 	//FIRE FEAR
 	if(!H.antifrenzy && !HAS_TRAIT(H, TRAIT_KNOCKEDOUT))
 		var/fearstack = 0
@@ -231,27 +225,19 @@
 		else
 			H.remove_status_effect(STATUS_EFFECT_FEAR)
 
-	//masquerade violations due to unnatural appearances
-	if(H.is_face_visible() && H.clan?.violating_appearance)
-		switch(H.clan.alt_sprite)
-			if ("kiasyd")
-				//masquerade breach if eyes are uncovered, short range
-				if (!H.is_eyes_covered())
-					if (H.CheckEyewitness(H, H, 3, FALSE))
-						H.AdjustMasquerade(-1)
-			if ("rotten3")
-				//slightly less range than if fully decomposed
-				if (H.CheckEyewitness(H, H, 5, FALSE))
-					H.AdjustMasquerade(-1)
-			else
-				//gargoyles, nosferatu, skeletons, that kind of thing
-				if (H.CheckEyewitness(H, H, 7, FALSE))
+	// Masquerade violations due to unnatural appearances
+	if (H.is_face_visible())
+		// Gargoyles, nosferatu, skeletons, that kind of thing
+		if (HAS_TRAIT(H, TRAIT_MASQUERADE_VIOLATING_FACE))
+			if (H.CheckEyewitness(H, H, 7, FALSE))
+				H.AdjustMasquerade(-1)
+		// Masquerade breach if eyes are uncovered, short range
+		else if (HAS_TRAIT(H, TRAIT_MASQUERADE_VIOLATING_EYES))
+			if (!H.is_eyes_covered())
+				if (H.CheckEyewitness(H, H, 3, FALSE))
 					H.AdjustMasquerade(-1)
 
-	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE))
-		if(H.CheckEyewitness(H, H, 7, FALSE))
-			H.AdjustMasquerade(-1)
-	if(HAS_TRAIT(H, TRAIT_NONMASQUERADE))
+	if (HAS_TRAIT(H, TRAIT_UNMASQUERADE))
 		if(H.CheckEyewitness(H, H, 7, FALSE))
 			H.AdjustMasquerade(-1)
 
@@ -293,8 +279,9 @@
 					H.ghostize(FALSE)
 					P.reason_of_death = "Lost control to the Beast ([time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")])."
 
+	// TODO: [Lucia] this needs to be a component
 	if(H.clan && !H.antifrenzy && !HAS_TRAIT(H, TRAIT_KNOCKEDOUT))
-		if(H.clan.name == "Banu Haqim")
+		if(HAS_TRAIT(H, TRAIT_VITAE_ADDICTION))
 			if(H.mind)
 				if(H.mind.enslaved_to)
 					if(get_dist(H, H.mind.enslaved_to) > 10)

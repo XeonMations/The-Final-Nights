@@ -61,12 +61,11 @@
 		discipline_types = list()
 		discipline_levels = list()
 	if(pref_species.id == "kindred")
-		qdel(clan)
-		clan = new /datum/vampire_clan/brujah()
+		clan = GLOB.vampire_clans[/datum/vampire_clan/brujah]
 		discipline_types = list()
 		discipline_levels = list()
-		for (var/i in 1 to clan.clane_disciplines.len)
-			discipline_types += clan.clane_disciplines[i]
+		for (var/i in 1 to clan.clan_disciplines.len)
+			discipline_types += clan.clan_disciplines[i]
 			discipline_levels += 1
 
 ///Setup a hardcore random character and calculate their hardcore random score
@@ -153,15 +152,7 @@
 	var/mutable_appearance/MAMA = mutable_appearance('code/modules/wod13/64x32.dmi', "slot", layer = SPACE_LAYER)
 	MAMA.pixel_x = -16
 	mannequin.add_overlay(MAMA)
-	copy_to(mannequin, 1, TRUE, TRUE, loadout = show_loadout) // TFN EDIT - ORIGINAL: remove "loadout = show_loadout"
-	if(clan.alt_sprite)
-		mannequin.dna.species.limbs_id = clan.alt_sprite
-//	else
-//		mannequin.dna.species.limbs_id = initial(pref_species.limbs_id)
-	if(clan.no_hair)
-		mannequin.facial_hairstyle = "Shaved"
-		mannequin.hairstyle = "Bald"
-		mannequin.update_hair()
+	copy_to(mannequin, 1, TRUE, TRUE)
 	mannequin.update_body()
 	mannequin.update_body_parts()
 	mannequin.update_appearance()

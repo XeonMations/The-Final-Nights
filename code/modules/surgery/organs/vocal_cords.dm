@@ -145,7 +145,6 @@
 	var/list/mob/living/listeners = list()
 	for(var/mob/living/L in get_hearers_in_view(8, user))
 		if(L.can_hear() && !L.anti_magic_check(FALSE, TRUE) && L.stat != DEAD)
-			var/dominate_me = FALSE
 			var/conditioner
 
 			if(L == user && !include_speaker)
@@ -154,12 +153,10 @@
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				conditioner = H.conditioner?.resolve()
-				if(H.clan?.name == "Gargoyle")
-					dominate_me = TRUE
 				if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
 					continue
 
-			if(user.generation > L.generation && !dominate_me)
+			if(user.generation > L.generation && !HAS_TRAIT(L, TRAIT_CANNOT_RESIST_MIND_CONTROL))
 				continue
 
 			var/mypower = SSroll.storyteller_roll(user.get_total_social(), difficulty = 6, mobs_to_show_output = user, numerical = 1)
@@ -169,7 +166,7 @@
 				theirpower += 3
 
 			if(user != conditioner)
-				if((theirpower >= mypower) && !dominate_me)
+				if((theirpower >= mypower) && !HAS_TRAIT(L, TRAIT_CANNOT_RESIST_MIND_CONTROL))
 					to_chat(L, span_warning("Your ears ring with the undeniable authority of [user]'s voice. For a moment, you nearly obey… but your will breaks through the illusion."))
 					continue
 

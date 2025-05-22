@@ -135,7 +135,7 @@
 	var/word_count = length(splittext(custom_command, " "))
 	var/extra_words_difficulty = 4 + max(0, word_count - 1) // Base 4 +1 per extra word
 
-	if(dominate_check(owner, target, base_difficulty = extra_words_difficulty))
+	if(dominate_check(owner, target, base_difficulty = extra_words_difficulty) || HAS_TRAIT(target, TRAIT_CANNOT_RESIST_MIND_CONTROL))
 		to_chat(owner, span_warning("You've successfully dominated [target]'s mind!"))
 		owner.say("[custom_command]")
 		to_chat(target, span_big("[custom_command]"))
@@ -164,7 +164,8 @@
 
 	if(!dominate_hearing_check(owner, target))
 		return FALSE
-
+	if (HAS_TRAIT(target, TRAIT_CANNOT_RESIST_MIND_CONTROL))
+		return TRUE
 	domination_succeeded = dominate_check(owner, target, base_difficulty = 5)
 	if(domination_succeeded)
 		return TRUE
@@ -212,7 +213,8 @@
 
 	if(!dominate_hearing_check(owner, target))
 		return FALSE
-
+	if (HAS_TRAIT(target, TRAIT_CANNOT_RESIST_MIND_CONTROL))
+		return TRUE
 	domination_succeeded = dominate_check(owner, target, base_difficulty = 6)
 	if(domination_succeeded)
 		return TRUE
@@ -257,7 +259,8 @@
 
 	if(!dominate_hearing_check(owner, target))
 		return FALSE
-
+	if (HAS_TRAIT(target, TRAIT_CANNOT_RESIST_MIND_CONTROL))
+		return TRUE
 	domination_succeeded = dominate_check(owner, target, base_difficulty = 6)
 	if(domination_succeeded)
 		return TRUE
@@ -306,7 +309,8 @@
 
 	if(!dominate_hearing_check(owner, target))
 		return FALSE
-
+	if (HAS_TRAIT(target, TRAIT_CANNOT_RESIST_MIND_CONTROL))
+		return TRUE
 	domination_succeeded = dominate_check(owner, target, base_difficulty = 7)
 	if(domination_succeeded)
 		return TRUE

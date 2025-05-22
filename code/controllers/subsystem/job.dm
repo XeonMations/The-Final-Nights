@@ -173,14 +173,13 @@ SUBSYSTEM_DEF(job)
 			JobDebug("FOC player species limit overrun, Player: [player]")
 			continue
 		if(player.client.prefs.pref_species.name == "Vampire")
-			if(player.client.prefs.clan)
-				var/alloww = FALSE
-				for(var/i in job.allowed_bloodlines)
-					if(i == player.client.prefs.clan.name)
-						alloww = TRUE
-				if(!alloww && !bypass)
-					JobDebug("FOC player clan not allowed, Player: [player]")
-					continue
+			var/alloww = FALSE
+			for(var/i in job.allowed_bloodlines)
+				if(i == player.client.prefs.clan.name)
+					alloww = TRUE
+			if(!alloww && !bypass)
+				JobDebug("FOC player clan not allowed, Player: [player]")
+				continue
 		if(flag && (!(flag in player.client.prefs.be_special)))
 			JobDebug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
@@ -257,14 +256,13 @@ SUBSYSTEM_DEF(job)
 			continue
 
 		if(player.client.prefs.pref_species.name == "Vampire")
-			if(player.client.prefs.clan)
-				var/alloww = FALSE
-				for(var/i in job.allowed_bloodlines)
-					if(i == player.client.prefs.clan.name)
-						alloww = TRUE
-				if(!alloww)
-					JobDebug("GRJ player clan not allowed, Player: [player]")
-					continue
+			var/alloww = FALSE
+			for(var/i in job.allowed_bloodlines)
+				if(i == player.client.prefs.clan.name)
+					alloww = TRUE
+			if(!alloww)
+				JobDebug("GRJ player clan not allowed, Player: [player]")
+				continue
 
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			JobDebug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
@@ -457,14 +455,13 @@ SUBSYSTEM_DEF(job)
 					continue
 
 				if(player.client.prefs.pref_species.name == "Vampire")
-					if(player.client.prefs.clan)
-						var/alloww = FALSE
-						for(var/i in job.allowed_bloodlines)
-							if(i == player.client.prefs.clan.name)
-								alloww = TRUE
-						if(!alloww && !bypass)
-							JobDebug("DO player clan not allowed, Player: [player]")
-							continue
+					var/alloww = FALSE
+					for(var/i in job.allowed_bloodlines)
+						if(i == player.client.prefs.clan.name)
+							alloww = TRUE
+					if(!alloww && !bypass)
+						JobDebug("DO player clan not allowed, Player: [player]")
+						continue
 
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					JobDebug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
@@ -778,10 +775,14 @@ SUBSYSTEM_DEF(job)
 
 	if(latejoin_trackers.len)
 		destination = pick(latejoin_trackers)
-		var/mob/living/carbon/human/H = M
-		if(H.clan)
-			if(H.clan.violating_appearance)
-				destination = pick(GLOB.masquerade_latejoin)
+		// Sent to a special location if being seen would be a Masquerade breach
+		if (HAS_TRAIT(M, TRAIT_MASQUERADE_VIOLATING_FACE))
+			destination = pick(GLOB.masquerade_latejoin)
+		// Garou are sent to their Tribe totems
+		if (isgarou(H))
+			for(var/obj/structure/werewolf_totem/W in GLOB.totems)
+				if(W.tribe == H.auspice.tribe)
+					destination = W
 		destination.JoinPlayerHere(M, buckle)
 		return TRUE
 

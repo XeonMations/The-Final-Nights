@@ -402,39 +402,78 @@
 								save_data_v = TRUE
 							else
 								save_data_v = FALSE
+						BLOODBONDED.set_species(/datum/species/kindred)
+						BLOODBONDED.set_clan(null)
+						if(H.generation < 13)
+							BLOODBONDED.generation = 13
+							BLOODBONDED.skin_tone = get_vamp_skin_color(BLOODBONDED.skin_tone)
+							BLOODBONDED.update_body()
+							if (H.clan.whitelisted)
+								if (!SSwhitelists.is_whitelisted(BLOODBONDED.ckey, H.clan.name))
+									if(H.clan.name == "True Brujah")
+										BLOODBONDED.set_clan(/datum/vampire_clan/brujah)
+										to_chat(BLOODBONDED,"<span class='warning'> You don't got that whitelist! Changing to the non WL Brujah</span>")
+									else if(H.clan.name == "Tzimisce")
+										BLOODBONDED.set_clan(/datum/vampire_clan/old_clan_tzimisce)
+										to_chat(BLOODBONDED,"<span class='warning'> You don't got that whitelist! Changing to the non WL Old Tzmisce</span>")
+									else
+										to_chat(BLOODBONDED,"<span class='warning'> You don't got that whitelist! Changing to a random non WL clan.</span>")
+										var/list/non_whitelisted_clans = list(/datum/vampire_clan/brujah, /datum/vampire_clan/malkavian, /datum/vampire_clan/nosferatu, /datum/vampire_clan/gangrel, /datum/vampire_clan/giovanni, /datum/vampire_clan/ministry, /datum/vampire_clan/salubri, /datum/vampire_clan/toreador, /datum/vampire_clan/tremere, /datum/vampire_clan/ventrue)
+										var/random_clan = pick(non_whitelisted_clans)
+										BLOODBONDED.set_clan(random_clan)
+								else
+									BLOODBONDED.set_clan(H.clan)
+							else
+								BLOODBONDED.set_clan(H.clan)
 
-						childe.roundstart_vampire = FALSE
-						childe.set_species(/datum/species/kindred)
-						childe.clan = null
-						childe.generation = sire.generation+1
+							if(BLOODBONDED.clan.alt_sprite)
+								BLOODBONDED.skin_tone = "albino"
+								BLOODBONDED.update_body()
 
 						childe.skin_tone = get_vamp_skin_color(childe.skin_tone)
 						childe.update_body()
 
-						if(childe.generation <= 13)
-							childe.clan = new sire.clan.type()
-							childe.clan.on_gain(childe)
-							childe.clan.post_gain(childe)
+							var/list/disciplines_to_give = list()
+							for (var/i in 1 to min(3, H.client.prefs.discipline_types.len))
+								disciplines_to_give += H.client.prefs.discipline_types[i]
+							BLOODBONDED.create_disciplines(FALSE, disciplines_to_give)
+
+							BLOODBONDED.maxbloodpool = 10+((13-min(13, BLOODBONDED.generation))*3)
 						else
-							childe.clan = new /datum/vampire_clan/caitiff()
-
-						if(childe.clan.alt_sprite)
-							childe.skin_tone = "albino"
-							childe.update_body()
-
-						//Gives the Childe the Sire's first three Disciplines
-
-						var/list/disciplines_to_give = list()
-						for (var/i in 1 to min(3, sire.client.prefs.discipline_types.len))
-							disciplines_to_give += sire.client.prefs.discipline_types[i]
-						childe.create_disciplines(FALSE, disciplines_to_give)
-						// TODO: Rework the max blood pool calculations.
-						childe.maxbloodpool = 10+((13-min(13, childe.generation))*3)
-						childe.clan.is_enlightened = sire.clan.is_enlightened
+							BLOODBONDED.maxbloodpool = 10+((13-min(13, BLOODBONDED.generation))*3)
+							BLOODBONDED.generation = 14
+							BLOODBONDED.set_clan(/datum/vampire_clan/caitiff)
 
 						//Verify if they accepted to save being a vampire
-						if(iskindred(childe) && save_data_v)
-							var/datum/preferences/childe_prefs_v = childe.client.prefs
+						if (iskindred(BLOODBONDED) && save_data_v)
+							var/datum/preferences/BLOODBONDED_prefs_v = BLOODBONDED.client.prefs
+
+							BLOODBONDED_prefs_v.pref_species.id = "kindred"
+							BLOODBONDED_prefs_v.pref_species.name = "Vampire"
+							if(H.generation < 13)
+
+								BLOODBONDED_prefs_v.clan = BLOODBONDED.clan
+								BLOODBONDED_prefs_v.generation = 13
+								BLOODBONDED_prefs_v.skin_tone = get_vamp_skin_color(BLOODBONDED.skin_tone)
+								BLOODBONDED_prefs_v.enlightenment = H.clan.enlightenment
+
+
+								//Rarely the new mid round vampires get the 3 brujah skil(it is default)
+								//This will remove if it happens
+								// Or if they are a ghoul with abunch of disciplines
+								if(BLOODBONDED_prefs_v.discipline_types.len > 0)
+									for (var/i in 1 to BLOODBONDED_prefs_v.discipline_types.len)
+										var/removing_discipline = BLOODBONDED_prefs_v.discipline_types[1]
+										if (removing_discipline)
+											var/index = BLOODBONDED_prefs_v.discipline_types.Find(removing_discipline)
+											BLOODBONDED_prefs_v.discipline_types.Cut(index, index + 1)
+											BLOODBONDED_prefs_v.discipline_levels.Cut(index, index + 1)
+
+								if(BLOODBONDED_prefs_v.discipline_types.len == 0)
+									for (var/i in 1 to 3)
+										BLOODBONDED_prefs_v.discipline_types += BLOODBONDED_prefs_v.clan.clan_disciplines[i]
+										BLOODBONDED_prefs_v.discipline_levels += 1
+								BLOODBONDED_prefs_v.save_character()
 
 							childe_prefs_v.pref_species.id = "kindred"
 							childe_prefs_v.pref_species.name = "Vampire"
@@ -443,7 +482,9 @@
 							if(childe.generation <= 14)
 								childe_prefs_v.generation = childe.generation
 							else
-								childe_prefs_v.generation = 14
+								BLOODBONDED_prefs_v.generation = 13 // Game always set to 13 anyways, 14 is not possible.
+								BLOODBONDED_prefs_v.clan = GLOB.vampire_clans[/datum/vampire_clan/caitiff]
+								BLOODBONDED_prefs_v.save_character()
 
 							childe_prefs_v.skin_tone = get_vamp_skin_color(childe.skin_tone)
 							childe_prefs_v.clan.is_enlightened = sire.clan.is_enlightened
@@ -461,7 +502,7 @@
 
 							if(childe_prefs_v.discipline_types.len == 0)
 								for (var/i in 1 to 3)
-									childe_prefs_v.discipline_types += childe_prefs_v.clan.clane_disciplines[i]
+									childe_prefs_v.discipline_types += childe_prefs_v.clan.clan_disciplines[i]
 									childe_prefs_v.discipline_levels += 1
 
 							childe_prefs_v.save_character()
@@ -505,11 +546,10 @@
 						var/mob/living/carbon/human/npc/NPC = thrall
 						if(NPC.ghoulificate(owner))
 							new_master = TRUE
-							NPC.roundstart_vampire = FALSE
-					if(thrall.mind)
-						if(thrall.mind.enslaved_to != owner && !HAS_TRAIT(thrall,TRAIT_UNBONDABLE))
-							thrall.mind.enslave_mind_to_creator(owner)
-							to_chat(thrall, "<span class='userdanger'><b>AS PRECIOUS VITAE ENTER YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [regnant]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b></span>")
+					if(BLOODBONDED.mind)
+						if(BLOODBONDED.mind.enslaved_to != owner)
+							BLOODBONDED.mind.enslave_mind_to_creator(owner)
+							to_chat(BLOODBONDED, "<span class='userdanger'><b>AS PRECIOUS VITAE ENTER YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [H]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b></span>")
 							new_master = TRUE
 						if(HAS_TRAIT(thrall,TRAIT_UNBONDABLE))
 							to_chat(thrall, "<span class='danger'><i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i></span>")
@@ -521,13 +561,12 @@
 							ghoul.changed_master = TRUE
 					else if(!iskindred(thrall) && !isnpc(thrall))
 						var/save_data_g = FALSE
-						thrall.set_species(/datum/species/ghoul)
-						thrall.clan = null
-						var/response_g = input(thrall, "Do you wish to keep being a ghoul on your save slot?(Yes will be a permanent choice and you can't go back)") in list("Yes", "No")
-						thrall.roundstart_vampire = FALSE
-						var/datum/species/ghoul/ghoul = thrall.dna.species
-						ghoul.master = owner
-						ghoul.last_vitae = world.time
+						BLOODBONDED.set_species(/datum/species/ghoul)
+						BLOODBONDED.set_clan(null)
+						var/response_g = input(BLOODBONDED, "Do you wish to keep being a ghoul on your save slot?(Yes will be a permanent choice and you can't go back)") in list("Yes", "No")
+						var/datum/species/ghoul/G = BLOODBONDED.dna.species
+						G.master = owner
+						G.last_vitae = world.time
 						if(new_master)
 							ghoul.changed_master = TRUE
 						if(response_g == "Yes")
@@ -556,7 +595,7 @@
  * If discipline_pref is true, it grabs all of the source's Disciplines from their preferences
  * and applies those using the give_discipline() proc. If false, it instead grabs a given list
  * of Discipline typepaths and initialises those for the character. Only works for ghouls and
- * vampires, and it also applies the Clan's post_gain() effects
+ * vampires.
  *
  * Arguments:
  * * discipline_pref - Whether Disciplines will be taken from preferences. True by default.
@@ -592,9 +631,6 @@
 
 		for (var/datum/discipline/discipline in adding_disciplines)
 			give_discipline(discipline)
-
-		if(clan)
-			clan.post_gain(src)
 
 	if((dna.species.id == "kuei-jin")) //only splats that have Disciplines qualify
 		var/list/datum/chi_discipline/adding_disciplines = list()
@@ -648,26 +684,6 @@
 
 /datum/species/kindred/check_roundstart_eligible()
 	return TRUE
-
-/datum/species/kindred/handle_body(mob/living/carbon/human/H)
-	if (!H.clan)
-		return ..()
-
-	//deflate people if they're super rotten
-	if ((H.clan.alt_sprite == "rotten4") && (H.base_body_mod == "f"))
-		H.base_body_mod = ""
-
-	if(H.clan.alt_sprite)
-		H.dna.species.limbs_id = "[H.base_body_mod][H.clan.alt_sprite]"
-
-	if (H.clan.no_hair)
-		H.hairstyle = "Bald"
-
-	if (H.clan.no_facial)
-		H.facial_hairstyle = "Shaved"
-
-	..()
-
 
 /**
  * Signal handler for lose_organ to near-instantly kill Kindred whose hearts have been removed.
@@ -786,12 +802,12 @@
 				var/datum/vampire_clan/main_clan
 				switch(student.clan.type)
 					if (/datum/vampire_clan/true_brujah)
-						main_clan = new /datum/vampire_clan/brujah
+						main_clan = GLOB.vampire_clans[/datum/vampire_clan/brujah]
 					if (/datum/vampire_clan/old_clan_tzimisce)
-						main_clan = new /datum/vampire_clan/tzimisce
+						main_clan = GLOB.vampire_clans[/datum/vampire_clan/tzimisce]
 
 				student_prefs.clan = main_clan
-				student.clan = main_clan
+				student.set_clan(main_clan)
 
 			student_prefs.save_character()
 			teacher_prefs.save_character()
@@ -840,7 +856,7 @@
 	qdel(discipline_object_checking)
 
 	//first, check their Clan Disciplines to see if that gives them access
-	if (vampire_checking.clan.clane_disciplines.Find(discipline_checking))
+	if (vampire_checking.clan.clan_disciplines.Find(discipline_checking))
 		return TRUE
 
 	//next, go through all Clans to check if they have access to any with the Discipline
@@ -853,7 +869,7 @@
 				qdel(clan_checking)
 				continue
 
-		if (clan_checking.clane_disciplines.Find(discipline_checking))
+		if (clan_checking.clan_disciplines.Find(discipline_checking))
 			qdel(clan_checking)
 			return TRUE
 
