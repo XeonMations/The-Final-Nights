@@ -1954,6 +1954,8 @@
 #include "code\modules\economy\account.dm"
 #include "code\modules\economy\pay_stand.dm"
 #include "code\modules\emoji\emoji_parse.dm"
+#include "code\modules\emotions\emotions.dm"
+#include "code\modules\emotions\emotions_handler.dm"
 #include "code\modules\error_handler\error_handler.dm"
 #include "code\modules\error_handler\error_viewer.dm"
 #include "code\modules\events\_event.dm"
