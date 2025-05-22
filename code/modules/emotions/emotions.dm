@@ -38,3 +38,62 @@
 /datum/emotion/distrustful
 	name = "Distrustful"
 	greyscale_color = "#90EE90"
+
+/datum/emotion/envious
+	name = "Envious"
+	greyscale_color = "#006400"
+
+/datum/emotion/excited
+	name = "Excited"
+	greyscale_color = "#7F00FF"
+
+/datum/emotion/generous
+	name = "Generous"
+	greyscale_color = "#FF007F"
+
+/datum/emotion/happy
+	name = "Happy"
+	greyscale_color = "#E34234"
+
+/datum/emotion/hateful
+	name = "Hateful"
+	greyscale_color = "#000000"
+
+/datum/emotion/idealistic
+	name = "Idealistic"
+	greyscale_color = "#FFFF00"
+
+/datum/emotion/innocent
+	name = "Innocent"
+	greyscale_color = "#FFFFFF"
+
+/datum/emotion/lovestruck
+	name = "Lovestruck"
+	greyscale_color = "#0000FF"
+
+/datum/emotion/obsessed
+	name = "Obsessed"
+	greyscale_color = "#008000"
+
+/datum/emotion/sad
+	name = "Sad"
+	greyscale_color = "#C0C0C0"
+
+/datum/emotion/spiritual
+	name = "Spiritual"
+	greyscale_color = "#FFD700"
+
+/datum/emotion/suspicious
+	name = "Suspicious"
+	greyscale_color = "#00008B"
+
+// Auras appear scrambled like static or white noise
+/datum/emotion/anxious
+	name = "Anxious"
+	greyscale_color = "#ffffff"
+
+// Mottled, shifting colors
+/datum/emotion/confused
+	name = "Confused"
+	greyscale_color = "#ffffff"
+
