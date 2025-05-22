@@ -1,13 +1,12 @@
-/datum/vampireclane/tzimisce
+/datum/vampire_clan/tzimisce
 	name = CLAN_TZIMISCE
 	desc = "If someone were to call a Tzimisce inhuman and sadistic, the Tzimisce would probably commend them for their perspicacity, and then demonstrate that their mortal definition of sadism was laughably inadequate. The Tzimisce have left the human condition behind gladly, and now focus on transcending the limitations of the vampiric state. At a casual glance or a brief conversation, a Tzimisce appears to be one of the more pleasant vampires. Polite, intelligent, and inquisitive, they seem a stark contrast to the howling Sabbat mobs or even the apparently more humane Brujah or Nosferatu. However, upon closer inspection, it becomes clear that this is merely a mask hiding something alien and monstrous."
 	curse = "Grounded to material domain."
-	clane_disciplines = list(
+	clan_disciplines = list(
 		/datum/discipline/auspex,
 		/datum/discipline/animalism,
 		/datum/discipline/vicissitude
 	)
-	violating_appearance = FALSE
 	male_clothes = /obj/item/clothing/under/vampire/sport
 	female_clothes = /obj/item/clothing/under/vampire/red
 	clan_keys = /obj/item/vamp/keys/tzimisce
@@ -37,8 +36,9 @@
 	die_with_shapeshifted_form = FALSE
 	shapeshift_type = /mob/living/simple_animal/hostile/bloodcrawler
 
-/datum/vampireclane/tzimisce/post_gain(mob/living/carbon/human/H)
-	..()
+/datum/vampire_clan/tzimisce/on_join_round(mob/living/carbon/human/H)
+	. = ..()
+
 	var/obj/item/ground_heir/heirloom = new(get_turf(H))
 	var/list/slots = list(
 		LOCATION_LPOCKET = ITEM_SLOT_LPOCKET,
@@ -47,7 +47,7 @@
 		LOCATION_HANDS = ITEM_SLOT_HANDS
 	)
 	H.equip_in_one_of_slots(heirloom, slots, FALSE)
-	heirl = heirloom
+	H.AddComponent(/datum/component/needs_home_soil, heirloom)
 
 /datum/crafting_recipe/tzi_trench
 	name = "Leather-Bone Trenchcoat (Armor)"

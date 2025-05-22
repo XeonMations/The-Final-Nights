@@ -651,7 +651,7 @@
 		// Revive the specimen and turn them into a gargoyle kindred
 		target_body.revive(TRUE)
 		target_body.set_species(/datum/species/kindred)
-		target_body.clane = new /datum/vampireclane/gargoyle()
+		target_body.set_clan(/datum/vampire_clan/gargoyle)
 		target_body.clane.on_gain(target_body)
 		target_body.clane.post_gain(target_body)
 		target_body.apply_status_effect(STATUS_EFFECT_INLOVE, usr)
