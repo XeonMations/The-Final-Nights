@@ -25,7 +25,6 @@ GLOBAL_VAR_INIT(library_table_modified, 0)
 	icon_keyboard = null
 	circuit = /obj/item/circuitboard/computer/libraryconsole
 	desc = "Checked out books MUST be returned on time."
-	anchored_tabletop_offset = 8
 	///The current book id we're searching for
 	var/book_id = null
 	///The current title we're searching for
@@ -553,34 +552,12 @@ GLOBAL_VAR_INIT(library_table_modified, 0)
 	balloon_alert(user, "scanner connected")
 	audible_message(span_hear("[src] lets out a low, short blip."))
 
-	if(!scanner.book_data)
-		return
-
-	var/datum/book_info/scanner_book = scanner.book_data.return_copy()
-	switch(scanner.mode)
-		if(1)
-			buffer_book = scanner_book
-			to_chat(user, span_notice("[scanner]'s screen flashes: 'Book title stored in computer buffer.'"))
-		if(2)
-			for(var/checkout_ref in checkouts)
-				var/datum/borrowbook/maybe_ours = checkouts[checkout_ref]
-				if(!scanner_book.compare(maybe_ours.book_data))
-					continue
-				checkouts -= checkout_ref
-				checkout_update()
-				to_chat(user, span_notice("[scanner]'s screen flashes: 'Book has been checked in.'"))
-				return
-
-			to_chat(user, span_notice("[scanner]'s screen flashes: 'No active check-out record found for current title.'"))
-		if(3)
-			inventory[ref(scanner_book)] = scanner_book
-			inventory_update()
-			to_chat(user, span_notice("[scanner]'s screen flashes: 'Title added to general inventory.'"))
-
-/obj/machinery/computer/libraryconsole/bookmanagement/emag_act(mob/user)
-	if(!density)
-		return
+/obj/machinery/computer/libraryconsole/bookmanagement/emag_act(mob/user, obj/item/card/emag/emag_card)
+	if(!density || obj_flags & EMAGGED)
+		return FALSE
 	obj_flags |= EMAGGED
+	balloon_alert(user, "forbidden knowledge unlocked")
+	return TRUE
 
 /obj/machinery/computer/libraryconsole/bookmanagement/proc/set_screen_state(new_state)
 	screen_state = clamp(new_state, MIN_LIBRARY, MAX_LIBRARY)
