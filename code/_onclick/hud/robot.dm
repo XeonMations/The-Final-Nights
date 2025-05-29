@@ -135,15 +135,14 @@
 	var/atom/movable/screen/robot/modPC/tabletbutton = using
 	tabletbutton.robot = robit
 
-//Alerts
+	//Alerts
 	using = new /atom/movable/screen/robot/alerts()
 	using.screen_loc = ui_borg_alerts
 	using.hud = src
 	static_inventory += using
 
 	//Combat Mode
-	action_intent = new /atom/movable/screen/combattoggle/robot()
-	action_intent.hud = src
+	action_intent = new /atom/movable/screen/combattoggle/flashy
 	action_intent.icon = ui_style
 	action_intent.screen_loc = ui_combat_toggle
 	static_inventory += action_intent

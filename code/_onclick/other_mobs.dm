@@ -199,7 +199,7 @@
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(A)
-		if(a_intent == INTENT_HARM)
+		if(combat_mode)
 			if(istype(A, /mob/living))
 				var/mob/living/target = A
 				target.adjustCloneLoss(2)
@@ -217,7 +217,7 @@
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(A) // not putting this here will cause a runtime, I do NOT know why
-		if(a_intent == INTENT_HARM)
+		if(combat_mode)
 			if(istype(A, /mob/living))
 				var/mob/living/target = A
 				target.adjustCloneLoss(2)

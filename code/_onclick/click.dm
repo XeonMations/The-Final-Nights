@@ -99,7 +99,6 @@
 	var/turf/T = get_step(src, dir)
 	var/turf/T1 = get_step(T, turn(dir, -90))
 	var/turf/T2 = get_step(T, turn(dir, 90))
-	SEND_SIGNAL(src, COMSIG_MOB_MELEE_SWING, M, T, T1, T2)
 	for(var/mob/living/MB in T)
 		if(MB)
 			M = MB
@@ -249,35 +248,16 @@
 			var/allowed_to_proceed = FALSE
 			if(get_dist(A, src) <= 1)
 				allowed_to_proceed = TRUE
-			if(wolf.a_intent == INTENT_HARM && !isitem(A))
+			if(wolf.combat_mode && !isitem(A))
 				allowed_to_proceed = TRUE
 			if(allowed_to_proceed)
-				switch(wolf.a_intent)
-					if(INTENT_HARM)
-						changeNext_move(CLICK_CD_MELEE)
-						var/atom/B = claw_swing()
-						UnarmedAttack(B)
-					if(INTENT_HELP)
-						UnarmedAttack(A)
-					if(INTENT_GRAB)
-						changeNext_move(CLICK_CD_GRABBING)
-						if(A != src)
-							if(isliving(A))
-								var/mob/living/living = A
-								living.grabbedby(wolf)
-								return
-							else
-								UnarmedAttack(A)
-					if(INTENT_DISARM)
-						changeNext_move(CLICK_CD_MELEE)
-						if(A != src)
-							if(iscarbon(A))
-								var/mob/living/carbon/living = A
-								wolf.disarm(living)
-								do_attack_animation(A)
-								return
-							else
-								UnarmedAttack(A)
+				if(wolf.combat_mode)
+					changeNext_move(CLICK_CD_MELEE)
+					var/atom/B = claw_swing()
+					UnarmedAttack(B)
+				else
+					UnarmedAttack(A)
+
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
