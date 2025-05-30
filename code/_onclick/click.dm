@@ -164,9 +164,6 @@
 		else
 			RangedAttack(A,params)
 
-	if(last_locc)
-		forceMove(last_locc)
-
 /// Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
 	SHOULD_BE_PURE(TRUE)
