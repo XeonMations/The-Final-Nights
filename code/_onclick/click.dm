@@ -138,16 +138,7 @@
 		return
 
 	//Can't reach anything else in lockers or other weirdness
-
-	var/atom/last_locc = null
-
-	if(istype(loc, /obj/vampire_car))
-		var/obj/vampire_car/V = loc
-		if(V.driver != src)
-			last_locc = loc
-			forceMove(last_locc.loc)
-
-	if(!loc.AllowClick() && !last_locc)
+	if(!loc.AllowClick())
 		return
 
 	if(W)
