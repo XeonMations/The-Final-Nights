@@ -845,20 +845,20 @@ so as to remain in compliance with the most up-to-date laws."
 	return 1
 
 /atom/movable/screen/alert/Click(location, control, params)
+	SHOULD_CALL_PARENT(TRUE)
+
+	..()
 	if(!usr || !usr.client)
-		return
-	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
-		return
+		return FALSE
 	if(usr != owner)
 		return FALSE
 	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, "shift")) // screen objects don't do the normal Click() stuff so we'll cheat
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, boxed_message(jointext(examine(usr), "\n")))
 		return FALSE
-	if(master && click_master)
-		return usr.client.Click(master, location, control, params)
+	var/datum/our_master = master_ref?.resolve()
+	if(our_master && click_master)
+		return usr.client.Click(our_master, location, control, params)
 
 	return TRUE
 

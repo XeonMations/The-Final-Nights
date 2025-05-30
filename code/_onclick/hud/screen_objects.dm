@@ -33,10 +33,35 @@
 	 */
 	var/del_on_map_removal = TRUE
 
+	/// If FALSE, this will not be cleared when calling /client/clear_screen()
+	var/clear_with_screen = TRUE
+	/// If TRUE, clicking the screen element will fall through and perform a default "Click" call
+	/// Obviously this requires your Click override, if any, to call parent on their own.
+	/// This is set to FALSE to default to dissade you from doing this.
+	/// Generally we don't want default Click stuff, which results in bugs like using Telekinesis on a screen element
+	/// or trying to point your gun at your screen.
+	var/default_click = FALSE
+
+/atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	if(isnull(hud_owner)) //some screens set their hud owners on /new, this prevents overriding them with null post atoms init
+		return
+	set_new_hud(hud_owner)
+
 /atom/movable/screen/Destroy()
 	master = null
 	hud = null
 	return ..()
+
+/atom/movable/screen/Click(location, control, params)
+	if(flags_1 & INITIALIZED_1)
+		SEND_SIGNAL(src, COMSIG_SCREEN_ELEMENT_CLICK, location, control, params, usr)
+	if(default_click)
+		return ..()
+
+///Screen elements are always on top of the players screen and don't move so yes they are adjacent
+/atom/movable/screen/Adjacent(atom/neighbor, atom/target, atom/movable/mover)
+	return TRUE
 
 /atom/movable/screen/examine(mob/user)
 	return list()
