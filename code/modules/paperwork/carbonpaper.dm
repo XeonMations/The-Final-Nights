@@ -20,37 +20,15 @@
 		return
 	. += span_notice("Right-click to tear off the carbon-copy (you must use both hands).")
 
-/obj/item/paper/carbon/AltClick(mob/living/user, obj/item/I)
-	. = ..()
+/obj/item/paper/carbon/AltClick(mob/living/user)
 	if(!copied)
 		to_chat(user, span_notice("Take off the carbon copy first."))
 		return FALSE
 	return TRUE
 
 /obj/item/paper/carbon/proc/removecopy(mob/living/user)
-	if(!copied)
-		var/obj/item/paper/carbon/C = src
-		var/copycontents = C.info
-		var/obj/item/paper/carbon/Copy = new /obj/item/paper/carbon(user.loc)
-
-		if(info)
-			copycontents = replacetext(copycontents, "<font face=\"[PEN_FONT]\" color=", "<font face=\"[PEN_FONT]\" nocolor=")
-			copycontents = replacetext(copycontents, "<font face=\"[CRAYON_FONT]\" color=", "<font face=\"[CRAYON_FONT]\" nocolor=")
-			Copy.info += copycontents
-			Copy.info += "</font>"
-			Copy.name = "Copy - [C.name]"
-		to_chat(user, "<span class='notice'>You tear off the carbon-copy!</span>")
-		C.copied = TRUE
-		Copy.iscopy = TRUE
-		Copy.update_icon_state()
-		C.update_icon_state()
-		user.put_in_hands(Copy)
-	else
-		to_chat(user, "<span class='notice'>There are no more carbon copies attached to this paper!</span>")
-
-/obj/item/paper/carbon/attack_hand(mob/living/user, list/modifiers)
-	if(loc == user && user.is_holding(src))
-		removecopy(user)
+	if(copied)
+		to_chat(user, span_notice("There are no more carbon copies attached to this paper!"))
 		return
 
 	var/obj/item/paper/carbon/copy = copy(/obj/item/paper/carbon_copy, loc.drop_location(), FALSE)
@@ -59,6 +37,15 @@
 	copied = TRUE
 	update_icon_state()
 	user.put_in_hands(copy)
+
+/obj/item/paper/carbon/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+
+	if(loc == user && user.is_holding(src))
+		removecopy(user)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/paper/carbon_copy
 	icon_state = "cpaper"

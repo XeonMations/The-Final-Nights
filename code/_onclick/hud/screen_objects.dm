@@ -46,7 +46,6 @@
 	. = ..()
 	if(isnull(hud_owner)) //some screens set their hud owners on /new, this prevents overriding them with null post atoms init
 		return
-	set_new_hud(hud_owner)
 
 /atom/movable/screen/Destroy()
 	master = null

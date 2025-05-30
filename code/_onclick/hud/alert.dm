@@ -239,6 +239,7 @@ or something covering your eyes."
 	var/command
 
 /atom/movable/screen/alert/mind_control/Click()
+	. = ..()
 	var/mob/living/L = usr
 	if(L != owner)
 		return
@@ -256,6 +257,7 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 	icon_state = "embeddedobject"
 
 /atom/movable/screen/alert/embeddedobject/Click()
+	. = ..()
 	if(isliving(usr) && usr == owner)
 		var/mob/living/carbon/M = usr
 		return M.help_shake_act(M)
@@ -284,6 +286,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "fire"
 
 /atom/movable/screen/alert/fire/Click()
+	. = ..()
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
@@ -435,6 +438,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "succumb"
 
 /atom/movable/screen/alert/succumb/Click()
+	. = ..()
 	if (isobserver(usr))
 		return
 
@@ -454,6 +458,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "awaken"
 
 /atom/movable/screen/alert/untorpor/Click()
+	. = ..()
 	if(isobserver(usr))
 		return
 	var/mob/living/living_owner = owner
@@ -701,6 +706,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/atom/target = null
 
 /atom/movable/screen/alert/hackingapc/Click()
+	. = ..()
 	if(!usr || !usr.client || usr != owner)
 		return
 	if(!target)
@@ -727,6 +733,7 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 300
 
 /atom/movable/screen/alert/notify_cloning/Click()
+	. = ..()
 	if(!usr || !usr.client || usr != owner)
 		return
 	var/mob/dead/observer/G = usr
@@ -741,6 +748,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/action = NOTIFY_JUMP
 
 /atom/movable/screen/alert/notify_action/Click()
+	. = ..()
 	if(!usr || !usr.client || usr != owner)
 		return
 	if(!target)
@@ -776,6 +784,7 @@ so as to remain in compliance with the most up-to-date laws."
 	click_master = FALSE
 
 /atom/movable/screen/alert/restrained/Click()
+	. = ..()
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
@@ -784,6 +793,7 @@ so as to remain in compliance with the most up-to-date laws."
 		return L.resist_restraints()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
+	. = ..()
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
@@ -802,6 +812,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "shoealert"
 
 /atom/movable/screen/alert/shoes/Click()
+	. = ..()
 	var/mob/living/carbon/C = usr
 	if(!istype(C) || !C.can_resist() || C != owner || !C.shoes)
 		return
@@ -856,9 +867,8 @@ so as to remain in compliance with the most up-to-date laws."
 	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, boxed_message(jointext(examine(usr), "\n")))
 		return FALSE
-	var/datum/our_master = master_ref?.resolve()
-	if(our_master && click_master)
-		return usr.client.Click(our_master, location, control, params)
+	if(master && click_master)
+		return usr.client.Click(master, location, control, params)
 
 	return TRUE
 

@@ -57,8 +57,6 @@
 		return ..()
 
 /obj/structure/fermenting_barrel/attack_hand(mob/user, list/modifiers)
-	if(!can_open)
-		return
 	open = !open
 	if(open)
 		reagents.flags &= ~(DRAINABLE)

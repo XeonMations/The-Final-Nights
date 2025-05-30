@@ -185,8 +185,7 @@
 
 
 /mob/living/carbon/attack_paw(mob/living/carbon/human/user, list/modifiers)
-
-	if(can_inject(M, TRUE))
+	if(can_inject(user, TRUE))
 		for(var/thing in diseases)
 			var/datum/disease/D = thing
 			if((D.spread_flags & DISEASE_SPREAD_CONTACT_SKIN) && prob(85))
