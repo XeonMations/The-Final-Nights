@@ -2166,7 +2166,8 @@
 			return
 
 		web_sound(usr, link_url, credit)
-		else if(href_list["del_tag"])
+
+	else if(href_list["del_tag"])
 		if(!check_rights(R_ADMIN))
 			return
 		var/datum/datum_to_remove = locate(href_list["del_tag"])

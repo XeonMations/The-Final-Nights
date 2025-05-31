@@ -10,7 +10,7 @@
 		return
 
 	LAZYADD(tagged_datums, target_datum)
-	RegisterSignal(target_datum, COMSIG_PARENT_QDELETING, .proc/handle_tagged_del, override = TRUE)
+	RegisterSignal(target_datum, COMSIG_QDELETING, PROC_REF(handle_tagged_del), override = TRUE)
 	to_chat(owner, span_notice("[target_datum] has been tagged."))
 
 /// Get ahead of the curve with deleting
@@ -40,15 +40,14 @@
 		to_chat(owner, span_warning("[target_datum] was not already tagged."))
 
 /// Quick define for readability
-#define TAG_DEL(X) "<b>(<A href='?src=[REF(src)];[HrefToken(TRUE)];del_tag=[REF(X)]'>UNTAG</a>)</b>"
-#define TAG_MARK(X) "<b>(<A href='?src=[REF(src)];[HrefToken(TRUE)];mark_datum=[REF(X)]'>MARK</a>)</b>"
+#define TAG_DEL(X) "<b>(<A href='byond://?_src_=holder;[HrefToken(forceGlobal = TRUE)];del_tag=[REF(X)]'>UNTAG</a>)</b>"
+#define TAG_MARK(X) "<b>(<A href='byond://?_src_=holder;[HrefToken(forceGlobal = TRUE)];mark_datum=[REF(X)]'>MARK</a>)</b>"
 #define TAG_SIMPLE_HEALTH(X) "<font color='#ff0000'><b>Health: [X.health]</b></font>"
 #define TAG_CARBON_HEALTH(X) "<font color='#ff0000'><b>Health: [X.health]</b></font> (\
 					<font color='#ff3333'>[X.getBruteLoss()]</font> \
 					<font color='#ff9933'>[X.getFireLoss()]</font> \
 					<font color='#00cc66'>[X.getToxLoss()]</font> \
-					<font color='#00cccc'>[X.getOxyLoss()]</font>\
-					[X.getCloneLoss() ? " <font color='#1c3ac4'>[X.getCloneLoss()]</font>" : ""])"
+					<font color='#00cccc'>[X.getOxyLoss()]</font>"
 
 /// Display all of the tagged datums
 /datum/admins/proc/display_tags()
@@ -64,7 +63,10 @@
 	var/index = 0
 	var/list/dat = list("<center><B>Tag Menu</B></center><hr>")
 
-	dat += "<br><A href='?src=[REF(src)];[HrefToken(TRUE)];show_tags=1'>Refresh</a><br>"
+	var/list/tagged_datums = user.holder.tagged_datums
+	var/list/marked_datum = user.holder.marked_datum
+
+	dat += "<br><a href='byond://?_src_=holder;[HrefToken(forceGlobal = TRUE)];show_tags=1'>Refresh</a><br>"
 	if(LAZYLEN(tagged_datums))
 		for(var/datum/iter_datum as anything in tagged_datums)
 			index++
@@ -72,7 +74,7 @@
 
 			if(isnull(iter_datum))
 				dat += "\t[index]: Null reference - Check runtime logs!"
-				stack_trace("Null datum found in tagged datum menu! User: [usr]")
+				stack_trace("Null datum found in tagged datum menu! User: [user]")
 				continue
 			else if(iscarbon(iter_datum))
 				var/mob/living/carbon/resolved_carbon = iter_datum
@@ -94,13 +96,14 @@
 				specific_info = "[resolved_subsystem.stat_entry()]"
 			// else, it's just a /datum
 
-			dat += "\t[index]: [iter_datum] | [specific_info] | [ADMIN_VV(iter_datum)]| [TAG_DEL(iter_datum)] | [iter_datum == marked_datum ? "<b>Marked</b>" : TAG_MARK(iter_datum)] "
+			dat += "\t[index]: [iter_datum] | [specific_info] | [ADMIN_VV(iter_datum)] | [TAG_DEL(iter_datum)] | [iter_datum == marked_datum ? "<b>Marked</b>" : TAG_MARK(iter_datum)] "
 			dat += "\t(<b><font size='2'>[iter_datum.type])</font></b>"
 	else
 		dat += "No datums tagged :("
 
-	dat = dat.Join("<br>")
-	usr << browse(dat, "window=tag;size=800x480")
+	var/datum/browser/browser = new(user.mob, "tag", "Tag Menu", 800, 480)
+	browser.set_content(dat.Join("<br>"))
+	browser.open()
 
 #undef TAG_DEL
 #undef TAG_MARK
