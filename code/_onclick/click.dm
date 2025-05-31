@@ -334,7 +334,7 @@
 		return FALSE
 
 	var/mob/living/user_living = user
-	if(user_living.apply_martial_art(src, null, is_grab=TRUE) == COMPONENT_CANCEL_ATTACK_CHAIN)
+	if(user_living.apply_martial_art(src, null, is_grab=TRUE) == TRUE)
 		user_living.changeNext_move(CLICK_CD_MELEE)
 		return TRUE
 
