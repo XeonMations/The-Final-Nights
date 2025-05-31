@@ -99,8 +99,8 @@
 
 /obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
 	if(is_type_in_typecache(W, drip_containers) || IS_EDIBLE(W))
-		if(reagent_container)
-			to_chat(user, "<span class='warning'>[reagent_container] is already loaded on [src]!</span>")
+		if(beaker)
+			to_chat(user, "<span class='warning'>[beaker] is already loaded on [src]!</span>")
 			return
 		if(!user.transferItemToLoc(W, src))
 			return
