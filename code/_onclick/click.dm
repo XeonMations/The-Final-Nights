@@ -387,7 +387,7 @@
 /atom/proc/AltClick(mob/user)
 	if(!can_interact(user))
 		return FALSE
-	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT, user) & COMPONENT_CANCEL_CLICK_ALT)
+	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT, user) & COMPONENT_CANCEL_CLICK_ALT_SECONDARY)
 		return
 	var/turf/T = get_turf(src)
 	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T))

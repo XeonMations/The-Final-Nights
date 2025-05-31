@@ -354,7 +354,6 @@
 			return FALSE
 
 	else if(isliving(user)) // If we are a living human
-		var/mob/living/L = user
 
 		if(interaction_flags_machine & INTERACT_MACHINE_REQUIRES_SILICON) // First make sure the machine doesn't require silicon interaction
 			return FALSE
