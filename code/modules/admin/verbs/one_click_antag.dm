@@ -532,33 +532,4 @@
 
 /datum/admins/proc/makeRevenant()
 	new /datum/round_event/ghost_role/revenant(TRUE, TRUE)
-	return TRUE
-
-/datum/admins/proc/makeNerd()
-	var/spawnpoint = pick(GLOB.blobstart)
-	var/list/mob/dead/observer/candidates
-	var/mob/dead/observer/chosen_candidate
-	var/mob/living/simple_animal/drone/nerd
-	var/teamsize
-
-	teamsize = input(usr, "How many drones?", "N.E.R.D. team size", 2) as num|null
-
-	if(teamsize <= 0)
-		return FALSE
-
-	candidates = pollGhostCandidates("Do you wish to be considered for an emergency response drone?", "Drone")
-
-	if(length(candidates) == 0)
-		return FALSE
-
-	while(length(candidates) && teamsize)
-		chosen_candidate = pick(candidates)
-		candidates -= chosen_candidate
-		nerd = new /mob/living/simple_animal/drone/classic(spawnpoint)
-		nerd.key = chosen_candidate.key
-		log_game("[key_name(nerd)] has been selected as a Nanotrasen emergency response drone")
-		teamsize--
-
-	return TRUE
-
-#undef ERT_EXPERIENCED_LEADER_CHOOSE_TOP
+	return 1
