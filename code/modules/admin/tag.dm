@@ -63,9 +63,6 @@
 	var/index = 0
 	var/list/dat = list("<center><B>Tag Menu</B></center><hr>")
 
-	var/list/tagged_datums = user.holder.tagged_datums
-	var/list/marked_datum = user.holder.marked_datum
-
 	dat += "<br><a href='byond://?_src_=holder;[HrefToken(forceGlobal = TRUE)];show_tags=1'>Refresh</a><br>"
 	if(LAZYLEN(tagged_datums))
 		for(var/datum/iter_datum as anything in tagged_datums)
@@ -74,7 +71,7 @@
 
 			if(isnull(iter_datum))
 				dat += "\t[index]: Null reference - Check runtime logs!"
-				stack_trace("Null datum found in tagged datum menu! User: [user]")
+				stack_trace("Null datum found in tagged datum menu! User: [usr]")
 				continue
 			else if(iscarbon(iter_datum))
 				var/mob/living/carbon/resolved_carbon = iter_datum
@@ -101,7 +98,7 @@
 	else
 		dat += "No datums tagged :("
 
-	var/datum/browser/browser = new(user.mob, "tag", "Tag Menu", 800, 480)
+	var/datum/browser/browser = new(usr.client.mob, "tag", "Tag Menu", 800, 480)
 	browser.set_content(dat.Join("<br>"))
 	browser.open()
 
