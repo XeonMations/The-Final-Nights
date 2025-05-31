@@ -224,18 +224,6 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/door/attackby_secondary(obj/item/weapon, mob/user, params)
-	if (weapon.tool_behaviour == TOOL_WELDER)
-		try_to_weld_secondary(weapon, user)
-	if (weapon.tool_behaviour == TOOL_CROWBAR)
-		var/forced_open = FALSE
-		if(istype(weapon, /obj/item/crowbar))
-			var/obj/item/crowbar/crowbar = weapon
-			forced_open = crowbar.force_opens
-		try_to_crowbar_secondary(weapon, user, forced_open)
-
-	return ..()
-
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && atom_integrity > 0)
