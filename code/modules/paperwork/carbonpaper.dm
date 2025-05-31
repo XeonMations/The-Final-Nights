@@ -47,3 +47,6 @@
 	if(loc == user && user.is_holding(src))
 		removecopy(user)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/paper/carbon_copy
+	icon_state = "cpaper"

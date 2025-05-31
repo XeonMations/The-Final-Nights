@@ -846,8 +846,8 @@
 		playsound(A, "rustle", 50, TRUE, -5)
 		return
 
-	var/obj/item/I = locate() in real_location()
-	if(!I)
+	var/obj/item/to_remove = locate() in real_location()
+	if(!to_remove)
 		return
 
 	INVOKE_ASYNC(src,PROC_REF(attempt_put_in_hands), to_remove, user)
@@ -873,7 +873,7 @@
 	if(!user.put_in_hands(to_remove))
 		to_chat(user, span_notice("You fumble for [to_remove] and it falls on the floor."))
 		return
-	user.visible_message("<span class='warning'>[user] draws [I] from [parent]!</span>", "<span class='notice'>You draw [I] from [parent].</span>")
+	user.visible_message("<span class='warning'>[user] draws [to_remove] from [parent]!</span>", "<span class='notice'>You draw [to_remove] from [parent].</span>")
 
 /datum/component/storage/proc/action_trigger(datum/signal_source, datum/action/source)
 	SIGNAL_HANDLER
