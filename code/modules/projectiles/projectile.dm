@@ -856,7 +856,7 @@
 		p_x = calculated[2]
 		p_y = calculated[3]
 
-		set_angle(calculated[1] + spread)
+		setAngle(calculated[1] + spread)
 	else if(targloc)
 		yo = targloc.y - curloc.y
 		xo = targloc.x - curloc.x
