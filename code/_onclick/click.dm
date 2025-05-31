@@ -75,10 +75,14 @@
 	if(notransform)
 		return
 
-	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
+	var/list/modifiers = params2list(params)
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, modifiers) & COMSIG_MOB_CANCEL_CLICKON)
 		return
 
-	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, BUTTON4) || LAZYACCESS(modifiers, BUTTON5))
+		return
+
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 			ShiftMiddleClickOn(A)
@@ -89,10 +93,16 @@
 		ShiftClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-		MiddleClickOn(A, params)
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			CtrlMiddleClickOn(A)
+		else
+			MiddleClickOn(A, params)
 		return
 	if(LAZYACCESS(modifiers, ALT_CLICK)) // alt and alt-gr (rightalt)
-		AltClickOn(A)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			AltClickSecondaryOn(A)
+		else
+			AltClickOn(A)
 		return
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
@@ -111,58 +121,58 @@
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
-		UnarmedAttack(A, FALSE, modifiers)
+		UnarmedAttack(A, Adjacent(A), modifiers)
 		return
 
-	if(in_throw_mode)
-		changeNext_move(CLICK_CD_THROW)
-		throw_item(A)
+	if(throw_mode)
+		if(throw_item(A))
+			changeNext_move(CLICK_CD_THROW)
 		return
 
 	var/obj/item/W = get_active_held_item()
 
 	if(W == A)
-		W.attack_self(src)
-		update_inv_hands()
-		return
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			W.attack_self_secondary(src, modifiers)
+			update_held_items()
+			return
+		else
+			W.attack_self(src, modifiers)
+			update_held_items()
+			return
 
 	//These are always reachable.
 	//User itself, current loc, and user inventory
 	if(A in DirectAccess())
 		if(W)
-			W.melee_attack_chain(src, A, params)
+			W.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
-			UnarmedAttack(A, FALSE, modifiers)
+
+			UnarmedAttack(A, TRUE, modifiers)
 		return
 
 	//Can't reach anything else in lockers or other weirdness
 	if(!loc.AllowClick())
 		return
 
-	if(W)
-		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			var/after_attack_secondary_result = W.afterattack_secondary(A, src, FALSE, params)
-
-			if(after_attack_secondary_result == SECONDARY_ATTACK_CALL_NORMAL)
-				W.afterattack(A, src, FALSE, params)
+	//Standard reach turf to turf or reaching inside storage
+	if(CanReach(A,W))
+		if(W)
+			W.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
-				if(isliving(src))
-					var/mob/living/L = src
-					if(L.melee_professional)
-						changeNext_move(CLICK_CD_RANGE)
-					else
-						changeNext_move(CLICK_CD_MELEE)
-				else
-					changeNext_move(CLICK_CD_MELEE)
+				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A, TRUE, modifiers)
 	else
 		if(W)
-			W.afterattack(A,src,0,params)
+			A.base_ranged_item_interaction(src, W, modifiers)
 		else
-			RangedAttack(A,params)
+			if(LAZYACCESS(modifiers, RIGHT_CLICK))
+				ranged_secondary_attack(A, modifiers)
+			else
+				RangedAttack(A, modifiers)
 
 /// Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
