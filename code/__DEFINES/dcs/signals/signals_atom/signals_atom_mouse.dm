@@ -6,13 +6,9 @@
 #define COMSIG_CLIENT_CLICK "atom_client_click"
 ///from base of atom/Click(): (atom/location, control, params, mob/user)
 #define COMSIG_CLICK "atom_click"
-///from base of atom/RightClick(): (/mob)Add commentMore actions
-#define COMSIG_CLICK_RIGHT "right_click"
-	#define COMPONENT_CANCEL_CLICK_RIGHT (1<<0)
 ///from base of atom/ShiftClick(): (/mob)
 #define COMSIG_CLICK_SHIFT "shift_click"
 //	#define COMSIG_MOB_CANCEL_CLICKON (1<<0) //shared with other forms of click, this is so you're aware it exists here too.
-	#define COMPONENT_ALLOW_EXAMINATE (1<<1) //! Allows the user to examinate regardless of client.eye.
 ///from base of atom/ShiftClick()
 #define COMSIG_SHIFT_CLICKED_ON "shift_clicked_on"
 ///from base of atom/CtrlClickOn(): (/mob)
