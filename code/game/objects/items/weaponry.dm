@@ -950,7 +950,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		log_combat(user, living_target, "slashed", src)
 		if(living_target.stat == DEAD && prob(force*damage_mod*0.5))
 			living_target.visible_message(span_danger("[living_target] explodes in a shower of gore!"), blind_message = span_hear("You hear organic matter ripping and tearing!"))
-			living_target.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
+			log_attack("[living_target] has been gibbed by [src].")
 			living_target.gib()
 			log_combat(user, living_target, "gibbed", src)
 	else if(target.uses_integrity)
@@ -967,7 +967,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	alpha = 150
 	duration = 0.5 SECONDS
 	layer = ABOVE_ALL_MOB_LAYER
-	plane = ABOVE_GAME_PLANE
 
 /obj/effect/temp_visual/slash/Initialize(mapload, atom/target, x_slashed, y_slashed, slash_color)
 	. = ..()
@@ -992,9 +991,3 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 20
 	wound_bonus = 20
 	bare_wound_bonus = 25
-
-/obj/item/highfrequencyblade/wizard/attack_self(mob/user, modifiers)
-	if(!IS_WIZARD(user))
-		balloon_alert(user, "you're too weak!")
-		return
-	return ..()
