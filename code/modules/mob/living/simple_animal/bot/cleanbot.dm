@@ -55,9 +55,6 @@
 /mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
 
-	AddComponent(/datum/component/cleaner, CLEANBOT_CLEANING_TIME, \
-		on_cleaned_callback = CALLBACK(src, /atom/.proc/update_appearance, UPDATE_ICON))
-
 /mob/living/simple_animal/bot/cleanbot/proc/deputize(obj/item/W, mob/user)
 	if(in_range(src, user))
 		to_chat(user, "<span class='notice'>You attach \the [W] to \the [src].</span>")
@@ -97,9 +94,8 @@
 
 /mob/living/simple_animal/bot/cleanbot/examine(mob/user)
 	. = ..()
-	if(!weapon)
-		return .
-	. += "[span_warning("Is that \a [weapon] taped to it...?")]"
+	if(weapon)
+		. += " <span class='warning'>Is that \a [weapon] taped to it...?</span>"
 
 		if(ascended && user.stat == CONSCIOUS && user.client)
 			user.client.give_award(/datum/award/achievement/misc/cleanboss, user)
@@ -208,12 +204,15 @@
 	if(mode == BOT_CLEANING)
 		return
 
-	if(bot_cover_flags & BOT_COVER_EMAGGED) //Emag functions
-		var/mob/living/carbon/victim = locate(/mob/living/carbon) in loc
-		if(victim && victim == target)
-			UnarmedAttack(victim, proximity_flag = TRUE) // Acid spray
-		if(isopenturf(loc) && prob(15)) // Wets floors and spawns foam randomly
-			UnarmedAttack(src, proximity_flag = TRUE)
+	iif(emagged == 2) //Emag functions
+		if(isopenturf(loc))
+
+			for(var/mob/living/carbon/victim in loc)
+				if(victim != target)
+					UnarmedAttack(victim) // Acid spray
+
+			if(prob(15)) // Wets floors and spawns foam randomly
+				UnarmedAttack(src)
 	else if(prob(5))
 		audible_message("[src] makes an excited beeping booping sound!")
 
@@ -255,17 +254,12 @@
 			return
 
 		if(loc == get_turf(target))
-			if(check_bot(target))
-				shuffle = TRUE //Shuffle the list the next time we scan so we dont both go the same way.
-				path = list()
-			else
-				UnarmedAttack(target, proximity_flag = TRUE) //Rather than check at every step of the way, let's check before we do an action, so we can rescan before the other bot.
+			if(!(check_bot(target) && prob(50)))	//Target is not defined at the parent. 50% chance to still try and clean so we dont get stuck on the last blood drop.
+				UnarmedAttack(target)	//Rather than check at every step of the way, let's check before we do an action, so we can rescan before the other bot.
 				if(QDELETED(target)) //We done here.
 					target = null
 					mode = BOT_IDLE
 					return
-			else
-				shuffle = TRUE	//Shuffle the list the next time we scan so we dont both go the same way.
 			path = list()
 
 		if(!path || path.len == 0) //No path, need a new one
@@ -319,11 +313,14 @@
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
-	if(ismopable(attack_target))
+	if(ismopable(A))
+		icon_state = "cleanbot-c"
 		mode = BOT_CLEANING
-		update_icon_state()
-		. = ..()
-		target = null
+		var/turf/T = get_turf(A)
+		if(do_after(src, 1, target = T))
+			T.wash(CLEAN_SCRUB)
+			visible_message("<span class='notice'>[src] cleans \the [T].</span>")
+			target = null
 		mode = BOT_IDLE
 		icon_state = "cleanbot[on]"
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
