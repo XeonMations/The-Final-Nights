@@ -316,17 +316,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		return (mover.movement_type & PHASING)
 	return TRUE
 
-/turf/Exit(atom/movable/mover, atom/newloc)
-	. = ..()
-	if(!. || QDELETED(mover))
-		return FALSE
-	for(var/i in contents)
-		if(i == mover)
-			continue
-		if(QDELETED(mover))
-			return FALSE		//We were deleted.
-
-
 /turf/open/Entered(atom/movable/AM)
 	..()
 	//melting

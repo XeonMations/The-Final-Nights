@@ -96,8 +96,16 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/turf/new_turf = new path(src)
 	new_turf.flags_1 |= carryover_turf_flags
 
+	// WARNING WARNING
+	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
+	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
+	if(old_listen_lookup)
+		LAZYOR(new_turf._listen_lookup, old_listen_lookup)
+	if(old_signal_procs)
+		LAZYOR(new_turf._signal_procs, old_signal_procs)
+
 	for(var/datum/callback/callback as anything in post_change_callbacks)
-		callback.InvokeAsync(W)
+		callback.InvokeAsync(new_turf)
 
 	if(new_baseturfs)
 		new_turf.baseturfs = baseturfs_string_list(new_baseturfs, new_turf)
