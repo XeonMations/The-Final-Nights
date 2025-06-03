@@ -240,7 +240,7 @@
 
 /mob/living/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	var/martial_result = user.apply_martial_art(src, modifiers)
-	if (martial_result != MARTIAL_ATTACK_INVALID)
+	if (martial_result != FALSE)
 		return martial_result
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))

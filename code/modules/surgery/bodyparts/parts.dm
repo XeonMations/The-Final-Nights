@@ -137,10 +137,6 @@
 	wound_resistance = -10
 	px_x = -5
 	px_y = -3
-	dmg_overlay_type = SPECIES_MONKEY
-	unarmed_damage_low = 1 /// monkey punches must be really weak, considering they bite people instead and their bites are weak as hell.
-	unarmed_damage_high = 2
-	unarmed_stun_threshold = 3
 	appendage_noun = "paw"
 
 /obj/item/bodypart/l_arm/alien
@@ -242,10 +238,6 @@
 	wound_resistance = -10
 	px_x = 5
 	px_y = -3
-	dmg_overlay_type = SPECIES_MONKEY
-	unarmed_damage_low = 1
-	unarmed_damage_high = 2
-	unarmed_stun_threshold = 3
 	appendage_noun = "paw"
 
 /obj/item/bodypart/r_arm/alien

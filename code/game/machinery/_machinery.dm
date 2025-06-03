@@ -441,11 +441,9 @@
 	var/damage = take_damage(damage_amount = 4, damage_type = BRUTE, damage_flag = MELEE, sound_effect = TRUE, attack_dir = get_dir(user, src))
 
 	var/hit_with_what_noun = "paws"
-	var/obj/item/bodypart/arm/arm = user.get_active_hand()
+	var/obj/item/bodypart/l_arm/arm = user.get_active_hand()
 	if(!isnull(arm))
 		hit_with_what_noun = arm.appendage_noun // hit with "their hand"
-		if(user.usable_hands > 1)
-			hit_with_what_noun += plural_s(hit_with_what_noun) // hit with "their hands"
 
 	user.visible_message(
 		span_danger("[user] smashes [src] with [user.p_their()] [hit_with_what_noun][damage ? "." : ", without leaving a mark!"]"),

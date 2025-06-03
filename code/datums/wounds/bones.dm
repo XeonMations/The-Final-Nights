@@ -41,7 +41,7 @@
 		active_trauma = victim.gain_trauma_type(brain_trauma_group, TRAUMA_RESILIENCE_WOUND)
 		next_trauma_cycle = world.time + (rand(100-WOUND_BONE_HEAD_TIME_VARIANCE, 100+WOUND_BONE_HEAD_TIME_VARIANCE) * 0.01 * trauma_cycle_cooldown)
 
-	RegisterSignal(victim, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, PROC_REF(attack_with_hurt_hand))
+	RegisterSignal(victim, COMSIG_LIVING_EARLY_UNARMED_ATTACK, PROC_REF(attack_with_hurt_hand))
 	if(limb.held_index && victim.get_item_for_held_index(limb.held_index) && (disabling || prob(30 * severity)))
 		var/obj/item/I = victim.get_item_for_held_index(limb.held_index)
 		if(istype(I, /obj/item/offhand))
@@ -52,22 +52,13 @@
 
 	update_inefficiencies()
 
-/datum/wound/blunt/bone/set_victim(new_victim)
-
-	if (victim)
-		UnregisterSignal(victim, COMSIG_LIVING_UNARMED_ATTACK)
-	if (new_victim)
-		RegisterSignal(new_victim, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(attack_with_hurt_hand))
-
-	return ..()
-
 /datum/wound/blunt/bone/remove_wound(ignore_limb, replaced)
 	limp_slowdown = 0
 	QDEL_NULL(active_trauma)
 	if(limb)
 		UnregisterSignal(limb, list(COMSIG_BODYPART_GAUZED, COMSIG_BODYPART_GAUZE_DESTROYED))
 	if(victim)
-		UnregisterSignal(victim, COMSIG_HUMAN_EARLY_UNARMED_ATTACK)
+		UnregisterSignal(victim, COMSIG_LIVING_EARLY_UNARMED_ATTACK)
 	return ..()
 
 /datum/wound/blunt/handle_process()
