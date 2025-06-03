@@ -349,7 +349,7 @@
 	if(set_dir_on_move)
 		setDir(direct)
 
-	if(!loc.Exit(src, newloc))
+	if(!loc.Exit(src, direct))
 		return
 
 	if(!newloc.Enter(src, src.loc))
