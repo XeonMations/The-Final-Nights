@@ -106,7 +106,6 @@
 #include "code\__DEFINES\networks.dm"
 #include "code\__DEFINES\obj_flags.dm"
 #include "code\__DEFINES\phones.dm"
-#include "code\__DEFINES\pda.dm"
 #include "code\__DEFINES\paper.dm"
 #include "code\__DEFINES\pda.dm"
 #include "code\__DEFINES\pinpointers.dm"
