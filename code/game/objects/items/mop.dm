@@ -23,7 +23,6 @@
 	. = ..()
 	AddComponent(/datum/component/cleaner, mopspeed, pre_clean_callback=CALLBACK(src, .proc/should_clean), on_cleaned_callback=CALLBACK(src, .proc/apply_reagents))
 	create_reagents(mopcap)
-	GLOB.janitor_devices += src
 
 /obj/item/mop/proc/clean(turf/A, mob/living/cleaner)
 	var/really = FALSE
@@ -44,12 +43,12 @@
 
 ///Checks whether or not we should clean.
 /obj/item/mop/proc/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
-	if(istype(atom_to_clean, /obj/item/reagent_containers/cup/bucket) || istype(atom_to_clean, /obj/structure/janitorialcart))
+	if(istype(atom_to_clean, /obj/item/reagent_containers/glass/bucket) || istype(atom_to_clean, /obj/structure/janitorialcart))
 		return DO_NOT_CLEAN
 	if(reagents.total_volume < 0.1)
 		to_chat(cleaner, span_warning("Your mop is dry!"))
 		return DO_NOT_CLEAN
-	return reagents.has_chemical_flag(REAGENT_CLEANS, 1)
+	return TRUE
 
 /**
  * Applies reagents to the cleaned floor and removes them from the mop.

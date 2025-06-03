@@ -204,7 +204,7 @@
 	if(mode == BOT_CLEANING)
 		return
 
-	iif(emagged == 2) //Emag functions
+	if(emagged == 2) //Emag functions
 		if(isopenturf(loc))
 
 			for(var/mob/living/carbon/victim in loc)

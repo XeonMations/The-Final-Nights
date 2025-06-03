@@ -291,11 +291,10 @@
 	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	for(var/atom/movable/cleanables as anything in src)
 		if(cleanables == src)
-			continue 
+			continue
 		if(!cleanables.wash(clean_types))
 			continue
 		vis_contents -= cleanables
-	bloodied = FALSE
 
 /obj/structure/window/Destroy()
 	density = FALSE

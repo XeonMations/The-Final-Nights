@@ -1849,16 +1849,9 @@
 
 	return TRUE
 
-/*
- * For turfs this will only be used if pathing_pass_method is TURF_PATHING_PASS_PROC
- *
- * Arguments:
- * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
- * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
- * * caller- The movable we're checking pass flags for, if we're making any such checks
- * * no_id: When true, doors with public access will count as impassible
- **/
-/atom/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	if(caller && (caller.pass_flags & pass_flags_self))
-		return TRUE
+/obj/proc/CanAStarPass(ID, dir, pathfinding_atom)
+	if(ismovable(pathfinding_atom))
+		var/atom/movable/AM = pathfinding_atom
+		if(AM.pass_flags & pass_flags_self)
+			return TRUE
 	. = !density

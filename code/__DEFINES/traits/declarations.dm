@@ -157,6 +157,8 @@
 ///generic atom traits
 /// Trait from being under the floor in some manner
 #define TRAIT_UNDERFLOOR "underfloor"
+/// Marks an atom when the cleaning of it is first started, so that the cleaning overlay doesn't get removed prematurely
+#define TRAIT_CURRENTLY_CLEANING "currently_cleaning"
 
 #define TRAIT_THUNDERSHOT		"thundershot" // Fire without ammo.
 #define TRAIT_SCENTTRUEFORM		"scenttrueform" // Werewolf ID sniff.
