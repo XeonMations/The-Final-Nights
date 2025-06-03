@@ -1,6 +1,3 @@
-/datum/preferences
-	var/last_torpor = 0
-
 /mob/proc/claw_swing()
 	next_click = world.time+5
 	new /obj/effect/temp_visual/dir_setting/claw_effect(get_turf(src), dir)
