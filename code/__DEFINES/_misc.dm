@@ -357,11 +357,6 @@ GLOBAL_LIST_INIT(pda_styles, sort_list(list(MONO, VT, ORBITRON, SHARE)))
 #define BEAT_SLOW 2
 #define BEAT_NONE 0
 
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
-
 //server security mode
 #define SECURITY_SAFE 1
 #define SECURITY_ULTRASAFE 2
