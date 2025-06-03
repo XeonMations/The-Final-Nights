@@ -23,13 +23,6 @@
 		down.update_appearance()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/structure/ladder/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	if(up)
-		context[SCREENTIP_CONTEXT_LMB] = "Climb up"
-	if(down)
-		context[SCREENTIP_CONTEXT_RMB] = "Climb down"
-	return CONTEXTUAL_SCREENTIP_SET
-
 /obj/structure/ladder/examine(mob/user)
 	. = ..()
 	. += span_info("<b>Left-click</b> it to start moving up; <b>Right-click</b> to start moving down.")
@@ -117,8 +110,7 @@
 	if(response & LADDER_TRAVEL_BLOCK)
 		return
 
-	var/turf/target = get_turf(ladder)
-	user.zMove(target = target, z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+	user.zMove(going_up ? UP : DOWN)
 
 	if(!is_ghost)
 		show_final_fluff_message(user, ladder, going_up)
