@@ -115,13 +115,24 @@
 
 	return TRUE
 
-/obj/structure/window/CheckExit(atom/movable/O, turf/target)
-	if(istype(O) && (O.pass_flags & PASSGLASS))
-		return TRUE
-	if(get_dir(O.loc, target) == dir)
-		return FALSE
-	return TRUE
+/obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER
 
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if (leaving.pass_flags & pass_flags_self)
+		return
+
+	if (fulltile)
+		return
+
+	if(direction == dir && density)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -129,7 +140,6 @@
 	add_fingerprint(user)
 	playsound(src, knocksound, 50, TRUE)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
-
 
 /obj/structure/window/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(!can_be_reached(user))

@@ -3,12 +3,13 @@
 	desc = "Basic railing meant to protect idiots like you from falling."
 	icon = 'icons/obj/fluff.dmi'
 	icon_state = "railing"
+	flags_1 = ON_BORDER_1
+	obj_flags = CAN_BE_HIT
 	density = TRUE
 	anchored = TRUE
+	pass_flags_self = LETPASSTHROW|PASSSTRUCTURE
 
 	var/climbable = TRUE
-	///Initial direction of the railing.
-	var/ini_dir
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -29,20 +30,21 @@
 	density = FALSE
 	climbable = FALSE
 
-/obj/structure/railing/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)),CALLBACK(src, PROC_REF(after_rotation)))
-
-
 /obj/structure/railing/Initialize()
 	. = ..()
-	ini_dir = dir
 	if(climbable)
 		AddElement(/datum/element/climbable)
 
+	if(density && flags_1 & ON_BORDER_1) // blocks normal movement from and to the direction it's facing.
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
+
+	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM)
+
 /obj/structure/railing/MouseDrop_T(atom/dropping, mob/user, params)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_NEEDS_ROOM)
 	if(!climbable)
 		LoadComponent(/datum/component/leanable, dropping)
 
@@ -101,15 +103,29 @@
 	..()
 	return TRUE
 
-/obj/structure/railing/CheckExit(atom/movable/mover, turf/target)
-	..()
-	if(get_dir(loc, target) & dir)
-		var/checking = PHASING | FLYING | FLOATING
-		return !density || mover.throwing || mover.movement_type & checking || mover.move_force >= MOVE_FORCE_EXTREMELY_STRONG
-	return TRUE
+/obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER
 
-/obj/structure/railing/corner/CheckExit()
-	return TRUE
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(!(direction & dir))
+		return
+
+	if (!density)
+		return
+
+	if (leaving.throwing)
+		return
+
+	if (leaving.movement_type & (PHASING|MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+
+	if (leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
+		return
+
+	leaving.Bump(src)
+	return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/railing/proc/check_anchored(checked_anchored)
 	if(anchored == checked_anchored)

@@ -37,7 +37,7 @@
 
 	if(flip)
 		var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
-		rotcomp.Rotate(usr, ROTATION_FLIP) // this only gets used by pipes created by RPDs or pipe dispensers
+		rotcomp.rotate(usr, ROTATION_FLIP) // this only gets used by pipes created by RPDs or pipe dispensers
 
 	update_appearance()
 
