@@ -136,6 +136,14 @@
 #define COMBAT_MESSAGE_RANGE 3
 #define DEFAULT_MESSAGE_RANGE 7
 
+/// IF an object is weak against armor, this is the value that any present armor is multiplied by
+#define ARMOR_WEAKENED_MULTIPLIER 2
+/// Armor can't block more than this as a percentage
+#define ARMOR_MAX_BLOCK 90
+/// Calculates the new armour value after armour penetration. Can return negative values, and those must be caught.
+#define PENETRATE_ARMOUR(armour, penetration) (penetration == 100 ? 0 : 100 * (armour - penetration) / (100 - penetration))
+
+
 //Shove knockdown lengths (deciseconds)
 #define SHOVE_KNOCKDOWN_SOLID 20
 #define SHOVE_KNOCKDOWN_HUMAN 20

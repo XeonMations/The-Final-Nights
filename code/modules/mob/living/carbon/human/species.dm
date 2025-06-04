@@ -81,6 +81,10 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		BODY_ZONE_L_LEG = /obj/item/bodypart/l_leg,\
 		BODY_ZONE_R_LEG = /obj/item/bodypart/r_leg,\
 		BODY_ZONE_CHEST = /obj/item/bodypart/chest)
+
+	/// Flat modifier on all damage taken via [apply_damage][/mob/living/proc/apply_damage] (so being punched, shot, etc.)
+	/// IE: 10 = 10% less damage taken.
+	var/damage_modifier = 0
 	///Multiplier for the race's speed. Positive numbers make it move slower, negative numbers make it move faster.
 	var/speedmod = 0
 	///Percentage modifier for overall defense of the race, or less defense, if it's negative.
@@ -1542,33 +1546,32 @@ GLOBAL_LIST_EMPTY(selectable_races)
 						"<span class='userdanger'>You block [I]!</span>")
 		return FALSE
 
-	affecting ||= human.bodyparts[1] //Something went wrong. Maybe the limb is missing?
-	var/hit_area = affecting.plaintext_zone
-	var/armor_block = min(human.run_armor_check(
+	affecting ||= H.bodyparts[1] //Something went wrong. Maybe the limb is missing?
+	var/hit_area = affecting.name
+	var/armor_block = min(H.run_armor_check(
 		def_zone = affecting,
 		attack_flag = MELEE,
 		absorb_text = span_notice("Your armor has protected your [hit_area]!"),
 		soften_text = span_warning("Your armor has softened a hit to your [hit_area]!"),
-		armour_penetration = weapon.armour_penetration,
-		weak_against_armour = weapon.weak_against_armour,
+		armour_penetration = I.armour_penetration,
 	), ARMOR_MAX_BLOCK) //cap damage reduction at 90%
 
-	var/modified_wound_bonus = weapon.wound_bonus
+	var/modified_wound_bonus = I.wound_bonus
 	// this way, you can't wound with a surgical tool on help intent if they have a surgery active and are lying down, so a misclick with a circular saw on the wrong limb doesn't bleed them dry (they still get hit tho)
 	if((I.item_flags & SURGICAL_TOOL) && !user.combat_mode && H.body_position == LYING_DOWN && (LAZYLEN(H.surgeries) > 0))
 		modified_wound_bonus = CANT_WOUND
 
 	H.send_item_attack_message(I, user, hit_area, affecting)
-	var/damage_dealt = human.apply_damage(
-		damage = weapon.force,
-		damagetype = weapon.damtype,
+	var/damage_dealt = H.apply_damage(
+		damage = I.force,
+		damagetype = I.damtype,
 		def_zone = affecting,
 		blocked = armor_block,
 		wound_bonus = modified_wound_bonus,
-		bare_wound_bonus = weapon.bare_wound_bonus,
-		sharpness = weapon.get_sharpness(),
-		attack_direction = get_dir(user, human),
-		attacking_item = weapon,
+		bare_wound_bonus = I.bare_wound_bonus,
+		sharpness = I.get_sharpness(),
+		attack_direction = get_dir(user, H),
+		attacking_item = I,
 	)
 	if(damage_dealt <= 0)
 		return FALSE //item force is zero

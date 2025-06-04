@@ -334,7 +334,7 @@
 
 /atom/proc/ShiftClick(mob/user)
 	var/flags = SEND_SIGNAL(src, COMSIG_CLICK_SHIFT, user)
-	if(user.client && (user.client.eye == user || user.client.eye == user.loc || flags & COMPONENT_ALLOW_EXAMINATE))
+	if(user.client && (user.client.eye == user || user.client.eye == user.loc || flags & COMSIG_MOB_EXAMINATE))
 		user.examinate(src)
 	return
 

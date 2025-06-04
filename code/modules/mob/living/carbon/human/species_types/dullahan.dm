@@ -138,7 +138,7 @@
 
 /obj/item/dullahan_relay/proc/examinate_check(atom/source, mob/user)
 	if(user.client.eye == src)
-		return COMPONENT_ALLOW_EXAMINATE
+		return COMSIG_MOB_EXAMINATE
 
 //Adds the owner to the list of hearers in hearers_in_view(), for visible/hearable on top of say messages
 /obj/item/dullahan_relay/proc/include_owner(datum/source, list/processing_list, list/hearers)

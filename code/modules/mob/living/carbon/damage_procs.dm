@@ -18,7 +18,7 @@
 	// Otherwise if def zone is null, we'll get a random bodypart / zone to hit.
 	// ALso we'll automatically covnert string def zones into bodyparts to pass into parent call.
 	else if(!isbodypart(def_zone))
-		var/random_zone = check_zone(def_zone || get_random_valid_zone(def_zone))
+		var/random_zone = check_zone(def_zone)
 		def_zone = get_bodypart(random_zone) || bodyparts[1]
 
 	. = ..()

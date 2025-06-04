@@ -167,7 +167,7 @@
 #include "code\__DEFINES\wounds.dm"
 #include "code\__DEFINES\dcs\declarations.dm"
 #include "code\__DEFINES\dcs\helpers.dm"
-#include "code\__DEFINES\dcs\zzzzsignals.dm"
+#include "code\__DEFINES\dcs\signals.dm"
 #include "code\__DEFINES\dcs\signals\signals_admin.dm"
 #include "code\__DEFINES\dcs\signals\signals_datum.dm"
 #include "code\__DEFINES\dcs\signals\signals_ladder.dm"
