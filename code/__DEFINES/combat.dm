@@ -308,3 +308,17 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 
 /// Proceed with the attack chain, but don't call the normal methods.
 #define SECONDARY_ATTACK_CONTINUE_CHAIN 3
+
+/// Martial arts attack requested but is not available, allow a check for a regular attack.
+#define MARTIAL_ATTACK_INVALID NONE
+
+/// Martial arts attack happened but failed, do not allow a check for a regular attack.
+#define MARTIAL_ATTACK_FAIL COMPONENT_SKIP_ATTACK
+
+/// Martial arts attack happened and succeeded, do not allow a check for a regular attack.
+#define MARTIAL_ATTACK_SUCCESS COMPONENT_CANCEL_ATTACK_CHAIN
+
+/// Get the active martial art of a mob.
+#define GET_ACTIVE_MARTIAL_ART(goku) (LAZYACCESS(goku.martial_arts, 1))
+/// Get what martial art will be used after cycling through the active martial art.
+#define GET_NEXT_MARTIAL_ART(goku) (LAZYACCESS(goku.martial_arts, 2))

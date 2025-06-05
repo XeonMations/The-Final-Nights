@@ -341,11 +341,6 @@
 	if(COOLDOWN_FINISHED(src, radiation_emission_cooldown) && M != H &&  M.combat_mode)
 		radiation_emission(H)
 
-/datum/species/golem/uranium/on_hit(obj/projectile/P, mob/living/carbon/human/H)
-	..()
-	if(COOLDOWN_FINISHED(src, radiation_emission_cooldown))
-		radiation_emission(H)
-
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
 	name = "Sand Golem"
@@ -367,15 +362,6 @@
 	for(var/i=1, i <= rand(3,5), i++)
 		new /obj/item/stack/ore/glass(get_turf(H))
 	qdel(H)
-
-/datum/species/golem/sand/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
-	if(!(P.original == H && P.firer == H))
-		if(P.flag == BULLET || P.flag == BOMB)
-			playsound(H, 'sound/effects/shovel_dig.ogg', 70, TRUE)
-			H.visible_message("<span class='danger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>", \
-			"<span class='userdanger'>The [P.name] sinks harmlessly in [H]'s sandy body!</span>")
-			return BULLET_ACT_BLOCK
-	return ..()
 
 //Reflects lasers and resistant to burn damage, but very vulnerable to brute damage. Shatters on death.
 /datum/species/golem/glass
@@ -399,20 +385,6 @@
 	for(var/i=1, i <= rand(3,5), i++)
 		new /obj/item/shard(get_turf(H))
 	qdel(H)
-
-/datum/species/golem/glass/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
-	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
-		if(P.flag == LASER || P.flag == ENERGY)
-			H.visible_message("<span class='danger'>The [P.name] gets reflected by [H]'s glass skin!</span>", \
-			"<span class='userdanger'>The [P.name] gets reflected by [H]'s glass skin!</span>")
-			if(P.starting)
-				var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				// redirect the projectile
-				P.firer = H
-				P.preparePixelProjectile(locate(clamp(new_x, 1, world.maxx), clamp(new_y, 1, world.maxy), H.z), H)
-			return BULLET_ACT_FORCE_PIERCE
-	return ..()
 
 //Teleports when hit or when it wants to
 /datum/species/golem/bluespace
@@ -452,10 +424,6 @@
 	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.combat_mode)
 		reactive_teleport(H)
 
-/datum/species/golem/bluespace/on_hit(obj/projectile/P, mob/living/carbon/human/H)
-	..()
-	if(world.time > last_teleport + teleport_cooldown)
-		reactive_teleport(H)
 
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
@@ -564,12 +532,6 @@
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
 	if(world.time > last_banana + banana_cooldown && M != H &&  M.combat_mode)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
-		last_banana = world.time
-
-/datum/species/golem/bananium/on_hit(obj/projectile/P, mob/living/carbon/human/H)
-	..()
-	if(world.time > last_banana + banana_cooldown)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
@@ -796,13 +758,6 @@
 	var/last_gong_time = 0
 	var/gong_cooldown = 150
 
-/datum/species/golem/bronze/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
-	if(!(world.time > last_gong_time + gong_cooldown))
-		return ..()
-	if(P.flag == BULLET || P.flag == BOMB)
-		gong(H)
-		return ..()
-
 /datum/species/golem/bronze/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	if(world.time > last_gong_time + gong_cooldown)
@@ -813,10 +768,7 @@
 	if(world.time > last_gong_time + gong_cooldown && M.combat_mode)
 		gong(H)
 
-/datum/species/golem/bronze/on_hit(obj/projectile/P, mob/living/carbon/human/H)
-	..()
-	if(world.time > last_gong_time + gong_cooldown)
-		gong(H)
+
 
 /datum/species/golem/bronze/proc/gong(mob/living/carbon/human/H)
 	last_gong_time = world.time

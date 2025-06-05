@@ -74,7 +74,6 @@
 			visible_message(span_notice("[user] pets [src]."), \
 							span_notice("[user] pets you."), null, null, user)
 			to_chat(user, span_notice("You pet [src]."))
-			user.add_mood_event("pet_borg", /datum/mood_event/pet_borg)
 
 /mob/living/silicon/check_block(atom/hitby, damage, attack_text, attack_type, armour_penetration, damage_type, attack_flag)
 	. = ..()
@@ -85,20 +84,6 @@
 		visible_message(span_danger("[attack_text] doesn't leave a dent on [src]!"), vision_distance = COMBAT_MESSAGE_RANGE)
 		return TRUE
 	return FALSE
-
-/mob/living/silicon/attack_drone(mob/living/basic/drone/user)
-	if(user.combat_mode)
-		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		playsound(src.loc, 'sound/effects/bang.ogg', 10, TRUE)
-		visible_message("<span class='danger'>[user] punches [src], but doesn't leave a dent!</span>", \
-						"<span class='warning'>[user] punches you, but doesn't leave a dent!</span>", null, COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, "<span class='danger'>You punch [src], but don't leave a dent!</span>")
-	else
-		visible_message("<span class='notice'>[user] pets [src].</span>", \
-						"<span class='notice'>[user] pets you.</span>", null, null, user)
-		to_chat(user, "<span class='notice'>You pet [src].</span>")
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT_RND, "pet_borg", /datum/mood_event/pet_borg)
-
 
 /mob/living/silicon/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.combat_mode)

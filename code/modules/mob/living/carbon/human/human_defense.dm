@@ -61,11 +61,10 @@
 			// Finds and plays the block_sound of item which reflected
 			for(var/obj/item/held_item in held_items)
 				if(held_item.IsReflect(def_zone))
-					playsound(src, held_item.block_sound, BLOCK_SOUND_VOLUME, TRUE)
+					playsound(src, 'sound/weapons/parry.ogg', 70, TRUE)
 			// Find a turf near or on the original location to bounce to
 			if(!isturf(loc)) //Open canopy mech (ripley) check. if we're inside something and still got hit
 				return loc.projectile_hit(bullet, def_zone, piercing_hit)
-			bullet.reflect(src)
 			return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
 
 	if(check_block(bullet, bullet.damage, "\the [bullet]", PROJECTILE_ATTACK, bullet.armour_penetration, bullet.damage_type))
@@ -188,12 +187,12 @@
 	if(LAZYACCESS(modifiers, RIGHT_CLICK)) //Always drop item in hand if there is one. If there's no item, shove the target. If the target is incapacitated, slam them into the ground to stun them.
 		var/obj/item/I = get_active_held_item()
 		if(I && dropItemToGround(I))
-			playsound(loc, 'sound/items/weapons/slash.ogg', 25, TRUE, -1)
+			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[user] disarms [src]!"), \
 							span_userdanger("[user] disarms you!"), span_hear("You hear aggressive shuffling!"), null, user)
 			to_chat(user, span_danger("You disarm [src]!"))
 		else if(!HAS_TRAIT(src, TRAIT_INCAPACITATED))
-			playsound(loc, 'sound/items/weapons/pierce.ogg', 25, TRUE, -1)
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			var/shovetarget = get_edge_target_turf(user, get_dir(user, get_step_away(src, user)))
 			adjustStaminaLoss(35)
 			throw_at(shovetarget, 4, 2, user, force = MOVE_FORCE_OVERPOWERING)
@@ -203,7 +202,7 @@
 			to_chat(user, span_danger("You shove [src] with great force!"))
 		else
 			Paralyze(5 SECONDS)
-			playsound(loc, 'sound/items/weapons/punch3.ogg', 25, TRUE, -1)
+			playsound(loc, 'sound/weapons/punch3.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[user] slams [src] into the floor!"), \
 							span_userdanger("[user] slams you into the ground!"), span_hear("You hear something slam loudly onto the floor!"), null, user)
 			to_chat(user, span_danger("You slam [src] into the floor beneath you!"))
@@ -215,15 +214,15 @@
 			w_uniform.add_fingerprint(user)
 		var/damage = prob(90) ? rand(user.melee_damage_lower, user.melee_damage_upper) : 0
 		if(!damage)
-			playsound(loc, 'sound/items/weapons/slashmiss.ogg', 50, TRUE, -1)
+			playsound(loc, 'sound/weapons/slashmiss.ogg', 50, TRUE, -1)
 			visible_message(span_danger("[user] lunges at [src]!"), \
 							span_userdanger("[user] lunges at you!"), span_hear("You hear a swoosh!"), null, user)
 			to_chat(user, span_danger("You lunge at [src]!"))
 			return FALSE
-		var/obj/item/bodypart/affecting = get_bodypart(get_random_valid_zone(user.zone_selected))
+		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.zone_selected))
 		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
 
-		playsound(loc, 'sound/items/weapons/slice.ogg', 25, TRUE, -1)
+		playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 		visible_message(span_danger("[user] slashes at [src]!"), \
 						span_userdanger("[user] slashes at you!"), span_hear("You hear a sickening sound of a slice!"), null, user)
 		to_chat(user, span_danger("You slash at [src]!"))

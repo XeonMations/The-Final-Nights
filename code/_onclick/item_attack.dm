@@ -250,7 +250,7 @@
 		var/zone_hit_chance = 80
 		if(body_position == LYING_DOWN)
 			zone_hit_chance += 10
-		targeting = get_random_valid_zone(targeting, zone_hit_chance)
+		targeting = ran_zone(targeting, zone_hit_chance)
 	var/targeting_human_readable = parse_zone(targeting)
 
 	send_item_attack_message(attacking_item, user, targeting_human_readable, targeting)
@@ -261,12 +261,9 @@
 			absorb_text = span_notice("Your armor has protected your [targeting_human_readable]!"),
 			soften_text = span_warning("Your armor has softened a hit to your [targeting_human_readable]!"),
 			armour_penetration = attacking_item.armour_penetration,
-			weak_against_armour = attacking_item.weak_against_armour,
 		), ARMOR_MAX_BLOCK)
 
 	var/damage = attacking_item.force
-	if(mob_biotypes & MOB_ROBOTIC)
-		damage *= attacking_item.demolition_mod
 
 	var/wounding = attacking_item.wound_bonus
 	if((attacking_item.item_flags & SURGICAL_TOOL) && !user.combat_mode && body_position == LYING_DOWN && (LAZYLEN(surgeries) > 0))
@@ -298,9 +295,7 @@
 		attacking_item = attacking_item,
 	)
 
-	attack_effects(damage_done, targeting, armor_block, attacking_item, user)
-
-	return TRUE
+	return damage_done
 
 /**
  * Called when we take damage, used to cause effects such as a blood splatter.
@@ -329,13 +324,6 @@
 		. = TRUE
 	return ..() || .
 
-/mob/living/carbon/attack_effects(damage_done, hit_zone, armor_block, obj/item/attacking_item, mob/living/attacker)
-	var/obj/item/bodypart/hit_bodypart = get_bodypart(hit_zone) || bodyparts[1]
-	if(!hit_bodypart.can_bleed())
-		return FALSE
-
-	return ..()
-
 /mob/living/carbon/human/attack_effects(damage_done, hit_zone, armor_block, obj/item/attacking_item, mob/living/attacker)
 	. = ..()
 	switch(hit_zone)
@@ -343,13 +331,10 @@
 			if(.)
 				if(wear_mask)
 					wear_mask.add_mob_blood(src)
-					update_worn_mask()
 				if(head)
 					head.add_mob_blood(src)
-					update_worn_head()
 				if(glasses && prob(33))
 					glasses.add_mob_blood(src)
-					update_worn_glasses()
 
 			if(!attacking_item.get_sharpness() && armor_block < 50)
 				if(prob(damage_done))
@@ -359,8 +344,9 @@
 							span_danger("[src] is knocked senseless!"),
 							span_userdanger("You're knocked senseless!"),
 						)
-						set_confusion_if_lower(20 SECONDS)
-						adjust_eye_blur(20 SECONDS)
+						if(get_confusion() < 20 SECONDS)
+							set_confusion(20 SECONDS)
+						adjust_blurriness(20 SECONDS)
 					if(prob(10))
 						gain_trauma(/datum/brain_trauma/mild/concussion)
 				else
@@ -376,10 +362,8 @@
 			if(.)
 				if(wear_suit)
 					wear_suit.add_mob_blood(src)
-					update_worn_oversuit()
 				if(w_uniform)
 					w_uniform.add_mob_blood(src)
-					update_worn_undersuit()
 
 			if(stat == CONSCIOUS && !attacking_item.get_sharpness() && armor_block < 50)
 				if(prob(damage_done))

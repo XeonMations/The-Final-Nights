@@ -531,6 +531,18 @@
 	return protection // Pass the protection value collected here upwards
 
 /**
+ * Wrapper for bullet_act used for atom-specific calculations, i.e. armor
+ *
+ * @params
+ * * hitting_projectile - projectile
+ * * def_zone - zone hit
+ * * piercing_hit - is this hit piercing or normal?
+ */
+
+/atom/proc/projectile_hit(obj/projectile/hitting_projectile, def_zone, piercing_hit = FALSE, blocked = null)
+	return bullet_act(hitting_projectile, def_zone, piercing_hit, blocked)
+
+/**
  * React to a hit by a projectile object
  *
  * Default behaviour is to send the [COMSIG_ATOM_BULLET_ACT] and then call [on_hit][/obj/projectile/proc/on_hit] on the projectile

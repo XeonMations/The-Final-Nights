@@ -102,7 +102,7 @@
 		skipcatch = TRUE
 		blocked = TRUE
 
-	var/zone = get_random_valid_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
+	var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 	var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, blocked, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 	if(nosell_hit)
 		skipcatch = TRUE
@@ -111,7 +111,7 @@
 	if(blocked)
 		return TRUE
 
-	var/mob/thrown_by = thrown_item.thrownby?.resolve()
+	var/mob/thrown_by = thrown_item.thrownby
 	if(thrown_by)
 		log_combat(thrown_by, src, "threw and hit", thrown_item)
 	if(nosell_hit)
@@ -120,7 +120,7 @@
 					span_userdanger("You're hit by [thrown_item]!"))
 	if(!thrown_item.throwforce)
 		return
-	var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration, "", FALSE, thrown_item.weak_against_armour)
+	var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration, "", FALSE)
 	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, sharpness = thrown_item.get_sharpness(), wound_bonus = (nosell_hit * CANT_WOUND))
 	if(QDELETED(src)) //Damage can delete the mob.
 		return
@@ -295,13 +295,11 @@
 	for(var/datum/surgery/operations as anything in surgeries)
 		if(user.combat_mode)
 			break
-		if(IS_IN_INVALID_SURGICAL_POSITION(src, operations))
-			continue
 		if(operations.next_step(user, modifiers))
 			return TRUE
 
 	var/martial_result = user.apply_martial_art(src, modifiers)
-	if (martial_result != MARTIAL_ATTACK_INVALID)
+	if (martial_result != NONE)
 		return martial_result
 
 	return FALSE
@@ -533,7 +531,7 @@
 /mob/living/handle_ricochet(obj/projectile/ricocheting_projectile)
 	var/face_angle = get_angle_raw(ricocheting_projectile.x, ricocheting_projectile.pixel_x, ricocheting_projectile.pixel_y, ricocheting_projectile.p_y, x, y, pixel_x, pixel_y)
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180)))
-	ricocheting_projectile.set_angle(new_angle_s)
+	ricocheting_projectile.setAngle(new_angle_s)
 	return TRUE
 
 /mob/living/proc/check_block(atom/hit_by, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, damage_type = BRUTE)
