@@ -128,7 +128,7 @@
 	START_PROCESSING(SSobj, src)
 	RegisterSignal(owner, COMSIG_CLICK_SHIFT, PROC_REF(examinate_check))
 	RegisterSignal(src, COMSIG_ATOM_HEARER_IN_VIEW, PROC_REF(include_owner))
-	RegisterSignal(owner, COMSIG_LIVING_REGENERATE_LIMBS, PROC_REF(unlist_head))
+	RegisterSignal(owner, COMSIG_CARBON_REGENERATE_LIMBS, PROC_REF(unlist_head))
 	RegisterSignal(owner, COMSIG_LIVING_REVIVE, PROC_REF(retrieve_head))
 
 /obj/item/dullahan_relay/process()

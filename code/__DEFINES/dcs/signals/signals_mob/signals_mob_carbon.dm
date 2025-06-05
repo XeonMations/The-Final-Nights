@@ -122,6 +122,8 @@
 
 // /mob/living/carbon/human signals
 
+#define COMSIG_BODYPART_GAUZE_DESTROYED "gauze_destroyed"
+
 ///Applied preferences to a human
 #define COMSIG_HUMAN_PREFS_APPLIED "human_prefs_applied"
 ///Hit by successful disarm attack (mob/living/carbon/human/attacker,zone_targeted)
