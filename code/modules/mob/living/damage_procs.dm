@@ -51,12 +51,9 @@
 				if(actual_hit.receive_damage(
 					brute = damage_amount,
 					burn = 0,
-					forced = forced,
 					wound_bonus = wound_bonus,
 					bare_wound_bonus = bare_wound_bonus,
 					sharpness = sharpness,
-					attack_direction = attack_direction,
-					damage_source = attacking_item,
 				))
 					update_damage_overlays()
 				damage_dealt = actual_hit.get_damage() - delta // Unfortunately bodypart receive_damage doesn't return damage dealt so we do it manually
@@ -69,12 +66,9 @@
 				if(actual_hit.receive_damage(
 					brute = 0,
 					burn = damage_amount,
-					forced = forced,
 					wound_bonus = wound_bonus,
 					bare_wound_bonus = bare_wound_bonus,
 					sharpness = sharpness,
-					attack_direction = attack_direction,
-					damage_source = attacking_item,
 				))
 					update_damage_overlays()
 				damage_dealt = delta - actual_hit.get_damage() // See above

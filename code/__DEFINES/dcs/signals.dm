@@ -256,9 +256,6 @@
 #define COMSIG_MOVABLE_PULLED "movable_pulled"						//! signal sent out by an atom when it is being pulled by something else : (atom/puller)
 #define COMSIG_MOVABLE_NO_LONGER_PULLED "movable_no_longer_pulled"	//! signal sent out by an atom when it is no longer being pulled by something else : (atom/puller)
 
-///From living/set_resting(): (new_resting, silent, instant)
-#define COMSIG_LIVING_RESTING "living_resting"
-
 /////////////////
 
 ///from base of area/Entered(): (/area)
@@ -395,14 +392,6 @@
 ///Sent when bloodcrawl ends in mob/living/phasein(): (phasein_decal)
 #define COMSIG_LIVING_AFTERPHASEIN "living_phasein"
 
-
-///from /obj/item/hand_item/slapper/attack_atom(): (source=mob/living/slammer, obj/structure/table/slammed_table)
-#define COMSIG_LIVING_SLAM_TABLE "living_slam_table"
-///from /obj/item/hand_item/slapper/attack(): (source=mob/living/slapper, mob/living/slapped)
-#define COMSIG_LIVING_SLAP_MOB "living_slap_mob"
-///from /obj/item/hand_item/slapper/attack(): (source=mob/living/slapper, mob/living/slapped)
-#define COMSIG_LIVING_SLAPPED "living_slapped"
-
 ///sent from borg recharge stations: (amount, repairs)
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
 ///sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)
@@ -410,22 +399,6 @@
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 
-///from base of mob/living/Stun() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_STUN "living_stun"
-///from base of mob/living/Knockdown() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
-///from base of mob/living/Paralyze() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
-///from base of mob/living/Immobilize() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
-///from base of mob/living/Unconscious() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
-///from base of mob/living/Sleeping() (amount, ignore_canstun)
-#define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
-	#define COMPONENT_NO_STUN (1<<0)									//For all of them
-///from base of /mob/living/can_track(): (mob/user)
-#define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
-	#define COMPONENT_CANT_TRACK (1<<0)
 
 /// From /mob/living/proc/stop_leaning()
 #define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
@@ -442,16 +415,6 @@
 
 ///When a carbon gets a vending machine tilted on them
 #define COMSIG_ON_VENDOR_CRUSH "carbon_vendor_crush"
-
-// /obj signals
-
-///before attackingtarget has happened, source is the attacker and target is the attacked
-#define COMSIG_HOSTILE_PRE_ATTACKINGTARGET "hostile_pre_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0) //cancel the attack, only works before attack happens
-///after attackingtarget has happened, source is the attacker and target is the attacked, extra argument for if the attackingtarget was successful
-#define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
-///from base of mob/living/simple_animal/hostile/regalrat: (mob/living/simple_animal/hostile/regalrat/king)
-#define COMSIG_RAT_INTERACT "rat_interaction"
 
 // /obj signals
 ///from base of [/obj/proc/take_damage]: (damage_amount, damage_type, damage_flag, sound_effect, attack_dir, aurmor_penetration)
