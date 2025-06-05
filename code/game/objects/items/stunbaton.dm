@@ -284,7 +284,7 @@
 /obj/item/melee/baton/proc/shields_blocked(mob/living/L, mob/user)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
+		if(H.check_block(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_block() handles that
 			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return TRUE
 	return FALSE
