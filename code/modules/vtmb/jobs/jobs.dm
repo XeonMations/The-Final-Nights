@@ -84,8 +84,8 @@
 					if(H.mind.holy_role == HOLY_ROLE_PRIEST)
 						return
 		if(iskindred(H))
-			if(H.clane)
-				if(H.clane.name == "Baali")
+			if(H.clan)
+				if(H.clan.name == "Baali")
 					H.emote("scream")
 					H.pointed(user)
 	M.show_message("<span class='warning'><b>GOD SEES YOU!</b></span>", MSG_AUDIBLE)
@@ -102,8 +102,8 @@
 		return
 	if(iskindred(target))
 		var/mob/living/carbon/human/H = target
-		if(H.clane)
-			if(H.clane.name == "Baali")
+		if(H.clan)
+			if(H.clan.name == "Baali")
 				last_detonated = world.time
 				var/turf/lightning_source = get_step(get_step(H, NORTH), NORTH)
 				lightning_source.Beam(H, icon_state="lightning[rand(1,12)]", time = 5)

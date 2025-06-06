@@ -381,11 +381,11 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 
 	var/clane_id
-	READ_FILE(S["clane"], clane_id)
+	READ_FILE(S["clan"], clane_id)
 	if(clane_id)
 		var/newtype = GLOB.clanes_list[clane_id]
 		if(newtype)
-			clane = new newtype
+			clan = new newtype
 
 	var/path_id
 	READ_FILE(S["path"], path_id)
@@ -565,9 +565,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	body_model = sanitize_integer(body_model, 1, 3, initial(body_model))
 	if(!real_name)
 		real_name = random_unique_name(gender)
-//	if(!clane)
+//	if(!clan)
 //		var/newtype = GLOB.clanes_list["Brujah"]
-//		clane = new newtype()
+//		clan = new newtype()
 
 	//Prevent Wighting upon joining a round
 	if(path_score <= 0)
@@ -680,7 +680,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	backpack			= sanitize_inlist(backpack, GLOB.backpacklist, initial(backpack))
 	jumpsuit_style	= sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
 	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list, initial(uplink_spawn_loc))
-	clane_accessory = sanitize_inlist(clane_accessory, clane.accessories, null)
+	clane_accessory = sanitize_inlist(clane_accessory, clan.accessories, null)
 	playtime_reward_cloak = sanitize_integer(playtime_reward_cloak)
 	features["mcolor"]	= sanitize_hexcolor(features["mcolor"])
 	features["ethcolor"]	= sanitize_hexcolor(features["ethcolor"])
@@ -807,7 +807,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["honor"]			, honor)
 	WRITE_FILE(S["glory"]			, glory)
 	WRITE_FILE(S["wisdom"]			, wisdom)
-	WRITE_FILE(S["clane"]			, clane.name)
+	WRITE_FILE(S["clan"]			, clan.name)
 	WRITE_FILE(S["generation"]			, generation)
 	WRITE_FILE(S["generation_bonus"]			, generation_bonus)
 	WRITE_FILE(S["masquerade"]			, masquerade)
