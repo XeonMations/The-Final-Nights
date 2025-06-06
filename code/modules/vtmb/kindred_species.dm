@@ -402,78 +402,38 @@
 								save_data_v = TRUE
 							else
 								save_data_v = FALSE
-						BLOODBONDED.set_species(/datum/species/kindred)
-						BLOODBONDED.set_clan(null)
-						if(H.generation < 13)
-							BLOODBONDED.generation = 13
-							BLOODBONDED.skin_tone = get_vamp_skin_color(BLOODBONDED.skin_tone)
-							BLOODBONDED.update_body()
-							if (H.clan.whitelisted)
-								if (!SSwhitelists.is_whitelisted(BLOODBONDED.ckey, H.clan.name))
-									if(H.clan.name == "True Brujah")
-										BLOODBONDED.set_clan(/datum/vampire_clan/brujah)
-										to_chat(BLOODBONDED,"<span class='warning'> You don't got that whitelist! Changing to the non WL Brujah</span>")
-									else if(H.clan.name == "Tzimisce")
-										BLOODBONDED.set_clan(/datum/vampire_clan/old_clan_tzimisce)
-										to_chat(BLOODBONDED,"<span class='warning'> You don't got that whitelist! Changing to the non WL Old Tzmisce</span>")
-									else
-										to_chat(BLOODBONDED,"<span class='warning'> You don't got that whitelist! Changing to a random non WL clan.</span>")
-										var/list/non_whitelisted_clans = list(/datum/vampire_clan/brujah, /datum/vampire_clan/malkavian, /datum/vampire_clan/nosferatu, /datum/vampire_clan/gangrel, /datum/vampire_clan/giovanni, /datum/vampire_clan/ministry, /datum/vampire_clan/salubri, /datum/vampire_clan/toreador, /datum/vampire_clan/tremere, /datum/vampire_clan/ventrue)
-										var/random_clan = pick(non_whitelisted_clans)
-										BLOODBONDED.set_clan(random_clan)
-								else
-									BLOODBONDED.set_clan(H.clan)
-							else
-								BLOODBONDED.set_clan(H.clan)
 
-							if(BLOODBONDED.clan.alt_sprite)
-								BLOODBONDED.skin_tone = "albino"
-								BLOODBONDED.update_body()
+						childe.set_species(/datum/species/kindred)
+						childe.set_clan(null)
+						childe.generation = sire.generation+1
 
 						childe.skin_tone = get_vamp_skin_color(childe.skin_tone)
 						childe.update_body()
 
-							var/list/disciplines_to_give = list()
-							for (var/i in 1 to min(3, H.client.prefs.discipline_types.len))
-								disciplines_to_give += H.client.prefs.discipline_types[i]
-							BLOODBONDED.create_disciplines(FALSE, disciplines_to_give)
-
-							BLOODBONDED.maxbloodpool = 10+((13-min(13, BLOODBONDED.generation))*3)
+						if(childe.generation <= 13)
+							childe.clan = new sire.clan.type()
+							childe.clan.on_gain(childe)
+							childe.clan.post_gain(childe)
 						else
-							BLOODBONDED.maxbloodpool = 10+((13-min(13, BLOODBONDED.generation))*3)
-							BLOODBONDED.generation = 14
-							BLOODBONDED.set_clan(/datum/vampire_clan/caitiff)
+							childe.set_clan(/datum/vampire_clan/caitiff)
+
+						if(childe.clan.alt_sprite)
+							childe.skin_tone = get_vamp_skin_color(BLOODBONDED.skin_tone)
+							childe.update_body()
+
+						//Gives the Childe the Sire's first three Disciplines
+
+						var/list/disciplines_to_give = list()
+						for (var/i in 1 to min(3, sire.client.prefs.discipline_types.len))
+							disciplines_to_give += sire.client.prefs.discipline_types[i]
+						childe.create_disciplines(FALSE, disciplines_to_give)
+						// TODO: Rework the max blood pool calculations.
+						childe.maxbloodpool = 10+((13-min(13, childe.generation))*3)
+						childe.clan.is_enlightened = sire.clan.is_enlightened
 
 						//Verify if they accepted to save being a vampire
-						if (iskindred(BLOODBONDED) && save_data_v)
-							var/datum/preferences/BLOODBONDED_prefs_v = BLOODBONDED.client.prefs
-
-							BLOODBONDED_prefs_v.pref_species.id = "kindred"
-							BLOODBONDED_prefs_v.pref_species.name = "Vampire"
-							if(H.generation < 13)
-
-								BLOODBONDED_prefs_v.clan = BLOODBONDED.clan
-								BLOODBONDED_prefs_v.generation = 13
-								BLOODBONDED_prefs_v.skin_tone = get_vamp_skin_color(BLOODBONDED.skin_tone)
-								BLOODBONDED_prefs_v.enlightenment = H.clan.enlightenment
-
-
-								//Rarely the new mid round vampires get the 3 brujah skil(it is default)
-								//This will remove if it happens
-								// Or if they are a ghoul with abunch of disciplines
-								if(BLOODBONDED_prefs_v.discipline_types.len > 0)
-									for (var/i in 1 to BLOODBONDED_prefs_v.discipline_types.len)
-										var/removing_discipline = BLOODBONDED_prefs_v.discipline_types[1]
-										if (removing_discipline)
-											var/index = BLOODBONDED_prefs_v.discipline_types.Find(removing_discipline)
-											BLOODBONDED_prefs_v.discipline_types.Cut(index, index + 1)
-											BLOODBONDED_prefs_v.discipline_levels.Cut(index, index + 1)
-
-								if(BLOODBONDED_prefs_v.discipline_types.len == 0)
-									for (var/i in 1 to 3)
-										BLOODBONDED_prefs_v.discipline_types += BLOODBONDED_prefs_v.clan.clan_disciplines[i]
-										BLOODBONDED_prefs_v.discipline_levels += 1
-								BLOODBONDED_prefs_v.save_character()
+						if(iskindred(childe) && save_data_v)
+							var/datum/preferences/childe_prefs_v = childe.client.prefs
 
 							childe_prefs_v.pref_species.id = "kindred"
 							childe_prefs_v.pref_species.name = "Vampire"
@@ -546,10 +506,11 @@
 						var/mob/living/carbon/human/npc/NPC = thrall
 						if(NPC.ghoulificate(owner))
 							new_master = TRUE
-					if(BLOODBONDED.mind)
-						if(BLOODBONDED.mind.enslaved_to != owner)
-							BLOODBONDED.mind.enslave_mind_to_creator(owner)
-							to_chat(BLOODBONDED, "<span class='userdanger'><b>AS PRECIOUS VITAE ENTER YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [H]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b></span>")
+							NPC.roundstart_vampire = FALSE
+					if(thrall.mind)
+						if(thrall.mind.enslaved_to != owner && !HAS_TRAIT(thrall,TRAIT_UNBONDABLE))
+							thrall.mind.enslave_mind_to_creator(owner)
+							to_chat(thrall, "<span class='userdanger'><b>AS PRECIOUS VITAE ENTER YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [regnant]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b></span>")
 							new_master = TRUE
 						if(HAS_TRAIT(thrall,TRAIT_UNBONDABLE))
 							to_chat(thrall, "<span class='danger'><i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i></span>")
@@ -561,12 +522,12 @@
 							ghoul.changed_master = TRUE
 					else if(!iskindred(thrall) && !isnpc(thrall))
 						var/save_data_g = FALSE
-						BLOODBONDED.set_species(/datum/species/ghoul)
-						BLOODBONDED.set_clan(null)
-						var/response_g = input(BLOODBONDED, "Do you wish to keep being a ghoul on your save slot?(Yes will be a permanent choice and you can't go back)") in list("Yes", "No")
-						var/datum/species/ghoul/G = BLOODBONDED.dna.species
-						G.master = owner
-						G.last_vitae = world.time
+						thrall.set_species(/datum/species/ghoul)
+						thrall.clan = set_clan(null)
+						var/response_g = input(thrall, "Do you wish to keep being a ghoul on your save slot?(Yes will be a permanent choice and you can't go back)") in list("Yes", "No")
+						var/datum/species/ghoul/ghoul = thrall.dna.species
+						ghoul.master = owner
+						ghoul.last_vitae = world.time
 						if(new_master)
 							ghoul.changed_master = TRUE
 						if(response_g == "Yes")

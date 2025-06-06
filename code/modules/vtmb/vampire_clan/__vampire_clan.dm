@@ -39,7 +39,7 @@
 	/// Morality level that characters of this Clan start with
 	var/start_humanity = 7
 	/// If members of this Clan are on a Path of Enlightenment by default
-	var/enlightenment
+	var/is_enlightened
 
 	/// If this Clan needs a whitelist to select and play
 	var/whitelisted

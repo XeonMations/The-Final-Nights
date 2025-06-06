@@ -2,7 +2,7 @@
 	name = CLAN_SETITES
 	desc = "The Ministry, also called the Ministry of Set, Followers of Set, or Setites, are a clan of vampires who believe their founder was the Egyptian god Set."
 	curse = "Decreased moving speed in lighted areas."
-	clane_disciplines = list(
+	clan_disciplines = list(
 		/datum/discipline/obfuscate,
 		/datum/discipline/presence,
 		/datum/discipline/serpentis
@@ -15,7 +15,7 @@
 	. = ..()
 	H.physiology.burn_mod = 1.5 // Setites take extra damage from burn.
 
-/datum/vampire_clan/ministry/post_gain(mob/living/carbon/human/H)
+/datum/vampire_clan/ministry/on_join_round(mob/living/carbon/human/H)
 	. = ..()
 	var/obj/item/organ/eyes/night_vision/NV = new()
 	NV.Insert(H, TRUE, FALSE)

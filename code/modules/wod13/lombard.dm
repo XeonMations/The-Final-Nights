@@ -5,7 +5,7 @@
 	icon_state = "sell"
 	icon = 'code/modules/wod13/props.dmi'
 	anchored = TRUE
-	var/illegal = FALSE
+	var/black_market = FALSE
 
 /obj/lombard/attackby(obj/item/W, mob/living/user, params)
 	var/mob/living/carbon/human/H = user
@@ -13,7 +13,7 @@
 	if(W.cost <= 0)
 		to_chat(H, span_notice("[W] isn't worth anything!"))
 		return
-	if(W.illegal)
+	if(W.black_market)
 		to_chat(H, span_notice("The pawnshop doesn't accept illegal goods!"))
 		return
 	if(istype(W, /obj/item/stack))
@@ -90,7 +90,7 @@
 		if(item_sc && (sold_sc.object_category == item_sc.object_category)) //Has to be the exact same type
 			//A bunch of redundant checks to make sure that the item being sold has the same variable values as every other item.
 			//Just in case.
-			if(item_sc.illegal != sold_sc.illegal)
+			if(item_sc.illegal != sold_sc.black_market)
 				continue
 			if(item_sc.humanity_loss != sold_sc.humanity_loss)
 				continue
@@ -128,7 +128,6 @@
 	//Items that have been returned were successfully sold
 	if(!length(sold_items))
 		return
-	seller.AdjustHumanity(sold_sc.humanity_loss * length(sold_items), humanity_penalty_limit)
 	//Leave this deletion at the very end just in case any earlier qdel would decide to hard-del the item and remove the item from the list before actually adjusting humanity and such
 	for(var/item_to_delete in sold_items)
 		qdel(item_to_delete)
@@ -140,7 +139,7 @@
 	icon_state = "sell_d"
 	icon = 'code/modules/wod13/props.dmi'
 	anchored = TRUE
-	illegal = TRUE
+	black_market = TRUE
 
 /obj/lombard/blackmarket/attackby(obj/item/W, mob/living/user, params)
 	var/mob/living/carbon/human/H = user
@@ -148,7 +147,7 @@
 	if(W.cost <= 0)
 		to_chat(H, span_notice("[W] isn't worth anything!"))
 		return
-	if(!W.illegal)
+	if(!W.black_market)
 		to_chat(H, span_notice("The black market only accepts illegal goods!"))
 		return
 	if(istype(W, /obj/item/stack))
@@ -166,7 +165,7 @@
 		SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 5)
 	else if(istype(W, /obj/item/reagent_containers/food/drinks/meth))
 		SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 4)
-	else if(illegal)
+	else if(black_market)
 		SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 7)
 
 	var/amount = round(W.cost / 5 * (user.social + (user.additional_social * 0.1)))

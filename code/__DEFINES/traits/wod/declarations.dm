@@ -1,5 +1,4 @@
-//trait from /mob/living/carbon/human/npc
-#define NPC_ITEM_TRAIT "npc_item"
+
 #define TRAIT_EXP_DRIVER		"experienced_driver"
 #define TRAIT_BONE_KEY			"bone_key"
 #define TRAIT_BLOODY_LOVER		"bloody_lover"
@@ -58,6 +57,13 @@
 #define TRAIT_MASQUERADE_VIOLATING_EYES "masquerade_violating_eyes"
 /// If face is uncovered, they will be obviously supernatural to everyone nearby
 #define TRAIT_MASQUERADE_VIOLATING_FACE "masquerade_violating_face"
+
+#define TRAIT_NONMASQUERADE "nonmasquerade"
+
+#define TRAIT_SALUBRI_EYE_OPEN "salubri_eye_open"
+#define TRAIT_SALUBRI_EYE "salubri_eye"
+
+#define TRAIT_ANIMAL_REPULSION "animal_repulsion"
 
 /// Trait given by a vampire's Clan
 #define CLAN_TRAIT "clan"

@@ -7,7 +7,7 @@ And it also helps for the character set panel
 /datum/vampire_clan
 	var/name = "Caitiff"
 	var/desc = "The clanless. The rabble. Of no importance."
-	var/list/clane_disciplines = list() //discipline datums
+	var/list/clan_disciplines = list() //discipline datums
 	var/list/restricted_disciplines = list()
 	var/list/common_disciplines = list() //Discs that you don't start with but are easier to purchase like catiff instead of non clan discs
 	var/datum/outfit/clane_outfit
