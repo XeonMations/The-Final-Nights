@@ -123,13 +123,12 @@
 
 /obj/machinery/griddle/process(delta_time)
 	..()
-	for(var/i in griddled_objects)
-		var/obj/item/griddled_item = i
+	for(var/obj/item/griddled_item as anything in griddled_objects)
 		if(SEND_SIGNAL(griddled_item, COMSIG_ITEM_GRILLED, src, delta_time) & COMPONENT_HANDLED_GRILLING)
 			continue
 		griddled_item.fire_act(1000) //Hot hot hot!
 		if(prob(10))
-			visible_message("<span class='danger'>[griddled_item] doesn't seem to be doing too great on the [src]!</span>")
+			visible_message(span_danger("[griddled_item] doesn't seem to be doing too great on the [src]!"))
 
 /obj/machinery/griddle/update_icon_state()
 	icon_state = "griddle[variant]_[on ? "on" : "off"]"
