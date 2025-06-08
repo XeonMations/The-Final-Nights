@@ -117,7 +117,8 @@
 
 /mob/living/proc/fall_into(datum/source, atom/moved, direction)
 	SIGNAL_HANDLER
-
+	if(HAS_TRAIT(src, NO_GRAVITY_TRAIT)) //If there's no gravity on the mob, don't fall lmao
+		return
 	fall_forced(get_turf(source))
 
 /mob/living/proc/fall_into_ex_turf(datum/source, atom/moved, direction)
