@@ -446,6 +446,11 @@ GLOBAL_LIST_INIT(pda_styles, sort_list(list(MONO, VT, ORBITRON, SHARE)))
 #define DICE_BASICALLY_RIGGED 2
 #define DICE_TOTALLY_RIGGED 3
 
+/// card is considered face down
+#define CARD_FACEDOWN 0
+/// card is considered face up
+#define CARD_FACEUP 1
+
 #define VOMIT_TOXIC 1
 #define VOMIT_PURPLE 2
 #define VOMIT_NANITE 3
