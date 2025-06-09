@@ -39,7 +39,7 @@
 	leaning_mob = leaner
 	if(!iscarbon(dropped) && !iscyborg(dropped)) //Are we not a cyborg or carbon?
 		return FALSE
-	if(leaner.incapacitated(ignore_restraints = TRUE) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
+	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
 		return FALSE
 	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING)) //Are we leaning already?
 		return FALSE
