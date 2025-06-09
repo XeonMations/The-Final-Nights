@@ -1,6 +1,5 @@
 /mob/proc/claw_swing()
-	next_click = world.time+5
-	new /obj/effect/temp_visual/dir_setting/claw_effect(get_turf(src), dir)
+	
 	playsound(loc, 'code/modules/wod13/sounds/swing.ogg', 50, TRUE)
 	var/atom/M
 	var/turf/T = get_step(src, dir)
@@ -25,8 +24,7 @@
 	return M
 
 /mob/proc/melee_swing()
-	next_click = world.time+5
-	new /obj/effect/temp_visual/dir_setting/swing_effect(get_turf(src), dir)
+	play_attack_animation()
 	playsound(loc, 'code/modules/wod13/sounds/swing.ogg', 50, TRUE)
 	var/atom/M
 	var/turf/T = get_step(src, dir)
@@ -49,3 +47,11 @@
 		if(OB)
 			M = OB
 	return M
+
+
+// Simple proc for playing an appropriate attack animation
+/mob/proc/play_attack_animation(claw)
+	if(claw)
+		new /obj/effect/temp_visual/dir_setting/claw_effect(get_turf(src), dir)
+	else
+		new /obj/effect/temp_visual/dir_setting/swing_effect(get_turf(src), dir)
