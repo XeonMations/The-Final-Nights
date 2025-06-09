@@ -498,7 +498,7 @@
  * triggers an update the move intent hud as well
  */
 /mob/proc/toggle_move_intent(mob/user)
-	if(m_intent == MOVE_INTENT_RUN)
+	if(m_intent == MOVE_INTENT_RUN || blocking)
 		m_intent = MOVE_INTENT_WALK
 	else
 		m_intent = MOVE_INTENT_RUN
