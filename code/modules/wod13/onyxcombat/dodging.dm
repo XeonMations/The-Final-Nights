@@ -6,12 +6,6 @@
 		SwitchBlocking()
 	if(CheckFrenzyMove() && blocking)
 		SwitchBlocking()
-	if(user.combat_mode && ishuman(user))
-		var/mob/living/carbon/human/ZIG = user
-		if(ZIG.getStaminaLoss() < 50 && !ZIG.CheckFrenzyMove())
-			ZIG.parry_class = W.w_class
-			ZIG.Parry(src)
-			return
 	if(user == parrying && user != src)
 		if(W.w_class == parry_class)
 			user.apply_damage(60, STAMINA)

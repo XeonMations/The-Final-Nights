@@ -10,12 +10,19 @@
 		overlays_standing[FIGHT_LAYER] = parry_overlay
 		apply_overlay(FIGHT_LAYER)
 		parry_cd = world.time
-		spawn(10)
-			clear_parrying()
-	return
+		addtimer(CALLBACK(src, PROC_REF(clear_parrying)), 10)
 
 /mob/living/carbon/human/proc/clear_parrying()
 	if(parrying)
 		parrying = null
 		remove_overlay(FIGHT_LAYER)
 		to_chat(src, "<span class='warning'>You lower your defense.</span>")
+
+/mob/living/carbon/human/ranged_secondary_attack(atom/target, modifiers)
+	. = ..()
+	if(!combat_mode)
+		return
+	if(getStaminaLoss() < 50 && !CheckFrenzyMove())
+		var/obj/item/W = get_active_held_item()
+		parry_class = W.w_class
+		Parry(src)
