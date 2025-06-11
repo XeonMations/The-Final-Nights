@@ -1,10 +1,14 @@
 /mob/proc/swing_attack()
+	var/obj/item/W = get_active_held_item()
 	play_attack_animation(claw = FALSE)
-	var/turfs_to_attack = get_nearest_attack_turfs()
-	for(var/possible_victim as anything in turfs_to_attack)
-		if(istype(possible_victim, /mob/living))
-			ClickOn(possible_victim)
-			return
+	changeNext_move(W.attack_speed)
+	var/list/turfs_to_attack = get_nearest_attack_turfs()
+	var/list/contents_list = new()
+	for(var/turf/turf as anything in turfs_to_attack)
+		contents_list += turf.GetAllContents()
+	for(var/mob/living/possible_victim in contents_list)
+		W.attack(possible_victim, src)
+		return
 
 // Simple proc for playing an appropriate attack animation
 /mob/proc/play_attack_animation(claw)
@@ -15,9 +19,9 @@
 	playsound(loc, 'code/modules/wod13/sounds/swing.ogg', 50, TRUE)
 
 /mob/proc/get_nearest_attack_turfs()
-	var/original_turf = get_step(src, dir)
-	var/list/turfs = original_turf
-	turfs += get_step(original_turf, turn(dir, -90))
-	turfs += get_step(original_turf, turn(dir, 90))
+	var/original_turf = get_open_turf_in_dir(src, dir)
+	var/list/turfs = new()
+	turfs += original_turf
+	turfs += get_open_turf_in_dir(original_turf, turn(dir, -90))
+	turfs += get_open_turf_in_dir(original_turf, turn(dir, 90))
 	return turfs
-
