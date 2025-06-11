@@ -1,16 +1,10 @@
 /mob/proc/swing_attack()
 	play_attack_animation(claw = FALSE)
 	var/turfs_to_attack = get_nearest_attack_turfs()
-	var/attacking_target
 	for(var/possible_victim as anything in turfs_to_attack)
 		if(istype(possible_victim, /mob/living))
-			attacking_target = possible_victim
-			break
-		if(istype(possible_victim, /obj))
-			attacking_target = possible_victim
-			break
-	
-	ClickOn(attacking_target)
+			ClickOn(possible_victim)
+			return
 
 // Simple proc for playing an appropriate attack animation
 /mob/proc/play_attack_animation(claw)
