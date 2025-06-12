@@ -37,7 +37,7 @@
 						"<span class='userdanger'>[user] [response_harm_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, user)
 		to_chat(user, "<span class='danger'>You [response_harm_simple] [src]!</span>")
 		playsound(loc, attacked_sound, 25, TRUE, -1)
-		attack_threshold_check(harm_intent_damage)
+		apply_damage(harm_intent_damage)
 		log_combat(user, src, "attacked")
 		updatehealth()
 		return TRUE
@@ -65,9 +65,7 @@
 /mob/living/simple_animal/attack_paw(mob/living/carbon/human/user, list/modifiers)
 	if(..()) //successful monkey bite.
 		if(stat != DEAD)
-			var/damage = rand(1, 3)
-			attack_threshold_check(damage)
-			return 1
+			return apply_damage(rand(1, 3))
 	if (!user.combat_mode)
 		if (health > 0)
 			visible_message("<span class='notice'>[user.name] [response_help_continuous] [src].</span>", \
@@ -90,30 +88,16 @@
 							"<span class='userdanger'>You're slashed at by [user]!</span>", null, COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, "<span class='danger'>You slash at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
-			attack_threshold_check(damage)
+			apply_damage(damage)
 			log_combat(user, src, "attacked")
 		return 1
 
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
 	. = ..()
 	if(. && stat != DEAD) //successful larva bite
-		var/damage = rand(5, 10)
-		. = attack_threshold_check(damage)
-		if(.)
-			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-
-/mob/living/simple_animal/attack_animal(mob/living/simple_animal/user, list/modifiers)
-	. = ..()
-	if(.)
-		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
-		return attack_threshold_check(damage, user.melee_damage_type)
-
-/mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime attack
-		var/damage = rand(15, 25)
-		if(M.is_adult)
-			damage = rand(20, 35)
-		return attack_threshold_check(damage)
+		var/damage_done = apply_damage(rand(L.melee_damage_lower, L.melee_damage_upper), BRUTE)
+		if(damage_done > 0)
+			L.amount_grown = min(L.amount_grown + damage_done, L.max_grown)
 
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.combat_mode) //No kicking dogs even as a rogue drone. Use a weapon.
@@ -130,27 +114,6 @@
 			adjustBruteLoss(3)
 			visible_message("<span class='danger'>[animal] bites at [name]!</span>", \
 							"<span class='userdanger'>[animal] bites you!</span>", null, COMBAT_MESSAGE_RANGE, src)
-
-
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE, actuallydamage = TRUE)
-	var/temp_damage = damage
-	if(!damage_coeff[damagetype])
-		temp_damage = 0
-	else
-		temp_damage *= damage_coeff[damagetype]
-
-	if(temp_damage >= 0)
-		visible_message("<span class='warning'>[src] looks unharmed!</span>")
-		return FALSE
-	else
-		if(actuallydamage)
-			apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
-		return TRUE
-
-/mob/living/simple_animal/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
-	apply_damage(Proj.damage, Proj.damage_type)
-	Proj.on_hit(src, 0, piercing_hit)
-	return BULLET_ACT_HIT
 
 /mob/living/simple_animal/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
