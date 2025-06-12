@@ -19,12 +19,12 @@
 	plane = HUD_PLANE
 
 /atom/movable/screen/transform_homid/CtrlClick(mob/user)
-	. = ..()
 	var/mob/living/carbon/C = user
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
-		return
+		return ..()
 	if(C.transformator)
 		C.transformator.transform(C, "Homid")
+	return ..()
 
 /atom/movable/screen/transform_crinos
 	name = "Crinos"
@@ -34,12 +34,12 @@
 	plane = HUD_PLANE
 
 /atom/movable/screen/transform_crinos/CtrlClick(mob/user)
-	. = ..()
 	var/mob/living/carbon/C = user
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
-		return
+		return ..()
 	if(C.transformator)
 		C.transformator.transform(C, "Crinos")
+	return ..()
 
 /atom/movable/screen/transform_lupus
 	name = "Lupus"
@@ -49,12 +49,12 @@
 	plane = HUD_PLANE
 
 /atom/movable/screen/transform_lupus/CtrlClick(mob/user)
-	. = ..()
 	var/mob/living/carbon/C = user
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
-		return
+		return ..()
 	if(C.transformator)
 		C.transformator.transform(C, "Lupus")
+	return ..()
 
 
 /atom/movable/screen/transform_corax_crinos
@@ -66,12 +66,12 @@
 
 
 /atom/movable/screen/transform_corax_crinos/CtrlClick(mob/user)
-	. = ..()
 	var/mob/living/carbon/C = user
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
-		return
+		return ..()
 	if(C.transformator)
 		C.transformator.transform(C, "Corax Crinos")
+	return ..()
 
 /atom/movable/screen/transform_corvid
 	name = "corvid"
@@ -82,14 +82,12 @@
 
 
 /atom/movable/screen/transform_corvid/CtrlClick(mob/user)
-	. = ..()
 	var/mob/living/carbon/C = user
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
-		return
+		return ..()
 	if(C.transformator)
 		C.transformator.transform(C, "Corvid")
-
-
+	return ..()
 
 /atom/movable/screen/auspice
 	name = "Auspice"
