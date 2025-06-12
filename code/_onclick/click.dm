@@ -358,7 +358,7 @@
 /obj/item/CtrlClick(mob/user)
 	var/obj/item/flipper = A
 	if((!Adjacent(user) && !user.DirectAccess(src)) || !isliving(user) || user.incapacitated())
-		return
+		return ..()
 	var/old_width = grid_width
 	var/old_height = grid_height
 	grid_height = old_width
