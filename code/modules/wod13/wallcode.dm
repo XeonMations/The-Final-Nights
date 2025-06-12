@@ -71,8 +71,6 @@
 	. = ..()
 	if(islupus(user))
 		return
-	if(ishuman(user))
-		return
 	var/mob/living/carbon/human/carbon_human = user
 	if(!(carbon_human.combat_mode))
 		LoadComponent(/datum/component/leanable, dropping)
