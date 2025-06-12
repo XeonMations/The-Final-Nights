@@ -279,6 +279,13 @@
 	if(damage <= 0)
 		return FALSE
 
+	if(prob(50) && damage > 5)
+		for(var/obj/item/vtm_artifact/odious_chalice/OC in user.GetAllContents())
+			if(OC.identified)
+				if(bloodpool)
+					bloodpool = max(0, bloodpool-1)
+					OC.stored_blood = OC.stored_blood+1
+
 	if(ishuman(src) || client) // istype(src) is kinda bad, but it's to avoid spamming the blackbox
 		SSblackbox.record_feedback("nested tally", "item_used_for_combat", 1, list("[attacking_item.force]", "[attacking_item.type]"))
 		SSblackbox.record_feedback("tally", "zone_targeted", 1, targeting_human_readable)
