@@ -1374,7 +1374,6 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		target.grabbedby(user)
 		return TRUE
 
-///This proc handles punching damage. IMPORTANT: Our owner is the TARGET and not the USER in this proc. For whatever reason...
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
@@ -1410,8 +1409,6 @@ GLOBAL_LIST_EMPTY(selectable_races)
 				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
 		var/damage = (rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)/3)*(user.get_total_physique())
-		if(user.age < 16)
-			damage = round(damage/2)
 
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
 
@@ -1449,13 +1446,18 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)
 
+		var/meleemod = 1
+		meleemod = M.dna.species.meleemod
+		if(user.get_total_physique() > 4)
+			meleemod = (meleemod)+((user.get_total_physique() + 1)/5 - 1) //1.2x at Physique 5, increasing by 0.2x per point higher than that.
+
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.1x raw damage
-			target.apply_damage(damage*1.1, user.dna.species.attack_type, affecting, armor_block)
+			target.apply_damage(damage*1.1*meleemod, user.dna.species.attack_type, affecting, armor_block)
 			if((damage * 1.5) >= 9)
 				target.force_say()
 			log_combat(user, target, "kicked")
 		else//other attacks deal full damage
-			target.apply_damage(damage, user.dna.species.attack_type, affecting, armor_block)
+			target.apply_damage(damage*meleemod, user.dna.species.attack_type, affecting, armor_block)
 			if(damage >= 9)
 				target.force_say()
 			log_combat(user, target, "punched")

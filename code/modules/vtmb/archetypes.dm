@@ -41,7 +41,6 @@
 
 /datum/archetype/warrior/special_skill(mob/living/carbon/human/H)
 	ADD_TRAIT(H, TRAIT_WARRIOR, ROUNDSTART_TRAIT)
-	H.next_move_modifier *= 0.5 // "Twice as fast"
 
 /datum/archetype/gunfighter
 	name = "Gunfighter"
