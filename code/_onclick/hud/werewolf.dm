@@ -18,8 +18,8 @@
 	layer = HUD_LAYER
 	plane = HUD_PLANE
 
-/atom/movable/screen/transform_homid/CtrlClick(mob/user)
-	var/mob/living/carbon/C = user
+/atom/movable/screen/transform_homid/Click()
+	var/mob/living/carbon/C = usr
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
 		return ..()
 	if(C.transformator)
@@ -33,8 +33,8 @@
 	layer = HUD_LAYER
 	plane = HUD_PLANE
 
-/atom/movable/screen/transform_crinos/CtrlClick(mob/user)
-	var/mob/living/carbon/C = user
+/atom/movable/screen/transform_crinos/Click()
+	var/mob/living/carbon/C = usr
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
 		return ..()
 	if(C.transformator)
@@ -48,8 +48,8 @@
 	layer = HUD_LAYER
 	plane = HUD_PLANE
 
-/atom/movable/screen/transform_lupus/CtrlClick(mob/user)
-	var/mob/living/carbon/C = user
+/atom/movable/screen/transform_lupus/Click()
+	var/mob/living/carbon/C = usr
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
 		return ..()
 	if(C.transformator)
@@ -65,8 +65,8 @@
 	plane = HUD_PLANE
 
 
-/atom/movable/screen/transform_corax_crinos/CtrlClick(mob/user)
-	var/mob/living/carbon/C = user
+/atom/movable/screen/transform_corax_crinos/Click()
+	var/mob/living/carbon/C = usr
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
 		return ..()
 	if(C.transformator)
@@ -81,8 +81,8 @@
 	plane = HUD_PLANE
 
 
-/atom/movable/screen/transform_corvid/CtrlClick(mob/user)
-	var/mob/living/carbon/C = user
+/atom/movable/screen/transform_corvid/Click()
+	var/mob/living/carbon/C = usr
 	if(C.stat >= SOFT_CRIT || C.IsSleeping() || C.IsUnconscious() || C.IsParalyzed() || C.IsKnockdown() || C.IsStun())
 		return ..()
 	if(C.transformator)
@@ -120,7 +120,6 @@
 		corvid?.last_moon_look = world.time
 
 		to_chat(C, span_notice("The Moon is [GLOB.moon_state]."))
-		to_chat(C, span_notice("You can activate transformations using Ctrl-Click!"))
 		if(HAS_TRAIT(C, TRAIT_CORAX) || iscorax(C))
 			C.emote("caw")
 			if(!iscoraxcrinos(C))
