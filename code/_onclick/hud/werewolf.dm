@@ -253,6 +253,12 @@
 	using.hud = src
 	hotkeybuttons += using
 
+	rest_icon = new /atom/movable/screen/rest()
+	rest_icon.icon = 'code/modules/wod13/UI/buttons_wide.dmi'
+	rest_icon.screen_loc = ui_rest
+	rest_icon.hud = src
+	hotkeybuttons += rest_icon
+
 	throw_icon = new /atom/movable/screen/throw_catch()
 	throw_icon.icon = 'code/modules/wod13/UI/buttons_wide.dmi'
 	throw_icon.screen_loc = ui_throw
