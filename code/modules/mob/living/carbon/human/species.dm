@@ -1447,7 +1447,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			target.dismembering_strike(user, affecting.body_zone)
 
 		var/meleemod = 1
-		meleemod = M.dna.species.meleemod
+		meleemod = user.dna.species.meleemod
 		if(user.get_total_physique() > 4)
 			meleemod = (meleemod)+((user.get_total_physique() + 1)/5 - 1) //1.2x at Physique 5, increasing by 0.2x per point higher than that.
 
