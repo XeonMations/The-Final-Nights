@@ -1,4 +1,4 @@
-/mob/living/carbon/werewolf/lupus
+/mob/living/carbon/human/werewolf/lupus
 	name = "wolf"
 	icon_state = "black"
 	icon = 'code/modules/wod13/tfn_lupus.dmi'
@@ -27,7 +27,7 @@
 //		)
 	var/hispo = FALSE
 
-/mob/living/carbon/werewolf/lupus/corvid // yes, this is a subtype of lupus, god help us all
+/mob/living/carbon/human/werewolf/lupus/corvid // yes, this is a subtype of lupus, god help us all
 	name = "corvid"
 	icon_state = "black"
 	icon = 'code/modules/wod13/corax_corvid.dmi'
@@ -44,7 +44,7 @@
 /datum/movespeed_modifier/lupusform
 		multiplicative_slowdown = -0.7
 
-/mob/living/carbon/werewolf/lupus/update_icons()
+/mob/living/carbon/human/werewolf/lupus/update_icons()
 	cut_overlays()
 
 	var/laid_down = FALSE
@@ -72,16 +72,16 @@
 	eye_overlay.layer = ABOVE_LIGHTING_LAYER
 	add_overlay(eye_overlay)
 
-/mob/living/carbon/werewolf/lupus/regenerate_icons()
+/mob/living/carbon/human/werewolf/lupus/regenerate_icons()
 	if(!..())
 	//	update_icons() //Handled in update_transform(), leaving this here as a reminder
 		update_transform()
 
-/mob/living/carbon/werewolf/lupus/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
+/mob/living/carbon/human/werewolf/lupus/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
 	. = ..()
 	update_icons()
 
-/mob/living/carbon/werewolf/lupus/Life()
+/mob/living/carbon/human/werewolf/lupus/Life()
 	if(hispo)
 		if(CheckEyewitness(src, src, 7, FALSE))
 			src.adjust_veil(-1,random = -1)

@@ -1,4 +1,4 @@
-/mob/living/carbon/werewolf/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/carbon/human/werewolf/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	. = ..()
 	if(message)
 //		if(istype(loc, /obj/effect/dummy/chameleon))
@@ -20,7 +20,7 @@
 //			else
 //				playsound(get_turf(src), 'code/modules/wod13/sounds/wolf_speak.ogg', 75, TRUE)
 
-/mob/living/carbon/werewolf
+/mob/living/carbon/human/werewolf
 	name = "werewolf"
 	icon = 'code/modules/wod13/werewolf.dmi'
 	gender = MALE
@@ -80,7 +80,7 @@
 
 	var/assigned_quirks = FALSE
 
-/mob/living/carbon/werewolf/corax // the Corax variety of werewolves, also refers to the Crinos form in a roundabout way, not exactly clean.
+/mob/living/carbon/human/werewolf/corax // the Corax variety of werewolves, also refers to the Crinos form in a roundabout way, not exactly clean.
 	name = "Corax"
 	icon = 'code/modules/wod13/corax_crinos.dmi'
 	verb_say = "caws"
@@ -89,14 +89,14 @@
 
 
 
-/mob/living/carbon/werewolf/update_resting()
+/mob/living/carbon/human/werewolf/update_resting()
 	if(resting)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	else
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	return ..()
 
-/mob/living/carbon/werewolf/crinos/Move(NewLoc, direct)
+/mob/living/carbon/human/werewolf/crinos/Move(NewLoc, direct)
 	if(isturf(loc))
 		step_variable = step_variable+1
 		if(step_variable == 2)
@@ -116,7 +116,7 @@
 		Immobilize(20)
 	shake_camera(src, 5, 4)
 
-/mob/living/carbon/werewolf/Initialize()
+/mob/living/carbon/human/werewolf/Initialize()
 	var/datum/action/gift/rage_heal/GH = new()
 	GH.Grant(src)
 	var/datum/action/gift/howling/howl = new()
@@ -133,7 +133,7 @@
 
 	. = ..()
 
-/mob/living/carbon/werewolf/create_internal_organs()
+/mob/living/carbon/human/werewolf/create_internal_organs()
 	internal_organs += new /obj/item/organ/brain
 	internal_organs += new /obj/item/organ/tongue
 	internal_organs += new /obj/item/organ/eyes/night_vision
@@ -144,30 +144,30 @@
 	internal_organs += new /obj/item/organ/ears
 	..()
 
-/mob/living/carbon/werewolf/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) // beepsky won't hunt aliums
+/mob/living/carbon/human/werewolf/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) // beepsky won't hunt aliums
 	return -10
 
-/mob/living/carbon/werewolf/reagent_check(datum/reagent/R) //can metabolize all reagents
+/mob/living/carbon/human/werewolf/reagent_check(datum/reagent/R) //can metabolize all reagents
 	return 0
 
-/mob/living/carbon/werewolf/getTrail()
+/mob/living/carbon/human/werewolf/getTrail()
 	return pick (list("trails_1", "trails2"))
 
-/mob/living/carbon/werewolf/canBeHandcuffed()
+/mob/living/carbon/human/werewolf/canBeHandcuffed()
 	return FALSE
 
-/mob/living/carbon/werewolf/can_hold_items(obj/item/I)
+/mob/living/carbon/human/werewolf/can_hold_items(obj/item/I)
 	return (I && (I.item_flags & WEREWOLF_HOLDABLE || ISADVANCEDTOOLUSER(src)) && ..())
 
-/mob/living/carbon/werewolf/on_lying_down(new_lying_angle)
+/mob/living/carbon/human/werewolf/on_lying_down(new_lying_angle)
 	. = ..()
 	update_icons()
 
-/mob/living/carbon/werewolf/on_standing_up()
+/mob/living/carbon/human/werewolf/on_standing_up()
 	. = ..()
 	update_icons()
 
-/mob/living/carbon/werewolf/crinos
+/mob/living/carbon/human/werewolf/crinos
 	name = "werewolf"
 	icon_state = "black"
 	mob_size = MOB_SIZE_HUGE
@@ -179,8 +179,6 @@
 	health = 250
 	maxHealth = 250
 //	speed = -1  doesn't work on carbons
-	var/obj/item/r_store = null
-	var/obj/item/l_store = null
 	var/pounce_cooldown = 0
 	var/pounce_cooldown_time = 30
 	pixel_w = -8
@@ -196,7 +194,7 @@
 
 	werewolf_armor = 30
 
-/mob/living/carbon/werewolf/corax/corax_crinos // The specific stats for the Corax variation of Crinos
+/mob/living/carbon/human/werewolf/corax/corax_crinos // The specific stats for the Corax variation of Crinos
 	name = "corax"
 	icon_state = "black"
 	mob_size = MOB_SIZE_HUGE
@@ -209,8 +207,6 @@
 	health = 200 // a lot less HP
 	maxHealth = 200
 //	speed = -1  doesn't work on carbons
-	var/obj/item/r_store = null
-	var/obj/item/l_store = null
 	var/pounce_cooldown = 0
 	var/pounce_cooldown_time = 30
 	pixel_w = -8
@@ -232,14 +228,14 @@
 /datum/movespeed_modifier/silver_slowdown
 	multiplicative_slowdown = 0.3
 
-/mob/living/carbon/werewolf/crinos/Initialize()
+/mob/living/carbon/human/werewolf/crinos/Initialize()
 	. = ..()
 	var/datum/action/change_apparel/A = new()
 	A.Grant(src)
 
 //	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
-/mob/living/carbon/werewolf/lupus/Initialize()
+/mob/living/carbon/human/werewolf/lupus/Initialize()
 	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	if(!iscorvid(src))
@@ -248,7 +244,7 @@
 
 
 
-/mob/living/carbon/werewolf/crinos/show_inv(mob/user)
+/mob/living/carbon/human/werewolf/crinos/show_inv(mob/user)
 	user.set_machine(src)
 	var/list/dat = list()
 	dat += "<table>"
@@ -267,12 +263,12 @@
 	popup.open()
 
 
-/mob/living/carbon/werewolf/crinos/can_hold_items(obj/item/I)
+/mob/living/carbon/human/werewolf/crinos/can_hold_items(obj/item/I)
 	return TRUE
 
 
 
-/mob/living/carbon/werewolf/crinos/Topic(href, href_list)
+/mob/living/carbon/human/werewolf/crinos/Topic(href, href_list)
 	//strip panel
 	if(href_list["pouches"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		visible_message("<span class='danger'>[usr] tries to empty [src]'s pouches.</span>", \
@@ -283,17 +279,17 @@
 
 	..()
 
-/mob/living/carbon/werewolf/crinos/resist_grab(moving_resist)
+/mob/living/carbon/human/werewolf/crinos/resist_grab(moving_resist)
 	if(pulledby.grab_state)
 		visible_message("<span class='danger'>[src] breaks free of [pulledby]'s grip!</span>", \
 						"<span class='danger'>You break free of [pulledby]'s grip!</span>")
 	pulledby.stop_pulling()
 	. = 0
 
-/mob/living/carbon/werewolf/crinos/get_permeability_protection(list/target_zones)
+/mob/living/carbon/human/werewolf/crinos/get_permeability_protection(list/target_zones)
 	return 0.8
 
-/mob/living/carbon/werewolf/corax/corax_crinos/show_inv(mob/user)
+/mob/living/carbon/human/werewolf/corax/corax_crinos/show_inv(mob/user)
 	user.set_machine(src)
 	var/list/dat = list()
 	dat += "<table>"
@@ -312,10 +308,10 @@
 	popup.open()
 
 
-/mob/living/carbon/werewolf/corax/corax_crinos/can_hold_items(obj/item/I)
+/mob/living/carbon/human/werewolf/corax/corax_crinos/can_hold_items(obj/item/I)
 	return TRUE
 
-/mob/living/carbon/werewolf/corax/corax_crinos/Topic(href, href_list)
+/mob/living/carbon/human/werewolf/corax/corax_crinos/Topic(href, href_list)
 	//strip panel
 	if(href_list["pouches"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		visible_message("<span class='danger'>[usr] tries to empty [src]'s pouches.</span>", \
@@ -326,17 +322,17 @@
 
 	..()
 
-/mob/living/carbon/werewolf/corax/corax_crinos/resist_grab(moving_resist)
+/mob/living/carbon/human/werewolf/corax/corax_crinos/resist_grab(moving_resist)
 	if(pulledby.grab_state)
 		visible_message("<span class='danger'>[src] breaks free of [pulledby]'s grip!</span>", \
 						"<span class='danger'>You break free of [pulledby]'s grip!</span>")
 	pulledby.stop_pulling()
 	. = 0
 
-/mob/living/carbon/werewolf/corax/corax_crinos/get_permeability_protection(list/target_zones)
+/mob/living/carbon/human/werewolf/corax/corax_crinos/get_permeability_protection(list/target_zones)
 	return 0.8
 
-/mob/living/carbon/werewolf/corax/corax_crinos/Move(NewLoc, direct)
+/mob/living/carbon/human/werewolf/corax/corax_crinos/Move(NewLoc, direct)
 	if(isturf(loc))
 		step_variable = step_variable+1
 		if(step_variable == 2)

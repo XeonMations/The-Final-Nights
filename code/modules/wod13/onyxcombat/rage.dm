@@ -6,7 +6,7 @@
 	gnosis.layer = ABOVE_HUD_LAYER
 
 
-/mob/living/carbon/werewolf/Life()
+/mob/living/carbon/human/werewolf/Life()
 	. = ..()
 	update_blood_hud()
 	update_rage_hud()
