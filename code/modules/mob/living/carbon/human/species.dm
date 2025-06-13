@@ -1515,8 +1515,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		disarm(owner, target, attacker_style)
 		return // dont attack after
 	if(owner.combat_mode)
-		if(!harm(owner, target, attacker_style))
-			owner.swing_attack(owner, target, owner, TRUE, modifiers, TRUE)
+		harm(owner, target, attacker_style)
 	else
 		help(owner, target, attacker_style)
 
