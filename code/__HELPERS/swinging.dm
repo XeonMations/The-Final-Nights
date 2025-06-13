@@ -2,6 +2,8 @@
 	var/obj/item/W = get_active_held_item()
 	if(!W.force)
 		return
+	if(W in DirectAccess()) //If we're in an inventory or clicking on a hud object.
+		return
 	play_attack_animation(claw = FALSE)
 	changeNext_move(W.attack_speed)
 	var/list/turfs_to_attack = get_nearest_attack_turfs()
