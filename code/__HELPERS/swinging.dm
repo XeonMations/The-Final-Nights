@@ -1,3 +1,5 @@
+// This file is in _HELPERS due to load priority. Im sorry.
+
 /mob/proc/swing_attack(signal_user, atom/target, mob/user, proximity_flag, click_parameters)
 	var/obj/item/W = get_active_held_item()
 	if(!W)
