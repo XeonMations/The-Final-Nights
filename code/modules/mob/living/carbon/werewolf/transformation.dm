@@ -79,7 +79,7 @@
 		return
 
 	trans.inspired = FALSE
-	if(ishuman(trans))
+	if(trans.type == /mob/living/carbon/human)
 		var/datum/species/garou/G = trans.dna.species
 		var/mob/living/carbon/human/H = trans
 		if(G.glabro)
@@ -104,7 +104,7 @@
 			garou_lang.grant_language(/datum/language/garou_tongue, TRUE, TRUE)
 			if(iscrinos(trans))
 				ntransform.Scale(0.75, 0.75)
-			if(ishuman(trans))
+			if(trans.type == /mob/living/carbon/human)
 				ntransform.Scale(1, 0.75)
 		if("Crinos")
 			for(var/spoken_language in garou_lang.spoken_languages)
@@ -118,17 +118,17 @@
 					ntransform.Scale(0.95, 1.25)
 				else
 					ntransform.Scale(1, 1.75)
-			if(ishuman(trans))
+			if(trans.type == /mob/living/carbon/human)
 				ntransform.Scale(1.25, 1.5)
 		if("Corvid")
 			if(iscoraxcrinos(trans))
 				ntransform.Scale(0.75, 0.75)
-			if(ishuman(trans))
+			if(trans.type == /mob/living/carbon/human)
 				ntransform.Scale(1, 0.75)
 		if("Corax Crinos")
 			if(iscorvid(trans))
 				ntransform.Scale(1, 1.75)
-			if(ishuman(trans))
+			if(trans.type == /mob/living/carbon/human)
 				ntransform.Scale(1.25, 1.5)
 
 		if("Homid")
@@ -228,7 +228,7 @@
 			addtimer(CALLBACK(src, PROC_REF(transform_cor_crinos), trans, cor_crinos), 3 SECONDS)
 
 		if("Homid")
-			if(ishuman(trans))
+			if(trans.type == /mob/living/carbon/human)
 				transformating = FALSE
 				return
 			if(!human_form)
@@ -278,6 +278,7 @@
 	transformating = FALSE
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	lupus.update_icons()
+	ADD_TRAIT(lupus, TRAIT_NO_HANDS, "lupus")
 	if(lupus.hispo)
 		lupus.remove_movespeed_modifier(/datum/movespeed_modifier/lupusform)
 		lupus.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)

@@ -69,9 +69,10 @@
 	if(.)
 		return
 	if(ishuman(user.mob) && !ispath(user.mob, /mob/living/carbon/human/werewolf))
-	var/mob/living/carbon/human/H = user.mob
-	H.SwitchBlocking()
-	return TRUE
+		var/mob/living/carbon/human/H = user.mob
+		H.SwitchBlocking()
+		return TRUE
+	return
 
 /datum/keybinding/human/bite
 	hotkey_keys = list("N")

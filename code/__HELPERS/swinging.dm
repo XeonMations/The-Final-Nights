@@ -1,8 +1,8 @@
-/mob/proc/swing_attack()
+/mob/proc/swing_attack(signal_user, atom/target, mob/user, proximity_flag, click_parameters)
 	var/obj/item/W = get_active_held_item()
 	if(!W.force)
 		return
-	if(W in DirectAccess()) //If we're in an inventory or clicking on a hud object.
+	if(target in DirectAccess()) //If the object we are attacking is in an inventory or a hud object.
 		return
 	play_attack_animation(claw = FALSE)
 	changeNext_move(W.attack_speed)
