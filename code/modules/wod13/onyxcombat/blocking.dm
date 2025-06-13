@@ -6,7 +6,7 @@
 	plane = HUD_PLANE
 
 /atom/movable/screen/block/Click()
-	if(ishuman(usr))
+	if(ishuman(usr) && !ispath(usr, /mob/living/carbon/human/werewolf))
 		var/mob/living/carbon/human/BL = usr
 		BL.SwitchBlocking()
 	..()
