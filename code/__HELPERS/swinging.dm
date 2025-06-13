@@ -1,5 +1,12 @@
 /mob/proc/swing_attack(signal_user, atom/target, mob/user, proximity_flag, click_parameters)
 	var/obj/item/W = get_active_held_item()
+	if(!W)
+		swing_attack_unarmed(signal_user, target, user, proximity_flag, click_parameters, W)
+	else
+		swing_attack_normal(signal_user, target, user, proximity_flag, click_parameters)
+
+// DO NOT CALL THIS PROC DIERECTLY
+/mob/proc/swing_attack_normal(signal_user, atom/target, mob/user, proximity_flag, click_parameters, claw, obj/item/W)
 	if(!W.force)
 		return
 	if(target in DirectAccess()) //If the object we are attacking is in an inventory or a hud object.
@@ -13,6 +20,21 @@
 	for(var/mob/living/possible_victim in contents_list)
 		W.attack(possible_victim, src)
 		return
+
+// DO NOT CALL THIS PROC DIERECTLY
+/mob/proc/swing_attack_unarmed(signal_user, atom/target, mob/living/carbon/user, proximity_flag, click_parameters, claw)
+	if(target in DirectAccess()) //If the object we are attacking is in an inventory or a hud object.
+		return
+	play_attack_animation(claw = TRUE)
+	changeNext_move(CLICK_CD_MELEE)
+	var/list/turfs_to_attack = get_nearest_attack_turfs()
+	var/list/contents_list = new()
+	for(var/turf/turf as anything in turfs_to_attack)
+		contents_list += turf.GetAllContents()
+	for(var/mob/living/possible_victim in contents_list)
+		user.dna.species.harm(user, possible_victim)
+		return
+
 
 // Simple proc for playing an appropriate attack animation
 /mob/proc/play_attack_animation(claw)

@@ -212,3 +212,7 @@
 
 	if(isgarou(being_bitten) || iswerewolf(being_bitten))
 		return COMPONENT_RESIST_VAMPIRE_KISS
+
+/datum/species/garou/spec_attack_hand(mob/living/carbon/human/owner, mob/living/carbon/human/target, datum/martial_art/attacker_style, modifiers)
+	owner.swing_attack(owner, target, owner, TRUE, modifiers, TRUE)
+	return ..()
