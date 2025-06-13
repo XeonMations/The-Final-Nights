@@ -1475,6 +1475,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 				to_chat(user, "<span class='danger'>You knock [target] down!</span>")
 				target.apply_effect(2 SECONDS, EFFECT_KNOCKDOWN, armor_block)
 				log_combat(user, target, "got a stun punch with their previous punch")
+	return TRUE
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style?.disarm_act(user,target))
@@ -1514,7 +1515,8 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		disarm(owner, target, attacker_style)
 		return // dont attack after
 	if(owner.combat_mode)
-		harm(owner, target, attacker_style)
+		if(!harm(owner, target, attacker_style))
+			owner.swing_attack(owner, target, owner, TRUE, modifiers, TRUE)
 	else
 		help(owner, target, attacker_style)
 
