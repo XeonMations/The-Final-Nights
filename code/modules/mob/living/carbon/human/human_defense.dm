@@ -147,20 +147,6 @@
 			visible_message("<span class='danger'>[user] disarmed [src]!</span>", \
 							"<span class='userdanger'>[user] disarmed you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>", null, user)
 			to_chat(user, "<span class='danger'>You disarm [src]!</span>")
-		else if(!user.client || prob(5)) // only natural monkeys get to stun reliably, (they only do it occasionaly)
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
-			if (src.IsKnockdown() && !src.IsParalyzed())
-				Paralyze(40)
-				log_combat(user, src, "pinned")
-				visible_message("<span class='danger'>[user] pins [src] down!</span>", \
-								"<span class='userdanger'>[user] pins you down!</span>", "<span class='hear'>You hear shuffling and a muffled groan!</span>", null, user)
-				to_chat(user, "<span class='danger'>You pin [src] down!</span>")
-			else
-				Knockdown(30)
-				log_combat(user, src, "tackled")
-				visible_message("<span class='danger'>[user] tackles [src] down!</span>", \
-								"<span class='userdanger'>[user] tackles you down!</span>", "<span class='hear'>You hear aggressive shuffling followed by a loud thud!</span>", null, user)
-				to_chat(user, "<span class='danger'>You tackle [src] down!</span>")
 
 	if(!user.combat_mode)
 		..() //shaking
@@ -169,15 +155,14 @@
 	if(user.limb_destroyer)
 		dismembering_strike(user, affecting.body_zone)
 
-	if(try_inject(user, affecting, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))//Thick suits can stop monkey bites.
-		if(..()) //successful monkey bite, this handles disease contraction.
-			var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
-			if(!damage)
-				return FALSE
-			if(check_block(user, damage, "the [user.name]"))
-				return FALSE
-			apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
-		return TRUE
+	if(..())
+		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
+		if(!damage)
+			return FALSE
+		if(check_block(user, damage, "the [user.name]"))
+			return FALSE
+		apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
+	return TRUE
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/user, list/modifiers)
 	. = ..()

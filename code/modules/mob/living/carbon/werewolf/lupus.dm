@@ -16,6 +16,11 @@
 	werewolf_armor = 10
 	var/hispo = FALSE
 
+/mob/living/carbon/human/werewolf/lupus/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_MONKEYLIKE, "species")
+
+
 /mob/living/carbon/human/werewolf/lupus/corvid // yes, this is a subtype of lupus, god help us all
 	name = "corvid"
 	icon_state = "black"

@@ -328,7 +328,7 @@
 	if(check_block(user, 1, "[user]'s bite", UNARMED_ATTACK, 0, BRUTE))
 		return FALSE
 
-	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
+	user.do_attack_animation(src)
 	if (HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER) || prob(75))
 		log_combat(user, src, "attacked")
 		playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
