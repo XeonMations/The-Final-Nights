@@ -244,8 +244,11 @@
 	. = ..()
 	var/datum/action/change_apparel/A = new()
 	A.Grant(src)
+	ADD_TRAIT(src, TRAIT_MONKEYLIKE, "species")
 
-//	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
+/mob/living/carbon/human/werewolf/crinos/set_combat_mode(new_mode, silent = TRUE)
+	new_mode = TRUE
+	..()
 
 /mob/living/carbon/human/werewolf/lupus/Initialize()
 	. = ..()
