@@ -192,10 +192,9 @@
 			hacking = TRUE
 			playsound(src, 'code/modules/wod13/sounds/hack.ogg', 100, TRUE)
 			for(var/mob/living/carbon/human/npc/police/P in oviewers(7, src))
-				if(P)
-					P.Aggro(user)
+				P.Aggro(user)
 			var/total_lockpicking = user.get_total_lockpicking()
-			if(do_mob(user, src, (lockpick_timer - total_lockpicking * 2) SECONDS))
+			if(do_after(user, (lockpick_timer - total_lockpicking * 2) SECONDS, src))
 				var/roll = rand(1, 20) + (total_lockpicking * 2 + user.get_total_dexterity()) - lockpick_difficulty
 				if(roll <=1)
 					to_chat(user, span_warning("Your lockpick broke!"))
