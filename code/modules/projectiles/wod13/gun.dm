@@ -195,7 +195,6 @@
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
-	. = ..()
 	if(QDELETED(target))
 		return
 	if(firing_burst)
@@ -365,20 +364,15 @@
 	semicd = FALSE
 
 /obj/item/gun/attack(mob/M, mob/living/user)
-	if(user.combat_mode) //Flogging
-		if(bayonet)
-			M.attackby(bayonet, user)
-			return
-		else
-			process_fire(M, user)
-			return ..()
-	return
+	if(bayonet)
+		M.attackby(bayonet, user)
+	process_fire(M, user)
+	return ..()
 
 /obj/item/gun/attack_atom(obj/O, mob/living/user, params)
-	if(user.combat_mode)
-		if(bayonet)
-			O.attackby(bayonet, user)
-			return
+	if(bayonet)
+		O.attackby(bayonet, user)
+		return
 	return ..()
 
 /obj/item/gun/attackby(obj/item/I, mob/living/user, params)
