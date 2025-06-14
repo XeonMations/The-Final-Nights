@@ -57,4 +57,4 @@
 				if(incapacitated(TRUE, TRUE) && blocking)
 					SwitchBlocking()
 				return
-	..()
+	. = ..()
