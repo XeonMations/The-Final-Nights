@@ -31,10 +31,6 @@
 	/// The type of a key the resident will get
 	var/apartment_key_type
 
-/obj/structure/vampdoor/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_PRE_ATTACK_SECONDARY, PROC_REF(right_click))
-
 /obj/structure/vampdoor/proc/try_award_apartment_key(mob/user)
 	if(!grant_apartment_key)
 		return FALSE
@@ -73,8 +69,8 @@
 		to_chat(human, span_notice("It's just where I left it..."))
 	return TRUE
 
-/obj/structure/vampdoor/New()
-	..()
+/obj/structure/vampdoor/Initialize(mapload)
+	. = ..()
 	switch(lockpick_difficulty) //This is fine because any overlap gets intercepted before
 		if(LOCKDIFFICULTY_7 to INFINITY)
 			lockpick_timer = LOCKTIMER_7
@@ -229,27 +225,27 @@
 				if(i == lock_id)
 					toggle_lock(user)
 
-/obj/structure/vampdoor/proc/right_click(source, target, user, params)
+/obj/structure/vampdoor/attack_hand_secondary(mob/user, list/modifiers)
 	var/mob/living/carbon/carbon_user = user
 	var/obj/item/vamp/keys/found_key = locate(/obj/item/vamp/keys) in carbon_user.contents
 	if(!found_key)
 		to_chat(user, span_warning("You need a key to lock/unlock this door!"))
-		return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	if(found_key.roundstart_fix)
 		found_key.roundstart_fix = FALSE
 		lock_id = pick(found_key.accesslocks)
 
 	if(!found_key.accesslocks)
 		to_chat(user, span_warning("Your key doesn't fit this lock!"))
-		return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	for(var/i in found_key.accesslocks)
 		if(i == lock_id)
 			toggle_lock(user)
-			return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	to_chat(user, span_warning("Your key doesn't fit this lock!"))
-	return COMPONENT_SECONDARY_CANCEL_ATTACK_CHAIN
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/structure/vampdoor/proc/reset_transform()
 	pixel_z = initial(pixel_z)
