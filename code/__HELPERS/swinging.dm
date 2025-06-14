@@ -3,12 +3,12 @@
 /mob/proc/swing_attack(signal_user, atom/target, mob/user, proximity_flag, click_parameters)
 	var/obj/item/W = get_active_held_item()
 	if(!W)
-		swing_attack_unarmed(signal_user, target, user, proximity_flag, click_parameters, W)
+		swing_attack_unarmed(signal_user, target, user, proximity_flag, click_parameters)
 	else
-		swing_attack_normal(signal_user, target, user, proximity_flag, click_parameters)
+		swing_attack_normal(signal_user, target, user, proximity_flag, click_parameters, W)
 
 // DO NOT CALL THIS PROC DIERECTLY
-/mob/proc/swing_attack_normal(signal_user, atom/target, mob/user, proximity_flag, click_parameters, claw, obj/item/W)
+/mob/proc/swing_attack_normal(signal_user, atom/target, mob/user, proximity_flag, click_parameters, obj/item/W)
 	if(!W.force)
 		return
 	if(target in DirectAccess()) //If the object we are attacking is in an inventory or a hud object.
@@ -24,7 +24,7 @@
 		return
 
 // DO NOT CALL THIS PROC DIERECTLY
-/mob/proc/swing_attack_unarmed(signal_user, atom/target, mob/living/carbon/user, proximity_flag, click_parameters, claw)
+/mob/proc/swing_attack_unarmed(signal_user, atom/target, mob/living/carbon/user, proximity_flag, click_parameters)
 	if(target in DirectAccess()) //If the object we are attacking is in an inventory or a hud object.
 		return
 	play_attack_animation(claw = TRUE)
@@ -34,7 +34,7 @@
 	for(var/turf/turf as anything in turfs_to_attack)
 		contents_list += turf.GetAllContents()
 	for(var/mob/living/possible_victim in contents_list)
-		user.dna.species.harm(user, possible_victim)
+		user.UnarmedAttack(possible_victim)
 		return
 
 

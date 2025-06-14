@@ -15,11 +15,11 @@
 		RegisterSignal(src, COMSIG_LIVING_DEATH, PROC_REF(attach_rot))
 	
 	RegisterSignal(src, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(swing_attack))
-
+	
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
-	UnregisterSignal(src, COMSIG_MOB_ITEM_AFTERATTACK)
+	UnregisterSignal(src, list(COMSIG_MOB_ITEM_AFTERATTACK))
 	QDEL_LIST(hand_bodyparts)
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(bodyparts)

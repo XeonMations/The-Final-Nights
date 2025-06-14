@@ -130,8 +130,20 @@
 	create_internal_organs()
 
 	ADD_TRAIT(src, TRAIT_NEVER_WOUNDED, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_MOB_ATTACK_RANGED, PROC_REF(swing_attack))
 
 	. = ..()
+
+/mob/living/carbon/human/werewolf/Destroy()
+	. = ..()
+	remove_verb(src, /mob/living/proc/mob_sleep)
+	remove_verb(src, /mob/living/proc/toggle_resting)
+
+	REMOVE_TRAIT(src, TRAIT_NEVER_WOUNDED, ROUNDSTART_TRAIT)
+	UnregisterSignal(src, COMSIG_MOB_ATTACK_RANGED)
+
+	. = ..()
+
 
 /mob/living/carbon/human/werewolf/create_internal_organs()
 	internal_organs += new /obj/item/organ/brain
