@@ -24,7 +24,7 @@
 		return
 
 // DO NOT CALL THIS PROC DIERECTLY
-/mob/proc/swing_attack_unarmed(signal_user, atom/target, mob/living/carbon/user, proximity_flag, click_parameters)
+/mob/proc/swing_attack_unarmed(signal_user, atom/target, mob/user, proximity_flag, click_parameters)
 	if(target in DirectAccess()) //If the object we are attacking is in an inventory or a hud object.
 		return
 	play_attack_animation(claw = TRUE)
@@ -34,7 +34,7 @@
 	for(var/turf/turf as anything in turfs_to_attack)
 		contents_list += turf.GetAllContents()
 	for(var/mob/living/possible_victim in contents_list)
-		user.UnarmedAttack(possible_victim)
+		INVOKE_ASYNC(signal_user, PROC_REF(UnarmedAttack), possible_victim)
 		return
 
 
