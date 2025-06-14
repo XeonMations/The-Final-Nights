@@ -1253,7 +1253,7 @@
  *
  * In other words, use sparingly. It's harder to use (correctly) than [item_interaction].
  */
-/atom/proc/tool_act(mob/living/user, obj/item/tool, list/modifiers)
+/atom/proc/tool_act(mob/living/user, obj/item/tool, right_clicking)
 	SHOULD_CALL_PARENT(TRUE)
 	PROTECTED_PROC(TRUE)
 
@@ -1261,7 +1261,7 @@
 	if(!tool_type)
 		return NONE
 
-	var/is_right_clicking = LAZYACCESS(modifiers, RIGHT_CLICK)
+	var/is_right_clicking = right_clicking
 	var/is_left_clicking = !is_right_clicking
 
 	var/list/processing_recipes = list()
