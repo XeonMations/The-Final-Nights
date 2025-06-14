@@ -1,6 +1,8 @@
 // This file is in _HELPERS due to load priority. Im sorry.
 
 /mob/proc/swing_attack(signal_user, atom/target, mob/user, proximity_flag, click_parameters)
+	if(istype(target, /obj/item)) //after attack signal is sent even if you interact with something for SOME REASON so, voila, shitcode.
+		return
 	var/obj/item/W = get_active_held_item()
 	if(!W)
 		swing_attack_unarmed(signal_user, target, user, proximity_flag, click_parameters)

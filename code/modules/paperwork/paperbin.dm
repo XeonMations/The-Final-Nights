@@ -82,21 +82,6 @@
 
 	..()
 
-/obj/item/paper_bin/MouseDrop(atom/over_object)
-	. = ..()
-	var/mob/living/M = usr
-	if(!istype(M) || M.incapacitated() || !Adjacent(M))
-		return
-
-	if(over_object == M)
-		M.put_in_hands(src)
-
-	else if(istype(over_object, /atom/movable/screen/inventory/hand))
-		var/atom/movable/screen/inventory/hand/H = over_object
-		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
-
-	add_fingerprint(M)
-
 /obj/item/paper_bin/attack_paw(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)
 
