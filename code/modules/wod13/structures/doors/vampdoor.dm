@@ -127,7 +127,7 @@
 	. = ..()
 	LoadComponent(/datum/component/leanable, dropping)
 
-/obj/structure/vampdoor/attack_hand(mob/user)
+/obj/structure/vampdoor/attack_hand(mob/living/user)
 	. = ..()
 	if(try_award_apartment_key(user))
 		return
@@ -163,8 +163,6 @@
 		to_chat(user, span_warning("[src] is locked!"))
 		return
 
-	if(iscrinos(door_user))
-		break_door(door_user)
 	if(door_user.potential)
 		if((door_user.potential * 2) >= lockpick_difficulty)
 			break_door(door_user)
@@ -246,6 +244,11 @@
 
 	to_chat(user, span_warning("Your key doesn't fit this lock!"))
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/structure/vampdoor/attack_paw(mob/user, list/modifiers)
+	if(iscrinos(user))
+		break_door(user)
+	return ..()
 
 /obj/structure/vampdoor/proc/reset_transform()
 	pixel_z = initial(pixel_z)
