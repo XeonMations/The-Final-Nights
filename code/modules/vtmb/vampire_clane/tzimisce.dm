@@ -310,7 +310,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
-	faction = list("Tzimisce")
+	faction = list(CLAN_TZIMISCE)
 	bloodquality = BLOOD_QUALITY_LOW
 	bloodpool = 2
 	maxbloodpool = 2
@@ -336,7 +336,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	status_flags = CANPUSH
-	faction = list("Tzimisce")
+	faction = list(CLAN_TZIMISCE)
 	bloodquality = BLOOD_QUALITY_LOW
 	bloodpool = 5
 	maxbloodpool = 5
@@ -361,13 +361,13 @@
 	attack_sound = 'sound/weapons/slash.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	faction = list("Tzimisce")
+	faction = list(CLAN_TZIMISCE)
 	bloodquality = BLOOD_QUALITY_LOW
 	bloodpool = 7
 	maxbloodpool = 7
 
 /mob/living/simple_animal/hostile/gargoyle
-	name = "Gargoyle"
+	name = CLAN_GARGOYLE
 	desc = "Stone-skinned..."
 	icon = 'code/modules/wod13/32x48.dmi'
 	icon_state = "gargoyle_m"
@@ -391,7 +391,7 @@
 	maxbloodpool = 10
 	dextrous = TRUE
 	held_items = list(null, null)
-	faction = list("Tremere")
+	faction = list(CLAN_TREMERE)
 
 /mob/living/simple_animal/hostile/gargoyle/proc/gain_sentience()
 	set waitfor = FALSE
