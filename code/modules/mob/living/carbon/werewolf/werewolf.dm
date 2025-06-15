@@ -1,25 +1,3 @@
-/mob/living/carbon/human/werewolf/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	. = ..()
-	if(message)
-//		if(istype(loc, /obj/effect/dummy/chameleon))
-//			var/obj/effect/dummy/chameleon/C = loc
-//			C.say("[message]")
-//			return
-		if(length(GLOB.auspex_list))
-			for(var/mob/living/carbon/human/H in GLOB.auspex_list)
-				if(H)
-					to_chat(H, "<span class='scream_away'><b>[name]</b> says, \"[message]\"</span>")
-//		var/ending = copytext_char(message, -1)
-//		var/list/message_mods = list()
-//		message = get_message_mods(message, message_mods)
-//		if(message_mods[WHISPER_MODE] != MODE_WHISPER)
-//			if(ending == "?")
-//				playsound(get_turf(src), 'code/modules/wod13/sounds/wolf_ask.ogg', 75, TRUE)
-//			else if(ending == "!")
-//				playsound(get_turf(src), 'code/modules/wod13/sounds/wolf_yell.ogg', 100, TRUE)
-//			else
-//				playsound(get_turf(src), 'code/modules/wod13/sounds/wolf_speak.ogg', 75, TRUE)
-
 /mob/living/carbon/human/werewolf
 	name = "werewolf"
 	icon = 'code/modules/wod13/werewolf.dmi'
@@ -246,18 +224,12 @@
 	A.Grant(src)
 	ADD_TRAIT(src, TRAIT_MONKEYLIKE, "species")
 
-/mob/living/carbon/human/werewolf/crinos/set_combat_mode(new_mode, silent = TRUE)
-	new_mode = TRUE
-	..()
-
 /mob/living/carbon/human/werewolf/lupus/Initialize()
 	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	if(!iscorvid(src))
 		var/datum/action/gift/hispo/hispo = new()
 		hispo.Grant(src)
-
-
 
 /mob/living/carbon/human/werewolf/crinos/show_inv(mob/user)
 	user.set_machine(src)
@@ -277,11 +249,8 @@
 	popup.set_content(dat.Join())
 	popup.open()
 
-
 /mob/living/carbon/human/werewolf/crinos/can_hold_items(obj/item/I)
 	return TRUE
-
-
 
 /mob/living/carbon/human/werewolf/crinos/Topic(href, href_list)
 	//strip panel

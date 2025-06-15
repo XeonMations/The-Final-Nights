@@ -316,7 +316,6 @@
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	crinos.update_icons()
 	crinos.mind.current = crinos
-	crinos.set_combat_mode(TRUE)
 
 /datum/werewolf_holder/transformation/proc/transform_cor_crinos(mob/living/carbon/trans, mob/living/carbon/human/werewolf/corax/corax_crinos/cor_crinos)
 	PRIVATE_PROC(TRUE)
@@ -351,7 +350,6 @@
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	cor_crinos.update_icons()
 	cor_crinos.mind.current = cor_crinos
-	cor_crinos.set_combat_mode(TRUE)
 
 /datum/werewolf_holder/transformation/proc/transform_homid(mob/living/carbon/trans, mob/living/carbon/human/homid)
 	PRIVATE_PROC(TRUE)
