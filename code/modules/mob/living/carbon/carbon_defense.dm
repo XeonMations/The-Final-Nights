@@ -231,24 +231,6 @@
  * Will shove the target mob back, and drop them if they're in front of something dense
  * or another carbon.
 */
-
-/mob/living/carbon/proc/do_rage_from_attack(mob/living/target)
-	if(isgarou(src) || iswerewolf(src))
-		if(last_rage_from_attack == 0 || last_rage_from_attack+ATTACK_RAGE_COOLDOWN < world.time)
-			last_rage_from_attack = world.time
-			adjust_rage(1, src, TRUE)
-	if(iscathayan(src))
-		if(in_frenzy)
-			if(!mind?.dharma?.Po_combat)
-				mind?.dharma?.Po_combat = TRUE
-				call_dharma("letpo", src)
-		if(mind?.dharma?.Po == "Rebel")
-			emit_po_call(src, "Rebel")
-		if(target)
-			if("judgement" in mind?.dharma?.tenets)
-				if(target.lastattacker != src)
-					mind?.dharma?.deserving |= target.real_name
-
 /mob/living/carbon/proc/disarm(mob/living/carbon/target)
 	target.do_rage_from_attack(src)
 	if(zone_selected == BODY_ZONE_PRECISE_MOUTH)
@@ -379,6 +361,23 @@
 	var/active_item = get_active_held_item()
 	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
 		visible_message("<span class='warning'>[name] regains their grip on \the [active_item]!</span>", "<span class='warning'>You regain your grip on \the [active_item]</span>", null, COMBAT_MESSAGE_RANGE)
+
+/mob/living/carbon/proc/do_rage_from_attack(mob/living/target)
+	if(isgarou(src) || iswerewolf(src))
+		if(last_rage_from_attack == 0 || last_rage_from_attack+ATTACK_RAGE_COOLDOWN < world.time)
+			last_rage_from_attack = world.time
+			adjust_rage(1, src, TRUE)
+	if(iscathayan(src))
+		if(in_frenzy)
+			if(!mind?.dharma?.Po_combat)
+				mind?.dharma?.Po_combat = TRUE
+				call_dharma("letpo", src)
+		if(mind?.dharma?.Po == "Rebel")
+			emit_po_call(src, "Rebel")
+		if(target)
+			if("judgement" in mind?.dharma?.tenets)
+				if(target.lastattacker != src)
+					mind?.dharma?.deserving |= target.real_name
 
 /mob/living/carbon/blob_act(obj/structure/blob/B)
 	if (stat == DEAD)
