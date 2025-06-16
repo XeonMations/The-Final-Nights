@@ -280,7 +280,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 						char_sheet.add_experience(2)
 					if(H.total_cleaned > 25)
 						char_sheet.add_experience(1)
-						call_dharma("cleangrow", H)
 					if(role == "Graveyard Keeper")
 						if(SSgraveyard.total_good > SSgraveyard.total_bad)
 							char_sheet.add_experience(1)
