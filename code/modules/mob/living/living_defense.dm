@@ -319,27 +319,21 @@
 		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
 		return FALSE
 
-	if(!user.get_bodypart(BODY_ZONE_HEAD))
-		return FALSE
-	if(user.is_muzzled() || user.is_mouth_covered(ITEM_SLOT_MASK))
-		to_chat(user, span_warning("You can't bite with your mouth covered!"))
-		return FALSE
-
-	if(check_block(user, 1, "[user]'s bite", UNARMED_ATTACK, 0, BRUTE))
+	if(check_block(user, 1, "[user]'s slash", UNARMED_ATTACK, 0, BRUTE))
 		return FALSE
 
 	user.do_attack_animation(src)
 	if (HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER) || prob(75))
 		log_combat(user, src, "attacked")
-		playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
-		visible_message("<span class='danger'>[user.name] bites [src]!</span>", \
-						"<span class='userdanger'>[user.name] bites you!</span>", "<span class='hear'>You hear a chomp!</span>", COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, "<span class='danger'>You bite [src]!</span>")
+		playsound(loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
+		visible_message("<span class='danger'>[user.name] slashes [src]!</span>", \
+						"<span class='userdanger'>[user.name] slashes you!</span>", "<span class='hear'>You hear a slash!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='danger'>You slash [src]!</span>")
 		return TRUE
 	else
-		visible_message("<span class='danger'>[user.name]'s bite misses [src]!</span>", \
-						"<span class='danger'>You avoid [user.name]'s bite!</span>", "<span class='hear'>You hear the sound of jaws snapping shut!</span>", COMBAT_MESSAGE_RANGE, user)
-		to_chat(user, "<span class='warning'>Your bite misses [src]!</span>")
+		visible_message("<span class='danger'>[user.name]'s slash misses [src]!</span>", \
+						"<span class='danger'>You avoid [user.name]'s slash!</span>", "<span class='hear'>You hear the sound of claws whizzing in the air!</span>", COMBAT_MESSAGE_RANGE, user)
+		to_chat(user, "<span class='warning'>Your slash misses [src]!</span>")
 
 	return FALSE
 

@@ -63,9 +63,9 @@
 	adjustBruteLoss(15)
 
 /mob/living/simple_animal/attack_paw(mob/living/carbon/human/user, list/modifiers)
-	if(..()) //successful monkey bite.
+	if(..())
 		if(stat != DEAD)
-			return apply_damage(rand(1, 3))
+			return apply_damage(rand(user.melee_damage_lower, user.melee_damage_upper))
 	if (!user.combat_mode)
 		if (health > 0)
 			visible_message("<span class='notice'>[user.name] [response_help_continuous] [src].</span>", \
