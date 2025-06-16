@@ -254,6 +254,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/derangement = TRUE
 
+	var/faction = NONE
+	var/faction_fame = FACTION_UNKNOWN
+
 /datum/preferences/proc/add_experience(amount)
 	player_experience = clamp(player_experience + amount, 0, 100000)
 

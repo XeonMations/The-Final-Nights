@@ -1,4 +1,17 @@
-// Put vampire_faction strings here & use these defines for 'em.
+/*
+# Faction Fame
+*/
+
+// Nobody knows you're part of this faction.
+#define FACTION_UNKNOWN "Unknown"
+// Only those in the faction know you're part of it.
+#define FACTION_TRUSTED "Trusted"
+// Everyone knows you're aprt of this faction. Even people outside the faction.
+#define FACTION_KNOWN "Known"
+
+
+
+
 
 // Vampire sects
 #define FACTION_ANARCHS "Anarchs"
