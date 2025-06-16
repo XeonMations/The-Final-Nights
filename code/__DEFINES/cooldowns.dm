@@ -39,6 +39,11 @@
 ///Used to check when doing audible emotes, like screaming
 #define COOLDOWN_MOB_AUDIO "mob_audio_cooldown"
 
+// item cooldowns
+#define COOLDOWN_SIGNALLER_SEND "cooldown_signaller_send"
+#define COOLDOWN_TOOL_SOUND "cooldown_tool_sound"
+
+
 //TIMER COOLDOWN MACROS
 
 #define COMSIG_CD_STOP(cd_index) "cooldown_[cd_index]"
