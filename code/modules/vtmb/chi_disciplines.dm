@@ -72,15 +72,6 @@
 			L.chi_ranged = null
 	. = ..()
 
-/atom/movable/screen/movable/action_button/Click(location,control,params)
-	if(istype(linked_action, /datum/action/chi_discipline))
-		var/list/modifiers = params2list(params)
-		if(LAZYACCESS(modifiers, "right"))
-			var/datum/action/chi_discipline/D = linked_action
-			D.switch_level()
-			return
-	. = ..()
-
 /datum/chi_discipline
 	///Name of this Discipline.
 	var/name = "Chi Discipline"
