@@ -6,7 +6,6 @@
 	faction = list("Gaia")
 	ventcrawler = VENTCRAWLER_NONE
 	pass_flags = 0
-//	sight = SEE_MOBS
 	see_in_dark = 2
 	verb_say = "woofs"
 	rotate_on_lying = 0
@@ -65,8 +64,6 @@
 	verb_exclaim = "squawks"
 	verb_yell = "shrieks"
 
-
-
 /mob/living/carbon/human/werewolf/update_resting()
 	if(resting)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
@@ -95,33 +92,18 @@
 	shake_camera(src, 5, 4)
 
 /mob/living/carbon/human/werewolf/Initialize()
+	. = ..()
 	var/datum/action/gift/rage_heal/GH = new()
 	GH.Grant(src)
 	var/datum/action/gift/howling/howl = new()
 	howl.Grant(src)
-
-	add_verb(src, /mob/living/proc/mob_sleep)
-	add_verb(src, /mob/living/proc/toggle_resting)
-
-	create_bodyparts() //initialize bodyparts
-
-	create_internal_organs()
-
 	ADD_TRAIT(src, TRAIT_NEVER_WOUNDED, ROUNDSTART_TRAIT)
 	RegisterSignal(src, COMSIG_MOB_ATTACK_RANGED, PROC_REF(swing_attack))
 
-	. = ..()
-
 /mob/living/carbon/human/werewolf/Destroy()
 	. = ..()
-	remove_verb(src, /mob/living/proc/mob_sleep)
-	remove_verb(src, /mob/living/proc/toggle_resting)
-
 	REMOVE_TRAIT(src, TRAIT_NEVER_WOUNDED, ROUNDSTART_TRAIT)
 	UnregisterSignal(src, COMSIG_MOB_ATTACK_RANGED)
-
-	. = ..()
-
 
 /mob/living/carbon/human/werewolf/create_internal_organs()
 	internal_organs += new /obj/item/organ/brain
