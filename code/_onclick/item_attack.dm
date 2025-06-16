@@ -303,6 +303,8 @@
 		attacking_item = attacking_item,
 	)
 
+	attack_effects(damage_done, targeting, armor_block, attacking_item, user)
+
 	return damage_done
 
 /**
