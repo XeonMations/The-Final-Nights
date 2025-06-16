@@ -129,6 +129,8 @@
 
 /obj/structure/vampdoor/attack_hand(mob/living/user)
 	. = ..()
+	if(.)
+		return
 	if(try_award_apartment_key(user))
 		return
 	if(!locked)
