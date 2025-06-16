@@ -135,14 +135,14 @@
 	name = "Toggle an energy shield that blocks all attacks from the faced direction at a heavy power cost."
 	button_icon_state = "mech_defense_mode_off"
 
-/datum/action/vehicle/sealed/mecha/mech_defense_mode/Trigger(forced_state = FALSE)
+/datum/action/vehicle/sealed/mecha/mech_defense_mode/Trigger(forced_state = FALSE, trigger_flags)
 	SEND_SIGNAL(chassis, COMSIG_MECHA_ACTION_TRIGGER, owner, args) //Signal sent to the mech, to be handed to the shield. See durand.dm for more details
 
 /datum/action/vehicle/sealed/mecha/mech_overload_mode
 	name = "Toggle leg actuators overload"
 	button_icon_state = "mech_overload_off"
 
-/datum/action/vehicle/sealed/mecha/mech_overload_mode/Trigger(forced_state = null)
+/datum/action/vehicle/sealed/mecha/mech_overload_mode/Trigger(forced_state = null, trigger_flags)
 	if(!owner || !chassis || !(owner in chassis.occupants))
 		return
 	if(!isnull(forced_state))

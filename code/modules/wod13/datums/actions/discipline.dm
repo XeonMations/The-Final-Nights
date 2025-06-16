@@ -63,9 +63,9 @@
 
 	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
 		if(trigger_flags & TRIGGER_ALT_ACTION)
-			discipline.switch_level(-1)
+			switch_level(-1)
 		else
-			discipline.switch_level(1)
+			switch_level(1)
 		return .
 
 	UpdateButtonIcon()

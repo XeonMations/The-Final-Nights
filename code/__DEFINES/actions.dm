@@ -29,7 +29,7 @@
 /// The name shown in the stat panel.
 #define PANEL_DISPLAY_NAME "name"
 
-#define ACTION_BUTTON_DEFAULT_BACKGROUND "_use_ui_default_background"
+#define ACTION_BUTTON_DEFAULT_BACKGROUND "default"
 
 #define UPDATE_BUTTON_NAME (1<<0)
 #define UPDATE_BUTTON_ICON (1<<1)
