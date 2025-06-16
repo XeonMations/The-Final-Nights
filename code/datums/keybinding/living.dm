@@ -76,7 +76,7 @@
 	return TRUE
 
 /datum/keybinding/living/toggle_combat_mode
-	hotkey_keys = list("F", "4")
+	hotkey_keys = list("F")
 	name = "toggle_combat_mode"
 	full_name = "Toggle Combat Mode"
 	description = "Toggles combat mode. Like Help/Harm but cooler."
@@ -89,3 +89,31 @@
 		return
 	var/mob/living/user_mob = user.mob
 	user_mob.set_combat_mode(!user_mob.combat_mode, FALSE)
+
+/datum/keybinding/living/enable_combat_mode
+	hotkey_keys = list("4")
+	name = "enable_combat_mode"
+	full_name = "Enable Combat Mode"
+	description = "Enable combat mode."
+	keybind_signal = COMSIG_KB_LIVING_ENABLE_COMBAT_DOWN
+
+/datum/keybinding/living/enable_combat_mode/down(client/user, turf/target)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/user_mob = user.mob
+	user_mob.set_combat_mode(TRUE, silent = FALSE)
+
+/datum/keybinding/living/disable_combat_mode
+	hotkey_keys = list("1")
+	name = "disable_combat_mode"
+	full_name = "Disable Combat Mode"
+	description = "Disable combat mode."
+	keybind_signal = COMSIG_KB_LIVING_DISABLE_COMBAT_DOWN
+
+/datum/keybinding/living/disable_combat_mode/down(client/user, turf/target)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/user_mob = user.mob
+	user_mob.set_combat_mode(FALSE, silent = FALSE)
