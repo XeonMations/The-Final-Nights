@@ -120,7 +120,7 @@
 	vampiric = TRUE
 	var/ghosts_visible = FALSE
 
-/datum/action/ghost_hear/Trigger()
+/datum/action/ghost_hear/Trigger(trigger_flags)
 	. = ..()
 	if(ghosts_visible == TRUE)
 		deactivate()

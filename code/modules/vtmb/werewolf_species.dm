@@ -26,7 +26,7 @@
 	check_flags = NONE
 	var/mob/living/carbon/host
 
-/datum/action/garouinfo/Trigger()
+/datum/action/garouinfo/Trigger(trigger_flags)
 	if(host)
 		var/dat = {"
 			<style type="text/css">

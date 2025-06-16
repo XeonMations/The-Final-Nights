@@ -58,8 +58,15 @@
 /datum/action/discipline/IsAvailable()
 	return discipline.current_power.can_activate_untargeted()
 
-/datum/action/discipline/Trigger()
+/datum/action/discipline/Trigger(trigger_flags)
 	. = ..()
+
+	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
+		if(trigger_flags & TRIGGER_ALT_ACTION)
+			discipline.switch_level(-1)
+		else
+			discipline.switch_level(1)
+		return .
 
 	UpdateButtonIcon()
 
@@ -174,21 +181,4 @@
 	owner.discipline_targeting = TRUE
 	client.mouse_pointer_icon = 'icons/effects/mouse_pointers/discipline.dmi'
 
-//TODO: middle click to swap loadout
-/atom/movable/screen/movable/action_button/Click(location, control, params)
-	. = ..()
-	var/list/modifiers = params2list(params)
-	if(istype(linked_action, /datum/action/discipline))
-		//increase on right click, decrease on shift right click
-		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			var/datum/action/discipline/discipline = linked_action
-			if (LAZYACCESS(modifiers, ALT_CLICK))
-				discipline.switch_level(-1)
-			else
-				discipline.switch_level(1)
-			return
-	if(istype(linked_action, /datum/action/chi_discipline))
-		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			var/datum/action/chi_discipline/D = linked_action
-			D.switch_level()
-			return
+

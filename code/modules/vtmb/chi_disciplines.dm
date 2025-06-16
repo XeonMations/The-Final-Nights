@@ -10,7 +10,11 @@
 	var/datum/chi_discipline/discipline
 	var/active_check = FALSE
 
-/datum/action/chi_discipline/Trigger()
+/datum/action/chi_discipline/Trigger(trigger_flags)
+	. = ..()
+	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
+		switch_level()
+		return .
 	if(discipline && isliving(owner))
 		var/mob/living/owning = owner
 		if(discipline.ranged)
@@ -29,7 +33,6 @@
 			if(discipline)
 				if(discipline.check_activated(owner, owner))
 					discipline.activate(owner, owner)
-	. = ..()
 
 /datum/action/chi_discipline/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	button_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
@@ -937,7 +940,7 @@
 	icon_icon = 'code/modules/wod13/UI/kuei_jin.dmi'
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 
-/datum/action/choose_demon_form/Trigger()
+/datum/action/choose_demon_form/Trigger(trigger_flags)
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/user = usr
 		var/new_form = input(user, "Choose your Demon Form", "Demon Form") as null|anything in list("Samurai", "Tentacles", "Demon", "Giant", "Foul")

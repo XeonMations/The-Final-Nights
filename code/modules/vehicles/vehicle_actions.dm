@@ -106,7 +106,7 @@
 	desc = "Climb out of your vehicle!"
 	button_icon_state = "car_eject"
 
-/datum/action/vehicle/sealed/climb_out/Trigger()
+/datum/action/vehicle/sealed/climb_out/Trigger(trigger_flags)
 	if(..() && istype(vehicle_entered_target))
 		vehicle_entered_target.mob_try_exit(owner, owner)
 
@@ -118,7 +118,7 @@
 	desc = "Take your key out of the vehicle's ignition."
 	button_icon_state = "car_removekey"
 
-/datum/action/vehicle/sealed/remove_key/Trigger()
+/datum/action/vehicle/sealed/remove_key/Trigger(trigger_flags)
 	vehicle_entered_target.remove_key(owner)
 
 //CLOWN CAR ACTION DATUMS
@@ -214,7 +214,7 @@
 	///Cooldown to next jump
 	var/next_ollie
 
-/datum/action/vehicle/ridden/scooter/skateboard/ollie/Trigger()
+/datum/action/vehicle/ridden/scooter/skateboard/ollie/Trigger(trigger_flags)
 	if(world.time > next_ollie)
 		var/obj/vehicle/ridden/scooter/skateboard/vehicle = vehicle_target
 		if (vehicle.grinding)

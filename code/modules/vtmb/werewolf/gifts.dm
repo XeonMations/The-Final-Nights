@@ -15,7 +15,7 @@
 	button_icon = 'code/modules/wod13/werewolf_abilities.dmi'
 	. = ..()
 
-/datum/action/gift/Trigger()
+/datum/action/gift/Trigger(trigger_flags)
 	. = ..()
 	if(istype(owner, /mob/living/carbon))
 		var/mob/living/carbon/H = owner
@@ -50,7 +50,7 @@
 	button_icon_state = "falling_touch"
 	rage_req = 1
 
-/datum/action/gift/falling_touch/Trigger()
+/datum/action/gift/falling_touch/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/H = owner
@@ -82,7 +82,7 @@
 		to_chat(src, "<span class='warning'>You no longer feel inspired...</span>")
 		inspired = FALSE
 
-/datum/action/gift/inspiration/Trigger()
+/datum/action/gift/inspiration/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/H = owner
@@ -102,7 +102,7 @@
 	button_icon_state = "razor_claws"
 	rage_req = 1
 
-/datum/action/gift/razor_claws/Trigger()
+/datum/action/gift/razor_claws/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		if(ishuman(owner))
@@ -144,7 +144,7 @@
 	button_icon_state = "beast_speech"
 	rage_req = 1
 
-/datum/action/gift/beast_speech/Trigger()
+/datum/action/gift/beast_speech/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
@@ -168,7 +168,7 @@
 	button_icon_state = "call_of_the_wyld"
 	rage_req = 1
 
-/datum/action/gift/call_of_the_wyld/Trigger()
+/datum/action/gift/call_of_the_wyld/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
@@ -187,7 +187,7 @@
 	desc = "By invoking the power of waking dreams, the Garou can place any chosen characters into silent communion."
 	button_icon_state = "mindspeak"
 
-/datum/action/gift/mindspeak/Trigger()
+/datum/action/gift/mindspeak/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/new_thought = input(owner, "What do you want to tell to your Tribe?") as text|null
@@ -206,7 +206,7 @@
 	button_icon_state = "resist_pain"
 	rage_req = 2
 
-/datum/action/gift/resist_pain/Trigger()
+/datum/action/gift/resist_pain/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		if(ishuman(owner))
@@ -234,7 +234,7 @@
 	button_icon_state = "scent_of_the_true_form"
 	gnosis_req = 1
 
-/datum/action/gift/scent_of_the_true_form/Trigger()
+/datum/action/gift/scent_of_the_true_form/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		if(HAS_TRAIT(owner, TRAIT_SCENTTRUEFORM))
@@ -251,7 +251,7 @@
 	desc = "As judges of the Litany, Philodox have the ability to sense whether others have spoken truth or falsehood."
 	button_icon_state = "truth_of_gaia"
 
-/datum/action/gift/truth_of_gaia/Trigger()
+/datum/action/gift/truth_of_gaia/Trigger(trigger_flags)
 	. = ..()
 //	if(allowed_to_proceed)
 //
@@ -262,7 +262,7 @@
 	button_icon_state = "mothers_touch"
 	rage_req = 2
 
-/datum/action/gift/mothers_touch/Trigger()
+/datum/action/gift/mothers_touch/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/H = owner
@@ -274,7 +274,7 @@
 	button_icon_state = "sense_wyrm"
 	rage_req = 1
 
-/datum/action/gift/sense_wyrm/Trigger()
+/datum/action/gift/sense_wyrm/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/list/mobs_in_range = list()
@@ -305,7 +305,7 @@
 	desc = "This Gift allows the Garou to communicate with encountered spirits."
 	button_icon_state = "spirit_speech"
 
-/datum/action/gift/spirit_speech/Trigger()
+/datum/action/gift/spirit_speech/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
@@ -319,7 +319,7 @@
 	button_icon_state = "blur_of_the_milky_eye"
 	rage_req = 2
 
-/datum/action/gift/blur_of_the_milky_eye/Trigger()
+/datum/action/gift/blur_of_the_milky_eye/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
@@ -333,7 +333,7 @@
 	desc = "With this Gift, the Garou can open nearly any sort of closed or locked physical device."
 	button_icon_state = "open_seal"
 
-/datum/action/gift/open_seal/Trigger()
+/datum/action/gift/open_seal/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		for(var/obj/structure/vampdoor/V in range(5, owner))
@@ -355,7 +355,7 @@
 	button_icon_state = "infectious_laughter"
 	rage_req = 1
 
-/datum/action/gift/infectious_laughter/Trigger()
+/datum/action/gift/infectious_laughter/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
@@ -374,7 +374,7 @@
 	rage_req = 1
 	check_flags = null
 
-/datum/action/gift/rage_heal/Trigger()
+/datum/action/gift/rage_heal/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/C = owner
@@ -416,7 +416,7 @@
 	icon_icon = 'code/modules/wod13/werewolf_abilities.dmi'
 	check_flags = AB_CHECK_IMMOBILE|AB_CHECK_CONSCIOUS
 
-/datum/action/change_apparel/Trigger()
+/datum/action/change_apparel/Trigger(trigger_flags)
 	. = ..()
 	var/mob/living/carbon/human/werewolf/crinos/C = owner
 	if(C.stat == CONSCIOUS)
@@ -430,7 +430,7 @@
 	desc = "Change your Lupus form into Hispo and backwards."
 	button_icon_state = "hispo"
 
-/datum/action/gift/hispo/Trigger()
+/datum/action/gift/hispo/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/human/werewolf/lupus/H = owner
@@ -485,7 +485,7 @@
 	desc = "Change your Homid form into Glabro and backwards."
 	button_icon_state = "glabro"
 
-/datum/action/gift/glabro/Trigger()
+/datum/action/gift/glabro/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 		var/mob/living/carbon/human/H = owner
@@ -563,7 +563,7 @@
 		)
 	)
 
-/datum/action/gift/howling/Trigger()
+/datum/action/gift/howling/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
 
