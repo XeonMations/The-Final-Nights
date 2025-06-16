@@ -1032,7 +1032,6 @@
 				if(NPC.stat < SOFT_CRIT)
 					if(istype(what, /obj/item/clothing) || istype(what, /obj/item/vamp/keys) || istype(what, /obj/item/stack/dollar))
 						SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 6)
-						call_dharma("steal", H)
 			if(islist(where))
 				var/list/L = where
 				if(what == who.get_item_for_held_index(L[2]))

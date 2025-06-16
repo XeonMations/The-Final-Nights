@@ -1511,8 +1511,6 @@
 							dead_amongst = TRUE
 						icon_state = "pit1"
 						user.visible_message("<span class='warning'>[user] digs a hole in [src].</span>", "<span class='warning'>You dig a hole in [src].</span>")
-						if(dead_amongst)
-							call_dharma("respect", user)
 					if(!dead_amongst)
 						user.visible_message("<span class='warning'>[user] refills [src].</span>", "<span class='warning'>You refill [src].</span>")
 						qdel(src)
@@ -1524,8 +1522,6 @@
 							dead_amongst = TRUE
 					icon_state = "pit0"
 					user.visible_message("<span class='warning'>[user] digs a hole in [src].</span>", "<span class='warning'>You dig a hole in [src].</span>")
-					if(dead_amongst)
-						call_dharma("disrespect", user)
 			else
 				burying = FALSE
 

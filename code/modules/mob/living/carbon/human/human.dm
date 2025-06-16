@@ -719,7 +719,6 @@
 				var/mob/living/carbon/human/npc/N = target
 				if(N.last_damager != src)
 					SEND_SIGNAL(src, COMSIG_PATH_HIT, PATH_SCORE_UP)
-					call_dharma("savelife", src)
 		log_combat(src, target, "CPRed")
 
 		if (HAS_TRAIT(target, TRAIT_NOBREATH))

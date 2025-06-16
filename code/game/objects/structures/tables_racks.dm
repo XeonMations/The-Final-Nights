@@ -79,8 +79,6 @@
 						tablepush(user, pushed_mob)
 					if(GRAB_NECK to GRAB_KILL)
 						tablelimbsmash(user, pushed_mob)
-						if(ishuman(pushed_mob) && pushed_mob.stat != DEAD)
-							call_dharma("torture", user)
 			else
 				pushed_mob.visible_message("<span class='notice'>[user] begins to place [pushed_mob] onto [src]...</span>", \
 									"<span class='userdanger'>[user] begins to place [pushed_mob] onto [src]...</span>")

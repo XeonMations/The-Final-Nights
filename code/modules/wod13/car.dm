@@ -229,7 +229,6 @@ SUBSYSTEM_DEF(carpool)
 						if(ishuman(user))
 							var/mob/living/carbon/human/H = user
 							SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 6)
-							call_dharma("steal", H)
 						return
 				else
 					to_chat(user, "<span class='warning'>You've failed to open [src]'s lock.</span>")

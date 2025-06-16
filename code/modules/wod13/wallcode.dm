@@ -655,8 +655,6 @@
 								dead_amongst = TRUE
 						P.icon_state = "pit1"
 						user.visible_message("<span class='warning'>[user] digs a hole in [src].</span>", "<span class='warning'>You dig a hole in [src].</span>")
-						if(dead_amongst)
-							call_dharma("respect", user)
 					else
 						var/dead_amongst = FALSE
 						for(var/mob/living/L in P)
@@ -665,8 +663,6 @@
 								dead_amongst = TRUE
 						P.icon_state = "pit0"
 						user.visible_message("<span class='warning'>[user] digs a hole in [src].</span>", "<span class='warning'>You dig a hole in [src].</span>")
-						if(dead_amongst)
-							call_dharma("disrespect", user)
 				else
 					P.burying = FALSE
 		else
@@ -733,8 +729,6 @@
 								dead_amongst = TRUE
 						P.icon_state = "pit1"
 						user.visible_message("<span class='warning'>[user] digs a hole in [src].</span>", "<span class='warning'>You dig a hole in [src].</span>")
-						if(dead_amongst)
-							call_dharma("respect", user)
 					else
 						var/dead_amongst = FALSE
 						for(var/mob/living/L in P)
@@ -743,8 +737,6 @@
 								dead_amongst = TRUE
 						P.icon_state = "pit0"
 						user.visible_message("<span class='warning'>[user] digs a hole in [src].</span>", "<span class='warning'>You dig a hole in [src].</span>")
-						if(dead_amongst)
-							call_dharma("disrespect", user)
 				else
 					P.burying = FALSE
 		else
@@ -1178,8 +1170,6 @@
 								dead_amongst = TRUE
 						P.icon_state = "pit1"
 						user.visible_message("<span class='warning'>[user] digs a hole in [src].</span>", "<span class='warning'>You dig a hole in [src].</span>")
-						if(dead_amongst)
-							call_dharma("respect", user)
 					else
 						var/dead_amongst = FALSE
 						for(var/mob/living/L in P)
@@ -1188,8 +1178,6 @@
 								dead_amongst = TRUE
 						P.icon_state = "pit0"
 						user.visible_message("<span class='warning'>[user] digs a hole in [src].</span>", "<span class='warning'>You dig a hole in [src].</span>")
-						if(dead_amongst)
-							call_dharma("disrespect", user)
 				else
 					P.burying = FALSE
 		else
