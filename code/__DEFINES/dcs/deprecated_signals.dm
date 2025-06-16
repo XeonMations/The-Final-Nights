@@ -19,8 +19,6 @@
 //Allows the user to examinate regardless of client.eye.
 #define COMPONENT_ALLOW_EXAMINATE (1<<0)
 
-#define COMPONENT_NO_MOUSEDROP (1<<0)
-
 /// before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
 #define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"
 /// just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
