@@ -150,6 +150,7 @@
 			M.on = !M.on
 			M.icon_state = "igniter[M.on]"
 
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 30)
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
 /obj/item/assembly/control/flasher
