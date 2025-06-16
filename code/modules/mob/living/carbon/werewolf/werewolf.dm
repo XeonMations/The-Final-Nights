@@ -206,13 +206,6 @@
 	A.Grant(src)
 	ADD_TRAIT(src, TRAIT_MONKEYLIKE, "species")
 
-/mob/living/carbon/human/werewolf/lupus/Initialize()
-	. = ..()
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
-	if(!iscorvid(src))
-		var/datum/action/gift/hispo/hispo = new()
-		hispo.Grant(src)
-
 /mob/living/carbon/human/werewolf/crinos/show_inv(mob/user)
 	user.set_machine(src)
 	var/list/dat = list()
