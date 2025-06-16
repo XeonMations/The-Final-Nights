@@ -3791,10 +3791,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			lupus.sprite_eye_color = werewolf_eye_color
 
 			if(werewolf_name)
+				crinos.real_name = werewolf_name
+				crinos.true_real_name = werewolf_name
 				crinos.name = werewolf_name
+				lupus.real_name = werewolf_name
+				lupus.true_real_name = werewolf_name
 				lupus.name = werewolf_name
 			else
+				crinos.real_name = real_name
+				crinos.true_real_name = real_name
 				crinos.name = real_name
+				lupus.real_name = real_name
+				lupus.true_real_name = real_name
 				lupus.name = real_name
 
 			crinos.physique = physique
