@@ -20,7 +20,7 @@
 	else
 		return TRUE
 
-/atom/movable/screen/movable/action_button/MouseDrop(over_object)
+/atom/movable/screen/movable/action_button/MouseDrop(over_object, src_location, over_location, src_control, over_control, params)
 	if(!can_use(usr))
 		return
 	if((istype(over_object, /atom/movable/screen/movable/action_button) && !istype(over_object, /atom/movable/screen/movable/action_button/hide_toggle)))
