@@ -159,6 +159,9 @@
 			closed = TRUE
 			return
 
+	if(iscrinos(user))
+		break_door(user)
+
 	var/mob/living/carbon/human/door_user = user
 	if(!(door_user.combat_mode))
 		playsound(src, lock_sound, 75, TRUE)
@@ -230,6 +233,10 @@
 	var/obj/item/vamp/keys/found_key = locate(/obj/item/vamp/keys) in carbon_user.contents
 	if(!found_key)
 		to_chat(user, span_warning("You need a key to lock/unlock this door!"))
+		pixel_z = pixel_z+rand(-1, 1)
+		pixel_w = pixel_w+rand(-1, 1)
+		addtimer(CALLBACK(src, PROC_REF(reset_transform)), 2)
+		playsound(src, 'code/modules/wod13/sounds/knock.ogg', 75, TRUE)
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	if(found_key.roundstart_fix)
 		found_key.roundstart_fix = FALSE
@@ -246,11 +253,6 @@
 
 	to_chat(user, span_warning("Your key doesn't fit this lock!"))
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
-/obj/structure/vampdoor/attack_paw(mob/user, list/modifiers)
-	if(iscrinos(user))
-		break_door(user)
-	return ..()
 
 /obj/structure/vampdoor/proc/reset_transform()
 	pixel_z = initial(pixel_z)

@@ -61,7 +61,7 @@
 
 /mob/living/simple_animal/werewolf/Initialize()
 	. = ..()
-	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, "species")
+	ADD_TRAIT(src, TRAIT_NIGHT_VISION, "species")
 
 /mob/living/simple_animal/werewolf/death(gibbed)
 	. = ..()
