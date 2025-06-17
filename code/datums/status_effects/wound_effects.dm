@@ -64,20 +64,27 @@
 	var/slowdown_left = 0
 	/// How many deciseconds we limp for on the right leg
 	var/slowdown_right = 0
+	/// The chance we limp with the left leg each step it takes
+	var/limp_chance_left = 0
+	/// The chance we limp with the right leg each step it takes
+	var/limp_chance_right = 0
 
 /datum/status_effect/limp/on_apply()
 	if(!iscarbon(owner))
 		return FALSE
-	var/mob/living/carbon/C = owner
-	left = C.get_bodypart(BODY_ZONE_L_LEG)
-	right = C.get_bodypart(BODY_ZONE_R_LEG)
-	update_limp()
-	RegisterSignal(C, COMSIG_MOVABLE_MOVED, PROC_REF(check_step))
-	RegisterSignals(C, list(COMSIG_CARBON_GAIN_WOUND, COMSIG_CARBON_LOSE_WOUND, COMSIG_CARBON_ATTACH_LIMB, COMSIG_CARBON_REMOVE_LIMB), PROC_REF(update_limp))
+	var/mob/living/carbon/carbon_owner = owner
+	left = carbon_owner.get_bodypart(BODY_ZONE_L_LEG)
+	right = carbon_owner.get_bodypart(BODY_ZONE_R_LEG)
+	update_limp(src)
+	RegisterSignal(carbon_owner, COMSIG_MOVABLE_MOVED, PROC_REF(check_step))
+	RegisterSignal(carbon_owner, COMSIG_CARBON_REMOVE_LIMB, PROC_REF(on_limb_removed))
+	RegisterSignals(carbon_owner, list(COMSIG_CARBON_GAIN_WOUND, COMSIG_CARBON_POST_LOSE_WOUND, COMSIG_CARBON_ATTACH_LIMB), PROC_REF(update_limp))
 	return TRUE
 
 /datum/status_effect/limp/on_remove()
-	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_CARBON_GAIN_WOUND, COMSIG_CARBON_LOSE_WOUND, COMSIG_CARBON_ATTACH_LIMB, COMSIG_CARBON_REMOVE_LIMB))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_CARBON_GAIN_WOUND, COMSIG_CARBON_POST_LOSE_WOUND, COMSIG_CARBON_ATTACH_LIMB, COMSIG_CARBON_REMOVE_LIMB))
+	left = null
+	right = null
 
 /atom/movable/screen/alert/status_effect/limp
 	name = "Limping"
@@ -86,45 +93,67 @@
 /datum/status_effect/limp/proc/check_step(mob/whocares, OldLoc, Dir, forced)
 	SIGNAL_HANDLER
 
-	if(!owner.client || owner.body_position == LYING_DOWN || !owner.has_gravity() || (owner.movement_type & FLYING) || forced || owner.buckled)
+	if(!owner.client || owner.body_position == LYING_DOWN || !owner.has_gravity() || (owner.movement_type & (FLYING|FLOATING)) || forced || owner.buckled)
 		return
 	// less limping while we have determination still
-	var/determined_mod = owner.has_status_effect(STATUS_EFFECT_DETERMINED) ? 0.25 : 1
+	var/determined_mod = owner.has_status_effect(STATUS_EFFECT_DETERMINED) ? 0.5 : 1
+
+	if(SEND_SIGNAL(owner, COMSIG_CARBON_LIMPING) & COMPONENT_CANCEL_LIMP)
+		return
 
 	if(next_leg == left)
-		owner.client.move_delay += slowdown_left * determined_mod
+		if(prob(limp_chance_left * determined_mod))
+			owner.client.move_delay += slowdown_left * determined_mod
 		next_leg = right
 	else
-		owner.client.move_delay += slowdown_right * determined_mod
+		if(prob(limp_chance_right * determined_mod))
+			owner.client.move_delay += slowdown_right * determined_mod
 		next_leg = left
 
-/datum/status_effect/limp/proc/update_limp()
+/// We need to make sure that we properly clear these refs if one of the owner's limbs gets deleted
+/datum/status_effect/limp/proc/on_limb_removed(datum/source, obj/item/bodypart/limb_lost, special, dismembered)
 	SIGNAL_HANDLER
 
-	var/mob/living/carbon/C = owner
-	left = C.get_bodypart(BODY_ZONE_L_LEG)
-	right = C.get_bodypart(BODY_ZONE_R_LEG)
+	if(limb_lost == left)
+		left = null
+	if(limb_lost == right)
+		right = null
+
+	update_limp() // calling this with no arg so we know it's coming from here and not a signal
+
+/datum/status_effect/limp/proc/update_limp(datum/source)
+	SIGNAL_HANDLER
+
+	var/mob/living/carbon/carbon_mob = owner
+	if(source) // if we don't have a source, that means we are calling it from on_limb_removed. In that case we do not want to reassign these to the about-to-be-removed limbs (which can cause hanging refs)
+		left = carbon_mob.get_bodypart(BODY_ZONE_L_LEG)
+		right = carbon_mob.get_bodypart(BODY_ZONE_R_LEG)
 
 	if(!left && !right)
-		C.remove_status_effect(src)
+		carbon_mob.remove_status_effect(src)
 		return
 
 	slowdown_left = 0
 	slowdown_right = 0
+	limp_chance_left = 0
+	limp_chance_right = 0
 
+	// technically you can have multiple wounds causing limps on the same limb, even if practically only bone wounds cause it in normal gameplay
 	if(left)
 		for(var/thing in left.wounds)
-			var/datum/wound/W = thing
-			slowdown_left += W.limp_slowdown
+			var/datum/wound/wound = thing
+			slowdown_left += wound.limp_slowdown
+			limp_chance_left = max(limp_chance_left, wound.limp_chance)
 
 	if(right)
 		for(var/thing in right.wounds)
-			var/datum/wound/W = thing
-			slowdown_right += W.limp_slowdown
+			var/datum/wound/wound = thing
+			slowdown_right += wound.limp_slowdown
+			limp_chance_right = max(limp_chance_right, wound.limp_chance)
 
 	// this handles losing your leg with the limp and the other one being in good shape as well
 	if(!slowdown_left && !slowdown_right)
-		C.remove_status_effect(src)
+		carbon_mob.remove_status_effect(src)
 		return
 
 
