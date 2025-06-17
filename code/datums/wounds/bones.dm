@@ -183,10 +183,8 @@
 	if(limb.body_zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		if(limb.current_gauze)
 			limp_slowdown = initial(limp_slowdown) * limb.current_gauze.splint_factor
-				limp_chance = initial(limp_chance) * limb.current_gauze.splint_factor
 		else
 			limp_slowdown = initial(limp_slowdown)
-			limp_chance = initial(limp_chance)
 		victim.apply_status_effect(STATUS_EFFECT_LIMP)
 	else if(limb.body_zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		if(limb.current_gauze)
