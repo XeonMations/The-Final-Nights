@@ -120,20 +120,10 @@
 	var/celerity_visual = FALSE
 	var/potential = 0
 
-	COOLDOWN_DECLARE(frenzy_bite_cooldown)
-	COOLDOWN_DECLARE(frenzy_attack_cooldown)
-	var/in_frenzy = FALSE
-	var/frenzy_hardness = 6
-	var/last_frenzy_check = 0
-	var/mob/living/frenzy_target = null
 	var/last_experience = 0
-
-
-	var/list/beastmaster = list()
 
 	var/datum/relationship/MyRelationships
 
-	var/inspired = FALSE
 
 	var/tox_damage_plus = 0
 	var/agg_damage_plus = 0
