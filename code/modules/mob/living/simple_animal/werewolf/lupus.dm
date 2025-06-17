@@ -5,7 +5,6 @@
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/food/meat/slab = 5)
-	hud_type = /datum/hud/werewolf
 	limb_destroyer = 1
 	has_limbs = 0
 	melee_damage_lower = 30
@@ -31,15 +30,13 @@
 	verb_say = "caws"
 	verb_exclaim = "squawks"
 	verb_yell = "shrieks"
-	hud_type = /datum/hud/werewolf
 	melee_damage_lower = 10
 	melee_damage_upper = 20 // less damage for silly ravens
 	health = 100
 	maxHealth = 100 // I predict that the sprites will be hell to click, no extra HP compared to homid
 
-
 /datum/movespeed_modifier/lupusform
-		multiplicative_slowdown = -0.7
+	multiplicative_slowdown = -0.7
 
 /mob/living/simple_animal/werewolf/lupus/update_icons()
 	cut_overlays()

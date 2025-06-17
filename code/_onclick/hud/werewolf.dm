@@ -141,10 +141,6 @@
 	var/atom/movable/screen/using
 	var/atom/movable/screen/transform_werewolf
 
-
-
-//equippable shit
-
 //hands
 	if(iscrinos(owner) || iscoraxcrinos(owner) || iscorvid(owner)) // corvid and crinos get hands
 		build_hand_slots()
