@@ -59,6 +59,10 @@
 	var/obj/item/l_store = null
 	held_items = list(null, null)
 
+/mob/living/simple_animal/werewolf/Initialize()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, "species")
+
 /mob/living/simple_animal/werewolf/death(gibbed)
 	. = ..()
 	transformator.transform(src, "Homid", TRUE) //Turn werewolves back into humans once they die.
