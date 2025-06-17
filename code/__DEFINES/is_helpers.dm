@@ -87,17 +87,17 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 //more carbon mobs
 
-#define iswerewolf(A) (istype(A, /mob/living/carbon/human/werewolf))
+#define iswerewolf(A) (istype(A, /mob/living/simple_animal/werewolf))
 
-#define iscrinos(A) (istype(A, /mob/living/carbon/human/werewolf/crinos))
+#define iscrinos(A) (istype(A, /mob/living/simple_animal/werewolf/crinos))
 
-#define islupus(A) (istype(A, /mob/living/carbon/human/werewolf/lupus))
+#define islupus(A) (istype(A, /mob/living/simple_animal/werewolf/lupus))
 
-#define iscorax(A) (istype(A, /mob/living/carbon/human/werewolf/corax))
+#define iscorax(A) (istype(A, /mob/living/simple_animal/werewolf/corax))
 
-#define iscorvid(A) (istype(A, /mob/living/carbon/human/werewolf/lupus/corvid))
+#define iscorvid(A) (istype(A, /mob/living/simple_animal/werewolf/lupus/corvid))
 
-#define iscoraxcrinos(A) (istype(A, /mob/living/carbon/human/werewolf/corax/corax_crinos)) //not sure if necessary, not taking chances
+#define iscoraxcrinos(A) (istype(A, /mob/living/simple_animal/werewolf/corax/corax_crinos)) //not sure if necessary, not taking chances
 
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 

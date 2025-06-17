@@ -107,11 +107,11 @@
 		to_chat(C, span_warning("You need to be outside to look at the moon!"))
 		return
 	if(C.last_moon_look == 0 || C.last_moon_look+600 < world.time)
-		var/mob/living/carbon/human/werewolf/lupus/lupus = C.transformator.lupus_form?.resolve()
-		var/mob/living/carbon/human/werewolf/crinos/crinos = C.transformator.crinos_form?.resolve()
+		var/mob/living/simple_animal/werewolf/lupus/lupus = C.transformator.lupus_form?.resolve()
+		var/mob/living/simple_animal/werewolf/crinos/crinos = C.transformator.crinos_form?.resolve()
 		var/mob/living/carbon/human/homid = C.transformator.human_form?.resolve()
-		var/mob/living/carbon/human/werewolf/corax/corax_crinos = C.transformator.corax_form?.resolve()
-		var/mob/living/carbon/human/werewolf/lupus/corvid/corvid = C.transformator.corvid_form?.resolve()
+		var/mob/living/simple_animal/werewolf/corax/corax_crinos = C.transformator.corax_form?.resolve()
+		var/mob/living/simple_animal/werewolf/lupus/corvid/corvid = C.transformator.corvid_form?.resolve()
 
 		lupus?.last_moon_look = world.time
 		crinos?.last_moon_look = world.time
@@ -135,7 +135,7 @@
 /datum/hud
 	var/atom/movable/screen/auspice_icon
 
-/datum/hud/werewolf/New(mob/living/carbon/human/werewolf/owner)
+/datum/hud/werewolf/New(mob/living/simple_animal/werewolf/owner)
 	..()
 
 	var/atom/movable/screen/using
@@ -300,7 +300,7 @@
 		return
 	if(!iscrinos(mymob) && !iscoraxcrinos(mymob) && !iscorvid(mymob))
 		return
-	var/mob/living/carbon/human/werewolf/H = mymob
+	var/mob/living/simple_animal/werewolf/H = mymob
 	if(hud_version != HUD_STYLE_NOHUD)
 		for(var/obj/item/I in H.held_items)
 			I.screen_loc = ui_hand_position(H.get_held_index_of_item(I))

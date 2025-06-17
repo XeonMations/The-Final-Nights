@@ -290,6 +290,13 @@
 	var/wisdom = 0
 	var/honor = 0
 	var/glory = 0
+	var/last_moon_look = 0
+	var/last_rage_from_attack = 0
+	var/next_veil_time = 0
+	var/last_rage_hit = 0
+	var/datum/auspice/auspice
+	var/datum/werewolf_holder/transformation/transformator
+
 
 	//If we are currently leaning on something, and what that object is
 	var/atom/leaned_object

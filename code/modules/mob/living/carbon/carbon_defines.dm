@@ -106,8 +106,6 @@
 	var/can_be_shoved_into = FALSE
 
 	//imported from other areas around the code
-	var/last_moon_look = 0
-	var/last_rage_from_attack = 0
 
 	var/last_jump_time = 0
 	var/jump_range = 1
@@ -118,7 +116,6 @@
 
 	var/list/overlays_standing[TOTAL_LAYERS]
 
-	var/next_veil_time = 0
 
 	var/celerity_visual = FALSE
 	var/potential = 0
@@ -131,10 +128,6 @@
 	var/mob/living/frenzy_target = null
 	var/last_experience = 0
 
-	var/last_rage_hit = 0
-
-	var/datum/auspice/auspice
-	var/datum/werewolf_holder/transformation/transformator
 
 	var/list/beastmaster = list()
 

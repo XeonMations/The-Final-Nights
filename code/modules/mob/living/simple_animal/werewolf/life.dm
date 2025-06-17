@@ -4,7 +4,7 @@
 #define VEIL_COOLDOWN 20 SECONDS
 #define RAGE_LIFE_COOLDOWN 30 SECONDS
 
-/mob/living/carbon/human/werewolf/Life()
+/mob/living/simple_animal/werewolf/Life()
 	update_icons()
 	update_rage_hud()
 	return..()
@@ -116,35 +116,32 @@
 		if(H.CheckEyewitness(H, H, 3, FALSE))
 			H.adjust_veil(-1,random = -1)
 
-/mob/living/carbon/human/werewolf/crinos/Life()
+/mob/living/simple_animal/werewolf/crinos/Life()
 	. = ..()
 	if(CheckEyewitness(src, src, 5, FALSE))
 		adjust_veil(-1, honoradj = -1)
 
-/mob/living/carbon/human/werewolf/corax/corax_crinos/Life() // realizing I screwed myself over by not making this a subtype, oh well.
+/mob/living/simple_animal/werewolf/corax/corax_crinos/Life() // realizing I screwed myself over by not making this a subtype, oh well.
 	. = ..()
 	if(CheckEyewitness(src, src, 5, FALSE))
 		adjust_veil(-1, honoradj = -1)
 
 
-/mob/living/carbon/human/werewolf/handle_status_effects()
+/mob/living/simple_animal/werewolf/handle_status_effects()
 	..()
 	//natural reduction of movement delay due to stun.
 	if(move_delay_add > 0)
 		move_delay_add = max(0, move_delay_add - rand(1, 2))
 
-/mob/living/carbon/human/werewolf/handle_changeling()
-	return
-
-/mob/living/carbon/human/werewolf/handle_fire()//Aliens on fire code
+/mob/living/simple_animal/werewolf/handle_fire()//Aliens on fire code
 	. = ..()
 	if(.) //if the mob isn't on fire anymore
 		return
 	adjust_bodytemperature(BODYTEMP_HEATING_MAX) //If you're on fire, you heat up!
 
-/mob/living/carbon/proc/adjust_veil(amount, threshold, random, honoradj, gloryadj, wisdomadj, mob/living/carbon/vessel, forced)
+/mob/living/proc/adjust_veil(amount, threshold, random, honoradj, gloryadj, wisdomadj, mob/living/carbon/vessel, forced)
 	if(iswerewolf(src))
-		var/mob/living/carbon/player = transformator.human_form.resolve()
+		var/mob/living/player = transformator.human_form.resolve()
 		player.adjust_veil(amount, threshold, random, honoradj, gloryadj, wisdomadj, src)
 	if(!GLOB.canon_event)
 		return
@@ -204,7 +201,7 @@
 		P.save_preferences()
 
 
-/mob/living/carbon/proc/adjust_renown(attribute, amount, threshold, mob/living/carbon/vessel)
+/mob/living/proc/adjust_renown(attribute, amount, threshold, mob/living/vessel)
 	if(!GLOB.canon_event)
 		return
 	if(!is_special_character(src))
@@ -268,7 +265,7 @@
 
 
 
-/mob/living/carbon/proc/get_negative_emotion(attribute)
+/mob/living/proc/get_negative_emotion(attribute)
 	switch(attribute)
 		if("honor")
 			return "ashamed"
@@ -281,7 +278,7 @@
 
 	return "unsure"
 
-/mob/living/carbon/proc/get_positive_emotion(attribute)
+/mob/living/proc/get_positive_emotion(attribute)
 	switch(attribute)
 
 		if("honor")
@@ -295,7 +292,7 @@
 
 	return "confident"
 
-/mob/living/carbon/proc/AuspiceRankCheck(mob/living/carbon/user)
+/mob/living/proc/AuspiceRankCheck(mob/living/carbon/user)
 	switch(auspice.name)
 		if("Ahroun")
 			if(glory >= 10 && honor >= 9 && wisdom >= 4) return 5

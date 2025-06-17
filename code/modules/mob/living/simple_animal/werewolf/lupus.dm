@@ -1,4 +1,4 @@
-/mob/living/carbon/human/werewolf/lupus
+/mob/living/simple_animal/werewolf/lupus
 	name = "wolf"
 	icon_state = "black"
 	icon = 'code/modules/wod13/tfn_lupus.dmi'
@@ -16,7 +16,7 @@
 	werewolf_armor = 10
 	var/hispo = FALSE
 
-/mob/living/carbon/human/werewolf/lupus/Initialize()
+/mob/living/simple_animal/werewolf/lupus/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_MONKEYLIKE, "species")
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
@@ -24,7 +24,7 @@
 		var/datum/action/gift/hispo/hispo = new()
 		hispo.Grant(src)
 
-/mob/living/carbon/human/werewolf/lupus/corvid // yes, this is a subtype of lupus, god help us all
+/mob/living/simple_animal/werewolf/lupus/corvid // yes, this is a subtype of lupus, god help us all
 	name = "corvid"
 	icon_state = "black"
 	icon = 'code/modules/wod13/corax_corvid.dmi'
@@ -41,7 +41,7 @@
 /datum/movespeed_modifier/lupusform
 		multiplicative_slowdown = -0.7
 
-/mob/living/carbon/human/werewolf/lupus/update_icons()
+/mob/living/simple_animal/werewolf/lupus/update_icons()
 	cut_overlays()
 
 	var/laid_down = FALSE
@@ -69,21 +69,21 @@
 	eye_overlay.layer = ABOVE_LIGHTING_LAYER
 	add_overlay(eye_overlay)
 
-/mob/living/carbon/human/werewolf/lupus/regenerate_icons()
+/mob/living/simple_animal/werewolf/lupus/regenerate_icons()
 	if(!..())
 	//	update_icons() //Handled in update_transform(), leaving this here as a reminder
 		update_transform()
 
-/mob/living/carbon/human/werewolf/lupus/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
+/mob/living/simple_animal/werewolf/lupus/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
 	. = ..()
 	update_icons()
 
-/mob/living/carbon/human/werewolf/lupus/Life()
+/mob/living/simple_animal/werewolf/lupus/Life()
 	if(hispo)
 		if(CheckEyewitness(src, src, 7, FALSE))
-			src.adjust_veil(-1,random = -1)
+			adjust_veil(-1,random = -1)
 	else
 		if(!(HAS_TRAIT(src, TRAIT_DOGWOLF) || !iscorax(src))) // ravens don't spook people
 			if(CheckEyewitness(src, src, 4, FALSE))
-				src.adjust_veil(-1,threshold = 4)
+				adjust_veil(-1,threshold = 4)
 	..()
