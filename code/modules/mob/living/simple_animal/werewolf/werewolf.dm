@@ -105,9 +105,6 @@
 	REMOVE_TRAIT(src, TRAIT_NEVER_WOUNDED, ROUNDSTART_TRAIT)
 	UnregisterSignal(src, COMSIG_MOB_ATTACK_RANGED)
 
-/mob/living/simple_animal/werewolf/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) // beepsky won't hunt aliums
-	return -10
-
 /mob/living/simple_animal/werewolf/reagent_check(datum/reagent/R) //can metabolize all reagents
 	return 0
 
