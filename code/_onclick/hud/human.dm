@@ -224,30 +224,6 @@
 	inv_box.hud = src
 	toggleable_inventory += inv_box
 
-//	inv_add = new /atom/movable/screen/addinv()
-//	inv_add.name = "inventory"
-//	inv_add.icon = 'code/modules/wod13/32x48.dmi'
-//	inv_add.icon_state = "gorg"
-//	inv_add.screen_loc = ui_gorg
-//	inv_add.hud = src
-//	toggleable_inventory += inv_add
-
-//	inv_add = new /atom/movable/screen/addinv()
-//	inv_add.name = "inventory"
-//	inv_add.icon = 'code/modules/wod13/icons.dmi'
-//	inv_add.icon_state = "cross1"
-//	inv_add.screen_loc = ui_cross1
-//	inv_add.hud = src
-//	toggleable_inventory += inv_add
-
-//	inv_add = new /atom/movable/screen/addinv()
-//	inv_add.name = "inventory"
-//	inv_add.icon = 'code/modules/wod13/icons.dmi'
-//	inv_add.icon_state = "cross2"
-//	inv_add.screen_loc = ui_cross2
-//	inv_add.hud = src
-//	toggleable_inventory += inv_add
-
 	inv_box = new /atom/movable/screen/inventory()
 	inv_box.name = "back"
 	inv_box.icon = 'code/modules/wod13/UI/buttons48.dmi'

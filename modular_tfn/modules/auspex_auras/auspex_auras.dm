@@ -3,7 +3,7 @@
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	hud.add_to_hud(src)
 
-/mob/living/carbon/proc/update_auspex_hud()
+/mob/living/proc/update_auspex_hud()
 	var/image/holder = hud_list[GLAND_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
@@ -28,16 +28,16 @@
 
 	if (iskindred(src) || HAS_TRAIT(src, TRAIT_COLD_AURA) || (iscathayan(src) && !H.check_kuei_jin_alive()))
 		//pale aura for vampires
-		if(!HAS_TRAIT(src, TRAIT_WARM_AURA) && !diablerist)
+		if(!HAS_TRAIT(src, TRAIT_WARM_AURA) && !H.diablerist)
 			if(combat_mode)
 				holder.color = AURA_UNDEAD_HARM
 			else
 				holder.color = AURA_UNDEAD_HELP
 		//only Baali can get antifrenzy through selling their soul, so this gives them the unholy halo (MAKE THIS BETTER)
-		if (antifrenzy)
+		if (H.antifrenzy)
 			holder.icon = 'icons/effects/32x64.dmi' //I'm not fucking with this until GAGS are done being ported, antifrenzy aura has some weird colorized components.
 		//black aura for diablerists
-		if (diablerist)
+		if (H.diablerist)
 			holder.color = AURA_DIAB  //I don't understand why someone made a specific sprite for diab aura that's just blackscaled normal aura, instead of making it a defined color. This is far more elegant.
 
 	if(isgarou(src) || iswerewolf(src))

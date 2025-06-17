@@ -349,6 +349,7 @@
 /atom/proc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
 	SEND_SIGNAL(user, COMSIG_MOB_CTRL_CLICKED, src)
+
 	var/mob/living/ML = user
 	if(istype(ML))
 		ML.pulled(src)
@@ -372,27 +373,31 @@
 	if(world.time < user.next_move)
 		return FALSE
 
-	var/mob/living/carbon/human/human_user = user
-	if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
-		human_user.changeNext_move(CLICK_CD_MELEE)
+	var/mob/living/user_living = user
+	if(user_living.apply_martial_art(src, null, is_grab=TRUE) == MARTIAL_ATTACK_SUCCESS)
+		user_living.changeNext_move(CLICK_CD_MELEE)
 		return TRUE
 
 	return ..()
 
 
 /mob/living/carbon/human/CtrlClick(mob/user)
-
-	if(!ishuman(user) ||!Adjacent(user) || user.incapacitated())
+	if(!user.CanReach(src) || user.incapacitated())
 		return ..()
 
 	if(world.time < user.next_move)
 		return FALSE
 
-	var/mob/living/carbon/human/human_user = user
-	if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
-		human_user.changeNext_move(CLICK_CD_MELEE)
-		return TRUE
-
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
+			human_user.changeNext_move(CLICK_CD_MELEE)
+			return TRUE
+	else if(isliving(user))
+		var/mob/living/alien_boy = user
+		if(alien_boy.grab(src))
+			alien_boy.changeNext_move(CLICK_CD_MELEE)
+			return TRUE
 	return ..()
 
 /mob/proc/CtrlMiddleClickOn(atom/A)

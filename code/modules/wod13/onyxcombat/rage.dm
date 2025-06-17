@@ -6,7 +6,7 @@
 	gnosis.layer = ABOVE_HUD_LAYER
 
 
-/mob/living/carbon/human/werewolf/Life()
+/mob/living/simple_animal/werewolf/Life()
 	. = ..()
 	update_blood_hud()
 	update_rage_hud()
@@ -22,7 +22,5 @@
 			hud_used.rage_icon.icon_state = "rage[C.auspice.rage]"
 			gnosis.icon_state = "gnosis[C.auspice.gnosis]"
 			hud_used.rage_icon.overlays |= gnosis
-		if(hud_used.auspice_icon)
-			var/mob/living/carbon/C = src
-			if(C.last_moon_look != 0)
-				hud_used.auspice_icon.icon_state = "[GLOB.moon_state]"
+		if(hud_used.auspice_icon && last_moon_look != 0)
+			hud_used.auspice_icon.icon_state = "[GLOB.moon_state]"

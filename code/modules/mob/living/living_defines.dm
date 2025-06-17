@@ -290,6 +290,23 @@
 	var/wisdom = 0
 	var/honor = 0
 	var/glory = 0
+	var/last_moon_look = 0
+	var/last_rage_from_attack = 0
+	var/next_veil_time = 0
+	var/last_rage_hit = 0
+	var/datum/auspice/auspice
+	var/datum/werewolf_holder/transformation/transformator
+	var/inspired = FALSE
+
+	var/list/beastmaster = list()
+
+	COOLDOWN_DECLARE(frenzy_bite_cooldown)
+	COOLDOWN_DECLARE(frenzy_attack_cooldown)
+	var/in_frenzy = FALSE
+	var/frenzy_hardness = 6
+	var/last_frenzy_check = 0
+	var/mob/living/frenzy_target = null
+
 
 	//If we are currently leaning on something, and what that object is
 	var/atom/leaned_object
