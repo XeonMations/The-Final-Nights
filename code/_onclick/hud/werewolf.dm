@@ -255,12 +255,6 @@
 	rest_icon.hud = src
 	hotkeybuttons += rest_icon
 
-	throw_icon = new /atom/movable/screen/throw_catch()
-	throw_icon.icon = 'code/modules/wod13/UI/buttons_wide.dmi'
-	throw_icon.screen_loc = ui_throw
-	throw_icon.hud = src
-	hotkeybuttons += throw_icon
-
 	pull_icon = new /atom/movable/screen/pull()
 	pull_icon.icon = 'code/modules/wod13/UI/buttons_wide.dmi'
 	pull_icon.update_appearance()

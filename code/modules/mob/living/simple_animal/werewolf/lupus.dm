@@ -35,7 +35,7 @@
 	maxHealth = 100 // I predict that the sprites will be hell to click, no extra HP compared to homid
 
 /datum/movespeed_modifier/lupusform
-	multiplicative_slowdown = -0.7
+	multiplicative_slowdown = -1.7
 
 /mob/living/simple_animal/werewolf/lupus/update_icons()
 	cut_overlays()

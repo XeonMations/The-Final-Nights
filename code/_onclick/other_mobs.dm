@@ -296,8 +296,7 @@
 	if(dextrous && (isitem(attack_target) || !combat_mode))
 		attack_target.attack_hand(src, modifiers)
 		update_inv_hands()
-	else
-		return ..()
+	return ..()
 
 /mob/living/simple_animal/resolve_right_click_attack(atom/target, list/modifiers)
 	if(dextrous && (isitem(target) || !combat_mode))

@@ -40,6 +40,7 @@
 	dextrous = TRUE
 	dextrous_hud_type = /datum/hud/werewolf
 	hud_type = /datum/hud/werewolf
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 
 	var/sprite_color = "black"
 	var/sprite_scar = 0
@@ -56,6 +57,7 @@
 	var/assigned_quirks = FALSE
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
+	held_items = list(null, null)
 
 /mob/living/simple_animal/werewolf/corax // the Corax variety of werewolves, also refers to the Crinos form in a roundabout way, not exactly clean.
 	name = "Corax"
@@ -154,7 +156,7 @@
 	pixel_w = -8
 
 /datum/movespeed_modifier/crinosform
-	multiplicative_slowdown = -0.2
+	multiplicative_slowdown = -1.2
 
 /datum/movespeed_modifier/silver_slowdown
 	multiplicative_slowdown = 0.3

@@ -282,6 +282,7 @@
 	if(lupus.hispo)
 		lupus.remove_movespeed_modifier(/datum/movespeed_modifier/lupusform)
 		lupus.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)
+		lupus.update_simplemob_varspeed()
 	lupus.mind.current = lupus
 
 /datum/werewolf_holder/transformation/proc/transform_crinos(mob/living/trans, mob/living/simple_animal/werewolf/crinos/crinos)
@@ -312,6 +313,7 @@
 	crinos.physique = crinos.physique+3
 	transfer_damage(trans, crinos)
 	crinos.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)
+	crinos.update_simplemob_varspeed()
 	transformating = FALSE
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	crinos.update_icons()
@@ -346,6 +348,7 @@
 	cor_crinos.physique = cor_crinos.physique+3
 	transfer_damage(trans, cor_crinos)
 	cor_crinos.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)
+	cor_crinos.update_simplemob_varspeed()
 	transformating = FALSE
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	cor_crinos.update_icons()
@@ -415,4 +418,5 @@
 	if(corvid.hispo) // shouldn't ever be called, but you know..
 		corvid.remove_movespeed_modifier(/datum/movespeed_modifier/lupusform)
 		corvid.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)
+		corvid.update_simplemob_varspeed()
 	corvid.mind.current = corvid
