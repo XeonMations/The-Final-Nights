@@ -17,32 +17,31 @@
 
 /datum/action/gift/Trigger(trigger_flags)
 	. = ..()
-	if(istype(owner, /mob/living/carbon))
-		var/mob/living/carbon/H = owner
-		if(H.stat == DEAD)
+	var/mob/living/H = owner
+	if(H.stat == DEAD)
+		allowed_to_proceed = FALSE
+		return
+	if(rage_req)
+		if(H.auspice.rage < rage_req)
+			to_chat(owner, "<span class='warning'>You don't have enough <b>RAGE</b> to do that!</span>")
+			SEND_SOUND(owner, sound('code/modules/wod13/sounds/werewolf_cast_failed.ogg', 0, 0, 75))
 			allowed_to_proceed = FALSE
 			return
-		if(rage_req)
-			if(H.auspice.rage < rage_req)
-				to_chat(owner, "<span class='warning'>You don't have enough <b>RAGE</b> to do that!</span>")
-				SEND_SOUND(owner, sound('code/modules/wod13/sounds/werewolf_cast_failed.ogg', 0, 0, 75))
-				allowed_to_proceed = FALSE
-				return
-			if(H.auspice.gnosis < gnosis_req)
-				to_chat(owner, "<span class='warning'>You don't have enough <b>GNOSIS</b> to do that!</span>")
-				SEND_SOUND(owner, sound('code/modules/wod13/sounds/werewolf_cast_failed.ogg', 0, 0, 75))
-				allowed_to_proceed = FALSE
-				return
-		if(cool_down+150 >= world.time)
+		if(H.auspice.gnosis < gnosis_req)
+			to_chat(owner, "<span class='warning'>You don't have enough <b>GNOSIS</b> to do that!</span>")
+			SEND_SOUND(owner, sound('code/modules/wod13/sounds/werewolf_cast_failed.ogg', 0, 0, 75))
 			allowed_to_proceed = FALSE
 			return
-		cool_down = world.time
-		allowed_to_proceed = TRUE
-		if(rage_req)
-			adjust_rage(-rage_req, owner, FALSE)
-		if(gnosis_req)
-			adjust_gnosis(-gnosis_req, owner, FALSE)
-		to_chat(owner, "<span class='notice'>You activate the [name]...</span>")
+	if(cool_down+150 >= world.time)
+		allowed_to_proceed = FALSE
+		return
+	cool_down = world.time
+	allowed_to_proceed = TRUE
+	if(rage_req)
+		adjust_rage(-rage_req, owner, FALSE)
+	if(gnosis_req)
+		adjust_gnosis(-gnosis_req, owner, FALSE)
+	to_chat(owner, "<span class='notice'>You activate the [name]...</span>")
 
 /datum/action/gift/falling_touch
 	name = "Falling Touch"
@@ -53,7 +52,7 @@
 /datum/action/gift/falling_touch/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/H = owner
+		var/mob/living/H = owner
 		playsound(get_turf(owner), 'code/modules/wod13/sounds/falling_touch.ogg', 75, FALSE)
 		H.put_in_active_hand(new /obj/item/melee/touch_attack/werewolf(H))
 
@@ -63,7 +62,7 @@
 	button_icon_state = "inspiration"
 	rage_req = 1
 
-/mob/living/carbon/Life()
+/mob/living/Life()
 	. = ..()
 	if(inspired)
 		if(stat != DEAD)
@@ -75,7 +74,7 @@
 			ntransform.Scale(2, 2)
 			animate(C, transform = ntransform, alpha = 0, time = 3)
 
-/mob/living/carbon/proc/inspired()
+/mob/living/proc/inspired()
 	inspired = TRUE
 	to_chat(src, "<span class='notice'>You feel inspired...</span>")
 	spawn(150)
@@ -85,16 +84,15 @@
 /datum/action/gift/inspiration/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/H = owner
+		var/mob/living/H = owner
 		playsound(get_turf(owner), 'code/modules/wod13/sounds/inspiration.ogg', 75, FALSE)
 		H.emote("scream")
 		if(H.CheckEyewitness(H, H, 7, FALSE))
 			H.adjust_veil(-1)
-		for(var/mob/living/carbon/C in range(5, owner))
-			if(C)
-				if(iswerewolf(C) || isgarou(C))
-					if(C.auspice.tribe == H.auspice.tribe)
-						C.inspired()
+		for(var/mob/living/C in range(5, owner))
+			if(iswerewolf(C) || isgarou(C))
+				if(C.auspice.tribe == H.auspice.tribe)
+					C.inspired()
 
 /datum/action/gift/razor_claws
 	name = "Razor Claws"
@@ -127,7 +125,7 @@
 				to_chat(owner, "<span class='warning'>Your claws are not sharp anymore...</span>")
 		else
 			playsound(get_turf(owner), 'code/modules/wod13/sounds/razor_claws.ogg', 75, FALSE)
-			var/mob/living/carbon/H = owner
+			var/mob/living/H = owner
 			H.melee_damage_lower = H.melee_damage_lower+15
 			H.melee_damage_upper = H.melee_damage_upper+15
 			H.agg_damage_plus = 3
@@ -147,7 +145,7 @@
 /datum/action/gift/beast_speech/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/C = owner
+		var/mob/living/C = owner
 		if(length(C.beastmaster) > 3)
 			var/mob/living/simple_animal/hostile/beastmaster/B = pick(C.beastmaster)
 			qdel(B)
@@ -171,10 +169,10 @@
 /datum/action/gift/call_of_the_wyld/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/C = owner
+		var/mob/living/C = owner
 		C.emote("howl")
 		playsound(get_turf(C), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 100, FALSE)
-		for(var/mob/living/carbon/A in orange(6, owner))
+		for(var/mob/living/A in orange(6, owner))
 			if(A)
 				if(isgarou(A) || iswerewolf(A))
 					A.emote("howl")
@@ -192,9 +190,9 @@
 	if(allowed_to_proceed)
 		var/new_thought = input(owner, "What do you want to tell to your Tribe?") as text|null
 		if(new_thought)
-			var/mob/living/carbon/C = owner
+			var/mob/living/C = owner
 			to_chat(C, "You transfer this message to your tribe members nearby: <b>[sanitize_text(new_thought)]</b>")
-			for(var/mob/living/carbon/A in orange(9, owner))
+			for(var/mob/living/A in orange(9, owner))
 				if(A)
 					if(isgarou(A) || iswerewolf(A))
 						if(A.auspice.tribe == C.auspice.tribe)
@@ -265,7 +263,7 @@
 /datum/action/gift/mothers_touch/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/H = owner
+		var/mob/living/H = owner
 		H.put_in_active_hand(new /obj/item/melee/touch_attack/mothers_touch(H))
 
 /datum/action/gift/sense_wyrm
@@ -278,9 +276,9 @@
 	. = ..()
 	if(allowed_to_proceed)
 		var/list/mobs_in_range = list()
-		for(var/mob/living/carbon/target in orange(owner, 30))
+		for(var/mob/living/target in orange(owner, 30))
 			mobs_in_range += target
-		for(var/mob/living/carbon/target in mobs_in_range)
+		for(var/mob/living/target in mobs_in_range)
 			var/is_wyrm = 0
 			if(iscathayan(target))
 				var/mob/living/carbon/human/kj = target
@@ -293,7 +291,7 @@
 				if ((vampire.clane?.name == CLAN_BAALI) || ( (vampire.client?.prefs?.is_enlightened && (vampire.morality_path?.score > 7)) || (!vampire.client?.prefs?.is_enlightened && (vampire.morality_path?.score < 4)) ))
 					is_wyrm = 1
 			if (isgarou(target) || iswerewolf(target))
-				var/mob/living/carbon/wolf = target
+				var/mob/living/wolf = target
 				if(wolf.auspice.tribe.name == "Black Spiral Dancers")
 					is_wyrm = 1
 			if(is_wyrm)
@@ -308,7 +306,7 @@
 /datum/action/gift/spirit_speech/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/C = owner
+		var/mob/living/C = owner
 		C.see_invisible = SEE_INVISIBLE_OBSERVER
 		spawn(200)
 			C.see_invisible = initial(C.see_invisible)
@@ -322,7 +320,7 @@
 /datum/action/gift/blur_of_the_milky_eye/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/C = owner
+		var/mob/living/C = owner
 		C.alpha = 36
 		playsound(get_turf(owner), 'code/modules/wod13/sounds/milky_blur.ogg', 75, FALSE)
 		spawn(20 SECONDS)
@@ -358,7 +356,7 @@
 /datum/action/gift/infectious_laughter/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/C = owner
+		var/mob/living/C = owner
 		C.emote("laugh")
 		C.Stun(10)
 		playsound(get_turf(owner), 'code/modules/wod13/sounds/infectious_laughter.ogg', 100, FALSE)
@@ -377,7 +375,7 @@
 /datum/action/gift/rage_heal/Trigger(trigger_flags)
 	. = ..()
 	if(allowed_to_proceed)
-		var/mob/living/carbon/C = owner
+		var/mob/living/C = owner
 		var/obj/item/organ/brain/brain = C.getorganslot(ORGAN_SLOT_BRAIN)
 		if(C.stat != DEAD)
 			SEND_SOUND(owner, sound('code/modules/wod13/sounds/rage_heal.ogg', 0, 0, 75))
@@ -487,7 +485,7 @@
 
 /datum/action/gift/glabro/Trigger(trigger_flags)
 	. = ..()
-	if(allowed_to_proceed)
+	if(allowed_to_proceed && ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		var/datum/species/garou/G = H.dna.species
 		if (!HAS_TRAIT(owner, TRAIT_CORAX))
@@ -571,7 +569,7 @@
 			to_chat(owner, span_warning("Your howl echoes and dissapates into the Umbra, it's sound blanketed by the spiritual energy of the Velvet Shadow."))
 			return
 
-		var/mob/living/carbon/C = owner
+		var/mob/living/C = owner
 		var/list/menu_options = list()
 		for (var/howl_key in howls)
 			menu_options += howls[howl_key]["menu"]
@@ -595,13 +593,13 @@
 			playsound(origin_turf, pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 50, FALSE)
 			var/list/sound_hearers = list()
 
-			for(var/mob/living/carbon/HearingGarou in range(17))
+			for(var/mob/living/HearingGarou in range(17))
 				if(isgarou(HearingGarou) || iswerewolf(HearingGarou))
 					sound_hearers += HearingGarou
 
 			var/howl_details
 			var/final_message
-			for(var/mob/living/carbon/Garou in GLOB.player_list)
+			for(var/mob/living/Garou in GLOB.player_list)
 				if(isgarou(Garou) || iswerewolf(Garou) && !owner)
 					if(!sound_hearers.Find(Garou))
 						Garou.playsound_local(get_turf(Garou), pick('code/modules/wod13/sounds/awo1.ogg', 'code/modules/wod13/sounds/awo2.ogg'), 25, FALSE)
@@ -610,7 +608,7 @@
 					to_chat(Garou, final_message, confidential = TRUE)
 
 
-/datum/action/gift/howling/proc/get_message(mob/living/carbon/Garou, turf/origin_turf)
+/datum/action/gift/howling/proc/get_message(mob/living/Garou, turf/origin_turf)
 
 	var/distance = get_dist(Garou, origin_turf)
 	var/dirtext = " to the "
