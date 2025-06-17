@@ -163,7 +163,6 @@
 	. = ..()
 	var/datum/action/change_apparel/A = new()
 	A.Grant(src)
-	ADD_TRAIT(src, TRAIT_MONKEYLIKE, "species")
 
 /mob/living/simple_animal/werewolf/crinos/show_inv(mob/user)
 	user.set_machine(src)

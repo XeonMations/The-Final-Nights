@@ -17,7 +17,6 @@
 
 /mob/living/simple_animal/werewolf/lupus/Initialize()
 	. = ..()
-	ADD_TRAIT(src, TRAIT_MONKEYLIKE, "species")
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	if(!iscorvid(src))
 		var/datum/action/gift/hispo/hispo = new()
