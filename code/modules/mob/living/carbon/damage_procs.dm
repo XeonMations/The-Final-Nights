@@ -91,7 +91,6 @@
 		amount += BP.burn_dam
 	return amount
 
-
 /mob/living/carbon/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
@@ -101,6 +100,15 @@
 		heal_overall_damage(abs(amount), 0, 0, required_status ? required_status : BODYPART_ORGANIC, updating_health)
 	return amount
 
+/mob/living/carbon/setBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
+	if(!forced && (status_flags & GODMODE))
+		return FALSE
+	var/current = getBruteLoss()
+	var/diff = amount - current
+	if(!diff)
+		return FALSE
+	return adjustBruteLoss(diff, updating_health, forced, required_bodytype)
+
 /mob/living/carbon/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
@@ -109,6 +117,15 @@
 	else
 		heal_overall_damage(0, abs(amount), 0, required_status ? required_status : BODYPART_ORGANIC, updating_health)
 	return amount
+
+/mob/living/carbon/setFireLoss(amount, updating_health = TRUE, forced = FALSE, required_bodytype)
+	if(!forced && (status_flags & GODMODE))
+		return FALSE
+	var/current = getFireLoss()
+	var/diff = amount - current
+	if(!diff)
+		return FALSE
+	return adjustFireLoss(diff, updating_health, forced, required_bodytype)
 
 /mob/living/carbon/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && HAS_TRAIT(src, TRAIT_TOXINLOVER)) //damage becomes healing and healing becomes damage
@@ -120,6 +137,11 @@
 	if(HAS_TRAIT(src, TRAIT_TOXIMMUNE)) //Prevents toxin damage, but not healing
 		amount = min(amount, 0)
 	return ..()
+
+/mob/living/carbon/human/setToxLoss(amount, updating_health, forced, required_biotype)
+	. = ..()
+	if(. >= 0)
+		return .
 
 /mob/living/carbon/getStaminaLoss()
 	. = 0

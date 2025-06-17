@@ -672,7 +672,7 @@
 	if (pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
 
-/mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/adjustHealth(brute_amount, updating_health = TRUE, forced = FALSE, fire_amount, toxin_amount, oxy_amount, clone_amount)
 	. = ..()
 	if(!ckey && !stat)//Not unconscious
 		if(AIStatus == AI_IDLE)

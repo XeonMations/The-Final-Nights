@@ -59,6 +59,10 @@
 	var/obj/item/l_store = null
 	held_items = list(null, null)
 
+/mob/living/simple_animal/werewolf/death(gibbed)
+	. = ..()
+	transformator.transform(src, "Homid", TRUE) //Turn werewolves back into humans once they die.
+
 /mob/living/simple_animal/werewolf/corax // the Corax variety of werewolves, also refers to the Crinos form in a roundabout way, not exactly clean.
 	name = "Corax"
 	icon = 'code/modules/wod13/corax_crinos.dmi'

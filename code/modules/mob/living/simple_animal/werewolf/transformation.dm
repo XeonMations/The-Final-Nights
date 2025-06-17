@@ -47,16 +47,23 @@
 
 	return ..()
 
-/datum/werewolf_holder/transformation/proc/transfer_damage(mob/living/carbon/first, mob/living/carbon/second)
+/datum/werewolf_holder/transformation/proc/transfer_damage(mob/living/first, mob/living/second)
 	second.masquerade = first.masquerade
-	var/percentage = (100/first.maxHealth)*second.maxHealth
-	second.adjustBruteLoss(round((first.getBruteLoss()/100)*percentage)-second.getBruteLoss())
-	second.adjustFireLoss(round((first.getFireLoss()/100)*percentage)-second.getFireLoss())
-	second.adjustToxLoss(round((first.getToxLoss()/100)*percentage)-second.getToxLoss())
-	second.adjustCloneLoss(round((first.getCloneLoss()/100)*percentage)-second.getCloneLoss())
 
-/datum/werewolf_holder/transformation/proc/transform(mob/living/trans, form)
-	if(trans.stat == DEAD)
+
+	var/division_parameter = first.maxHealth / second.maxHealth
+
+	var/target_brute_damage = ceil(first.getBruteLoss() / division_parameter)
+	second.setBruteLoss(target_brute_damage)
+	var/target_fire_damage = ceil(first.getFireLoss() / division_parameter)
+	second.setFireLoss(target_fire_damage)
+	var/target_toxin_damage = ceil(first.getToxLoss() / division_parameter)
+	second.setToxLoss(target_toxin_damage)
+	var/target_clone_damage = ceil(first.getCloneLoss() / division_parameter)
+	second.setCloneLoss(target_clone_damage)
+
+/datum/werewolf_holder/transformation/proc/transform(mob/living/trans, form, bypass)
+	if(trans.stat == DEAD && !bypass)
 		return
 	if(transformating)
 		trans.balloon_alert(trans, "already transforming!")
@@ -246,7 +253,7 @@
 				if(B)
 					qdel(B)
 
-			addtimer(CALLBACK(src, PROC_REF(transform_homid), trans, homid), 3 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(transform_homid), trans, homid, bypass), 3 SECONDS)
 
 /datum/werewolf_holder/transformation/proc/transform_lupus(mob/living/trans, mob/living/simple_animal/werewolf/lupus/lupus)
 	PRIVATE_PROC(TRUE)
@@ -354,10 +361,10 @@
 	cor_crinos.update_icons()
 	cor_crinos.mind.current = cor_crinos
 
-/datum/werewolf_holder/transformation/proc/transform_homid(mob/living/trans, mob/living/carbon/human/homid)
+/datum/werewolf_holder/transformation/proc/transform_homid(mob/living/trans, mob/living/carbon/human/homid, bypass)
 	PRIVATE_PROC(TRUE)
 
-	if(trans.stat == DEAD || !trans.client) // [ChillRaccoon] - preventing non-player transform issues
+	if(((trans.stat == DEAD) || !trans.client) && !bypass) // [ChillRaccoon] - preventing non-player transform issues
 		animate(trans, transform = null, color = "#FFFFFF")
 		return
 	var/items = trans.get_contents()
