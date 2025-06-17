@@ -62,6 +62,10 @@
 	var/target_clone_damage = ceil(first.getCloneLoss() / division_parameter)
 	second.setCloneLoss(target_clone_damage)
 
+	second.update_stat()
+	if(second.stat == CONSCIOUS)
+		second.get_up(TRUE)
+
 /datum/werewolf_holder/transformation/proc/transform(mob/living/trans, form, bypass)
 	if(trans.stat == DEAD && !bypass)
 		return
