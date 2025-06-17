@@ -128,12 +128,12 @@
 			var/mob/living/H = owner
 			H.melee_damage_lower = H.melee_damage_lower+15
 			H.melee_damage_upper = H.melee_damage_upper+15
-			H.agg_damage_plus = 3
+			//H.agg_damage_plus = 3
 			to_chat(owner, "<span class='notice'>You feel your claws sharpening...</span>")
 			spawn(150)
 				H.melee_damage_lower = initial(H.melee_damage_lower)
 				H.melee_damage_upper = initial(H.melee_damage_upper)
-				H.tox_damage_plus = 0
+				//H.tox_damage_plus = 0
 				to_chat(owner, "<span class='warning'>Your claws are not sharp anymore...</span>")
 
 /datum/action/gift/beast_speech
