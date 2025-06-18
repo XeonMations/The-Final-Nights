@@ -352,9 +352,6 @@
 
 	var/mob/living/ML = user
 	if(istype(ML))
-		if(ML.grab(src))
-			ML.changeNext_move(CLICK_CD_MELEE)
-			return
 		ML.pulled(src)
 	if(!can_interact(user))
 		return FALSE
@@ -369,38 +366,17 @@
 	to_chat(user, span_notice("You flip the item for storage."))
 	return ..()
 	
-/mob/living/CtrlClick(mob/user)
-	if(!isliving(user) || !Adjacent(user) || user.incapacitated())
+/mob/living/CtrlClick(mob/living/user)
+	if(!isliving(user) || !user.CanReach(src) || user.incapacitated())
 		return ..()
 
 	if(world.time < user.next_move)
 		return FALSE
 
-	var/mob/living/user_living = user
-	if(user_living.apply_martial_art(src, null, is_grab=TRUE) == MARTIAL_ATTACK_SUCCESS)
-		user_living.changeNext_move(CLICK_CD_MELEE)
+	if(user.grab(src))
+		user.changeNext_move(CLICK_CD_MELEE)
 		return TRUE
 
-	return ..()
-
-
-/mob/living/carbon/human/CtrlClick(mob/user)
-	if(!user.CanReach(src) || user.incapacitated())
-		return ..()
-
-	if(world.time < user.next_move)
-		return FALSE
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/human_user = user
-		if(human_user.dna.species.grab(human_user, src, human_user.mind.martial_art))
-			human_user.changeNext_move(CLICK_CD_MELEE)
-			return TRUE
-	else if(isliving(user))
-		var/mob/living/alien_boy = user
-		if(alien_boy.grab(src))
-			alien_boy.changeNext_move(CLICK_CD_MELEE)
-			return TRUE
 	return ..()
 
 /mob/proc/CtrlMiddleClickOn(atom/A)

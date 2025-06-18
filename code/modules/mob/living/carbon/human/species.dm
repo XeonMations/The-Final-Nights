@@ -1366,14 +1366,6 @@ GLOBAL_LIST_EMPTY(selectable_races)
 
 	user.do_cpr(target)
 
-
-/datum/species/proc/grab(mob/living/carbon/human/user, mob/living/target, datum/martial_art/attacker_style)
-	if(attacker_style?.grab_act(user,target))
-		return TRUE
-	else
-		target.grabbedby(user)
-		return TRUE
-
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")

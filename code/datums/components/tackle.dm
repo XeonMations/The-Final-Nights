@@ -210,7 +210,7 @@
 			target.Paralyze(5)
 			target.Knockdown(30)
 			if(ishuman(target) && ishuman(user))
-				S.dna.species.grab(S, T)
+				INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living, grab), user, target)
 				S.setGrabState(GRAB_PASSIVE)
 
 		if(5 to INFINITY) // absolutely BODIED
@@ -224,7 +224,7 @@
 			target.Paralyze(5)
 			target.Knockdown(30)
 			if(ishuman(target) && ishuman(user))
-				S.dna.species.grab(S, T)
+				INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living, grab), user, target)
 				S.setGrabState(GRAB_AGGRESSIVE)
 
 
