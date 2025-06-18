@@ -352,6 +352,9 @@
 
 	var/mob/living/ML = user
 	if(istype(ML))
+		if(ML.grab(src))
+			ML.changeNext_move(CLICK_CD_MELEE)
+			return
 		ML.pulled(src)
 	if(!can_interact(user))
 		return FALSE
