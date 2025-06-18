@@ -148,6 +148,7 @@
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
 	if(user == src || anchored || !isturf(user.loc))
 		return FALSE
+	do_rage_from_attack(user)
 	if(!user.pulling || user.pulling != src)
 		user.start_pulling(src, supress_message = supress_message)
 		return
