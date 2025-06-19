@@ -108,10 +108,14 @@
 		BeamTarget = last_turf,
 		beam_type = /obj/effect/ebeam/reacting/infrared,
 		icon = 'icons/effects/beam.dmi',
-		icon_state = "infrared"
+		icon_state = "infrared",
+		emissive = TRUE,
+		override_target_pixel_x = pixel_x,
+		override_target_pixel_y = pixel_y,
 	)
 	RegisterSignal(active_beam, COMSIG_BEAM_ENTERED, PROC_REF(beam_entered))
 	RegisterSignal(active_beam, COMSIG_BEAM_TURFS_CHANGED, PROC_REF(beam_turfs_changed))
+	update_visible()
 	// Buffer can be null (if we're at map edge for an example) but this fine
 	if(!isnull(buffer_turf))
 		// We need to check the state of the turf at the end of the beam, to determine when we need to re-grow (if blocked)
@@ -180,7 +184,30 @@
 /// Toggles the visibility of the beam.
 /obj/item/assembly/infra/proc/toggle_visible()
 	visible = !visible
+	update_visible()
 	update_appearance()
+
+/// Updates the visibility of the beam (if active).
+/obj/item/assembly/infra/proc/update_visible()
+	if(visible)
+		for(var/obj/effect/ebeam/beam as anything in active_beam?.elements)
+			beam.RemoveInvisibility(REF(src))
+	else
+		for(var/obj/effect/ebeam/beam as anything in active_beam?.elements)
+			beam.SetInvisibility(INVISIBILITY_ABSTRACT, REF(src))
+
+/obj/item/assembly/infra/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(!.)
+		return
+	switch(var_name)
+		if(NAMEOF(src, visible))
+			update_visible()
+			update_appearance()
+
+		if(NAMEOF(src, on), NAMEOF(src, max_beam_length), NAMEOF(src, beam_pass_flags))
+			make_beam()
+			update_appearance()
 
 /obj/item/assembly/infra/update_appearance(updates)
 	. = ..()
