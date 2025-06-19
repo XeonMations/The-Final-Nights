@@ -4,8 +4,8 @@
 
 /atom/MouseEntered(location,control,params)
 	if(isturf(src) || ismob(src) || isobj(src))
-		if(loc && iscarbon(usr))
-			var/mob/living/carbon/H = usr
+		if(loc && isliving(usr))
+			var/mob/living/H = usr
 			if(H.combat_mode)
 				if(!H.IsSleeping() && !H.IsUnconscious() && !H.IsParalyzed() && !H.IsKnockdown() && !H.IsStun() && !HAS_TRAIT(H, TRAIT_RESTRAINED))
 					H.face_atom(src)
