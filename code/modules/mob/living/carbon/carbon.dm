@@ -199,7 +199,7 @@
 	SEND_SIGNAL(src, COMSIG_MOB_THROW, target)
 	return
 
-/mob/living/carbon/jump(atom/target)
+/mob/living/jump(atom/target)
 	. = ..()
 	if(!target || !isturf(loc))
 		return
@@ -208,13 +208,18 @@
 	if(lying_angle != STANDING_UP)
 		return
 
-	var/mob/living/carbon/H = src
+	var/mob/living/H = src
+	var/mob/living/carbon/carbon_mob = src
 	var/physique = H.get_total_physique()
 	var/dexterity = H.get_total_dexterity()
 	var/athletics = H.get_total_athletics()
 
-	if(HAS_TRAIT(H, TRAIT_IMMOBILIZED) || H.legcuffed)
+	if(HAS_TRAIT(H, TRAIT_IMMOBILIZED))
 		return
+	if(iscarbon(H))
+		
+		if(carbon_mob.legcuffed)
+			return
 	if(pulledby && H.pulledby.grab_state >= GRAB_PASSIVE)
 		return
 
@@ -267,14 +272,8 @@
 
 		var/travel_time = distance * 0.5
 		spawn(travel_time)
-			if(get_dist(loc, adjusted_target) <= 1 && H.potential > 0)
-				H.epic_fall(FALSE, FALSE)
-
-
-//		newtonian_move(get_dir(target, src))
-//		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed + power_throw, src, null, null, null, move_force)
-//		visible_message("<span class='danger'>[src] jumps towards [target].</span>")
-
+			if(get_dist(loc, adjusted_target) <= 1 && carbon_mob?.potential > 0)
+				carbon_mob?.epic_fall(FALSE, FALSE)
 		last_jump_time = current_time
 
 /mob/living/carbon/proc/canBeHandcuffed()

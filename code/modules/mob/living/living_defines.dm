@@ -272,6 +272,8 @@
 
 	///Whether the mob currently has the JUMP button selected
 	var/prepared_to_jump = FALSE
+	var/last_jump_time = 0
+	var/jump_range = 1
 	///If this mob can strip people from range with a delay of 0.1 seconds. Currently only activated by Mytherceria 2.
 	var/enhanced_strip = FALSE
 

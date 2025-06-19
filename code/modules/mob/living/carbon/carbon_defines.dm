@@ -106,10 +106,6 @@
 	var/can_be_shoved_into = FALSE
 
 	//imported from other areas around the code
-
-	var/last_jump_time = 0
-	var/jump_range = 1
-
 	var/list/overlays_standing[TOTAL_LAYERS]
 
 
