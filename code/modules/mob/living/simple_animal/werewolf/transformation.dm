@@ -286,6 +286,7 @@
 	lupus.update_blood_hud()
 	transfer_damage(trans, lupus)
 	lupus.add_movespeed_modifier(/datum/movespeed_modifier/lupusform)
+	lupus.update_sight()
 	transformating = FALSE
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	lupus.update_icons()
@@ -325,6 +326,7 @@
 	transfer_damage(trans, crinos)
 	crinos.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)
 	crinos.update_simplemob_varspeed()
+	crinos.update_sight()
 	transformating = FALSE
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	crinos.update_icons()
@@ -360,6 +362,7 @@
 	transfer_damage(trans, cor_crinos)
 	cor_crinos.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)
 	cor_crinos.update_simplemob_varspeed()
+	cor_crinos.update_sight()
 	transformating = FALSE
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	cor_crinos.update_icons()
@@ -393,6 +396,7 @@
 		homid.adjustBruteLoss(200) //Carbon humans also have crit, and crinos + lupus dont, so if you're dead in those, add an extra 200 damage homids to make sure they are dead and dont spontaneously come back to life
 	homid.remove_movespeed_modifier(/datum/movespeed_modifier/crinosform)
 	homid.remove_movespeed_modifier(/datum/movespeed_modifier/lupusform)
+	homid.update_sight()
 	transformating = FALSE
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	homid.update_body()
@@ -425,6 +429,7 @@
 	corvid.update_blood_hud()
 	transfer_damage(trans, corvid)
 	corvid.add_movespeed_modifier(/datum/movespeed_modifier/lupusform)
+	corvid.update_sight()
 	transformating = FALSE
 	animate(trans, transform = null, color = "#FFFFFF", time = 1)
 	corvid.update_icons()
