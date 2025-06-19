@@ -268,6 +268,7 @@
 	healths.icon = 'code/modules/wod13/UI/buttons32.dmi'
 	healths.hud = src
 	infodisplay += healths
+	
 	blood_icon = new /atom/movable/screen/blood()
 	blood_icon.screen_loc = ui_bloodpool
 	blood_icon.hud = src
