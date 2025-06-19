@@ -4,13 +4,11 @@
 #define VEIL_COOLDOWN 20 SECONDS
 #define RAGE_LIFE_COOLDOWN 30 SECONDS
 
-/mob/living/simple_animal/werewolf/Life()
+/mob/living/Life()
+	. = ..()
 	update_icons()
 	update_rage_hud()
-	return..()
 
-/mob/living/carbon/Life()
-	. = ..()
 	if(isgarou(src) || iswerewolf(src))
 		if(key && stat <= HARD_CRIT)
 			var/datum/preferences/P = GLOB.preferences_datums[ckey(key)]
@@ -23,29 +21,22 @@
 		if(stat != DEAD)
 			var/gaining_rage = TRUE
 			for(var/obj/structure/werewolf_totem/W in GLOB.totems)
-				if(W)
-					if(W.totem_health)
-						if(W.tribe == auspice.tribe.name)
-							if(get_area(W) == get_area(src) && client)
-								gaining_rage = FALSE
-								if(last_gnosis_buff+300 < world.time)
-									last_gnosis_buff = world.time
-									adjust_gnosis(1, src, TRUE)
+				if(W.totem_health)
+					if(W.tribe == auspice.tribe.name)
+						if(get_area(W) == get_area(src) && client)
+							gaining_rage = FALSE
+							if(last_gnosis_buff+300 < world.time)
+								last_gnosis_buff = world.time
+								adjust_gnosis(1, src, TRUE)
 			if(iscrinos(src))
 				if(auspice.base_breed == "Crinos")
 					gaining_rage = FALSE
-			//else if(auspice.rage == 0) //! [ChillRaccoon] - FIXME
-			//	transformator.transform(src, auspice.base_breed)
 			if(islupus(src))
 				if(auspice.base_breed == "Lupus")
 					gaining_rage = FALSE
-			//else if(auspice.rage == 0)
-			//	transformator.transform(src, auspice.base_breed)
 			if(ishuman(src))
 				if(auspice.base_breed == "Homid" || HAS_TRAIT(src, TRAIT_CORAX)) // Corvid-born Corax don't generate rage when in homid passively, the hope is to make talking more relaxed and the Corax weaker in combat.
 					gaining_rage = FALSE
-			//else if(auspice.rage == 0)
-			//	transformator.transform(src, auspice.base_breed)
 			if (iscorvid(src))
 				gaining_rage = FALSE // Corax will ideally be talking a lot, not having passive rage generation should also make them weaker in combat.
 			if (iscoraxcrinos(src))
@@ -74,7 +65,7 @@
 
 // currently being in your caern restores veil to max because theres no other way of doing. remember to cap it to THREE once shame rituals are back
 
-/mob/living/carbon/proc/check_veil_adjust()
+/mob/living/proc/check_veil_adjust()
 
 	if(istype(get_area(src), /area/vtm/interior/penumbra))
 		if((last_veil_restore + UMBRA_VEIL_COOLDOWN) < world.time)
