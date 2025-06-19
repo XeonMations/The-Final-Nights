@@ -481,15 +481,6 @@
 			return FALSE
 	return TRUE
 
-/mob/living/simple_animal/handle_fire()
-	return TRUE
-
-/mob/living/simple_animal/IgniteMob()
-	return FALSE
-
-/mob/living/simple_animal/extinguish_mob()
-	return
-
 /mob/living/simple_animal/revive(full_heal = FALSE, admin_revive = FALSE)
 	. = ..()
 	if(!.)

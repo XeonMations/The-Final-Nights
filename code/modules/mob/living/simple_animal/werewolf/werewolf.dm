@@ -69,30 +69,6 @@
 	. = ..()
 	transformator.transform(src, "Homid", TRUE) //Turn werewolves back into humans once they die.
 
-/mob/living/simple_animal/werewolf/IgniteMob()
-	if(fire_stacks > 0 && !on_fire)
-		on_fire = TRUE
-		src.visible_message("<span class='warning'>[src] catches fire!</span>", \
-						"<span class='userdanger'>You're set on fire!</span>")
-		new/obj/effect/dummy/lighting_obj/moblight/fire(src)
-		throw_alert("fire", /atom/movable/screen/alert/fire)
-		update_fire()
-		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED,src)
-		return TRUE
-	return FALSE
-
-/mob/living/simple_animal/werewolf/extinguish_mob()
-	if(!on_fire)
-		return
-	on_fire = FALSE
-	fire_stacks = 0 //If it is not called from set_fire_stacks()
-	for(var/obj/effect/dummy/lighting_obj/moblight/fire/F in src)
-		qdel(F)
-	clear_alert("fire")
-	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "on_fire")
-	SEND_SIGNAL(src, COMSIG_LIVING_EXTINGUISHED, src)
-	update_fire()
-
 /mob/living/simple_animal/werewolf/update_resting()
 	if(resting)
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
