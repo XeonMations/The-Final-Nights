@@ -457,6 +457,7 @@
 	H.regenerate_icons()
 	H.update_transform()
 	animate(H, transform = null, color = "#FFFFFF", time = 1)
+	H.remove_movespeed_modifier(/datum/movespeed_modifier/crinosform)
 	H.remove_movespeed_modifier(/datum/movespeed_modifier/hispoform)
 	H.add_movespeed_modifier(/datum/movespeed_modifier/lupusform)
 
@@ -471,6 +472,7 @@
 	H.regenerate_icons()
 	H.update_transform()
 	animate(H, transform = null, color = "#FFFFFF", time = 1)
+	H.remove_movespeed_modifier(/datum/movespeed_modifier/crinosform)
 	H.remove_movespeed_modifier(/datum/movespeed_modifier/lupusform)
 	H.add_movespeed_modifier(/datum/movespeed_modifier/hispoform)
 
