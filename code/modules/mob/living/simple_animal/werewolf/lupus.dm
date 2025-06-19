@@ -64,6 +64,7 @@
 	eye_overlay.plane = ABOVE_LIGHTING_PLANE
 	eye_overlay.layer = ABOVE_LIGHTING_LAYER
 	add_overlay(eye_overlay)
+	..()
 
 /mob/living/simple_animal/werewolf/lupus/regenerate_icons()
 	if(!..())

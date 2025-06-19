@@ -56,6 +56,7 @@
 			handle_status_effects() //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
 
 	handle_fire()
+	handle_environment()
 
 	if(machine)
 		machine.check_eye(src)

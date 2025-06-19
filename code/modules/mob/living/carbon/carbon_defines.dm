@@ -105,9 +105,6 @@
 	/// Can other carbons be shoved into this one to make it fall?
 	var/can_be_shoved_into = FALSE
 
-	//imported from other areas around the code
-	var/list/overlays_standing[TOTAL_LAYERS]
-
 
 	var/celerity_visual = FALSE
 	var/potential = 0

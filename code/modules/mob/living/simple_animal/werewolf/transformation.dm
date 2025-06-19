@@ -62,6 +62,9 @@
 	var/target_clone_damage = ceil(first.getCloneLoss() / division_parameter)
 	second.setCloneLoss(target_clone_damage)
 
+	first.fire_stacks = second.fire_stacks
+	first.on_fire = second.on_fire
+
 	second.update_stat()
 	if(second.stat == CONSCIOUS)
 		second.get_up(TRUE)

@@ -57,6 +57,7 @@
 	add_overlay(eye_overlay)
 
 	update_inv_hands()
+	..()
 
 /mob/living/simple_animal/werewolf/crinos/regenerate_icons()
 	if(!..())
@@ -115,6 +116,7 @@
 	add_overlay(eye_overlay)
 
 	update_inv_hands()
+	..()
 
 /mob/living/simple_animal/werewolf/corax/corax_crinos/regenerate_icons()
 	if(!..())

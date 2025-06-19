@@ -69,17 +69,6 @@
 	. = ..()
 	transformator.transform(src, "Homid", TRUE) //Turn werewolves back into humans once they die.
 
-/mob/living/simple_animal/werewolf/handle_fire()
-	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
-		set_fire_stacks(min(0, fire_stacks + 1)) //So we dry ourselves back to default, nonflammable.
-	if(!on_fire)
-		return TRUE //the mob is no longer on fire, no need to do the rest.
-	if(fire_stacks > 0)
-		adjust_fire_stacks(-0.1) //the fire is slowly consumed
-	else
-		extinguish_mob()
-	return TRUE //mob was put out, on_fire = FALSE via extinguish_mob(), no need to update everything down the chain.
-
 /mob/living/simple_animal/werewolf/IgniteMob()
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = TRUE
@@ -111,6 +100,9 @@
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	return ..()
 
+/mob/living/simple_animal/werewolf/update_icons()
+	update_fire()
+	..()
 
 /mob/living/simple_animal/werewolf/corax // the Corax variety of werewolves, also refers to the Crinos form in a roundabout way, not exactly clean.
 	name = "Corax"

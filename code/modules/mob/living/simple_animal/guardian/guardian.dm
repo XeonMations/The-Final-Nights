@@ -307,11 +307,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 
-/mob/living/simple_animal/hostile/guardian/proc/apply_overlay(cache_index)
+/mob/living/simple_animal/hostile/guardian/apply_overlay(cache_index)
 	if((. = guardian_overlays[cache_index]))
 		add_overlay(.)
 
-/mob/living/simple_animal/hostile/guardian/proc/remove_overlay(cache_index)
+/mob/living/simple_animal/hostile/guardian/remove_overlay(cache_index)
 	var/I = guardian_overlays[cache_index]
 	if(I)
 		cut_overlay(I)

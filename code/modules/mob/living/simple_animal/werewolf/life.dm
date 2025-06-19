@@ -124,11 +124,18 @@
 	if(move_delay_add > 0)
 		move_delay_add = max(0, move_delay_add - rand(1, 2))
 
-/mob/living/simple_animal/werewolf/handle_fire()//Aliens on fire code
-	. = ..()
-	if(.) //if the mob isn't on fire anymore
-		return
-	adjust_bodytemperature(BODYTEMP_HEATING_MAX) //If you're on fire, you heat up!
+/mob/living/simple_animal/werewolf/handle_fire()
+	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
+		set_fire_stacks(min(0, fire_stacks + 1)) //So we dry ourselves back to default, nonflammable.
+	if(!on_fire)
+		return TRUE //the mob is no longer on fire, no need to do the rest.
+	if(fire_stacks > 0)
+		adjust_fire_stacks(-0.1) //the fire is slowly consumed
+	else
+		extinguish_mob()
+	adjust_bodytemperature(BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+	SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
+	return TRUE //mob was put out, on_fire = FALSE via extinguish_mob(), no need to update everything down the chain.
 
 /mob/living/proc/adjust_veil(amount, threshold, random, honoradj, gloryadj, wisdomadj, mob/living/carbon/vessel, forced)
 	if(iswerewolf(src))

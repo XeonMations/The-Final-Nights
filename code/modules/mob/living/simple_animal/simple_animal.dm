@@ -370,7 +370,7 @@
 
 /mob/living/simple_animal/proc/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
-		adjustHealth(unsuitable_cold_damage)
+		adjustHealth(fire_amount = unsuitable_cold_damage)
 		switch(unsuitable_cold_damage)
 			if(1 to 5)
 				throw_alert("temp", /atom/movable/screen/alert/cold, 1)
@@ -379,7 +379,7 @@
 			if(10 to INFINITY)
 				throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 	else if(bodytemperature > maxbodytemp)
-		adjustHealth(unsuitable_heat_damage)
+		adjustHealth(fire_amount = unsuitable_heat_damage)
 		switch(unsuitable_heat_damage)
 			if(1 to 5)
 				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
