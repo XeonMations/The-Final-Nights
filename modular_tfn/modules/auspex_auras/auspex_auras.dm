@@ -3,11 +3,6 @@
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	hud.add_to_hud(src)
 
-/mob/living/simple_animal/werewolf/Initialize()
-	. = ..()
-	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.add_to_hud(src)
-
 /mob/living/proc/update_auspex_hud()
 	var/image/holder = hud_list[GLAND_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
@@ -29,7 +24,7 @@
 		if (N.danger_source)
 			holder.color = AURA_MORTAL_HARM
 		else
-			holder.color = AURA_MORTAL_DISARM
+			holder.color = AURA_MORTAL_HELP
 
 	if (iskindred(src) || HAS_TRAIT(src, TRAIT_COLD_AURA) || (iscathayan(src) && !H.check_kuei_jin_alive()))
 		//pale aura for vampires
