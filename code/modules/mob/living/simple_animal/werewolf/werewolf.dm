@@ -62,17 +62,47 @@
 /mob/living/simple_animal/werewolf/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NIGHT_VISION, "species")
+	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
+	hud.add_to_hud(src)
 
 /mob/living/simple_animal/werewolf/death(gibbed)
 	. = ..()
 	transformator.transform(src, "Homid", TRUE) //Turn werewolves back into humans once they die.
 
-/mob/living/simple_animal/werewolf/corax // the Corax variety of werewolves, also refers to the Crinos form in a roundabout way, not exactly clean.
-	name = "Corax"
-	icon = 'code/modules/wod13/corax_crinos.dmi'
-	verb_say = "caws"
-	verb_exclaim = "squawks"
-	verb_yell = "shrieks"
+/mob/living/simple_animal/werewolf/handle_fire()
+	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
+		set_fire_stacks(min(0, fire_stacks + 1)) //So we dry ourselves back to default, nonflammable.
+	if(!on_fire)
+		return TRUE //the mob is no longer on fire, no need to do the rest.
+	if(fire_stacks > 0)
+		adjust_fire_stacks(-0.1) //the fire is slowly consumed
+	else
+		extinguish_mob()
+	return TRUE //mob was put out, on_fire = FALSE via extinguish_mob(), no need to update everything down the chain.
+
+/mob/living/simple_animal/werewolf/IgniteMob()
+	if(fire_stacks > 0 && !on_fire)
+		on_fire = TRUE
+		src.visible_message("<span class='warning'>[src] catches fire!</span>", \
+						"<span class='userdanger'>You're set on fire!</span>")
+		new/obj/effect/dummy/lighting_obj/moblight/fire(src)
+		throw_alert("fire", /atom/movable/screen/alert/fire)
+		update_fire()
+		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED,src)
+		return TRUE
+	return FALSE
+
+/mob/living/simple_animal/werewolf/extinguish_mob()
+	if(!on_fire)
+		return
+	on_fire = FALSE
+	fire_stacks = 0 //If it is not called from set_fire_stacks()
+	for(var/obj/effect/dummy/lighting_obj/moblight/fire/F in src)
+		qdel(F)
+	clear_alert("fire")
+	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "on_fire")
+	SEND_SIGNAL(src, COMSIG_LIVING_EXTINGUISHED, src)
+	update_fire()
 
 /mob/living/simple_animal/werewolf/update_resting()
 	if(resting)
@@ -80,6 +110,14 @@
 	else
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	return ..()
+
+
+/mob/living/simple_animal/werewolf/corax // the Corax variety of werewolves, also refers to the Crinos form in a roundabout way, not exactly clean.
+	name = "Corax"
+	icon = 'code/modules/wod13/corax_crinos.dmi'
+	verb_say = "caws"
+	verb_exclaim = "squawks"
+	verb_yell = "shrieks"
 
 /mob/living/simple_animal/werewolf/crinos/Move(NewLoc, direct)
 	if(isturf(loc))
