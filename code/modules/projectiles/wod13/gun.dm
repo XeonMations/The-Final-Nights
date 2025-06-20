@@ -186,12 +186,20 @@
 		for(var/obj/O in contents)
 			O.emp_act(severity)
 
-/obj/item/gun/attack_secondary(mob/living/victim, mob/living/user, params)
-	if (user.GetComponent(/datum/component/gunpoint))
-		to_chat(user, "<span class='warning'>You are already holding someone up!</span>")
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+/obj/item/gun/attack_secondary(atom/interacting_with, mob/living/user, params)
+	if(user.combat_mode && isliving(interacting_with))
+		return ITEM_INTERACT_SKIP_TO_ATTACK // Gun bash / bayonet attack
 
-	user.AddComponent(/datum/component/gunpoint, victim, src)
+	var/datum/component/gunpoint/gunpoint_component = user.GetComponent(/datum/component/gunpoint)
+	if (gunpoint_component)
+		balloon_alert(user, "already holding [gunpoint_component.target == interacting_with ? "them" : "someone"] up!")
+		return ITEM_INTERACT_BLOCKING
+	if (user == interacting_with)
+		balloon_alert(user, "can't hold yourself up!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(do_after(user, 0.5 SECONDS, interacting_with))
+		user.AddComponent(/datum/component/gunpoint, interacting_with, src)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
