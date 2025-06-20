@@ -28,6 +28,11 @@
 /obj/item/assembly_holder/IsAssemblyHolder()
 	return TRUE
 
+/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir)
+	. = ..()
+	for(var/obj/item/assembly/infra/assembly in assemblies)
+		assembly.Moved(old_loc, movement_dir)
+
 /obj/item/assembly_holder/proc/assemble(obj/item/assembly/A, obj/item/assembly/A2, mob/user)
 	attach(A,user)
 	attach(A2,user)

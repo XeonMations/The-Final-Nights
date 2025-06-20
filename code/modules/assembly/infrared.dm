@@ -225,8 +225,7 @@
 	. = ..()
 	if(holder)
 		holder_movement() //sync the dir of the device as well if it's contained in a TTV or an assembly holder
-	else
-		make_beam()
+	make_beam()
 
 /obj/item/assembly/infra/on_attach()
 	. = ..()
