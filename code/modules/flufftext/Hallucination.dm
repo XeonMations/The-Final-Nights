@@ -1250,7 +1250,6 @@ GLOBAL_LIST_INIT(malk_hallucinations, list(
 			slots_free += ui_storage2
 	if(slots_free.len)
 		halitem.screen_loc = pick(slots_free)
-		halitem.layer = ABOVE_HUD_LAYER
 		halitem.plane = ABOVE_HUD_PLANE
 		switch(rand(1,6))
 			if(1) //revolver

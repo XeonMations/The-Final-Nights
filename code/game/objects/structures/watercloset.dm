@@ -635,7 +635,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	var/icon_type = "bathroom"//used in making the icon state
 	color = "#ACD1E9" //Default color, didn't bother hardcoding other colors, mappers can and should easily change it.
 	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
-	layer = ABOVE_ALL_MOB_LAYERS_LAYER
+	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
 	opacity = FALSE
 	density = FALSE
@@ -651,14 +651,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	. = ..()
 	if(!open)
 		icon_state = "[icon_type]-closed"
-		layer = ABOVE_ALL_MOB_LAYERS_LAYER
+		layer = ABOVE_MOB_LAYER
 		density = TRUE
 		open = FALSE
 		if(opaque_closed)
 			set_opacity(TRUE)
 	else
 		icon_state = "[icon_type]-open"
-		layer = ABOVE_ALL_MOB_LAYERS_LAYER
+		layer = ABOVE_MOB_LAYER
 		density = FALSE
 		open = TRUE
 		set_opacity(FALSE)
@@ -753,14 +753,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 /obj/structure/curtain/cloth/fancy/mechanical/proc/open()
 	icon_state = "[icon_type]-open"
-	layer = ABOVE_ALL_MOB_LAYERS_LAYER
+	layer = ABOVE_MOB_LAYER
 	density = FALSE
 	open = TRUE
 	set_opacity(FALSE)
 
 /obj/structure/curtain/cloth/fancy/mechanical/proc/close()
 	icon_state = "[icon_type]-closed"
-	layer = ABOVE_ALL_MOB_LAYERS_LAYER
+	layer = ABOVE_MOB_LAYER
 	density = TRUE
 	open = FALSE
 	if(opaque_closed)

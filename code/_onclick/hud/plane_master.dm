@@ -3,6 +3,7 @@
 	icon_state = "blank"
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
 	blend_mode = BLEND_OVERLAY
+	plane = LOWEST_EVER_PLANE
 	var/show_alpha = 255
 	var/hide_alpha = 0
 
@@ -19,7 +20,7 @@
 ///Things rendered on "openspace"; holes in multi-z
 /atom/movable/screen/plane_master/openspace
 	name = "open space plane master"
-	plane = OPENSPACE_BACKDROP_PLANE
+	plane = TRANSPARENT_FLOOR_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_MULTIPLY
 	alpha = 255
@@ -74,13 +75,13 @@
 
 /atom/movable/screen/plane_master/under_frill
 	name = "under frill plane master"
-	plane = UNDER_FRILL_PLANE
+	plane = WALL_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/frill
 	name = "frill plane master"
-	plane = FRILL_PLANE
+	plane = WALL_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
 
@@ -122,7 +123,7 @@
 /atom/movable/screen/plane_master/lighting/Initialize()
 	. = ..()
 	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
-	add_filter("unblockable_emissives", 2, alpha_mask_filter(render_source = EMISSIVE_UNBLOCKABLE_RENDER_TARGET, flags = MASK_INVERSE))
+	add_filter("unblockable_emissives", 2, alpha_mask_filter(render_source = LIGHTING_PLANE, flags = MASK_INVERSE))
 	add_filter("object_lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
 
 /**
@@ -139,7 +140,7 @@
 
 /atom/movable/screen/plane_master/emissive/Initialize()
 	. = ..()
-	add_filter("emissive_block", 1, alpha_mask_filter(render_source = EMISSIVE_BLOCKER_RENDER_TARGET, flags = MASK_INVERSE))
+	add_filter("emissive_block", 1, alpha_mask_filter(render_source = EMISSIVE_PLANE, flags = MASK_INVERSE))
 
 /**
  * Things placed on this always mask the lighting plane. Doesn't render directly.
@@ -149,9 +150,8 @@
  */
 /atom/movable/screen/plane_master/emissive_unblockable
 	name = "unblockable emissive plane master"
-	plane = EMISSIVE_UNBLOCKABLE_PLANE
+	plane = EMISSIVE_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_target = EMISSIVE_UNBLOCKABLE_RENDER_TARGET
 
 /**
  * Things placed on this layer mask the emissive layer. Doesn't render directly
@@ -160,9 +160,8 @@
  */
 /atom/movable/screen/plane_master/emissive_blocker
 	name = "emissive blocker plane master"
-	plane = EMISSIVE_BLOCKER_PLANE
+	plane = EMISSIVE_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_target = EMISSIVE_BLOCKER_RENDER_TARGET
 
 ///Contains space parallax
 /atom/movable/screen/plane_master/parallax
@@ -183,7 +182,7 @@
 
 /atom/movable/screen/plane_master/excited_turfs
 	name = "atmos excited turfs"
-	plane = ATMOS_GROUP_PLANE
+	plane = HIGH_GAME_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 	alpha = 0

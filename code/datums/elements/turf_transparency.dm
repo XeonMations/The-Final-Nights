@@ -14,8 +14,7 @@
 
 	ADD_TRAIT(our_turf, TURF_Z_TRANSPARENT_TRAIT, TURF_TRAIT)
 
-	if(!mapload)
-		update_multiz(our_turf, TRUE, TRUE)
+	update_multiz(our_turf, TRUE, TRUE)
 
 /datum/element/turf_z_transparency/Detach(datum/source, force)
 	. = ..()
