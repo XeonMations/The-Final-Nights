@@ -50,7 +50,7 @@
 
 /area/ruin/unpowered/cultaltar
 	name = "Cult Altar"
-	area_flags = CULT_PERMITTED
+	flags_1 = CULT_PERMITTED_1
 	ambience_index = AMBIENCE_SPOOKY
 
 //Syndicate lavaland base

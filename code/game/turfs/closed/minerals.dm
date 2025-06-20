@@ -168,8 +168,8 @@
 		var/path = pickweight(mineralSpawnChanceList)
 		if(ispath(path, /turf))
 			var/stored_flags = 0
-			if(turf_flags & NO_RUINS)
-				stored_flags |= NO_RUINS
+			if(flags_1 & NO_RUINS_1)
+				stored_flags |= NO_RUINS_1
 			var/turf/T = ChangeTurf(path,null,CHANGETURF_IGNORE_AIR)
 			T.flags_1 |= stored_flags
 
