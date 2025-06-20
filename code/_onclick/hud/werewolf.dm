@@ -142,7 +142,7 @@
 	var/atom/movable/screen/transform_werewolf
 
 //hands
-	if(iscrinos(owner) || iscoraxcrinos(owner) || iscorvid(owner)) // corvid and crinos get hands
+	if(iscrinos(owner) || iscoraxcrinos(owner))
 		build_hand_slots()
 
 //begin buttons

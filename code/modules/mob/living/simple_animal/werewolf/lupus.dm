@@ -13,6 +13,7 @@
 	health = 150
 	maxHealth = 150
 	werewolf_armor = 10
+	dextrous = FALSE
 	var/hispo = FALSE
 
 /mob/living/simple_animal/werewolf/lupus/Initialize()
