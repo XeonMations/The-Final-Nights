@@ -531,14 +531,13 @@
 	else
 		..()
 
+/mob/living/simple_animal/on_lying_down()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 
-/mob/living/simple_animal/update_resting()
-	if(resting)
-		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	else
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	return ..()
-
+/mob/living/simple_animal/on_standing_up()
+	. = ..()
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()

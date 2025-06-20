@@ -70,14 +70,6 @@
 	. = ..()
 	transformator.transform(src, "Homid", TRUE) //Turn werewolves back into humans once they die.
 
-/mob/living/simple_animal/werewolf/on_lying_down()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-
-/mob/living/simple_animal/werewolf/on_standing_up()
-	. = ..()
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-
 /mob/living/simple_animal/werewolf/update_icons()
 	update_fire()
 	..()
