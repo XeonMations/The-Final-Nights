@@ -1073,7 +1073,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/janitor
 	name = "Custodial Closet"
 	icon_state = "janitor"
-	flags_1 = CULT_PERMITTED_1
+	flags_1 = CULT_PERMITTED
 	airlock_wires = /datum/wires/airlock/service
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
