@@ -131,6 +131,7 @@
 	. = ..()
 	if(.)
 		return
+	user.changeNext_move(0)
 	if(try_award_apartment_key(user))
 		return
 	if(!locked)
@@ -229,6 +230,7 @@
 					toggle_lock(user)
 
 /obj/structure/vampdoor/attack_hand_secondary(mob/user, list/modifiers)
+	user.changeNext_move(0)
 	var/mob/living/carbon/carbon_user = user
 	var/obj/item/vamp/keys/found_key = locate(/obj/item/vamp/keys) in carbon_user.contents
 	if(!found_key)
