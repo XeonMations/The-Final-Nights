@@ -275,6 +275,7 @@
 #include "code\__DEFINES\traits\macros.dm"
 #include "code\__DEFINES\traits\sources.dm"
 #include "code\__DEFINES\traits\vtm\declarations.dm"
+#include "code\__DEFINES\traits\vtm\sources.dm"
 #include "code\__DEFINES\wod13\discipline.dm"
 #include "code\__DEFINES\wod13\lockpick_difficulty.dm"
 #include "code\__DEFINES\wod13\signals_kindred.dm"

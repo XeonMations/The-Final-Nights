@@ -41,8 +41,6 @@
 #define LYING_DOWN_TRAIT "lying-down"
 /// Trait associated to lacking electrical power.
 #define POWER_LACK_TRAIT "power-lack"
-/// Trait associated to stuff that came from Clan based stuff
-#define TRAIT_CLAN "clan"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
@@ -135,14 +133,8 @@
 //trait from /mob/living/carbon/human/npc
 #define NPC_ITEM_TRAIT "npc_item"
 
-// used by the obfuscate ability
-#define OBFUSCATE_TRAIT "obfuscate_trait"
-
 /// Trait when something was labelled by the /datum/element/tool_renaming element.
 #define RENAMING_TOOL_LABEL_TRAIT "renaming_tool_label"
-
-//salubri stuff
-#define SALUBRI_EYE_TRAIT "Salubri Eye"
 
 /// Trait aquired from being painted a certain color
 #define ATOM_COLOR_TRAIT "atom_color"
