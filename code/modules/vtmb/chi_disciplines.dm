@@ -652,7 +652,7 @@
 			var/mob/living/simple_animal/hostile/beastmaster/fireball/living_fireball = new(get_turf(caster))
 			living_fireball.my_creator = caster
 			caster.beastmaster |= living_fireball
-			living_fireball.beastmaster = caster
+			living_fireball.beastmaster_owner = caster
 		if(3)
 			caster.drop_all_held_items()
 			caster.put_in_active_hand(new /obj/item/gun/magic/ghostflame_shintai(caster))
@@ -1352,7 +1352,7 @@
 				deaggro_action.Grant(caster)
 			var/mob/living/simple_animal/hostile/beastmaster/rat/rat = new(get_turf(caster))
 			caster.beastmaster |= rat
-			rat.beastmaster = caster
+			rat.beastmaster_owner = caster
 		if(2)
 			if(!length(caster.beastmaster))
 				var/datum/action/beastmaster_stay/stay_action = new()
@@ -1361,7 +1361,7 @@
 				deaggro_action.Grant(caster)
 			var/mob/living/simple_animal/hostile/beastmaster/cat/cat = new(get_turf(caster))
 			caster.beastmaster |= cat
-			cat.beastmaster = caster
+			cat.beastmaster_owner = caster
 		if(3)
 			if(!length(caster.beastmaster))
 				var/datum/action/beastmaster_stay/stay_action = new()
@@ -1370,7 +1370,7 @@
 				deaggro_action.Grant(caster)
 			var/mob/living/simple_animal/hostile/beastmaster/dog = new(get_turf(caster))
 			caster.beastmaster |= dog
-			dog.beastmaster = caster
+			dog.beastmaster_owner = caster
 		if(4)
 			if(!length(caster.beastmaster))
 				var/datum/action/beastmaster_stay/stay_action = new()
@@ -1379,7 +1379,7 @@
 				deaggro_action.Grant(caster)
 			var/mob/living/simple_animal/hostile/beastmaster/rat/flying/bat = new(get_turf(caster))
 			caster.beastmaster |= bat
-			bat.beastmaster = caster
+			bat.beastmaster_owner = caster
 		if(5)
 			wolflike_shapeshift.Shapeshift(caster)
 			spawn(10 SECONDS + caster.discipline_time_plus)

@@ -158,7 +158,7 @@
 		var/mob/living/simple_animal/hostile/beastmaster/D = new(get_turf(C))
 		D.my_creator = C
 		C.beastmaster |= D
-		D.beastmaster = C
+		D.beastmaster_owner = C
 
 /datum/action/gift/call_of_the_wyld
 	name = "Call Of The Wyld"

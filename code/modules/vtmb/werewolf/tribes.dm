@@ -298,12 +298,12 @@
 				var/mob/living/simple_animal/hostile/beastmaster/rat/ratto = new(get_turf(H))
 				ratto.my_creator = H
 				H.beastmaster |= ratto
-				ratto.beastmaster = H
+				ratto.beastmaster_owner = H
 			else
 				var/mob/living/simple_animal/hostile/beastmaster/cockroach/roach = new(get_turf(H))
 				roach.my_creator = H
 				H.beastmaster |= roach
-				roach.beastmaster = H
+				roach.beastmaster_owner = H
 
 /datum/action/gift/gift_of_the_termite
 	name = "Gift of the Termite"
