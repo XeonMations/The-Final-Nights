@@ -54,3 +54,5 @@
 //Trait for when a kindred turns on obfuscate. Supposed to make them invisible to normal sight.area
 #define TRAIT_OBFUSCATED "obfuscated"
 
+//Trait for when a vampire expends double the blood points than usual for an ability.
+#define DOUBLE_BLOOD_USAGE "double_blood_usage"
