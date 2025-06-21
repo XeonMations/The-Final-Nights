@@ -262,7 +262,7 @@
 
 /datum/action/gift/mothers_touch/Trigger(trigger_flags)
 	. = ..()
-	if(allowed_to_proceed && iscarbon(owner))
+	if(allowed_to_proceed && (iscarbon(owner) || iscrinos(owner)))
 		var/mob/living/carbon/H = owner
 		H.put_in_active_hand(new /obj/item/melee/touch_attack/mothers_touch(H))
 
