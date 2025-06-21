@@ -316,6 +316,41 @@
 	target.visible_message(span_warning("[target] collapses to the floor, thrashing in torment!"), span_userdanger("IT BURNS! IT BURNS!! IT BURNS!!!"))
 	target.emote("collapse")
 
+/datum/discipline_power/thaumaturgy/cauldron_of_blood/proc/reset_target_appearance(mob/living/target)
+	if(!target) return
+	animate(target, pixel_y = 0, color = null)
+
+/datum/action/bloodshield
+	name = "Bloodshield"
+	desc = "Gain armor with blood."
+	button_icon_state = "bloodshield"
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	vampiric = TRUE
+	COOLDOWN_DECLARE(blood_shield_cooldown)
+
+/datum/action/bloodshield/Trigger()
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!H)
+		return
+	if(!COOLDOWN_FINISHED(src, blood_shield_cooldown))
+		return
+	if(H.bloodpool < 2)
+		to_chat(owner, span_warning("You don't have enough <b>BLOOD</b> to do that!"))
+		return
+	H.bloodpool = max(H.bloodpool - 2, 0)
+	playsound(H.loc, 'code/modules/wod13/sounds/thaum.ogg', 50, FALSE)
+	COOLDOWN_START(src, blood_shield_cooldown, 25 SECONDS)
+	H.physiology.damage_resistance += 60
+	animate(H, color = "#ff0000", time = 10, loop = 1)
+	if(H.CheckEyewitness(H, H, 7, FALSE))
+		H.AdjustMasquerade(-1)
+	addtimer(CALLBACK(src, PROC_REF(finish_bloodshield), H), 15 SECONDS)
+
+/datum/action/bloodshield/proc/finish_bloodshield(mob/living/carbon/human/carbon_human)
+	playsound(carbon_human.loc, 'code/modules/wod13/sounds/thaum.ogg', 50, FALSE)
+	carbon_human.physiology.damage_resistance -= 60
+	carbon_human.color = initial(carbon_human.color)
 
 //RUNE DRAWING
 /datum/action/thaumaturgy
@@ -374,61 +409,3 @@
 					H.AdjustMasquerade(-1)
 			else
 				drawing = FALSE
-
-/datum/action/bloodshield
-	name = "Bloodshield"
-	desc = "Gain armor with blood."
-	button_icon_state = "bloodshield"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
-	vampiric = TRUE
-	var/abuse_fix = 0
-
-/datum/action/bloodshield/Trigger()
-	. = ..()
-	if((abuse_fix + 25 SECONDS) > world.time)
-		return
-	var/mob/living/carbon/human/H = owner
-	if(H.bloodpool < 2)
-		to_chat(owner, span_warning("You don't have enough <b>BLOOD</b> to do that!"))
-		return
-	H.bloodpool = max(H.bloodpool - 2, 0)
-	playsound(H.loc, 'code/modules/wod13/sounds/thaum.ogg', 50, FALSE)
-	abuse_fix = world.time
-	H.physiology.damage_resistance += 60
-	animate(H, color = "#ff0000", time = 10, loop = 1)
-	if(H.CheckEyewitness(H, H, 7, FALSE))
-		H.AdjustMasquerade(-1)
-	spawn(15 SECONDS)
-		if(H)
-			playsound(H.loc, 'code/modules/wod13/sounds/thaum.ogg', 50, FALSE)
-			H.physiology.damage_resistance -= 60
-			H.color = initial(H.color)
-
-/*
-/datum/discipline/bloodshield
-	name = "Blood shield"
-	desc = "Boosts armor."
-	icon_state = "bloodshield"
-	cost = 2
-	ranged = FALSE
-	delay = 15 SECONDS
-	activate_sound = 'code/modules/wod13/sounds/thaum.ogg'
-
-/datum/discipline/bloodshield/activate(mob/living/target, mob/living/carbon/human/owner)
-	..()
-	var/mod = level_casting
-	owner.physiology.armor.melee = owner.physiology.armor.melee+(15*mod)
-	owner.physiology.armor.bullet = owner.physiology.armor.bullet+(15*mod)
-	animate(owner, color = "#ff0000", time = 1 SECONDS, loop = 1)
-//	owner.color = "#ff0000"
-	spawn(delay+owner.discipline_time_plus)
-		if(owner)
-			playsound(owner.loc, 'code/modules/wod13/sounds/thaum.ogg', 50, FALSE)
-			owner.physiology.armor.melee = owner.physiology.armor.melee-(15*mod)
-			owner.physiology.armor.bullet = owner.physiology.armor.bullet-(15*mod)
-			owner.color = initial(owner.color)
-*/
-
-/datum/discipline_power/thaumaturgy/cauldron_of_blood/proc/reset_target_appearance(mob/living/target)
-	if(!target) return
-	animate(target, pixel_y = 0, color = null)
