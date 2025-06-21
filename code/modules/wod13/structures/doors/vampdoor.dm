@@ -254,6 +254,11 @@
 	to_chat(user, span_warning("Your key doesn't fit this lock!"))
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
+/obj/structure/vampdoor/attack_animal(mob/living/simple_animal/user, list/modifiers)
+	if(iscrinos(user))
+		break_door(user)
+	..()
+
 /obj/structure/vampdoor/proc/reset_transform()
 	pixel_z = initial(pixel_z)
 	pixel_w = initial(pixel_w)
