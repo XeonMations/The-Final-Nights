@@ -10,6 +10,6 @@
 	male_clothes = /obj/item/clothing/under/vampire/tremere
 	female_clothes = /obj/item/clothing/under/vampire/tremere/female
 
-/datum/vampire_clan/tremere/post_gain(mob/living/carbon/human/H)
+/datum/vampire_clan/tremere/on_gain(mob/living/carbon/human/H)
 	..()
 	ADD_TRAIT(H, TRAIT_DEFICIENT_VITAE, ROUNDSTART_TRAIT)

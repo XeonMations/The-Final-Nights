@@ -23,26 +23,24 @@
 		SEND_SOUND(src, sound('code/modules/wod13/sounds/bloodneed.ogg', 0, 0, 50))
 
 		var/check
-		var/frenzydicepool = 1
-		var/frenzydiff = 4
 		if(iscathayan(src))
-			check = vampireroll(max(1, mind.dharma.Hun), min(10, (mind.dharma.level*2)-max_demon_chi), src)
+			check = SSroll.storyteller_roll(dice = max(1, mind.dharma.Hun), difficulty =  min(10, (mind.dharma.level*2)-max_demon_chi), mobs_to_show_output = src)
 		else
-			check = vampireroll(max(1, round(humanity/2)), min(frenzy_chance_boost, frenzy_hardness), src)
+			check = SSroll.storyteller_roll(dice = max(1, round(humanity/2)), difficulty = min(frenzy_chance_boost, frenzy_hardness), mobs_to_show_output = src)
 
 		// Modifier for frenzy duration
 		var/length_modifier = HAS_TRAIT(src, TRAIT_LONGER_FRENZY) ? 2 : 1
 
 		switch(check)
-			if (DICE_CRIT_FAILURE)
+			if (ROLL_BOTCH)
 				enter_frenzymod()
 				addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 20 SECONDS * length_modifier)
 				frenzy_hardness = 1
-			if (DICE_FAILURE)
+			if (ROLL_FAILURE)
 				enter_frenzymod()
 				addtimer(CALLBACK(src, PROC_REF(exit_frenzymod)), 10 SECONDS * length_modifier)
 				frenzy_hardness = 1
-			if (DICE_CRIT_WIN)
+			if (ROLL_SUCCESS)
 				frenzy_hardness = max(1, frenzy_hardness - 1)
 			else
 				frenzy_hardness = min(10, frenzy_hardness + 1)
@@ -242,14 +240,6 @@
 				if(prob(5))
 					to_chat(H, "<span class='warning'>You are missing your home soil...</span>")
 					H.bloodpool = max(0, H.bloodpool-1)
-	if(H.clan?.name == CLAN_KIASYD)
-		var/datum/vampire_clan/kiasyd/kiasyd = H.clan
-		for(var/obj/item/I in H.contents)
-			if(I?.is_iron)
-				if (COOLDOWN_FINISHED(kiasyd, cold_iron_frenzy))
-					COOLDOWN_START(kiasyd, cold_iron_frenzy, 10 SECONDS)
-					H.rollfrenzy()
-					to_chat(H, "<span class='warning'>[I] is <b>COLD IRON</b>!")
 
 	if(H.key && (H.stat <= HARD_CRIT))
 		var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]

@@ -7,11 +7,13 @@
 	var/curse
 
 	/// List of Disciplines that are innate to this Clan
-	var/list/clan_disciplines
+	var/list/clan_disciplines = list()
 	/// List of Disciplines that are rejected by this Clan
-	var/list/restricted_disciplines
+	var/list/restricted_disciplines = list()
+	//Discs that you don't start with but are easier to purchase like catiff instead of non clan discs
+	var/list/common_disciplines = list()
 	/// List of traits that are applied to members of this Clan
-	var/list/clan_traits
+	var/list/clan_traits = list()
 
 	/// The Clan's unique body sprite
 	var/alt_sprite
@@ -39,7 +41,7 @@
 	/// Morality level that characters of this Clan start with
 	var/start_humanity = 7
 	/// If members of this Clan are on a Path of Enlightenment by default
-	var/enlightenment
+	var/is_enlightened
 
 	/// If this Clan needs a whitelist to select and play
 	var/whitelisted
@@ -145,7 +147,7 @@
 
 /**
  * Gives the human a vampiric Clan, applying
- * on_gain effects and post_gain effects if the
+ * on_gain effects and on_gain effects if the
  * parameter is true. Can also remove Clans
  * with or without a replacement, and apply
  * on_lose effects. Will have no effect the human

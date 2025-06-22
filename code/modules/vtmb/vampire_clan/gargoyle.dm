@@ -13,7 +13,6 @@
 	)
 	alt_sprite = "gargoyle"
 	no_facial = FALSE
-	violating_appearance = TRUE
 	male_clothes = /obj/item/clothing/under/vampire/malkavian
 	female_clothes = /obj/item/clothing/under/vampire/malkavian
 	current_accessory = "gargoyle_full"
@@ -21,10 +20,7 @@
 	accessories_layers = list("gargoyle_full" = UNICORN_LAYER, "gargoyle_left" = UNICORN_LAYER, "gargoyle_right" = UNICORN_LAYER, "gargoyle_broken" = UNICORN_LAYER, "gargoyle_round" = UNICORN_LAYER, "gargoyle_devil" = UNICORN_LAYER, "gargoyle_oni" = UNICORN_LAYER, "none" = UNICORN_LAYER)
 	whitelisted = FALSE
 
-/datum/vampire_clan/gargoyle/on_gain(mob/living/carbon/human/H)
-	. = ..()
-
-/datum/vampire_clan/gargoyle/post_gain(mob/living/carbon/human/gargoyle)
+/datum/vampire_clan/gargoyle/on_gain(mob/living/carbon/human/gargoyle)
 	..()
 	gargoyle.dna.species.GiveSpeciesFlight(gargoyle)
 
