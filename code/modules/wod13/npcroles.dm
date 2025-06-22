@@ -1323,7 +1323,7 @@
 /mob/living/carbon/human/npc/endronsecurity/Initialize()
 	. = ..()
 	if(prob(66))
-		base_body_mod = "f"
+		set_body_model(FAT_BODY_MODEL)
 	AssignSocialRole(/datum/socialrole/endronsecurity)
 
 /datum/socialrole/guard

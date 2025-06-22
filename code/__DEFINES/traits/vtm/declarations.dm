@@ -79,5 +79,3 @@
 /// If face is uncovered, they will be obviously supernatural to everyone nearby
 #define TRAIT_MASQUERADE_VIOLATING_FACE "masquerade_violating_face"
 
-/// Trait given by a vampire's Clan
-#define CLAN_TRAIT "clan"
