@@ -135,16 +135,17 @@
 	var/atom/movable/screen/robot/modPC/tabletbutton = using
 	tabletbutton.robot = robit
 
-//Alerts
+	//Alerts
 	using = new /atom/movable/screen/robot/alerts()
 	using.screen_loc = ui_borg_alerts
 	using.hud = src
 	static_inventory += using
 
-//Intent
-	action_intent = new /atom/movable/screen/act_intent/robot()
-	action_intent.icon_state = mymob.a_intent
+	//Combat Mode
+	action_intent = new /atom/movable/screen/combattoggle/flashy()
 	action_intent.hud = src
+	action_intent.icon = ui_style
+	action_intent.screen_loc = ui_combat_toggle
 	static_inventory += action_intent
 
 //Health
@@ -167,13 +168,13 @@
 	pull_icon.icon = 'icons/hud/screen_cyborg.dmi'
 	pull_icon.screen_loc = ui_borg_pull
 	pull_icon.hud = src
-	pull_icon.update_icon()
+	pull_icon.update_appearance()
 	hotkeybuttons += pull_icon
 
 
 	zone_select = new /atom/movable/screen/zone_sel/robot()
 	zone_select.hud = src
-	zone_select.update_icon()
+	zone_select.update_appearance()
 	static_inventory += zone_select
 
 
@@ -272,6 +273,7 @@
 /atom/movable/screen/robot/lamp
 	name = "headlamp"
 	icon_state = "lamp_off"
+	base_icon_state = "lamp"
 	var/mob/living/silicon/robot/robot
 
 /atom/movable/screen/robot/lamp/Click()
@@ -279,13 +281,11 @@
 	if(.)
 		return
 	robot?.toggle_headlamp()
-	update_icon()
+	update_appearance()
 
-/atom/movable/screen/robot/lamp/update_icon()
-	if(robot?.lamp_enabled)
-		icon_state = "lamp_on"
-	else
-		icon_state = "lamp_off"
+/atom/movable/screen/robot/lamp/update_icon_state()
+	icon_state = "[base_icon_state]_[robot?.lamp_enabled ? "on" : "off"]"
+	return ..()
 
 /atom/movable/screen/robot/modPC
 	name = "Modular Interface"

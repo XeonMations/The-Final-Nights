@@ -42,6 +42,7 @@
 #define span_engradio(str) ("<span class='engradio'>" + str + "</span>")
 #define span_extremelybig(str) ("<span class='extremelybig'>" + str + "</span>")
 #define span_ghostalert(str) ("<span class='ghostalert'>" + str + "</span>")
+#define span_gargoylealert(str) ("<span class = 'gargoylealert'>" + str + "</span>")
 #define span_green(str) ("<span class='green'>" + str + "</span>")
 #define span_greenannounce(str) ("<span class='greenannounce'>" + str + "</span>")
 #define span_greenteamradio(str) ("<span class='greenteamradio'>" + str + "</span>")
@@ -60,11 +61,19 @@
 #define span_infoplain(str) ("<span class='infoplain'>" + str + "</span>")
 #define span_interface(str) ("<span class='interface'>" + str + "</span>")
 #define span_linkify(str) ("<span class='linkify'>" + str + "</span>")
+#define span_userlove(str) ("<span class='userlove'>" + str + "</span>")
 #define span_looc(str) ("<span class='looc'>" + str + "</span>")
 #define span_medal(str) ("<span class='medal'>" + str + "</span>")
 #define span_medradio(str) ("<span class='medradio'>" + str + "</span>")
 #define span_memo(str) ("<span class='memo'>" + str + "</span>")
 #define span_memoedit(str) ("<span class='memoedit'>" + str + "</span>")
+#define span_mentor(str) ("<span class='mentor'>" + str + "</span>")
+#define span_mentorfrom(str) ("<span class='mentorfrom'>" + str + "</span>")
+#define span_mentorhelp(str) ("<span class='mentorhelp'>" + str + "</span>")
+#define span_mentornotice(str) ("<span class='mentornotice'>" + str + "</span>")
+#define span_mentorsay(str) ("<span class='mentorsay'>" + str + "</span>")
+#define span_mentorto(str) ("<span class='mentorto'>" + str + "</span>")
+#define span_message(str) ("<span class='message'>" + str + "</span>")
 #define span_mind_control(str) ("<span class='mind_control'>" + str + "</span>")
 #define span_minorannounce(str) ("<span class='minorannounce'>" + str + "</span>")
 #define span_monkey(str) ("<span class='monkey'>" + str + "</span>")
@@ -125,3 +134,15 @@
 // Spans that use embedded tgui components:
 // Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
+/// Adds a generic box around whatever message you're sending in chat. Really makes things stand out.
+#define boxed_message(str) ("<div class='boxed_message'>" + str + "</div>")
+/// Adds a box around whatever message you're sending in chat. Can apply color and/or additional classes. Available colors: red, green, blue, purple. Use it like red_box
+#define custom_boxed_message(classes, str) ("<div class='boxed_message " + classes + "'>" + str + "</div>")
+/// Makes a fieldset with a neaty styled name. Can apply additional classes.
+#define fieldset_block(title, content, classes) ("<fieldset class='fieldset " + classes + "'><legend class='fieldset_legend'>" + title + "</legend>" + content + "</fieldset>")
+/// Makes a horizontal line with text in the middle
+#define separator_hr(str) ("<div class='separator'>" + str + "</div>")
+/// Emboldens runechat messages
+#define RUNECHAT_BOLD(str) "+[str]+"
+/// Helper which creates a chat message which may have a tooltip in some contexts, but not others.
+#define conditional_tooltip(normal_text, tooltip_text, condition) ((condition) ? (span_tooltip(tooltip_text, normal_text)) : (normal_text))

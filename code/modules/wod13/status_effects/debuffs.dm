@@ -379,13 +379,13 @@
 /datum/status_effect/eldritch/on_apply()
 	if(owner.mob_size >= MOB_SIZE_HUMAN)
 		RegisterSignal(owner,COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_owner_underlay))
-		owner.update_icon()
+		owner.update_appearance()
 		return TRUE
 	return FALSE
 
 /datum/status_effect/eldritch/on_remove()
 	UnregisterSignal(owner,COMSIG_ATOM_UPDATE_OVERLAYS)
-	owner.update_icon()
+	owner.update_appearance()
 	return ..()
 
 /datum/status_effect/eldritch/proc/update_owner_underlay(atom/source, list/overlays)
@@ -721,8 +721,7 @@
 					owner.log_message("used [I] due to a Muscle Spasm", LOG_ATTACK)
 					I.attack_self(owner)
 			if(3)
-				var/prev_intent = owner.a_intent
-				owner.a_intent = INTENT_HARM
+				owner.set_combat_mode(TRUE)
 
 				var/range = 1
 				if(istype(owner.get_active_held_item(), /obj/item/gun)) //get targets to shoot at
@@ -736,14 +735,13 @@
 					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
 					owner.log_message(" attacked someone due to a Muscle Spasm", LOG_ATTACK) //the following attack will log itself
 					owner.ClickOn(pick(targets))
-				owner.a_intent = prev_intent
+				owner.set_combat_mode(FALSE)
 			if(4)
-				var/prev_intent = owner.a_intent
-				owner.a_intent = INTENT_HARM
+				owner.set_combat_mode(TRUE)
 				to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
 				owner.log_message("attacked [owner.p_them()]self to a Muscle Spasm", LOG_ATTACK)
 				owner.ClickOn(owner)
-				owner.a_intent = prev_intent
+				owner.set_combat_mode(FALSE)
 			if(5)
 				if(owner.incapacitated())
 					return
@@ -919,8 +917,8 @@
 
 /datum/status_effect/amok/tick()
 	. = ..()
-	var/prev_intent = owner.a_intent
-	owner.a_intent = INTENT_HARM
+	var/prev_combat_mode = owner.combat_mode
+	owner.set_combat_mode(TRUE)
 
 	var/list/mob/living/targets = list()
 	for(var/mob/living/potential_target in oview(owner, 1))
@@ -930,7 +928,7 @@
 	if(LAZYLEN(targets))
 		owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself
 		owner.ClickOn(pick(targets))
-	owner.a_intent = prev_intent
+	owner.set_combat_mode(prev_combat_mode)
 
 /datum/status_effect/cloudstruck
 	id = "cloudstruck"
@@ -948,7 +946,7 @@
 /datum/status_effect/cloudstruck/on_apply()
 	mob_overlay = mutable_appearance('icons/effects/eldritch.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
 	owner.overlays += mob_overlay
-	owner.update_icon()
+	owner.update_appearance()
 	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
 	return TRUE
 
@@ -959,7 +957,7 @@
 	REMOVE_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
 	if(owner)
 		owner.overlays -= mob_overlay
-		owner.update_icon()
+		owner.update_appearance()
 
 /datum/status_effect/cloudstruck/Destroy()
 	. = ..()
@@ -1003,5 +1001,73 @@
 	H.Immobilize(2) //So our victim doesn't just walk in the opposite direction.
 
 /datum/status_effect/awe/Destroy()
+	source = null
+	return ..()
+
+/datum/status_effect/diablerie_high //Used for powers that force a target to walk to you.
+	id = "diablerie"
+	status_type = STATUS_EFFECT_REPLACE
+	duration = 15 MINUTES
+	tick_interval = 2 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/diablerie_high
+
+/atom/movable/screen/alert/status_effect/diablerie_high
+	name = "Amaranth"
+	desc = "That felt amazing... I am zooted out of my mind."
+	icon_state = "hypnosis"
+
+/datum/movespeed_modifier/diablerie_high
+	multiplicative_slowdown = 0.15
+
+/datum/status_effect/diablerie_high/tick()
+	var/mob/living/carbon/H = owner
+	H.set_drugginess(15)
+	if(prob(4))
+		var/high_message = pick("You feel in tune with your Beast.","You feel like fistfighting Hardestadt.","Some more Vitae would wash this down nicely..","You could use some more of that nectar.","You can feel your blood pulsing.","You feel relaxed.","Your Beast craves for more.","You notice you've been moving more slowly.")
+		to_chat(H, span_notice("[high_message]"))
+
+/datum/status_effect/diablerie_high/on_apply()
+	. = ..()
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/diablerie_high)
+	if(!HAS_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN))
+		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, SPECIES_TRAIT)
+	owner.additional_dexterity -= 2
+	owner.additional_mentality -= 1
+
+/datum/status_effect/diablerie_high/on_remove()
+	. = ..()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/diablerie_high)
+	owner.additional_dexterity += 2
+	owner.additional_mentality += 1
+	if(HAS_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN))
+		REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, SPECIES_TRAIT)
+
+
+//WARRIOR VALEREN 3 - BURNING TOUCH
+/datum/status_effect/burning_touch
+	id = "burning_touch"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 6 SECONDS //Two turns
+	tick_interval = 1 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/burning_touch
+	var/mob/living/carbon/human/source
+
+/atom/movable/screen/alert/status_effect/burning_touch
+	name = "Burning Touch"
+	desc = "THE PAIN!!! IT HURTS!!!"
+	icon_state = "fire"
+
+/datum/status_effect/burning_touch/on_creation(mob/living/carbon/new_owner, mob/living/carbon/human/new_source)
+	. = ..()
+	source = new_source
+
+/datum/status_effect/burning_touch/tick()
+	var/mob/living/carbon/grabber = owner
+	if(source.pulling == grabber)
+		grabber.adjustStaminaLoss(60, forced = TRUE)
+		grabber.emote("scream")
+		grabber.apply_status_effect(STATUS_EFFECT_BURNING_TOUCH, owner)
+
+/datum/status_effect/burning_touch/Destroy()
 	source = null
 	return ..()

@@ -17,6 +17,7 @@
 	id = "kindred"
 	default_color = "FFFFFF"
 	toxic_food = MEAT | VEGETABLES | RAW | JUNKFOOD | GRAIN | FRUIT | DAIRY | FRIED | ALCOHOL | SUGAR | PINEAPPLE
+	liked_food = SANGUINE
 	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS, HAS_FLESH, HAS_BONE)
 	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_LIMBATTACHMENT, TRAIT_VIRUSIMMUNE, TRAIT_NOBLEED, TRAIT_NOHUNGER, TRAIT_NOBREATH, TRAIT_TOXIMMUNE, TRAIT_NOCRITDAMAGE)
 	use_skintones = TRUE
@@ -42,7 +43,7 @@
 	check_flags = NONE
 	var/mob/living/carbon/human/host
 
-/datum/action/vampireinfo/Trigger()
+/datum/action/vampireinfo/Trigger(trigger_flags)
 	if(host)
 		var/dat = {"
 			<style type="text/css">
@@ -94,7 +95,7 @@
 				masquerade_level = " almost ruined the Masquerade."
 			if(0)
 				masquerade_level = "'m danger to the Masquerade and my own kind."
-		dat += "Camarilla thinks I[masquerade_level]<BR>"
+		dat += "The Camarilla thinks I[masquerade_level]<BR>"
 		var/humanity = "I'm out of my mind."
 
 		if(!host.clane.is_enlightened)
@@ -129,34 +130,10 @@
 
 		dat += "[humanity]<BR>"
 
-		if(host.clane.name == "Malkavian")
-			if(GLOB.malkavianname != "")
-				if(host.real_name != GLOB.malkavianname)
-					dat += " My primogen is:  [GLOB.malkavianname].<BR>"
-		if(host.clane.name == "Nosferatu")
-			if(GLOB.nosferatuname != "")
-				if(host.real_name != GLOB.nosferatuname)
-					dat += " My primogen is:  [GLOB.nosferatuname].<BR>"
-		if(host.clane.name == "Toreador")
-			if(GLOB.toreadorname != "")
-				if(host.real_name != GLOB.toreadorname)
-					dat += " My primogen is:  [GLOB.toreadorname].<BR>"
-		if(host.clane.name == "Ventrue")
-			if(GLOB.ventruename != "")
-				if(host.real_name != GLOB.ventruename)
-					dat += " My primogen is:  [GLOB.ventruename].<BR>"
-		if(host.clane.name == "Lasombra")
-			if(GLOB.lasombraname != "")
-				if(host.real_name != GLOB.lasombraname)
-					dat += " My primogen is:  [GLOB.lasombraname].<BR>"
-		if(host.clane.name == "Banu Haqim")
-			if(GLOB.banuname != "")
-				if(host.real_name != GLOB.banuname)
-					dat += " My primogen is:  [GLOB.banuname].<BR>"
-		if(host.clane.name == "Tzimisce")
-			if(GLOB.voivodename != "")
-				if(host.real_name != GLOB.voivodename)
-					dat += " The Voivode of the Manor is:  [GLOB.voivodename].<BR>"
+		var/datum/phonecontact/clane_leader_contact = GLOB.important_contacts[host.clane.name]
+		if (!isnull(clane_leader_contact) && host.real_name != clane_leader_contact.name)
+			var/clane_leader_number = isnull(clane_leader_contact.number) ? "unknown" : clane_leader_contact.number
+			dat += " My clane leader is [clane_leader_contact.name]. Their phone number is [clane_leader_number].<BR>"
 
 		dat += "<b>Physique</b>: [host.physique] + [host.additional_physique]<BR>"
 		dat += "<b>Dexterity</b>: [host.dexterity] + [host.additional_dexterity]<BR>"
@@ -206,7 +183,7 @@
 			else
 				dat += "<b>Unfortunately you don't know the vault code.</b><BR>"
 
-		if(length(host.knowscontacts) > 0)
+		if(LAZYLEN(host.knowscontacts) > 0)
 			dat += "<b>I know some other of my kind in this city. Need to check my phone, there definetely should be:</b><BR>"
 			for(var/i in host.knowscontacts)
 				dat += "-[i] contact<BR>"
@@ -255,9 +232,13 @@
 	//vampires resist vampire bites better than mortals
 	RegisterSignal(C, COMSIG_MOB_VAMPIRE_SUCKED, PROC_REF(on_vampire_bitten))
 
+	//putting this here for now not sure if elsewhere is better?
+	RegisterSignal(C, COMSIG_ADD_VITAE, PROC_REF(add_vitae_from_item))
+
 /datum/species/kindred/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_VAMPIRE_SUCKED)
+	UnregisterSignal(C, COMSIG_ADD_VITAE)
 	for(var/datum/action/vampireinfo/VI in C.actions)
 		VI?.Remove(C)
 	for(var/datum/action/A in C.actions)
@@ -283,11 +264,11 @@
 		icon_icon = 'code/modules/wod13/UI/actions.dmi'
 	. = ..()
 
-/datum/action/blood_power/Trigger()
+/datum/action/blood_power/Trigger(trigger_flags)
 	if(iskindred(owner))
 		if(HAS_TRAIT(owner, TRAIT_TORPOR))
 			return
-		var/mob/living/carbon/human/BD = usr
+		var/mob/living/carbon/human/BD = owner
 		if(world.time < BD.last_bloodpower_use+110)
 			return
 		var/plus = 0
@@ -337,7 +318,7 @@
 	vampiric = TRUE
 	var/giving = FALSE
 
-/datum/action/give_vitae/Trigger()
+/datum/action/give_vitae/Trigger(trigger_flags)
 	if(iskindred(owner))
 		var/mob/living/carbon/human/vampire = owner
 		if(vampire.bloodpool < 2)
@@ -382,6 +363,9 @@
 						to_chat(sire, span_notice("[childe.name] doesn't respond to your Vitae."))
 						return
 					 // If they've been dead for more than 5 minutes, then nothing happens.
+					if(childe.mind.damned)
+						to_chat(sire, span_notice("[childe.name] doesn't respond to your Vitae."))
+						return
 					if((childe.timeofdeath + 5 MINUTES) > world.time)
 						if(childe.auspice?.level) //here be Abominations
 							if(childe.auspice.force_abomination)
@@ -491,17 +475,30 @@
 					var/mob/living/carbon/human/thrall = grabbed_victim
 					var/mob/living/carbon/human/regnant = vampire
 
-					if(thrall.has_status_effect(STATUS_EFFECT_INLOVE))
-						thrall.remove_status_effect(STATUS_EFFECT_INLOVE)
-					thrall.apply_status_effect(STATUS_EFFECT_INLOVE, owner)
-					to_chat(owner, "<span class='notice'>You successfuly fed [thrall] with vitae.</span>")
-					to_chat(thrall, "<span class='userlove'>You feel good when you drink this <b>BLOOD</b>...</span>")
 
-					message_admins("[ADMIN_LOOKUPFLW(regnant)] has bloodbonded [ADMIN_LOOKUPFLW(thrall)].")
-					log_game("[key_name(regnant)] has bloodbonded [key_name(thrall)].")
+					if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_UNBONDING))
+						to_chat(owner, span_warning("You successfuly fed [thrall] with vitae."))
+						to_chat(thrall, span_warning("You feel good when you drink this <b>BLOOD</b>... but you feel no connection to its source."))
+					else if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
+						to_chat(owner, span_warning("You successfuly fed [thrall] with vitae."))
+						to_chat(thrall, span_warning("You feel good when you drink this <b>BLOOD</b>... but you feel no connection to its source."))
+					else
+						thrall.apply_status_effect(STATUS_EFFECT_INLOVE, owner)
+						to_chat(owner, span_warning("You successfuly fed [thrall] with vitae."))
+						to_chat(thrall, span_warning("You feel good when you drink this <b>BLOOD</b>..."))
+
+					if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_UNBONDING))
+						message_admins("[ADMIN_LOOKUPFLW(regnant)] has attempted to bloodbond [ADMIN_LOOKUPFLW(thrall)] (UNBONDABLE/UNBONDING).")
+						log_game("[key_name(regnant)] has attempted to bloodbond [key_name(thrall)] (UNBONDABLE/UNBONDING).")
+					else if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
+						message_admins("[ADMIN_LOOKUPFLW(regnant)] has attempted to bloodbond [ADMIN_LOOKUPFLW(thrall)] (UNBONDABLE/UNBONDING).")
+						log_game("[key_name(regnant)] has attempted to bloodbond [key_name(thrall)] (UNBONDABLE/UNBONDING).")
+					else
+						message_admins("[ADMIN_LOOKUPFLW(regnant)] has bloodbonded [ADMIN_LOOKUPFLW(thrall)].")
+						log_game("[key_name(regnant)] has bloodbonded [key_name(thrall)].")
 
 					if(length(regnant.reagents?.reagent_list))
-						regnant.reagents.trans_to(thrall, min(10, regnant.reagents.total_volume), transfered_by = H, methods = VAMPIRE)
+						regnant.reagents.trans_to(thrall, min(10, regnant.reagents.total_volume), transfered_by = regnant, methods = VAMPIRE)
 					thrall.adjustBruteLoss(-25, TRUE)
 					if(length(thrall.all_wounds))
 						var/datum/wound/W = pick(thrall.all_wounds)
@@ -518,13 +515,24 @@
 					if(!isghoul(thrall) && istype(thrall, /mob/living/carbon/human/npc))
 						var/mob/living/carbon/human/npc/NPC = thrall
 						if(NPC.ghoulificate(owner))
-							new_master = TRUE
-							NPC.roundstart_vampire = FALSE
+							if(!HAS_TRAIT(regnant, TRAIT_UNBONDING))
+								new_master = TRUE
+								NPC.roundstart_vampire = FALSE
 					if(thrall.mind)
-						if(thrall.mind.enslaved_to != owner)
+						if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
+							thrall.mind.link_blood_of_creator(owner)
+							to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. You feel no loyalty, though, to the source; only the substance.</i>"))
+						else if(thrall.mind.enslaved_to != owner && !HAS_TRAIT(thrall, TRAIT_UNBONDABLE) && !HAS_TRAIT(regnant, TRAIT_UNBONDING))
 							thrall.mind.enslave_mind_to_creator(owner)
-							to_chat(thrall, "<span class='userdanger'><b>AS PRECIOUS VITAE ENTER YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [H]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b></span>")
+							thrall.mind.link_blood_of_creator(owner)
+							to_chat(thrall, span_userdanger("<b>AS PRECIOUS VITAE ENTERS YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [regnant]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b>"))
 							new_master = TRUE
+						else if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE))
+							thrall.mind.link_blood_of_creator(owner)
+							to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
+						else if(HAS_TRAIT(regnant, TRAIT_UNBONDING))
+							thrall.mind.link_blood_of_creator(owner)
+							to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
 					if(isghoul(thrall))
 						var/datum/species/ghoul/ghoul = thrall.dna.species
 						ghoul.master = owner
@@ -688,7 +696,7 @@
  * * source - The Kindred whose organ has been removed.
  * * organ - The organ which has been removed.
  */
-/datum/species/kindred/proc/lose_organ(var/mob/living/carbon/human/source, var/obj/item/organ/organ)
+/datum/species/kindred/proc/lose_organ(mob/living/carbon/human/source, obj/item/organ/organ)
 	SIGNAL_HANDLER
 
 	if (istype(organ, /obj/item/organ/heart))
@@ -696,7 +704,7 @@
 			if (!source.getorganslot(ORGAN_SLOT_HEART))
 				source.death()
 
-/datum/species/kindred/proc/slip_into_torpor(var/mob/living/carbon/human/source)
+/datum/species/kindred/proc/slip_into_torpor(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
 
 	to_chat(source, span_warning("You can feel yourself slipping into Torpor. You can use succumb to immediately sleep..."))
@@ -725,11 +733,11 @@
 	var/mob/living/carbon/human/teacher = src
 	var/datum/preferences/teacher_prefs = teacher.client.prefs
 	var/datum/species/kindred/teacher_species = teacher.dna.species
+	var/datum/preferences/student_prefs = student.client.prefs
 
 	if (!student.client)
 		to_chat(teacher, span_warning("Your student needs to be a player!"))
 		return
-	var/datum/preferences/student_prefs = student.client.prefs
 
 	if (!iskindred(student))
 		to_chat(teacher, span_warning("Your student needs to be a vampire!"))
@@ -740,9 +748,14 @@
 	if (teacher_prefs.player_experience < 100)
 		to_chat(teacher, span_warning("You don't have enough experience to teach them this Discipline!"))
 		return
-	//checks that the teacher has blood bonded the student, this is something that needs to be reworked when blood bonds are made better
-	if (student.mind.enslaved_to != teacher)
+	//checks that the teacher has given blood to the student, this is something that needs to be reworked when blood bonds are made better
+	if (student.mind.ingested_blood != teacher)
 		to_chat(teacher, span_warning("You need to have fed your student your blood to teach them Disciplines!"))
+		return
+
+	if(length(student_prefs.discipline_types) >= 5 && !SSwhitelists.is_whitelisted(student.ckey, TRUSTED_PLAYER))
+		to_chat(teacher, span_warning("Your student must be whitelisted to learn more than five disciplines!"))
+		to_chat(student, span_warning("You must be whitelisted to learn more than five disciplines!"))
 		return
 
 	var/possible_disciplines = teacher_prefs.discipline_types - student_prefs.discipline_types
@@ -856,7 +869,7 @@
 
 		//skip this if they can't access it due to whitelists
 		if (clan_checking.whitelisted)
-			if (!SSwhitelists.is_whitelisted(checked_ckey = vampire_checking.ckey, checked_whitelist = clan_checking.name))
+			if (!SSwhitelists.is_whitelisted(checked_ckey = vampire_checking.ckey, checked_whitelist = TRUSTED_PLAYER))
 				qdel(clan_checking)
 				continue
 
@@ -879,3 +892,19 @@
 
 	if(iskindred(being_bitten))
 		return COMPONENT_RESIST_VAMPIRE_KISS
+
+// Currently just used for the Organovore Quirk, might be handy for something else. Unsure where else to put it?
+
+/datum/species/kindred/proc/add_vitae_from_item(datum/source, amount_of_bloodpoints, plays_sound)
+	SIGNAL_HANDLER
+
+	var/mob/living/carbon/human/H = source
+
+	H.bloodpool = min(H.maxbloodpool, H.bloodpool+amount_of_bloodpoints)
+	H.adjustBruteLoss(-10, TRUE)
+	H.update_damage_overlays()
+	H.update_health_hud()
+	if(iskindred(H))
+		H.update_blood_hud()
+	if(plays_sound)
+		playsound(H.loc,'sound/items/drink.ogg', 50, TRUE)

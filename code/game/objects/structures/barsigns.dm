@@ -42,7 +42,8 @@
 			var/new_sign = new D
 			return set_sign(new_sign)
 
-/obj/structure/sign/barsign/obj_break(damage_flag)
+/obj/structure/sign/barsign/atom_break(damage_flag)
+	. = ..()
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		broken = TRUE
 
@@ -61,7 +62,7 @@
 /obj/structure/sign/barsign/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/structure/sign/barsign/attack_hand(mob/user)
+/obj/structure/sign/barsign/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -122,7 +123,7 @@
 
 
 /obj/structure/sign/barsign/proc/pick_sign(mob/user)
-	var/picked_name = input(user, "Available Signage", "Bar Sign", name) as null|anything in sortList(get_bar_names())
+	var/picked_name = input(user, "Available Signage", "Bar Sign", name) as null|anything in sort_list(get_bar_names())
 	if(!picked_name)
 		return
 	chosen_sign = set_sign_by_name(picked_name)

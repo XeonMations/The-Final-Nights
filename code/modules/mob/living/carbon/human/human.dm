@@ -64,7 +64,7 @@
 
 /mob/living/carbon/human/get_status_tab_items()
 	. = ..()
-	. += "Intent: [a_intent]"
+	. += "Combat Mode: [combat_mode ? "On" : "Off"]"
 	. += "Move Mode: [m_intent]"
 	if(istype(wear_suit, /obj/item/clothing/suit/space))
 		var/obj/item/clothing/suit/space/S = wear_suit
@@ -559,25 +559,29 @@
 /mob/living/carbon/human/proc/canUseHUD()
 	return (mobility_flags & MOBILITY_USE)
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, ignore_species = FALSE)
+/mob/living/carbon/human/can_inject(mob/user, target_zone, injection_flags)
 	. = TRUE // Default to returning true.
 	if(user && !target_zone)
 		target_zone = user.zone_selected
 	// we may choose to ignore species trait pierce immunity in case we still want to check skellies for thick clothing without insta failing them (wounds)
-	if(ignore_species)
+	if(injection_flags & INJECT_CHECK_IGNORE_SPECIES)
 		if(HAS_TRAIT_NOT_FROM(src, TRAIT_PIERCEIMMUNE, SPECIES_TRAIT))
 			. = FALSE
 	else if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 	var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
 	// Loop through the clothing covering this bodypart and see if there's any thiccmaterials
-	if(!penetrate_thick)
+	if(!(injection_flags & INJECT_CHECK_PENETRATE_THICK))
 		for(var/obj/item/clothing/iter_clothing in clothingonpart(the_part))
 			if(iter_clothing.clothing_flags & THICKMATERIAL)
 				. = FALSE
 				break
-	if(!. && error_msg && user)
-		// Might need re-wording.
+
+/mob/living/carbon/human/try_inject(mob/user, target_zone, injection_flags)
+	. = ..()
+	if(!. && (injection_flags & INJECT_TRY_SHOW_ERROR_MESSAGE) && user)
+		var/obj/item/bodypart/the_part = get_bodypart(target_zone) || get_bodypart(BODY_ZONE_CHEST)
+
 		to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on [p_their()] [the_part.name].</span>")
 
 /mob/living/carbon/human/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null)
@@ -715,7 +719,6 @@
 				var/mob/living/carbon/human/npc/N = target
 				if(N.last_damager != src)
 					SEND_SIGNAL(src, COMSIG_PATH_HIT, PATH_SCORE_UP)
-					call_dharma("savelife", src)
 		log_combat(src, target, "CPRed")
 
 		if (HAS_TRAIT(target, TRAIT_NOBREATH))
@@ -737,8 +740,8 @@
 #undef CPR_PANIC_SPEED
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
-	if(dna?.check_mutation(HULK))
-		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
+	if(dna?.check_mutation(HULK) || HAS_TRAIT(src, TRAIT_CUFFBREAKER))
+		say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
 		if(..(I, cuff_break = FAST_CUFFBREAK))
 			dropItemToGround(I)
 	else
@@ -975,7 +978,7 @@
 			var/name = initial(mut.name)
 			options[dna.check_mutation(mut) ? "[name] (Remove)" : "[name] (Add)"] = mut
 
-		var/result = input(usr, "Choose mutation to add/remove","Mutation Mod") as null|anything in sortList(options)
+		var/result = input(usr, "Choose mutation to add/remove","Mutation Mod") as null|anything in sort_list(options)
 		if(result)
 			if(result == "Clear")
 				dna.remove_all_mutations()
@@ -995,7 +998,7 @@
 			var/qname = initial(T.name)
 			options[has_quirk(T) ? "[qname] (Remove)" : "[qname] (Add)"] = T
 
-		var/result = input(usr, "Choose quirk to add/remove","Quirk Mod") as null|anything in sortList(options)
+		var/result = input(usr, "Choose quirk to add/remove","Quirk Mod") as null|anything in sort_list(options)
 		if(result)
 			if(result == "Clear")
 				for(var/datum/quirk/q in roundstart_quirks)
@@ -1066,7 +1069,7 @@
 	return ..()
 
 /mob/living/carbon/human/mouse_buckle_handling(mob/living/M, mob/living/user)
-	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
+	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS)
 		return FALSE
 
 	//If they dragged themselves to you and you're currently aggressively grabbing them try to piggyback
@@ -1137,49 +1140,6 @@
 		return
 
 	return buckle_mob(target, TRUE, TRUE, RIDER_NEEDS_ARMS)
-
-/mob/living/carbon/human/proc/climb_wall(turf/above_turf)
-	if(body_position != STANDING_UP)
-		return
-	if(above_turf && istype(above_turf, /turf/open/openspace))
-		var/total_dexterity = get_total_dexterity()
-		var/total_athletics = get_total_athletics()
-		to_chat(src, "<span class='notice'>You start climbing up...</span>")
-
-		var/result = do_after(src, 50 - (total_dexterity + total_athletics * 5), src)
-		if(!result || HAS_TRAIT(src, TRAIT_LEANING))
-			to_chat(src, "<span class='warning'>You were interrupted and failed to climb up.</span>")
-			return
-
-		var/initial_x = x
-		var/initial_y = y
-		var/initial_z = z
-
-		// Adjust pixel_x and pixel_y based on the direction
-		// spawn(20)
-		if(x != initial_x || y != initial_y || z != initial_z)
-			to_chat(src, "<span class='warning'>You moved and failed to climb up.</span>")
-			// Reset pixel offsets
-			return
-
-		//(< 5, slip and take damage), (5-14, fail to climb), (>= 15, climb up successfully)
-		var/roll = rand(1, 20)
-		// var/physique = physique
-		if((roll + total_dexterity + (total_athletics * 2)) >= 15)
-			loc = above_turf
-			var/turf/forward_turf = get_step(loc, dir)
-			if(forward_turf && !forward_turf.density)
-				forceMove(forward_turf)
-				to_chat(src, "<span class='notice'>You climb up successfully.</span>")
-				// Reset pixel offsets after climbing up
-		else if((roll + total_dexterity + (total_athletics * 2)) < 5)
-			ZImpactDamage(loc, 1)
-			to_chat(src, "<span class='warning'>You slip while climbing!</span>")
-			// Reset pixel offsets if failed
-		else
-			to_chat(src, "<span class='warning'>You fail to climb up.</span>")
-
-	return
 
 /mob/living/carbon/human/proc/climb_down(turf/open/openspace/target_turf)
 	if(body_position != STANDING_UP)
@@ -1261,6 +1221,39 @@
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
+
+
+/mob/living/carbon/human/verb/toggle_undies()
+	set category = "IC"
+	set name = "Toggle underwear visibility"
+	set desc = "Allows you to toggle which underwear should show or be hidden."
+
+	if(stat != CONSCIOUS)
+		to_chat(usr, span_warning("You can't toggle underwear visibility right now..."))
+		return
+
+	var/underwear_button = underwear_visibility & UNDERWEAR_HIDE_UNDIES ? "Show underwear" : "Hide underwear"
+	var/undershirt_button = underwear_visibility & UNDERWEAR_HIDE_SHIRT ? "Show shirt" : "Hide shirt"
+	var/socks_button = underwear_visibility & UNDERWEAR_HIDE_SOCKS ? "Show socks" : "Hide socks"
+	var/list/choice_list = list("[underwear_button]" = "underwear", "[undershirt_button]" = "shirt", "[socks_button]" = "socks","Show all" = "show", "Hide all" = "hide")
+	var/picked_visibility = tgui_input_list(src, "Choose visibility setting", "Show/Hide underwear", choice_list)
+	if(picked_visibility)
+		var/picked_choice = choice_list[picked_visibility]
+		switch(picked_choice)
+			if("underwear")
+				underwear_visibility ^= UNDERWEAR_HIDE_UNDIES
+			if("shirt")
+				underwear_visibility ^= UNDERWEAR_HIDE_SHIRT
+			if("socks")
+				underwear_visibility ^= UNDERWEAR_HIDE_SOCKS
+			if("show")
+				underwear_visibility = NONE
+			if("hide")
+				underwear_visibility = UNDERWEAR_HIDE_UNDIES | UNDERWEAR_HIDE_SHIRT | UNDERWEAR_HIDE_SOCKS
+		update_body()
+	return
+
+
 
 /mob/living/carbon/human/species
 	var/race = null

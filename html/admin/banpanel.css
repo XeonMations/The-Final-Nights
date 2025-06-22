@@ -19,6 +19,7 @@
     text-align: center;
     outline: none;
     display: inline-block;
+	font-weight: bold;
 }
 
 .long {
@@ -71,4 +72,65 @@
 
 .antagonistpositions {
     background-color: #6d3f40;
+}
+
+.camarilla {
+	background-color: #4e0404
+}
+
+.primogencouncil{
+	background-color: #63174a
+}
+
+.tremere {
+	background-color: #c22a2a
+}
+
+.giovanni {
+	background-image: linear-gradient(to right, #009246,white,#CE2B37);
+	color: black
+}
+
+.clantzimisce {
+	background-color: #6d2d77
+}
+
+.lawenforcement {
+	background-color: #009fd4
+}
+
+.warehouse {
+	background-color: #964B00
+}
+
+.triad {
+	background-color: #C69DD2
+}
+
+.unaligned {
+	background-color: #929292;
+}
+
+.cityservices {
+	background-color: #686868;
+}
+
+.stjohns {
+	background-color: #009fd4;
+}
+
+.church {
+	background-color: #fbff03;
+}
+
+.paintedcity {
+	background-color: #856116;
+}
+
+.amberglade {
+	background-color: #154e03;
+}
+
+.endron {
+	background-color: #24ff07;
 }

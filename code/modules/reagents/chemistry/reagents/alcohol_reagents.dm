@@ -1,7 +1,3 @@
-#define ALCOHOL_THRESHOLD_MODIFIER 1 //Greater numbers mean that less alcohol has greater intoxication potential
-#define ALCOHOL_RATE 0.005 //The rate at which alcohol affects you
-#define ALCOHOL_EXPONENT 1.6 //The exponent applied to boozepwr to make higher volume alcohol at least a little bit damaging to the liver
-
 ////////////// I don't know who made this header before I refactored alcohols but I'm going to fucking strangle them because it was so ugly, holy Christ
 // ALCOHOLS //
 //////////////
@@ -141,6 +137,23 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.Jitter(5)
 	..()
 	. = 1
+
+/datum/reagent/consumable/ethanol/beer/typhon
+	name = "Typhon's Beer"
+	description = "An alcoholic beverage brewed with a sicekningly addictive sanguine taste"
+	color = "#660000"
+	nutriment_factor = 1 * REAGENTS_METABOLISM
+	boozepwr = 50
+	taste_description = "blood sweet"
+	glass_name = "glass of sanquine beer"
+	glass_desc = "A freezing pint of vitae."
+
+/datum/reagent/consumable/ethanol/beer/typhon/on_mob_life(mob/living/carbon/M)
+	if(iskindred(M))
+		M.bloodpool = min(M.maxbloodpool, M.bloodpool + 0.25)
+	if(isghoul(M))
+		M.bloodpool = min(M.maxbloodpool, M.bloodpool + 1)
+	..()
 
 /datum/reagent/consumable/ethanol/whiskey
 	name = "Whiskey"
@@ -302,8 +315,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "wineglass"
 	glass_name = "glass of wine"
 	glass_desc = "A very classy looking drink."
-	shot_glass_icon_state = "shotglassred"
-	empty_glass_icon_state = "wine_glass"
 
 /datum/reagent/consumable/ethanol/wine/wine_glass
 	name = "red wine"

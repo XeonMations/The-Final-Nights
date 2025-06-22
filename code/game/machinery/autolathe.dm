@@ -85,7 +85,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 
-/obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
+/obj/machinery/autolathe/attackby(obj/item/O, mob/living/user, params)
 	if (busy)
 		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return TRUE
@@ -101,7 +101,7 @@
 		wires.interact(user)
 		return TRUE
 
-	if(user.a_intent == INTENT_HARM) //so we can hit the machine
+	if(user.combat_mode) //so we can hit the machine
 		return ..()
 
 	if(machine_stat)
@@ -182,7 +182,7 @@
 						if(materials.materials[i] > 0)
 							list_to_show += i
 
-					used_material = input("Choose [used_material]", "Custom Material") as null|anything in sortList(list_to_show, GLOBAL_PROC_REF(cmp_typepaths_asc))
+					used_material = input("Choose [used_material]", "Custom Material") as null|anything in sort_list(list_to_show, GLOBAL_PROC_REF(cmp_typepaths_asc))
 					if(!used_material)
 						return //Didn't pick any material, so you can't build shit either.
 					custom_materials[used_material] += amount_needed
@@ -222,7 +222,7 @@
 
 	if(is_stack)
 		var/obj/item/stack/N = new being_built.build_path(A, multiplier, FALSE)
-		N.update_icon()
+		N.update_appearance()
 		N.autolathe_crafted(src)
 	else
 		for(var/i=1, i<=multiplier, i++)
@@ -435,3 +435,7 @@
 //Has a reference to the autolathe so you can do !!FUN!! things with hacked lathes
 /obj/item/proc/autolathe_crafted(obj/machinery/autolathe/A)
 	return
+
+#undef AUTOLATHE_MAIN_MENU
+#undef AUTOLATHE_CATEGORY_MENU
+#undef AUTOLATHE_SEARCH_MENU

@@ -209,12 +209,12 @@
 	limb = new_value
 	if(. && disabling)
 		var/obj/item/bodypart/old_limb = .
-		REMOVE_TRAIT(old_limb, TRAIT_PARALYSIS, src)
-		REMOVE_TRAIT(old_limb, TRAIT_DISABLED_BY_WOUND, src)
+		REMOVE_TRAIT(old_limb, TRAIT_PARALYSIS, REF(src))
+		REMOVE_TRAIT(old_limb, TRAIT_DISABLED_BY_WOUND, REF(src))
 	if(limb)
 		if(disabling)
-			ADD_TRAIT(limb, TRAIT_PARALYSIS, src)
-			ADD_TRAIT(limb, TRAIT_DISABLED_BY_WOUND, src)
+			ADD_TRAIT(limb, TRAIT_PARALYSIS, REF(src))
+			ADD_TRAIT(limb, TRAIT_DISABLED_BY_WOUND, REF(src))
 
 
 /// Proc called to change the variable `disabling` and react to the event.
@@ -225,11 +225,11 @@
 	disabling = new_value
 	if(disabling)
 		if(!. && limb) //Gained disabling.
-			ADD_TRAIT(limb, TRAIT_PARALYSIS, src)
-			ADD_TRAIT(limb, TRAIT_DISABLED_BY_WOUND, src)
+			ADD_TRAIT(limb, TRAIT_PARALYSIS, REF(src))
+			ADD_TRAIT(limb, TRAIT_DISABLED_BY_WOUND, REF(src))
 	else if(. && limb) //Lost disabling.
-		REMOVE_TRAIT(limb, TRAIT_PARALYSIS, src)
-		REMOVE_TRAIT(limb, TRAIT_DISABLED_BY_WOUND, src)
+		REMOVE_TRAIT(limb, TRAIT_PARALYSIS, REF(src))
+		REMOVE_TRAIT(limb, TRAIT_DISABLED_BY_WOUND, REF(src))
 	if(limb?.can_be_disabled)
 		limb.update_disabled()
 
@@ -258,8 +258,13 @@
  */
 /datum/wound/proc/try_treating(obj/item/I, mob/user)
 	// first we weed out if we're not dealing with our wound's bodypart, or if it might be an attack
-	if(QDELETED(I) || limb.body_zone != user.zone_selected || (I.force && user.a_intent != INTENT_HELP))
+	if(!I || limb.body_zone != user.zone_selected)
 		return FALSE
+
+	if(isliving(user))
+		var/mob/living/tendee = user
+		if(I.force && tendee.combat_mode)
+			return FALSE
 
 	var/allowed = FALSE
 
@@ -291,7 +296,7 @@
 	// & such may need to use bone gel but may be wearing a space suit for..... whatever reason a skeleton would wear a space suit for
 	if(ishuman(victim))
 		var/mob/living/carbon/human/victim_human = victim
-		if(!victim_human.can_inject(user, TRUE, ignore_species = TRUE))
+		if(!victim_human.try_inject(user, injection_flags = INJECT_CHECK_IGNORE_SPECIES | INJECT_TRY_SHOW_ERROR_MESSAGE))
 			return TRUE
 
 	// lastly, treat them

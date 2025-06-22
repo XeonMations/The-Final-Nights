@@ -34,7 +34,7 @@
 		if(C!=src && Adjacent(C))
 			choices += C
 
-	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|sortNames(choices)
+	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|sort_names(choices)
 	if(!M)
 		return FALSE
 	if(CanFeedon(M))
@@ -204,7 +204,7 @@
 					SEND_SIGNAL(M, COMSIG_NANITE_SYNC, original_nanites, TRUE, TRUE) //The trues are to copy activation as well
 
 			var/mob/living/simple_animal/slime/new_slime = pick(babies)
-			new_slime.a_intent = INTENT_HARM
+			new_slime.set_combat_mode(TRUE)
 			if(src.mind)
 				src.mind.transfer_to(new_slime)
 			else

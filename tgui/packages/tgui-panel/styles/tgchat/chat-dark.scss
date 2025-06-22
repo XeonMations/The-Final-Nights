@@ -303,6 +303,40 @@ em {
   font-weight: bold;
 }
 
+mentor {
+  color: #24a340;
+  font-weight: bold;
+}
+.mentornotice {
+  color: #66f56d;
+}
+.mentorfrom {
+  color: #d34bd8;
+}
+.mentorto {
+  color: #4bd84b;
+}
+.mentorhelp {
+  color: #8f66ff;
+}
+.mentorsay {
+  color: #e236d8;
+}
+.mentorhelp_conclusion {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid #8f66ff;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
+
+.name {
+  font-weight: bold;
+}
+
 .say,
 .emote,
 .infoplain,
@@ -989,7 +1023,7 @@ em {
   max-width: 95%;
   font-size: 120%;
   padding: 0.2em 0.5em;
-  background: hsl(0, 0%, 8.2%); // Chat background color
+  background: #151515; // Chat background color
   border: 1px solid;
   border-color: inherit;
   border-radius: 0.33em;
@@ -1004,7 +1038,7 @@ em {
     left: 0;
     height: 1.15em;
     width: 100%;
-    background: hsl(0, 0%, 8.2%); // Chat background color
+    background: #151515; // Chat background color
     transform: translateY(-50%) scaleX(1.05);
     z-index: -1;
   }

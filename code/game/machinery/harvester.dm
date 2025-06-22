@@ -29,6 +29,7 @@
 	interval = max(max_time,1)
 
 /obj/machinery/harvester/update_icon_state()
+	. = ..()
 	if(state_open)
 		icon_state = initial(icon_state)+"-open"
 	else if(warming_up)
@@ -45,13 +46,17 @@
 	warming_up = FALSE
 	harvesting = FALSE
 
-/obj/machinery/harvester/attack_hand(mob/user)
+/obj/machinery/harvester/attack_hand(mob/user, list/modifiers)
+	. = ..()
 	if(state_open)
 		close_machine()
 	else if(!harvesting)
 		open_machine()
 
 /obj/machinery/harvester/AltClick(mob/user)
+	. = ..()
+	if(!can_interact(user))
+		return
 	if(harvesting || !user || !isliving(user) || state_open)
 		return
 	if(can_harvest())

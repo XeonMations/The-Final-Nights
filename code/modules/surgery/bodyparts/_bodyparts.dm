@@ -95,6 +95,9 @@
 	/// If something is currently grasping this bodypart and trying to staunch bleeding (see [/obj/item/hand_item/self_grasp])
 	var/obj/item/hand_item/self_grasp/grasped_by
 
+	/// The noun to use when referring to this arm's appendage, e.g. "hand" or "paw"
+	var/appendage_noun = "hand"
+
 
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
@@ -763,7 +766,7 @@
 			species_color = ""
 
 		if(!dropping_limb && H.dna.check_mutation(HULK))
-			mutation_color = "00aa00"
+			mutation_color = "#00aa00"
 		else
 			mutation_color = ""
 
@@ -857,9 +860,9 @@
 	if(should_draw_greyscale)
 		var/draw_color = mutation_color || species_color || (skin_tone && skintone2hex(skin_tone))
 		if(draw_color)
-			limb.color = "#[draw_color]"
+			limb.color = draw_color
 			if(aux_zone)
-				aux.color = "#[draw_color]"
+				aux.color = draw_color
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	drop_organs()

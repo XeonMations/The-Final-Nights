@@ -72,7 +72,7 @@
 	if(is_locked() || key_locked)
 		if(uses_pincode_lock)
 			ui_interact()
-		if(door_user.a_intent != INTENT_HARM)
+		if(!(door_user.combat_mode))
 			to_chat(user, "<span class='warning'>[src] is locked!</span>")
 		return
 
@@ -209,11 +209,11 @@
 		else
 			to_chat(usr, "<span class='notice'>Access Denied.</span>")
 		. = TRUE
-	update_icon()
+	update_appearance()
 
 
 /proc/find_door_pin(door_type)
-    for(var/obj/structure/vaultdoor/vdoor in world)
-        if(istype(vdoor, door_type))
-            return vdoor
-    return null
+	for(var/obj/structure/vaultdoor/vdoor in world)
+		if(istype(vdoor, door_type))
+			return vdoor
+	return null

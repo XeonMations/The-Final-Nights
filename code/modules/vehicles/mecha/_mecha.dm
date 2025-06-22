@@ -10,7 +10,7 @@
  * AI also has special checks becaus it gets in and out of the mech differently
  * Always call remove_occupant(mob) when leaving the mech so the mob is removed properly
  *
- * For multi-crew, you need to set how the occupants recieve ability bitflags corresponding to their status on the vehicle(i.e: driver, gunner etc)
+ * For multi-crew, you need to set how the occupants receive ability bitflags corresponding to their status on the vehicle(i.e: driver, gunner etc)
  * Abilities can then be set to only apply for certain bitflags and are assigned as such automatically
  *
  * Clicks are wither translated into mech_melee_attack (see mech_melee_attack.dm)
@@ -180,7 +180,7 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
-	update_icon()
+	update_appearance()
 
 /obj/vehicle/sealed/mecha/Destroy()
 	for(var/M in occupants)
@@ -206,13 +206,24 @@
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
+/obj/vehicle/sealed/mecha/atom_destruction()
+	for(var/mob/living/occupant as anything in occupants)
+		if(isAI(occupant))
+			occupant.gib() //No wreck, no AI to recover
+			continue
+		mob_exit(occupant, FALSE, TRUE)
+		occupant.SetSleeping(destruction_sleep_duration)
+	return ..()
+
 /obj/vehicle/sealed/mecha/update_icon_state()
 	if((mecha_flags & SILICON_PILOT) && silicon_icon_state)
 		icon_state = silicon_icon_state
-	else if(LAZYLEN(occupants))
+		return ..()
+	if(LAZYLEN(occupants))
 		icon_state = base_icon_state
-	else
-		icon_state = "[base_icon_state]-open"
+		return ..()
+	icon_state = "[base_icon_state]-open"
+	return ..()
 
 
 /obj/vehicle/sealed/mecha/get_cell()
@@ -297,7 +308,7 @@
 
 /obj/vehicle/sealed/mecha/examine(mob/user)
 	. = ..()
-	var/integrity = obj_integrity*100/max_integrity
+	var/integrity = atom_integrity*100/max_integrity
 	switch(integrity)
 		if(85 to 100)
 			. += "It's fully intact."
@@ -362,7 +373,7 @@
 					else
 						occupant.throw_alert("charge", /atom/movable/screen/alert/emptycell)
 
-			var/integrity = obj_integrity/max_integrity*100
+			var/integrity = atom_integrity/max_integrity*100
 			switch(integrity)
 				if(30 to 45)
 					occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 1)
@@ -371,20 +382,7 @@
 				if(-INFINITY to 15)
 					occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 3)
 				else
-					occupant.clear_alert("mech damage")
-			var/atom/checking = occupant.loc
-			// recursive check to handle all cases regarding very nested occupants,
-			// such as brainmob inside brainitem inside MMI inside mecha
-			while(!isnull(checking))
-				if(isturf(checking))
-					// hit a turf before hitting the mecha, seems like they have been moved out
-					occupant.clear_alert("charge")
-					occupant.clear_alert("mech damage")
-					occupant = null
-					break
-				else if (checking == src)
-					break  // all good
-				checking = checking.loc
+					occupant.throw_alert("charge", /atom/movable/screen/alert/emptycell)
 
 	if(mecha_flags & LIGHTS_ON)
 		var/lights_energy_drain = 2
@@ -422,16 +420,18 @@
 ///// Action processing ////
 ////////////////////////////
 
-/obj/vehicle/sealed/mecha/proc/on_mouseclick(mob/user, atom/target, params)
+///Called when a driver clicks somewhere. Handles everything like equipment, punches, etc.
+/obj/vehicle/sealed/mecha/proc/on_mouseclick(mob/user, atom/target, list/modifiers)
 	SIGNAL_HANDLER
-	if(!locate(/turf) in list(target,target.loc)) // Prevents inventory from being drilled
+	if(modifiers[SHIFT_CLICK]) //Allows things to be examined.
+		return
+	if(!isturf(target) && !isturf(target.loc)) // Prevents inventory from being drilled
 		return
 	if(completely_disabled)
 		return
 	if(is_currently_ejecting)
 		return
-	var/list/mouse_control = params2list(params)
-	if(isAI(user) == !mouse_control["middle"])//BASICALLY if a human uses MMB, or an AI doesn't, then do nothing.
+	if(isAI(user) == !LAZYACCESS(modifiers, MIDDLE_CLICK))//BASICALLY if a human uses MMB, or an AI doesn't, then do nothing.
 		return
 	if(phasing)
 		to_chat(occupants, "[icon2html(src, occupants)]<span class='warning'>Unable to interact with objects while phasing.</span>")
@@ -458,13 +458,17 @@
 			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
-			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
+			if(SEND_SIGNAL(src, COMSIG_MECHA_EQUIPMENT_CLICK, L, target) & COMPONENT_CANCEL_EQUIPMENT_CLICK)
+				return
+			INVOKE_ASYNC(selected, /obj/item/mecha_parts/mecha_equipment.proc/action, user, target, modifiers)
 			return
 		if((selected.range & MECHA_MELEE) && Adjacent(target))
 			if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
 				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
-			INVOKE_ASYNC(selected, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action), user, target, params)
+			if(SEND_SIGNAL(src, COMSIG_MECHA_EQUIPMENT_CLICK, L, target) & COMPONENT_CANCEL_EQUIPMENT_CLICK)
+				return
+			INVOKE_ASYNC(selected, /obj/item/mecha_parts/mecha_equipment.proc/action, user, target, modifiers)
 			return
 	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_MECHA_MELEE_ATTACK) || !istype(target, /atom) || !Adjacent(target))
 		return
@@ -633,7 +637,7 @@
 	if(!islist(possible_int_damage) || !length(possible_int_damage))
 		return
 	if(prob(20))
-		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
+		if(ignore_threshold || atom_integrity*100/max_integrity < internal_damage_threshold)
 			for(var/T in possible_int_damage)
 				if(internal_damage & T)
 					possible_int_damage -= T
@@ -642,7 +646,7 @@
 				if(int_dam_flag)
 					setInternalDamage(int_dam_flag)
 	if(prob(5))
-		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
+		if(ignore_threshold || atom_integrity*100/max_integrity < internal_damage_threshold)
 			if(LAZYLEN(equipment))
 				var/obj/item/mecha_parts/mecha_equipment/ME = pick(equipment)
 				qdel(ME)
@@ -714,7 +718,7 @@
 				to_chat(user, "<span class='warning'>No AI detected in the [name] onboard computer.</span>")
 				return
 			if(ai_pilots.len > 1) //Input box for multiple AIs, but if there's only one we'll default to them.
-				AI = input(user,"Which AI do you wish to card?", "AI Selection") as null|anything in sortList(ai_pilots)
+				AI = input(user,"Which AI do you wish to card?", "AI Selection") as null|anything in sort_list(ai_pilots)
 			else
 				AI = ai_pilots[1]
 			if(!AI)
@@ -785,7 +789,7 @@
 	LAZYSET(occupants, pilot_mob, NONE)
 	pilot_mob.mecha = src
 	pilot_mob.forceMove(src)
-	update_icon()
+	update_appearance()
 
 ///Handles an actual AI (simple_animal mecha pilot) exiting the mech
 /obj/vehicle/sealed/mecha/proc/aimob_exit_mech(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
@@ -793,7 +797,7 @@
 	if(pilot_mob.mecha == src)
 		pilot_mob.mecha = null
 	pilot_mob.forceMove(get_turf(src))
-	update_icon()
+	update_appearance()
 
 
 /////////////////////////////////////
@@ -829,8 +833,8 @@
 	visible_message("<span class='notice'>[M] starts to climb into [name].</span>")
 
 	if(do_after(M, enter_delay, target = src))
-		if(obj_integrity <= 0)
-			to_chat(M, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
+		if(atom_integrity <= 0)
+			to_chat(M, span_warning("You cannot get in the [name], it has been destroyed!"))
 		else if(LAZYLEN(occupants) >= max_occupants)
 			to_chat(M, "<span class='danger'>[occupants[occupants.len]] was faster! Try better next time, loser.</span>")//get the last one that hopped in
 		else if(M.buckled)
@@ -974,7 +978,7 @@
 				L.reset_perspective()
 				remove_occupant(L)
 			mmi.set_mecha(null)
-			mmi.update_icon()
+			mmi.update_appearance()
 		setDir(dir_in)
 	return ..()
 
@@ -985,7 +989,7 @@
 	RegisterSignal(M, COMSIG_MOB_MIDDLECLICKON, PROC_REF(on_middlemouseclick)) //For AIs
 	RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(display_speech_bubble))
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/vehicle/sealed/mecha/remove_occupant(mob/M)
 	UnregisterSignal(M, COMSIG_LIVING_DEATH)
@@ -999,7 +1003,7 @@
 		M.client.view_size.resetToDefault()
 		zoom_mode = 0
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /////////////////////////
 ////// Access stuff /////

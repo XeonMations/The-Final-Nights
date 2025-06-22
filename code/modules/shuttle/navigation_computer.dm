@@ -58,7 +58,7 @@
 	else
 		QDEL_NULL(my_port)
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user)
+/obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user, list/modifiers)
 	if(jammed)
 		to_chat(user, "<span class='warning'>The Syndicate is jamming the console!</span>")
 		return
@@ -379,7 +379,7 @@
 			L["([L.len]) [nav_beacon.name] locked"] = null
 
 	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
-	var/selected = input("Choose location to jump to", "Locations", null) as null|anything in sortList(L)
+	var/selected = input("Choose location to jump to", "Locations", null) as null|anything in sort_list(L)
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
 	playsound(src, "terminal_type", 25, FALSE)

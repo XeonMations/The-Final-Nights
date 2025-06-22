@@ -10,7 +10,7 @@
 	C.icon = 'code/modules/wod13/UI/buttons_wide.dmi'
 	H.static_inventory += C
 	CL.screen += C
-	RegisterSignal(C, COMSIG_CLICK, PROC_REF(component_ui_interact))
+	RegisterSignal(C, COMSIG_SCREEN_ELEMENT_CLICK, PROC_REF(component_ui_interact))
 
 /datum/component/personal_crafting
 	var/busy
@@ -348,7 +348,7 @@
 	return GLOB.not_incapacitated_turf_state
 
 //For the UI related things we're going to assume the user is a mob rather than typesetting it to an atom as the UI isn't generated if the parent is an atom
-/datum/component/personal_crafting/ui_interact(mob/user, datum/tgui/ui, var/open_ui = TRUE)
+/datum/component/personal_crafting/ui_interact(mob/user, datum/tgui/ui, open_ui = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui && open_ui)
 		cur_category = categories[1]

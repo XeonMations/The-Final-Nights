@@ -27,6 +27,18 @@
 /datum/crafting_recipe/proc/check_requirements(mob/user, list/collected_requirements)
 	return TRUE
 
+
+///WORLD OF DARKNESS RECIPES!!
+
+///Recipe for Typhon's Brew
+/datum/crafting_recipe/typhon_brew
+	name = "Thyphon's Brew"
+	reqs = list(/obj/item/reagent_containers/food/drinks/beer/vampire = 1, /obj/item/reagent_containers/blood/vitae = 1)
+	result = /obj/item/reagent_containers/food/drinks/beer/vampire/typhon
+	time = 1 SECONDS
+	category = CAT_DRUGS
+	always_available = FALSE
+
 /*
 
 /datum/crafting_recipe/improv_explosive
@@ -144,8 +156,8 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/datum/crafting_recipe/reciever
-	name = "Modular Rifle Reciever"
+/datum/crafting_recipe/receiver
+	name = "Modular Rifle Receiver"
 	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_SAW)
 	result = /obj/item/weaponcrafting/receiver
 	reqs = list(/obj/item/stack/sheet/metal = 5,

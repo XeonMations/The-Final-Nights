@@ -30,7 +30,7 @@
 	var/time_between_uses = 1800
 	var/last_process = 0
 
-/obj/structure/healingfountain/attack_hand(mob/living/user)
+/obj/structure/healingfountain/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -45,6 +45,7 @@
 
 
 /obj/structure/healingfountain/update_icon_state()
+	. = ..()
 	if(last_process + time_between_uses > world.time)
 		icon_state = "fountain"
 	else

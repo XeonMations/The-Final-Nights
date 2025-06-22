@@ -7,13 +7,81 @@
 
 /datum/discipline/vicissitude/post_gain()
 	. = ..()
-	owner.faction |= "Tzimisce"
+	owner.faction |= CLAN_TZIMISCE
 
 /datum/discipline_power/vicissitude
 	name = "Vicissitude power name"
 	desc = "Vicissitude power description"
 
 	activate_sound = 'code/modules/wod13/sounds/vicissitude.ogg'
+
+/obj/item/organ/cyberimp/arm/surgery/vicissitude
+	icon_state = "toolkit_implant_vic"
+	contents = newlist(/obj/item/retractor/augment/vicissitude, /obj/item/hemostat/augment/vicissitude, /obj/item/cautery/augment/vicissitude, /obj/item/surgicaldrill/augment/vicissitude, /obj/item/scalpel/augment/vicissitude, /obj/item/circular_saw/augment/vicissitude, /obj/item/surgical_drapes/vicissitude)
+
+/obj/item/retractor/augment/vicissitude
+	name = "retracting appendage"
+	desc = "A pair of prehensile pincers."
+	icon_state = "retractor_vic"
+	inhand_icon_state = "clamps_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/hemostat/augment/vicissitude
+	name = "hemostatic pincers"
+	desc = "A pair of thin appendages that were once fingers, secreting a hemostatic fluid from the tips."
+	icon_state = "hemostat_vic"
+	inhand_icon_state = "clamps_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/cautery/augment/vicissitude
+	name = "chemical cautery"
+	desc = "A specialized organ drooling a chemical package that releases an extreme amount of heat, very quickly."
+	icon_state = "cautery_vic"
+	inhand_icon_state = "cautery_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/surgicaldrill/augment/vicissitude
+	name = "surgical fang"
+	desc = "A spiral fang that bores into the flesh with reckless glee."
+	icon_state = "drill_vic"
+	hitsound = 'sound/effects/wounds/blood2.ogg'
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/scalpel/augment/vicissitude
+	name = "scalpel claw"
+	desc = "An altered nail, adjusted to make fine incisions."
+	icon_state = "scalpel_vic"
+	inhand_icon_state = "scalpel_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/circular_saw/augment/vicissitude
+	name = "circular jaw"
+	desc = "A spinning disc of teeth, screaming, as it bites through the flesh."
+	icon_state = "saw_vic"
+	inhand_icon_state = "saw_vic"
+	hitsound = 'sound/effects/wounds/blood2.ogg'
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
+
+/obj/item/surgical_drapes/vicissitude
+	name = "skin drape"
+	desc = "A stretch of skin, sweating out antibiotics and disinfectants, to provide a sterile-ish environment to work in."
+	icon_state = "surgical_drapes_vic"
+	inhand_icon_state = "drapes_vic"
+	lefthand_file = 'code/modules/wod13/righthand.dmi'
+	righthand_file = 'code/modules/wod13/lefthand.dmi'
+	masquerade_violating = TRUE
 
 //MALLEABLE VISAGE
 /datum/discipline_power/vicissitude/malleable_visage
@@ -212,7 +280,7 @@
 
 /datum/discipline_power/vicissitude/fleshcrafting/post_gain()
 	. = ..()
-	var/obj/item/organ/cyberimp/arm/surgery/surgery_implant = new()
+	var/obj/item/organ/cyberimp/arm/surgery/vicissitude/surgery_implant = new()
 	surgery_implant.Insert(owner)
 
 	if (!owner.mind)
@@ -222,6 +290,8 @@
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_floor)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_eyes)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_implant)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_venom)
+	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_stun)
 
 	// owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzi_floor_living) (Commented out because crafting it resulted in the crafting icon in tgui to go infinitely and stop the crafting menu from working)
 
@@ -273,6 +343,8 @@
 	. = ..()
 	var/datum/action/basic_vicissitude/vicissitude_upgrade = new()
 	vicissitude_upgrade.Grant(owner)
+	var/obj/item/organ/cyberimp/arm/tzimisce/armblade = new()
+	armblade.Insert(owner)
 
 	if (!owner.mind)
 		return
@@ -286,6 +358,7 @@
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzijelly)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/tzicreature)
 	owner.mind.teach_crafting_recipe(/datum/crafting_recipe/cattzi)
+
 /datum/action/basic_vicissitude
 	name = "Vicissitude Upgrade"
 	desc = "Upgrade your body..."
@@ -298,7 +371,7 @@
 	var/original_hairstyle
 	var/original_body_mod
 
-/datum/action/basic_vicissitude/Trigger()
+/datum/action/basic_vicissitude/Trigger(trigger_flags)
 	. = ..()
 	if (selected_upgrade)
 		remove_upgrade()
@@ -343,11 +416,12 @@
 			user.change_number_of_hands(limbs + 2)
 			user.remove_overlay(PROTEAN_LAYER)
 			upgrade_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "2hands", -PROTEAN_LAYER)
-			upgrade_overlay.color = "#[skintone2hex(user.skin_tone)]"
+			upgrade_overlay.color = skintone2hex(user.skin_tone)
 			user.overlays_standing[PROTEAN_LAYER] = upgrade_overlay
 			user.apply_overlay(PROTEAN_LAYER)
 		if ("Leather wings")
 			user.dna.species.GiveSpeciesFlight(user)
+			user.add_movespeed_modifier(/datum/movespeed_modifier/leatherwings)
 
 	user.do_jitter_animation(10)
 	playsound(get_turf(user), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
@@ -374,16 +448,134 @@
 			user.remove_movespeed_modifier(/datum/movespeed_modifier/centipede)
 		if ("Second pair of arms")
 			var/limbs = user.held_items.len
+			user.active_hand_index = 1
 			user.change_number_of_hands(limbs - 2)
 			user.remove_overlay(PROTEAN_LAYER)
 			QDEL_NULL(upgrade_overlay)
 		if ("Leather wings")
 			user.dna.species.RemoveSpeciesFlight(user)
+			user.remove_movespeed_modifier(/datum/movespeed_modifier/leatherwings)
 
 	user.do_jitter_animation(10)
 	playsound(get_turf(user), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
 
 	selected_upgrade = null
+
+/datum/action/advanced_vicissitude
+	name = "Advanced Vicissitude Upgrade"
+	desc = "Upgrade your body further..."
+	button_icon_state = "basic"
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	vampiric = TRUE
+	var/mutable_appearance/upgrade_overlay
+	var/selected_advanced_upgrade
+	var/advanced_original_skin_tone //Shouldn't be necessary most of the time, but in case someone combines the changes for the two armours.
+	var/advanced_original_hairstyle
+	var/advanced_original_body_mod
+
+/datum/action/advanced_vicissitude/Trigger(trigger_flags)
+	. = ..()
+	if (selected_advanced_upgrade)
+		remove_advanced_upgrade()
+	else
+		give_advanced_upgrade()
+
+	owner.update_body()
+
+/datum/action/advanced_vicissitude/proc/give_advanced_upgrade()
+	var/mob/living/carbon/human/user = owner
+	var/advancedupgrade = input(owner, "Choose basic upgrade:", "Advanced Vicissitude Upgrades") as null|anything in list("Bone armour", "Centipede legs", "Second pair of arms", "Membrane wings")
+	if(!advancedupgrade)
+		return
+	to_chat(user, span_notice("You begin molding your flesh and bone into a stronger form..."))
+	if (!do_after(user, 10 SECONDS))
+		return
+	if(selected_advanced_upgrade)
+		return
+	selected_advanced_upgrade = advancedupgrade
+	switch (advancedupgrade)
+		if ("Bone armour")
+			ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+			user.unique_body_sprite = "tziarmor"
+			advanced_original_skin_tone = user.skin_tone
+			user.skin_tone = "albino"
+			advanced_original_hairstyle = user.hairstyle
+			user.hairstyle = "Bald"
+			advanced_original_body_mod = user.base_body_mod
+			user.base_body_mod = ""
+			user.physiology.armor.melee += 60
+			user.physiology.armor.bullet += 60
+		if ("Centipede legs")
+			ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+			user.remove_overlay(PROTEAN_LAYER)
+			upgrade_overlay = mutable_appearance('code/modules/wod13/64x64.dmi', "centipede", -PROTEAN_LAYER)
+			upgrade_overlay.pixel_z = -16
+			upgrade_overlay.pixel_w = -16
+			user.overlays_standing[PROTEAN_LAYER] = upgrade_overlay
+			user.apply_overlay(PROTEAN_LAYER)
+			user.add_movespeed_modifier(/datum/movespeed_modifier/centipede)
+		if ("Second pair of arms")
+			ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+			var/limbs = user.held_items.len
+			user.change_number_of_hands(limbs + 2)
+			user.remove_overlay(PROTEAN_LAYER)
+			upgrade_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "2hands", -PROTEAN_LAYER)
+			upgrade_overlay.color = "#[skintone2hex(user.skin_tone)]"
+			user.overlays_standing[PROTEAN_LAYER] = upgrade_overlay
+			user.apply_overlay(PROTEAN_LAYER)
+		if ("Membrane wings")
+			ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+			user.dna.species.GiveSpeciesFlight(user)
+			user.add_movespeed_modifier(/datum/movespeed_modifier/membranewings)
+/*		if ("Cuttlefish skin")
+			var/datum/action/active_camo/camo= new()
+			camo.Grant(owner)*/
+
+	user.do_jitter_animation(10)
+	playsound(get_turf(user), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
+
+/datum/action/advanced_vicissitude/proc/remove_advanced_upgrade()
+	var/mob/living/carbon/human/user = owner
+	if (!selected_advanced_upgrade)
+		return
+	to_chat(user, span_notice("You begin surgically removing your enhancements..."))
+	if (!do_after(user, 10 SECONDS))
+		return
+	switch (selected_advanced_upgrade)
+		if ("Bone armour")
+			REMOVE_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+			user.unique_body_sprite = null
+			user.skin_tone = advanced_original_skin_tone
+			user.hairstyle = advanced_original_hairstyle
+			user.base_body_mod = advanced_original_body_mod
+			user.physiology.armor.melee -= 60
+			user.physiology.armor.bullet -= 60
+		if ("Centipede legs")
+			REMOVE_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+			user.remove_overlay(PROTEAN_LAYER)
+			QDEL_NULL(upgrade_overlay)
+			user.remove_movespeed_modifier(/datum/movespeed_modifier/centipede)
+		if ("Second pair of arms")
+			REMOVE_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+			var/limbs = user.held_items.len
+			user.change_number_of_hands(limbs - 2)
+			user.remove_overlay(PROTEAN_LAYER)
+			QDEL_NULL(upgrade_overlay)
+		if ("Membrane wings")
+			REMOVE_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
+			user.dna.species.RemoveSpeciesFlight(user)
+			user.remove_movespeed_modifier(/datum/movespeed_modifier/membranewings)
+/*		if ("Cuttlefish skin")
+			for(var/datum/action/active_camo/camo in owner.actions)
+				camo.Remove(owner)
+			if(owner.alpha == 30)
+				animate(owner, alpha = 255, time = 1.5 SECONDS)*/
+
+
+	user.do_jitter_animation(10)
+	playsound(get_turf(user), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
+
+	selected_advanced_upgrade = null
 
 //HORRID FORM
 /datum/discipline_power/vicissitude/horrid_form
@@ -435,6 +627,7 @@
 
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/bloodcrawler/bloodform_shapeshift
 
+
 /datum/discipline_power/vicissitude/bloodform/activate()
 	. = ..()
 	if (!bloodform_shapeshift)
@@ -449,3 +642,27 @@
 	bloodform_shapeshift.Restore(bloodform_shapeshift.myshape)
 	owner.Stun(1.5 SECONDS)
 	owner.do_jitter_animation(30)
+
+/datum/discipline_power/vicissitude/bloodform/post_gain()
+	. = ..()
+	for(var/datum/action/basic_vicissitude/vicissitude_upgrade in owner.actions)
+		vicissitude_upgrade.Remove(owner)
+
+	var/datum/action/advanced_vicissitude/vicissitude_upgrade_advanced = new()
+	vicissitude_upgrade_advanced.Grant(owner)
+
+// REWORK ABILITIES AND VERBS
+/*
+/datum/action/active_camo
+	name = "Active Camo"
+	var/stealth_alpha = 30
+	button_icon_state = "basic"
+
+/datum/action/active_camo/Trigger(trigger_flags)
+	var/mob/living/carbon/human/user = owner
+	if(owner.alpha == stealth_alpha)
+		animate(owner, alpha = 255, time = 1.5 SECONDS)
+		to_chat(user, span_notice("You disable your chromatophores and reappear!"))
+	else
+		animate(owner, alpha = stealth_alpha, time = 1.5 SECONDS)
+		to_chat(user, span_notice("You activate your chromatophores and disappear!"))*/

@@ -15,7 +15,7 @@
 
 /obj/item/cardboard_cutout/Initialize()
 	. = ..()
-	possible_appearances = sortList(list(
+	possible_appearances = sort_list(list(
 		"Assistant" = image(icon = src.icon, icon_state = "cutout_greytide"),
 		"Clown" = image(icon = src.icon, icon_state = "cutout_clown"),
 		"Mime" = image(icon = src.icon, icon_state = "cutout_mime"),
@@ -38,8 +38,8 @@
 	))
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/cardboard_cutout/attack_hand(mob/living/user)
-	if(user.a_intent == INTENT_HELP || pushed_over)
+/obj/item/cardboard_cutout/attack_hand(mob/living/user, list/modifiers)
+	if(!user.combat_mode || pushed_over)
 		return ..()
 	user.visible_message("<span class='warning'>[user] pushes over [src]!</span>", "<span class='danger'>You push over [src]!</span>")
 	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)

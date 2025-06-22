@@ -463,6 +463,9 @@ ROUNDSTART_RACES ethereal
 ## Uncomment to give players the choice of joining as a human with mutant bodyparts before they join the game
 #JOIN_WITH_MUTANT_HUMANS
 
+## The amount of loadout items players are allowed to spawn with. Default 10
+MAX_LOADOUT_ITEMS 10
+
 ##Overflow job. Default is assistant
 OVERFLOW_JOB Citizen
 
@@ -563,3 +566,7 @@ RATCAP 64
 
 ## Maximum fine for a citation
 MAXFINE 2000
+
+## Comment if you wish to enable title music playing at the lobby screen. This flag is disabled by default to facilitate better code testing on local machines.
+## Do keep in mind that this flag will not affect individual player's preferences: if they opt-out on your server, it will never play for them.
+DISALLOW_TITLE_MUSIC

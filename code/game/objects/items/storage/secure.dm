@@ -169,6 +169,8 @@
 	anchored = TRUE
 	density = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe, 32)
+
 /obj/item/storage/secure/safe/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
@@ -179,7 +181,7 @@
 	new /obj/item/paper(src)
 	new /obj/item/pen(src)
 
-/obj/item/storage/secure/safe/attack_hand(mob/user)
+/obj/item/storage/secure/safe/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return

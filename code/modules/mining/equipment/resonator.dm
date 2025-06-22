@@ -42,9 +42,9 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 
 /obj/item/resonator/pre_attack(atom/target, mob/user, params)
-	if(check_allowed_items(target, 1))
+	if(check_allowed_items(target, not_inside = TRUE))
 		CreateResonance(target, user)
-	. = ..()
+	return ..()
 
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance
@@ -65,7 +65,7 @@
 	if(mode == RESONATOR_MODE_MATRIX)
 		icon_state = "shield2"
 		name = "resonance matrix"
-		RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(burst))
+		RegisterSignals(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(burst))
 	. = ..()
 	creator = set_creator
 	res = set_resonator

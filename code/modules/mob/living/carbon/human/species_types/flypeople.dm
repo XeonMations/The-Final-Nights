@@ -28,10 +28,19 @@
 		return TRUE
 	..()
 
-/datum/species/fly/check_species_weakness(obj/item/weapon, mob/living/attacker)
-	if(istype(weapon, /obj/item/melee/flyswatter))
-		return 30 //Flyswatters deal 30x damage to flypeople.
-	return 1
+/datum/species/fly/on_species_gain(mob/living/carbon/human/human_who_gained_species, datum/species/old_species, pref_load)
+	. = ..()
+	RegisterSignal(human_who_gained_species, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
+
+/datum/species/fly/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
+
+/datum/species/fly/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharpness, attack_direction, obj/item/attacking_item)
+	SIGNAL_HANDLER
+
+	if(istype(attacking_item, /obj/item/melee/flyswatter))
+		damage_mods += 30 // Yes, a 30x damage modifier
 
 /obj/item/organ/heart/fly
 	desc = "You have no idea what the hell this is, or how it manages to keep something alive in any capacity."
@@ -42,6 +51,7 @@
 	icon_state = pick("brain-x-d", "liver-x", "kidneys-x", "stomach-x", "lungs-x", "random_fly_1", "random_fly_2", "random_fly_3", "random_fly_4", "random_fly_5")
 
 /obj/item/organ/heart/fly/update_icon_state()
+	SHOULD_CALL_PARENT(FALSE)
 	return //don't set icon thank you
 
 /obj/item/organ/lungs/fly
@@ -87,8 +97,8 @@
 	name = odd_organ_name()
 	icon_state = pick("brain-x-d", "liver-x", "kidneys-x", "stomach-x", "lungs-x", "random_fly_1", "random_fly_2", "random_fly_3", "random_fly_4", "random_fly_5")
 
-/obj/item/organ/appendix/fly/update_icon()
-	return //don't set name or icon thank you
+/obj/item/organ/appendix/fly/update_appearance(updates=ALL)
+	return ..(updates & ~(UPDATE_NAME|UPDATE_ICON)) //don't set name or icon thank you
 
 //useless organs we throw in just to fuck with surgeons a bit more
 /obj/item/organ/fly
@@ -101,13 +111,3 @@
 
 /obj/item/organ/fly/groin //appendix is the only groin organ so we gotta have one of these too lol
 	zone = BODY_ZONE_PRECISE_GROIN
-
-/*
-/obj/item/organ/penis
-	name = "penis"
-	desc = "Fallic object of flesh."
-	icon = 'code/modules/wod13/onfloor.dmi'
-	onflooricon = 'code/modules/wod13/onfloor.dmi'
-	icon_state = "penis"
-	zone = BODY_ZONE_PRECISE_GROIN
-*/

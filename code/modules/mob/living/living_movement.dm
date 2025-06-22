@@ -17,6 +17,8 @@
 
 /mob/living/toggle_move_intent()
 	. = ..()
+	if(blocking)
+		m_intent = MOVE_INTENT_WALK
 	update_move_intent_slowdown()
 
 /mob/living/update_config_movespeed()
@@ -58,3 +60,9 @@
 	if(stat > SOFT_CRIT)
 		return
 	return ..()
+
+/mob/living/proc/get_standard_pixel_x_offset(lying = 0)
+	return initial(pixel_x)
+
+/mob/living/proc/get_standard_pixel_y_offset(lying = 0)
+	return initial(pixel_y)

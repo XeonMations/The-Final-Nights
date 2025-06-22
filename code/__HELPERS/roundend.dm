@@ -218,11 +218,12 @@
 		speed_round = TRUE
 
 	for(var/client/C in GLOB.clients)
-		if(!C.credits)
-			C.RollCredits()
-		C.playtitlemusic(40)
+		if(!C?.credits)
+			C?.RollCredits()
+		if(COOLDOWN_FINISHED(GLOB, web_sound_cooldown))
+			C?.playtitlemusic(50)
 		if(speed_round)
-			C.give_award(/datum/award/achievement/misc/speed_round, C.mob)
+			C?.give_award(/datum/award/achievement/misc/speed_round, C?.mob)
 		HandleRandomHardcoreScore(C)
 
 	var/popcount = gather_roundend_feedback()
@@ -441,7 +442,7 @@
 	GLOB.survivor_report = survivor_report(popcount)
 	log_roundend_report()
 	for(var/client/C in GLOB.clients)
-		show_roundend_report(C)
+		//show_roundend_report(C)
 		give_show_report_button(C)
 		CHECK_TICK
 
@@ -609,7 +610,7 @@
 	name = "Show roundend report"
 	button_icon_state = "round_end"
 
-/datum/action/report/Trigger()
+/datum/action/report/Trigger(trigger_flags)
 	if(owner && GLOB.common_report && SSticker.current_state == GAME_STATE_FINISHED)
 		SSticker.show_roundend_report(owner.client)
 

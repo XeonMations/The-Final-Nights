@@ -47,7 +47,7 @@
 				if(HS.my_creator)
 					SEND_SIGNAL(HS.my_creator, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 0)
 			else
-				if(ishuman(last_attacker))
+				if(ishuman(last_attacker) && !isnpc(last_attacker))
 					var/mob/living/carbon/human/HM = last_attacker
 					SEND_SIGNAL(HM, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 0)
 
@@ -91,7 +91,7 @@
 					if(route_optimisation())
 						forceMove(get_turf(walktarget))
 
-/mob/living/carbon/human/npc/proc/CreateWay(var/direction)
+/mob/living/carbon/human/npc/proc/CreateWay(direction)
 	var/turf/location = get_turf(src)
 	for(var/distance = 1 to 50)
 		location = get_step(location, direction)
@@ -109,6 +109,8 @@
 /mob/living/carbon/human/npc/proc/ChoosePath()
 	if(!old_movement)
 		var/list/possible_list = list()
+		if(length(GLOB.npc_activities) <= 0)
+			return
 		for(var/obj/effect/landmark/npcactivity/N in GLOB.npc_activities)
 			if(get_dist(src, N) < 64)
 				var/turf/T = get_step(N, turn(get_dir(src, N), 180))
@@ -225,7 +227,7 @@
 		face_atom(walktarget)
 	if(isturf(loc))
 		if(danger_source)
-			a_intent = INTENT_HARM
+			set_combat_mode(TRUE)
 			if(m_intent == MOVE_INTENT_WALK)
 				toggle_move_intent(src)
 			if(!has_weapon && !fights_anyway)
@@ -259,7 +261,7 @@
 						else
 							has_weapon = FALSE
 					walktarget = ChoosePath()
-					a_intent = INTENT_HELP
+					set_combat_mode(FALSE)
 
 			if(last_danger_meet+300 <= world.time)
 				danger_source = null
@@ -269,7 +271,7 @@
 					else
 						has_weapon = FALSE
 				walktarget = ChoosePath()
-				a_intent = INTENT_HELP
+				set_combat_mode(FALSE)
 		else if(less_danger)
 			var/reqsteps = round((SShumannpcpool.next_fire-world.time)/total_multiplicative_slowdown())
 			set_glide_size(DELAY_TO_GLIDE_SIZE(total_multiplicative_slowdown()))

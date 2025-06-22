@@ -18,16 +18,17 @@
 	screen_loc = "NORTH,WEST"
 
 /atom/movable/screen/buildmode/mode/Click(location, control, params)
-	var/list/pa = params2list(params)
-
-	if(pa.Find("left"))
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, LEFT_CLICK))
 		bd.toggle_modeswitch()
-	else if(pa.Find("right"))
+	else if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		bd.mode.change_settings(usr.client)
+		
 	update_icon()
 	return 1
 
 /atom/movable/screen/buildmode/mode/update_icon_state()
+	. = ..()
 	icon_state = bd.mode.get_button_iconstate()
 
 /atom/movable/screen/buildmode/help
@@ -45,6 +46,7 @@
 	name = "Change Dir"
 
 /atom/movable/screen/buildmode/bdir/update_icon_state()
+	. = ..()
 	dir = bd.build_dir
 
 /atom/movable/screen/buildmode/bdir/Click()

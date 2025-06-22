@@ -3,6 +3,7 @@
 	desc = "A PDA painting machine. To use, simply insert your PDA and choose the desired preset paint scheme."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pdapainter"
+	base_icon_state = "pdapainter"
 	density = TRUE
 	max_integrity = 200
 	var/obj/item/pda/storedpda = null
@@ -10,13 +11,10 @@
 
 /obj/machinery/pdapainter/update_icon_state()
 	if(machine_stat & BROKEN)
-		icon_state = "[initial(icon_state)]-broken"
-		return
-
-	if(powered())
-		icon_state = initial(icon_state)
-	else
-		icon_state = "[initial(icon_state)]-off"
+		icon_state = "[base_icon_state]-broken"
+		return ..()
+	icon_state = "[base_icon_state][powered() ? null : "-off"]"
+	return ..()
 
 /obj/machinery/pdapainter/update_overlays()
 	. = ..()
@@ -62,11 +60,11 @@
 /obj/machinery/pdapainter/handle_atom_del(atom/A)
 	if(A == storedpda)
 		storedpda = null
-		update_icon()
+		update_appearance()
 
-/obj/machinery/pdapainter/attackby(obj/item/O, mob/user, params)
+/obj/machinery/pdapainter/attackby(obj/item/O, mob/living/user, params)
 	if(machine_stat & BROKEN)
-		if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
+		if(O.tool_behaviour == TOOL_WELDER && !user.combat_mode)
 			if(!O.tool_start_check(user, amount=0))
 				return
 			user.visible_message("<span class='notice'>[user] is repairing [src].</span>", \
@@ -77,12 +75,10 @@
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				set_machine_stat(machine_stat & ~BROKEN)
-				obj_integrity = max_integrity
-				update_icon()
-
-		else
-			return ..()
-
+				atom_integrity = max_integrity
+				update_appearance(UPDATE_ICON)
+			return
+		return ..()
 	else if(default_unfasten_wrench(user, O))
 		power_change()
 		return
@@ -95,15 +91,15 @@
 			return
 		storedpda = O
 		O.add_fingerprint(user)
-		update_icon()
+		update_appearance()
 
 	else
 		return ..()
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
-	obj_break()
+	atom_break()
 
-/obj/machinery/pdapainter/attack_hand(mob/user)
+/obj/machinery/pdapainter/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -114,7 +110,7 @@
 			to_chat(user, "<span class='info'>You manage to eject the loaded PDA.</span>")
 		else
 			var/obj/item/pda/P
-			P = input(user, "Select your color!", "PDA Painting") as null|anything in sortNames(colorlist)
+			P = input(user, "Select your color!", "PDA Painting") as null|anything in sort_names(colorlist)
 			if(!P)
 				return
 			if(!in_range(src, user))
@@ -140,6 +136,6 @@
 	if(storedpda)
 		storedpda.forceMove(drop_location())
 		storedpda = null
-		update_icon()
+		update_appearance()
 	else
 		to_chat(usr, "<span class='warning'>[src] is empty!</span>")

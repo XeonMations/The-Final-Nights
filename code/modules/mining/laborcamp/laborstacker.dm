@@ -28,7 +28,7 @@ GLOBAL_LIST(labor_sheet_values)
 			if(!initial(sheet.point_value) || (initial(sheet.merge_type) && initial(sheet.merge_type) != sheet_type)) //ignore no-value sheets and x/fifty subtypes
 				continue
 			sheet_list += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
-		GLOB.labor_sheet_values = sortList(sheet_list, GLOBAL_PROC_REF(cmp_sheet_list))
+		GLOB.labor_sheet_values = sort_list(sheet_list, GLOBAL_PROC_REF(cmp_sheet_list))
 
 /proc/cmp_sheet_list(list/a, list/b)
 	return a["value"] - b["value"]
@@ -135,7 +135,7 @@ GLOBAL_LIST(labor_sheet_values)
 	..()
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I) && user.a_intent == INTENT_HELP)
+	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I) && !user.combat_mode)
 		var/obj/item/stack/sheet/inp = I
 		points += inp.point_value * inp.amount
 	return ..()
@@ -149,7 +149,7 @@ GLOBAL_LIST(labor_sheet_values)
 	icon_state = "console"
 	density = FALSE
 
-/obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
+/obj/machinery/mineral/labor_points_checker/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(. || user.is_blind())
 		return

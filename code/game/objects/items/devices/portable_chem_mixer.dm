@@ -75,6 +75,7 @@
 	return
 
 /obj/item/storage/portable_chem_mixer/update_icon_state()
+	. = ..()
 	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
 	if (!locked)
 		icon_state = "portablechemicalmixer_open"
@@ -111,7 +112,7 @@
 		beaker = new_beaker
 	return TRUE
 
-/obj/item/storage/portable_chem_mixer/attack_hand(mob/user)
+/obj/item/storage/portable_chem_mixer/attack_hand(mob/user, list/modifiers)
 	if (loc != user)
 		return ..()
 	if(SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))

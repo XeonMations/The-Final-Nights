@@ -7,7 +7,7 @@
 
 /datum/discipline/thaumaturgy/post_gain()
 	. = ..()
-	owner.faction |= "Tremere"
+	owner.faction |= CLAN_TREMERE
 	if(level >= 1)
 		var/datum/action/thaumaturgy/thaumaturgy = new()
 		thaumaturgy.Grant(owner)
@@ -52,7 +52,7 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	damage = 5
 	damage_type = BURN
-	hitsound = 'code/modules/wod13/sounds/drinkblood1.ogg'
+	//hitsound = 'code/modules/wod13/sounds/bloodbeam.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	flag = LASER
 	light_system = MOVABLE_LIGHT
@@ -67,106 +67,39 @@
 	var/level = 1
 
 /obj/projectile/thaumaturgy/on_hit(atom/target, blocked = FALSE, pierce_hit)
-	if(!ishuman(firer))
-		return
-	var/mob/living/carbon/human/caster = firer
-	if(!isliving(target))
-		return
-	var/mob/living/target_l = target
-
-	if(target_l.stat == DEAD)
-		return
-
-	if(!ishuman(target_l)) //Is this mob a human?
-		if(iswerewolf(target_l))
-			src.on_hit_werewolf(target_l,caster)
-		else
-			src.on_hit_other(target_l,caster)
-	else
-		var/mob/living/carbon/human/target_h = target
-		if(iscathayan(target_h))
-			src.on_hit_cathayan(target_h,caster)
-		else if(iskindred(target_h))
-			src.on_hit_kindred(target_h,caster)
-		else if(isgarou(target_h))
-			src.on_hit_garou(target_h,caster)
-		else
-			src.on_hit_human(target_h,caster)
-
-
-
-
-/obj/projectile/thaumaturgy/proc/on_hit_other(mob/living/target,mob/living/carbon/human/caster)
-	var/sucked = min(target.bloodpool, level)
-	if(target.bloodpool >= 1)
-		target.bloodpool = max(target.bloodpool - sucked, 0)
-		caster.bloodpool = min(caster.bloodpool + sucked, caster.maxbloodpool)
-		target.visible_message(span_danger("[target]'s wounds spill out, returning to [caster]!"), span_userdanger("Your blood sprays out towards [caster]!"))
-	else
-		target.visible_message(span_danger("[target]'s wounds run dry!"), span_userdanger("Your empty veins cry out!"))
-		target.apply_damage((damage/2), BRUTE)
-
-/obj/projectile/thaumaturgy/proc/on_hit_werewolf(mob/living/carbon/target,mob/living/carbon/human/caster)
-	var/sucked = min(target.bloodpool, level)
-	if(target.bloodpool >= 1)
-		target.bloodpool = max(target.bloodpool - sucked, 0)
-		target.apply_damage(45, BURN)
-		target.visible_message(span_danger("[target]'s wounds spray boiling hot blood!"), span_userdanger("Your blood boils!"))
-		target.add_splatter_floor(get_turf(target))
-		target.add_splatter_floor(get_turf(get_step(target, target.dir)))
-	else
-		target.visible_message(span_danger("[target]'s wounds run dry!"), span_userdanger("Your empty veins cry out!"))
-		target.apply_damage((damage/2), BRUTE)
-
-/obj/projectile/thaumaturgy/proc/on_hit_garou(mob/living/carbon/human/target,mob/living/carbon/human/caster)
-	if(target.bloodpool >= 1)
-		target.blood_volume = max(target.blood_volume-35, 100)
-		target.bloodpool = max(target.bloodpool - 1, 0)
-		target.visible_message(span_danger("[target]'s wounds spray boiling hot blood!"), span_userdanger("Your blood boils!"))
-		target.apply_damage(45, BURN)
-		target.add_splatter_floor(get_turf(target))
-		target.add_splatter_floor(get_turf(get_step(target, target.dir)))
-	else
-		target.blood_volume = 100
-		target.visible_message(span_danger("[target]'s wounds run dry!"), span_userdanger("Your empty veins cry out!"))
-		target.apply_damage((damage/2), BRUTE)
-
-/obj/projectile/thaumaturgy/proc/on_hit_human(mob/living/carbon/human/target,mob/living/carbon/human/caster)
-	if(target.bloodpool >= 1)
-		target.blood_volume = max(target.blood_volume-35, 100)
-		target.bloodpool = max(target.bloodpool - 1, 0)
-		target.visible_message(span_danger("[target]'s wounds spill out, blood flowing to [caster]!"), span_userdanger("Your blood sprays out towards [caster]!"))
-		caster.bloodpool = min(caster.bloodpool + max(1, target.bloodquality-1), caster.maxbloodpool)
-	else
-		target.blood_volume = 100
-		target.visible_message(span_danger("[target]'s wounds run dry!"), span_userdanger("Your empty veins cry out!"))
-		target.apply_damage((damage/2), BRUTE)
-
-/obj/projectile/thaumaturgy/proc/on_hit_kindred(mob/living/carbon/human/target,mob/living/carbon/human/caster)
-	var/sucked = min(target.bloodpool, level)
-	if(target.bloodpool >= 0)
-		target.bloodpool = max(target.bloodpool - sucked, 0)
-		caster.bloodpool = min(caster.bloodpool + sucked, caster.maxbloodpool)
-		target.visible_message(span_danger("[target]'s wounds spill out, returning to [caster]!"), span_userdanger("Your blood sprays out towards [caster]!"))
-	else
-		target.visible_message(span_danger("[target]'s wounds run dry!"), span_userdanger("Your empty veins cry out!"))
-		target.apply_damage((damage/2), BRUTE)
-
-/obj/projectile/thaumaturgy/proc/on_hit_cathayan(mob/living/carbon/human/target,mob/living/carbon/human/caster)
-	var/sucked = min(target.bloodpool, level)
-	if(target.bloodpool >= 0)
-		target.bloodpool = max(target.bloodpool - sucked, 0)
-		caster.bloodpool = min(caster.bloodpool + sucked, caster.maxbloodpool)
-		target.visible_message(span_danger("[target]'s wounds spill out, returning to [caster]!"), span_userdanger("Your blood sprays out towards [caster]!"))
-	else
-		target.visible_message(span_danger("[target]'s wounds run dry!"), span_userdanger("Your empty veins cry out!"))
-		target.apply_damage((damage/2), BRUTE)
+	if(ishuman(firer))
+		var/mob/living/carbon/human/VH = firer
+		if(isliving(target))
+			var/mob/living/VL = target
+			if(isgarou(VL))
+				if(VL.bloodpool >= 1 && VL.stat != DEAD)
+					var/sucked = min(VL.bloodpool, 2)
+					VL.bloodpool = max(VL.bloodpool - sucked, 0)
+					VL.apply_damage(45, BURN)
+					VL.visible_message(span_danger("[target]'s wounds spray boiling hot blood!"), span_userdanger("Your blood boils!"))
+					VL.add_splatter_floor(get_turf(target))
+					VL.add_splatter_floor(get_turf(get_step(target, target.dir)))
+				if(!iskindred(target))
+					if(VL.bloodpool >= 1 && VL.stat != DEAD)
+						var/sucked = min(VL.bloodpool, 2)
+						VL.bloodpool = max(VL.bloodpool - sucked, 0)
+					if(ishuman(VL))
+						if(VL.bloodpool >= 1 && VL.stat != DEAD)
+							var/mob/living/carbon/human/VHL = VL
+							VHL.bloodpool = max(VHL.bloodpool - 1, 0)
+			else
+				if(VL.bloodpool >= 1)
+					var/sucked = min(VL.bloodpool, level)
+					VL.bloodpool = max(VL.bloodpool - sucked, 0)
+					VH.bloodpool = min(VH.bloodpool + sucked, VH.maxbloodpool)
 
 /datum/discipline_power/thaumaturgy/a_taste_for_blood
 	name = "A Taste for Blood"
 	desc = "Touch the blood of a subject and gain information about their bloodline."
 
 	level = 1
+
+	cooldown_length = 3 SECONDS
 
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/blood_rage,
@@ -190,6 +123,8 @@
 
 	level = 2
 
+	cooldown_length = 2.5 SECONDS
+
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
 		/datum/discipline_power/thaumaturgy/blood_of_potency,
@@ -202,10 +137,13 @@
 	var/turf/start = get_turf(owner)
 	var/obj/projectile/thaumaturgy/H = new(start)
 	H.firer = owner
-	H.damage = 10 + owner.thaum_damage_plus
+	H.damage = 10 + owner.thaum_damage_plus + owner.get_total_mentality()
 	H.preparePixelProjectile(target, start)
 	H.level = 2
 	H.fire(direct_target = target)
+	H.cruelty_multiplier = 1.1
+	to_chat(target, span_danger("A bolt of boiling blood flies toward you!"))
+
 
 //BLOOD OF POTENCY
 /datum/discipline_power/thaumaturgy/blood_of_potency
@@ -213,6 +151,8 @@
 	desc = "Supernaturally thicken your vitae as if you were of a lower Generation."
 
 	level = 3
+
+	cooldown_length = 1 SECONDS
 
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
@@ -226,10 +166,13 @@
 	var/turf/start = get_turf(owner)
 	var/obj/projectile/thaumaturgy/H = new(start)
 	H.firer = owner
-	H.damage = 15 + owner.thaum_damage_plus
+	H.damage = 15 + owner.thaum_damage_plus + owner.get_total_mentality()
 	H.preparePixelProjectile(target, start)
 	H.level = 2
 	H.fire(direct_target = target)
+	H.cruelty_multiplier = 1.1
+	to_chat(target, span_danger("A bolt of boiling blood flies toward you!"))
+
 
 //THEFT OF VITAE
 /mob/living/proc/tremere_gib()
@@ -268,10 +211,12 @@
 /datum/discipline_power/thaumaturgy/theft_of_vitae/activate(mob/living/target)
 	. = ..()
 	if(iscarbon(target))
-		target.Stun(2.5 SECONDS)
-		target.visible_message(span_danger("[target] throws up!"), "<span class='userdanger'>You throw up!</span>")
+		target.visible_message(span_danger("[target] throws up!"), span_userdanger("You throw up!"))
 		target.add_splatter_floor(get_turf(target))
 		target.add_splatter_floor(get_turf(get_step(target, target.dir)))
+		if(target.bloodpool >= 2)
+			target.bloodpool -= 2
+			owner.bloodpool = min(owner.bloodpool + 3, owner.maxbloodpool) // costs 1 bp to cast so this nets 2 bps
 	else
 		owner.bloodpool = min(owner.bloodpool + target.bloodpool, owner.maxbloodpool)
 		if(!istype(target, /mob/living/simple_animal/hostile/megafauna))
@@ -282,9 +227,25 @@
 	name = "Cauldron of Blood"
 	desc = "Boil your target's blood in their body, killing almost anyone."
 
+	cooldown_length = 15.0 SECONDS
 	level = 5
 
-	effect_sound = 'code/modules/wod13/sounds/vomit.ogg'
+	//effect_sound = 'code/modules/wod13/sounds/bloodcauldron.ogg'
+
+	grouped_powers = list(
+		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
+		/datum/discipline_power/thaumaturgy/blood_rage,
+		/datum/discipline_power/thaumaturgy/blood_of_potency,
+		/datum/discipline_power/thaumaturgy/theft_of_vitae
+	)
+
+/datum/discipline_power/thaumaturgy/cauldron_of_blood
+	name = "Cauldron of Blood"
+	desc = "Boil your target's blood in their body, killing almost anyone."
+
+	level = 5
+
+	//effect_sound = 'code/modules/wod13/sounds/bloodcauldron.ogg'
 
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
@@ -296,16 +257,67 @@
 /datum/discipline_power/thaumaturgy/cauldron_of_blood/activate(mob/living/target)
 	. = ..()
 	if(iscarbon(target))
-		target.Stun(2.5 SECONDS)
-		target.visible_message(span_danger("[target] throws up!"), "<span class='userdanger'>You throw up!</span>")
-		target.add_splatter_floor(get_turf(target))
-		target.add_splatter_floor(get_turf(get_step(target, target.dir)))
+		new /obj/effect/temp_visual/tremere(target.loc, "gib")
+
+		target.visible_message(span_danger("[target] reddens and quakes!"), span_userdanger("Your veins feel like they're on fire!"))
+
+		var/dice = clamp(target.get_total_physique(), 1, 8)
+		var/successes = SSroll.storyteller_roll(dice, difficulty = 5, mobs_to_show_output = target, numerical = TRUE)
+
+		if(successes <= 1)
+			// All stages (fail completely)
+			animate(target, pixel_y = 16, color = "#ff0000", time = 5 SECONDS, loop = 1)
+			addtimer(CALLBACK(src, /datum/discipline_power/thaumaturgy/cauldron_of_blood/proc/reset_target_appearance, target), 5 SECONDS)
+			addtimer(CALLBACK(src, .proc/blood_burn_stage1, target), 0)
+			addtimer(CALLBACK(src, .proc/blood_burn_stage2, target), 2.5 SECONDS)
+			addtimer(CALLBACK(src, .proc/blood_burn_stage3, target), 5 SECONDS)
+
+		else if(successes == 2)
+			// Stages 1 & 2
+			animate(target, pixel_y = 16, color = "#ff0000", time = 2.5 SECONDS, loop = 1)
+			addtimer(CALLBACK(src, /datum/discipline_power/thaumaturgy/cauldron_of_blood/proc/reset_target_appearance, target), 2.5 SECONDS)
+			addtimer(CALLBACK(src, .proc/blood_burn_stage1, target), 0)
+			addtimer(CALLBACK(src, .proc/blood_burn_stage2, target), 2.5 SECONDS)
+
+		else if(successes == 3)
+			animate(target, pixel_y = 16, color = "#ff0000", time = 1 SECONDS, loop = 1)
+			addtimer(CALLBACK(src, /datum/discipline_power/thaumaturgy/cauldron_of_blood/proc/reset_target_appearance, target), 1 SECONDS)
+			// Stage 1 only
+			addtimer(CALLBACK(src, .proc/blood_burn_stage1, target), 0)
+
+		else
+			// Resisted completely
+			to_chat(target, span_notice("You steel yourself as the blood begins to churn—but your will holds firm."))
+
 	else
 		owner.bloodpool = min(owner.bloodpool + target.bloodpool, owner.maxbloodpool)
 		if(!istype(target, /mob/living/simple_animal/hostile/megafauna))
 			target.tremere_gib()
 
-//MISCELLANEOUS BULLSHIT
+/datum/discipline_power/thaumaturgy/cauldron_of_blood/proc/blood_burn_stage1(mob/living/target)
+	if(!target) return
+	target.Stun(2.5 SECONDS)
+	target.apply_damage(20, BURN, owner.zone_selected)
+	target.emote("twitch")
+	target.visible_message(span_warning("[target] begins to violently shake!"), span_userdanger("You feel yourself trembling uncontrollably!"))
+	playsound(target, 'code/modules/wod13/sounds/thaum.ogg', 50, FALSE)
+
+/datum/discipline_power/thaumaturgy/cauldron_of_blood/proc/blood_burn_stage2(mob/living/target)
+	if(!target) return
+	target.apply_damage(20, BURN, owner.zone_selected)
+	target.emote("scream")
+	target.emote("twitch")
+	target.visible_message(span_warning("[target] howls in agony, their whole body convulsing!"), span_userdanger("You scream in anguish as your blood boils!"))
+
+/datum/discipline_power/thaumaturgy/cauldron_of_blood/proc/blood_burn_stage3(mob/living/target)
+	if(!target) return
+	target.Stun(2.5 SECONDS)
+	target.apply_damage(30, BURN, owner.zone_selected)
+	target.visible_message(span_warning("[target] collapses to the floor, thrashing in torment!"), span_userdanger("IT BURNS! IT BURNS!! IT BURNS!!!"))
+	target.emote("collapse")
+
+
+//RUNE DRAWING
 /datum/action/thaumaturgy
 	name = "Thaumaturgy"
 	desc = "Blood magic rune drawing."
@@ -315,7 +327,7 @@
 	var/drawing = FALSE
 	var/level = 1
 
-/datum/action/thaumaturgy/Trigger()
+/datum/action/thaumaturgy/Trigger(trigger_flags)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	if(H.bloodpool < 2)
@@ -325,18 +337,19 @@
 		return
 
 	if(istype(H.get_active_held_item(), /obj/item/arcane_tome))
-		var/list/shit = list()
+		var/list/rune_names = list()
 		for(var/i in subtypesof(/obj/ritualrune))
 			var/obj/ritualrune/R = new i(owner)
 			if(R.thaumlevel <= level)
-				shit += i
+				rune_names[R.name] = i
 			qdel(R)
-		var/ritual = input(owner, "Choose rune to draw:", "Thaumaturgy") as null|anything in shit
+		var/ritual = tgui_input_list(owner, "Choose rune to draw:", "Thaumaturgy", rune_names)
 		if(ritual)
 			drawing = TRUE
-			if(do_after(H, 3 SECONDS * max(1, 5 - H.mentality), H))
+			if(do_after(H, 3 SECONDS * max(1, 5 - H.get_total_mentality()), H))
 				drawing = FALSE
-				new ritual(H.loc)
+				var/ritual_type = rune_names[ritual]
+				new ritual_type(H.loc)
 				H.bloodpool = max(H.bloodpool - 2, 0)
 				if(H.CheckEyewitness(H, H, 7, FALSE))
 					H.AdjustMasquerade(-1)
@@ -349,10 +362,10 @@
 			if(R.thaumlevel <= level)
 				shit += i
 			qdel(R)
-		var/ritual = input(owner, "Choose rune to draw (You need an Arcane Tome to reduce random):", "Thaumaturgy") as null|anything in list("???")
+		var/ritual = tgui_input_list(owner, "Choose rune to draw (You need an Arcane Tome to reduce random):", "Thaumaturgy", list("???"))
 		if(ritual)
 			drawing = TRUE
-			if(do_after(H, 3 SECONDS * max(1, 5 - H.mentality), H))
+			if(do_after(H, 3 SECONDS * max(1, 5 - H.get_total_mentality()), H))
 				drawing = FALSE
 				var/rune = pick(shit)
 				new rune(H.loc)
@@ -370,7 +383,7 @@
 	vampiric = TRUE
 	var/abuse_fix = 0
 
-/datum/action/bloodshield/Trigger()
+/datum/action/bloodshield/Trigger(trigger_flags)
 	. = ..()
 	if((abuse_fix + 25 SECONDS) > world.time)
 		return
@@ -415,3 +428,7 @@
 			owner.physiology.armor.bullet = owner.physiology.armor.bullet-(15*mod)
 			owner.color = initial(owner.color)
 */
+
+/datum/discipline_power/thaumaturgy/cauldron_of_blood/proc/reset_target_appearance(mob/living/target)
+	if(!target) return
+	animate(target, pixel_y = 0, color = null)

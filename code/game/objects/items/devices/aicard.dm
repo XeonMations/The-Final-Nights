@@ -38,20 +38,21 @@
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 		if(AI)
 			log_combat(user, AI, "carded", src)
-	update_icon() //Whatever happened, update the card's state (icon, name) to match.
+	update_appearance() //Whatever happened, update the card's state (icon, name) to match.
 
 /obj/item/aicard/update_icon_state()
 	if(!AI)
 		name = initial(name)
 		icon_state = initial(icon_state)
-		return
+		return ..()
 	name = "[initial(name)] - [AI.name]"
 	icon_state = "[initial(icon_state)][AI.stat == DEAD ? "-404" : "-full"]"
 	AI.cancel_camera()
+	return ..()
 
 /obj/item/aicard/update_overlays()
 	. = ..()
-	if(!AI || AI.control_disabled)
+	if(!AI?.control_disabled)
 		return
 	. += "[initial(icon_state)]-on"
 
@@ -99,10 +100,14 @@
 			. = TRUE
 		if("wireless")
 			AI.control_disabled = !AI.control_disabled
-			to_chat(AI, "<span class='warning'>[src]'s wireless port has been [AI.control_disabled ? "disabled" : "enabled"]!</span>")
+			if(!AI.control_disabled)
+				AI.interaction_range = null
+			else
+				AI.interaction_range = 0
+			to_chat(AI, span_warning("[src]'s wireless port has been [AI.control_disabled ? "disabled" : "enabled"]!"))
 			. = TRUE
 		if("radio")
 			AI.radio_enabled = !AI.radio_enabled
 			to_chat(AI, "<span class='warning'>Your Subspace Transceiver has been [AI.radio_enabled ? "enabled" : "disabled"]!</span>")
 			. = TRUE
-	update_icon()
+	update_appearance()

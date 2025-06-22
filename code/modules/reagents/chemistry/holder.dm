@@ -1,6 +1,3 @@
-#define CHEMICAL_QUANTISATION_LEVEL 0.0001 //stops floating point errors causing issues with checking reagent amounts
-
-
 /proc/build_chemical_reagent_list()
 	//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
 
@@ -368,13 +365,6 @@
 			allowed_to_kindred = TRUE
 		if(!allowed_to_kindred)
 			return
-	if(iscathayan(target))
-		for(var/i in reagent_list)
-			if(istype(i, /datum/reagent/consumable/ethanol))
-				call_dharma("desire", target)
-			if(istype(i, /datum/reagent/drug))
-				call_dharma("desire", target)
-
 
 	var/atom/target_atom
 	var/datum/reagents/R

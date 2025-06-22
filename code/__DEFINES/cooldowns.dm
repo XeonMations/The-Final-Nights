@@ -39,6 +39,11 @@
 ///Used to check when doing audible emotes, like screaming
 #define COOLDOWN_MOB_AUDIO "mob_audio_cooldown"
 
+// item cooldowns
+#define COOLDOWN_SIGNALLER_SEND "cooldown_signaller_send"
+#define COOLDOWN_TOOL_SOUND "cooldown_tool_sound"
+
+
 //TIMER COOLDOWN MACROS
 
 #define COMSIG_CD_STOP(cd_index) "cooldown_[cd_index]"
@@ -46,7 +51,11 @@
 
 #define TIMER_COOLDOWN_START(cd_source, cd_index, cd_time) LAZYSET(cd_source.cooldowns, cd_index, addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_cooldown), cd_source, cd_index), cd_time))
 
+/// Checks if a timer based cooldown is NOT finished.
 #define TIMER_COOLDOWN_CHECK(cd_source, cd_index) LAZYACCESS(cd_source.cooldowns, cd_index)
+
+/// Checks if a timer based cooldown is finished.
+#define TIMER_COOLDOWN_FINISHED(cd_source, cd_index) (!TIMER_COOLDOWN_CHECK(cd_source, cd_index))
 
 #define TIMER_COOLDOWN_END(cd_source, cd_index) LAZYREMOVE(cd_source.cooldowns, cd_index)
 
@@ -79,3 +88,31 @@
 #define COOLDOWN_RESET(cd_source, cd_index) cd_source.cd_index = 0
 
 #define COOLDOWN_TIMELEFT(cd_source, cd_index) (max(0, cd_source.cd_index - world.time))
+
+///adds to existing cooldown timer if its started, otherwise starts anew
+#define COOLDOWN_INCREMENT(cd_source, cd_index, cd_increment) \
+	if(COOLDOWN_FINISHED(cd_source, cd_index)) { \
+		COOLDOWN_START(cd_source, cd_index, cd_increment); \
+		return; \
+	} \
+	cd_source.cd_index += (cd_increment); \
+
+/*
+ * Same as the above cooldown system, but uses REALTIMEOFDAY
+ * Primarily only used for times that need to be tracked with the client, such as sound or animations
+*/
+
+#define CLIENT_COOLDOWN_DECLARE(cd_index) var/##cd_index = 0
+
+#define CLIENT_STATIC_COOLDOWN_DECLARE(cd_index) var/static/##cd_index = 0
+
+#define CLIENT_COOLDOWN_START(cd_source, cd_index, cd_time) (cd_source.cd_index = REALTIMEOFDAY + (cd_time))
+
+//Returns true if the cooldown has run its course, false otherwise
+#define CLIENT_COOLDOWN_FINISHED(cd_source, cd_index) (cd_source.cd_index <= REALTIMEOFDAY)
+
+#define CLIENT_COOLDOWN_RESET(cd_source, cd_index) cd_source.cd_index = 0
+
+#define CLIENT_COOLDOWN_STARTED(cd_source, cd_index) (cd_source.cd_index != 0)
+
+#define CLIENT_COOLDOWN_TIMELEFT(cd_source, cd_index) (max(0, cd_source.cd_index - REALTIMEOFDAY))

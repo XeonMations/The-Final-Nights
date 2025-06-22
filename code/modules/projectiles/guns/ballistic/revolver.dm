@@ -143,8 +143,8 @@
 	..()
 	if(get_ammo() > 0)
 		spin()
-	update_icon()
-	A.update_icon()
+	update_appearance()
+	A.update_appearance()
 	return
 
 /obj/item/gun/ballistic/revolver/russian/attack_self(mob/user)
@@ -159,7 +159,7 @@
 
 	if(flag)
 		if(!(target in user.contents) && ismob(target))
-			if(user.a_intent == INTENT_HARM) // Flogging action
+			if(user.combat_mode) // Flogging action
 				return
 
 	if(isliving(user))

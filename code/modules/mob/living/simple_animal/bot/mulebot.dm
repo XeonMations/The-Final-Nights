@@ -19,7 +19,7 @@
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	a_intent = INTENT_HARM //No swapping
+	combat_mode = TRUE //No swapping
 	buckle_lying = 0
 	mob_size = MOB_SIZE_LARGE
 	buckle_prevents_pull = TRUE // No pulling loaded shit
@@ -131,13 +131,13 @@
 	..()
 	reached_target = FALSE
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		. = ..()
 		if(open)
 			turn_off()
 		else
-			update_icon() //this is also handled by turn_off(), so no need to call this twice.
+			update_appearance() //this is also handled by turn_off(), so no need to call this twice.
 	else if(istype(I, /obj/item/stock_parts/cell) && open)
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a power cell!</span>")
@@ -148,7 +148,7 @@
 		diag_hud_set_mulebotcell()
 		visible_message("<span class='notice'>[user] inserts \a [cell] into [src].</span>",
 						"<span class='notice'>You insert [cell] into [src].</span>")
-	else if(I.tool_behaviour == TOOL_CROWBAR && open && user.a_intent != INTENT_HARM)
+	else if(I.tool_behaviour == TOOL_CROWBAR && open && !user.combat_mode)
 		if(!cell)
 			to_chat(user, "<span class='warning'>[src] doesn't have a power cell!</span>")
 			return
@@ -184,6 +184,7 @@
 	playsound(src, "sparks", 100, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /mob/living/simple_animal/bot/mulebot/update_icon_state() //if you change the icon_state names, please make sure to update /datum/wires/mulebot/on_pulse() as well. <3
+	. = ..()
 	icon_state = "[base_icon][on ? wires.is_cut(WIRE_AVOIDANCE) : 0]"
 
 /mob/living/simple_animal/bot/mulebot/update_overlays()
@@ -453,7 +454,7 @@
 
 	load = AM
 	mode = BOT_IDLE
-	update_icon()
+	update_appearance()
 
 ///resolves the name to display for the loaded mob. primarily needed for the paranormal subtype since we don't want to show the name of ghosts riding it.
 /mob/living/simple_animal/bot/mulebot/proc/get_load_name()
@@ -478,7 +479,7 @@
 	if(QDELETED(load))
 		if(load) //if our thing was qdel'd, there's likely a leftover reference. just clear it and remove the overlay. we'll let the bot keep moving around to prevent it abruptly stopping somewhere.
 			load = null
-			update_icon()
+			update_appearance()
 		return
 
 	mode = BOT_IDLE
@@ -497,7 +498,7 @@
 	if(dirn) //move the thing to the delivery point.
 		cached_load.Move(get_step(loc,dirn), dirn)
 
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/mulebot/get_status_tab_items()
 	. = ..()
@@ -790,7 +791,7 @@
 	new /obj/item/stack/cable_coil/cut(Tsec)
 	if(cell)
 		cell.forceMove(Tsec)
-		cell.update_icon()
+		cell.update_appearance()
 		cell = null
 
 	do_sparks(3, TRUE, src)
@@ -803,7 +804,7 @@
 	if(load)
 		unload()
 
-/mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
@@ -868,7 +869,7 @@
 
 	load = AM
 	mode = BOT_IDLE
-	update_icon()
+	update_appearance()
 
 
 /mob/living/simple_animal/bot/mulebot/paranormal/update_overlays()

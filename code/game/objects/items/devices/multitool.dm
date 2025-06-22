@@ -89,7 +89,7 @@
 	if(eye.eye_user)
 		eye.setLoc(get_turf(src))
 	multitool_detect()
-	update_icon()
+	update_appearance()
 	track_cooldown = world.time + track_delay
 
 /obj/item/multitool/ai_detect/proc/toggle_hud(mob/user)
@@ -153,7 +153,7 @@
 	name = "Toggle AI detector HUD"
 	check_flags = NONE
 
-/datum/action/item_action/toggle_multitool/Trigger()
+/datum/action/item_action/toggle_multitool/Trigger(trigger_flags)
 	if(!..())
 		return 0
 	if(target)
@@ -174,3 +174,7 @@
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "multitool_cyborg"
 	toolspeed = 0.5
+
+#undef PROXIMITY_NONE
+#undef PROXIMITY_ON_SCREEN
+#undef PROXIMITY_NEAR

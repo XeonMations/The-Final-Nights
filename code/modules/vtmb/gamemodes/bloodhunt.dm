@@ -3,6 +3,7 @@
 	icon_state = "bloodhunt"
 
 /atom/movable/screen/alert/bloodhunt/Click()
+	. = ..()
 	for(var/mob/living/carbon/human/H in SSbloodhunt.hunted)
 		if(H)
 			var/area/A = get_area(H)
@@ -32,7 +33,7 @@ SUBSYSTEM_DEF(bloodhunt)
 			if(iskindred(H) || isghoul(H))
 				H.clear_alert("bloodhunt")
 
-/datum/controller/subsystem/bloodhunt/proc/announce_hunted(var/mob/living/target, var/reason)
+/datum/controller/subsystem/bloodhunt/proc/announce_hunted(mob/living/target, reason)
 	if(!ishuman(target))
 		return
 	var/mob/living/carbon/human/H = target

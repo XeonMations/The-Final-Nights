@@ -42,12 +42,12 @@
 	var/fail_msg = "<span class='warning'>There is already one of those in [src]!</span>"
 
 	if(istype(I, /obj/item/mop))
-		var/obj/item/mop/m=I
+		var/obj/item/mop/m = I
 		if(m.reagents.total_volume < m.reagents.maximum_volume)
 			if (wet_mop(m, user))
 				return
 		if(!mymop)
-			m.janicart_insert(user, src)
+			put_in_cart(m, user)
 		else
 			to_chat(user, fail_msg)
 	else if(istype(I, /obj/item/pushbroom))
@@ -66,7 +66,7 @@
 		if(!myspray)
 			put_in_cart(I, user)
 			myspray=I
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, fail_msg)
 	else if(istype(I, /obj/item/lightreplacer))
@@ -79,7 +79,7 @@
 		if(signs < max_signs)
 			put_in_cart(I, user)
 			signs++
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>[src] can't hold any more signs!</span>")
 	else if(mybag)
@@ -93,7 +93,7 @@
 	else
 		return ..()
 
-/obj/structure/janitorialcart/attack_hand(mob/user)
+/obj/structure/janitorialcart/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -115,7 +115,7 @@
 
 	if(!length(items))
 		return
-	items = sortList(items)
+	items = sort_list(items)
 	var/pick = show_radial_menu(user, src, items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 38, require_near = TRUE)
 	if(!pick)
 		return
@@ -159,7 +159,7 @@
 		else
 			return
 
-	update_icon()
+	update_appearance()
 
 /**
  * check_menu: Checks if we are allowed to interact with a radial menu

@@ -21,7 +21,7 @@
 		new /obj/item/stack/sheet/mineral/wood(drop_location(), 10)
 	qdel(src)
 
-/obj/structure/dresser/attack_hand(mob/user)
+/obj/structure/dresser/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -44,7 +44,7 @@
 				if(new_undies)
 					H.underwear = new_undies
 			if("Underwear Color")
-				var/new_underwear_color = input(H, "Choose your underwear color", "Underwear Color","#"+H.underwear_color) as color|null
+				var/new_underwear_color = input(H, "Choose your underwear color", "Underwear Color", H.underwear_color) as color|null
 				if(new_underwear_color)
 					H.underwear_color = sanitize_hexcolor(new_underwear_color)
 			if("Undershirt")

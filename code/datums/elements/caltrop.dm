@@ -5,7 +5,7 @@
  */
 /datum/element/caltrop
 	element_flags = ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 
 	///Minimum damage done when crossed
 	var/min_damage
@@ -66,7 +66,7 @@
 		return
 
 	if (!(flags & CALTROP_BYPASS_SHOES))
-		if ((H.wear_suit?.body_parts_covered | H.w_uniform?.body_parts_covered | H.shoes?.body_parts_covered) & FEET)
+		if (((H.wear_suit?.body_parts_covered | H.w_uniform?.body_parts_covered | H.shoes?.body_parts_covered) & FEET) || HAS_TRAIT(H, TRAIT_HARDENED_SOLES))
 			return
 
 	var/damage = rand(min_damage, max_damage)

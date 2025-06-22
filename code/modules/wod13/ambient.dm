@@ -351,6 +351,14 @@
 	fire_controled = TRUE
 	wall_rating = HIGH_WALL_RATING
 
+/area/vtm/anarch/garage
+	name = "Garage"
+	icon_state = "anarch"
+	ambience_index = AMBIENCE_INTERIOR
+	upper = FALSE
+	fire_controled = TRUE
+	wall_rating = HIGH_WALL_RATING
+
 /area/vtm/hotel
 	name = "Hotel"
 	icon_state = "hotel"
@@ -448,6 +456,35 @@
 	yin_chi = 2
 	wall_rating = HIGH_WALL_RATING
 
+/area/vtm/sewer/nosferatu_warren
+	name = "Underground Warren"
+	icon_state = "hotel"
+	upper = FALSE
+	music = /datum/vampiremusic/nosferatu
+	zone_type = "elysium"
+	yang_chi = 0
+	yin_chi = 2
+	wall_rating = HIGH_WALL_RATING
+
+/area/vtm/sewer/nosferatu_bar
+	name = "Underground Bar"
+	icon_state = "hotel"
+	upper = FALSE
+	zone_type = "elysium"
+	yang_chi = 0
+	yin_chi = 2
+	wall_rating = HIGH_WALL_RATING
+
+/area/vtm/interior/nosferatu_office
+	name = "Underground Office"
+	icon_state = "hotel"
+	upper = FALSE
+	music = /datum/vampiremusic/nosferatu
+	zone_type = "elysium"
+	yang_chi = 0
+	yin_chi = 2
+	wall_rating = HIGH_WALL_RATING
+
 /area/vtm/sewer/cappadocian
 	name = "Cappadocian Crypt"
 	icon_state = "graveyard"
@@ -480,11 +517,31 @@
 	wall_rating = LOW_WALL_RATING
 
 /area/vtm/interior/endron_facility
-	name = "Endron Facility"
+	name = "Endron Headquarters"
+	icon_state = "supply"
+	zone_type = "masquerade"
+	music = /datum/vampiremusic/forest
+	fire_controled = TRUE
+	yang_chi = 0
+	yin_chi = 1
+	wall_rating = LOW_WALL_RATING
+
+/area/vtm/interior/endron_facility/helipad
+	name = "Endron Helipad"
 	icon_state = "supply"
 	zone_type = "battle"
 	music = /datum/vampiremusic/forest
 	fire_controled = FALSE
+	yang_chi = 0
+	yin_chi = 1
+	wall_rating = LOW_WALL_RATING
+
+/area/vtm/interior/endron_facility/forest
+	name = "Endron Forest Worksite"
+	icon_state = "supply"
+	zone_type = "battle"
+	music = /datum/vampiremusic/forest
+	fire_controled = TRUE
 	yang_chi = 0
 	yin_chi = 1
 	wall_rating = LOW_WALL_RATING
@@ -494,7 +551,7 @@
 	icon_state = "graveyard"
 	zone_type = "battle"
 	music = /datum/vampiremusic/forest
-	fire_controled = FALSE
+	fire_controled = TRUE
 	yang_chi = 0
 	yin_chi = 2
 	wall_rating = LOW_WALL_RATING
@@ -504,7 +561,7 @@
 	icon_state = "graveyard"
 	zone_type = "battle"
 	music = /datum/vampiremusic/forest
-	fire_controled = FALSE
+	fire_controled = TRUE
 	yang_chi = 0
 	yin_chi = 2
 	wall_rating = LOW_WALL_RATING
@@ -739,7 +796,7 @@
 			if(iskindred(src))
 				var/mob/living/carbon/human/H = src
 				if(H.clane)
-					if(H.clane.name == "Daughters of Cacophony")
+					if(H.clane.name == CLAN_DAUGHTERS_OF_CACOPHONY)
 						cacophony = FALSE //This Variable was TRUE, which makes the DoC music loop play.
 
 			if(!cacophony)

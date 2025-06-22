@@ -3,6 +3,7 @@
 	id = "ghoul"
 	default_color = "FFFFFF"
 	toxic_food = RAW
+	liked_food = SANGUINE
 	species_traits = list(EYECOLOR, HAIR, FACEHAIR, LIPS, HAS_FLESH, HAS_BONE)
 	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER, TRAIT_VIRUSIMMUNE, TRAIT_NOCRITDAMAGE)
 	use_skintones = TRUE
@@ -26,7 +27,7 @@
 	check_flags = NONE
 	var/mob/living/carbon/human/host
 
-/datum/action/ghoulinfo/Trigger()
+/datum/action/ghoulinfo/Trigger(trigger_flags)
 	if(host)
 		var/dat = {"
 			<style type="text/css">
@@ -59,7 +60,7 @@
 		if(G.master)
 			dat += "My Regnant is [G.master.real_name], I should obey their wants.<BR>"
 			if(G.master.clane)
-				if(G.master.clane.name != "Caitiff")
+				if(G.master.clane.name != CLAN_NONE)
 					dat += "Regnant's clan is [G.master.clane], maybe I can try some of it's disciplines..."
 		if(host.mind.special_role)
 			for(var/datum/antagonist/A in host.mind.antag_datums)
@@ -105,7 +106,7 @@
 						dat += "Their number is [host.Myself.Lover.phone_number].<BR>"
 					if(host.Myself.Lover.lover_text)
 						dat += "[host.Myself.Lover.lover_text]<BR>"
-		if(length(host.knowscontacts) > 0)
+		if(LAZYLEN(host.knowscontacts) > 0)
 			dat += "<b>I know some other of my kind in this city. Need to check my phone, there definetely should be:</b><BR>"
 			for(var/i in host.knowscontacts)
 				dat += "-[i] contact<BR>"
@@ -149,7 +150,7 @@
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/taking = FALSE
 
-/datum/action/take_vitae/Trigger()
+/datum/action/take_vitae/Trigger(trigger_flags)
 	if(istype(owner, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		if(istype(H.pulling, /mob/living/carbon/human))
@@ -205,7 +206,7 @@
 					icon_icon = 'code/modules/wod13/UI/actions.dmi'
 	. = ..()
 
-/datum/action/blood_heal/Trigger()
+/datum/action/blood_heal/Trigger(trigger_flags)
 	if(istype(owner, /mob/living/carbon/human))
 		if (HAS_TRAIT(owner, TRAIT_TORPOR))
 			return
@@ -276,18 +277,7 @@
 		H.last_bloodpool_restore = world.time
 		H.bloodpool = min(H.maxbloodpool, H.bloodpool+1)
 
-/datum/species/garou/spec_life(mob/living/carbon/human/H)
-	. = ..()
-	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE))
-		if(H.CheckEyewitness(H, H, 7, FALSE))
-			H.adjust_veil(-1)
 
-	if((H.last_bloodpool_restore + 60 SECONDS) <= world.time)
-		H.last_bloodpool_restore = world.time
-		H.bloodpool = min(H.maxbloodpool, H.bloodpool+1)
-	if(glabro)
-		if(H.CheckEyewitness(H, H, 7, FALSE))
-			H.adjust_veil(-1)
 
 /**
  * Accesses a certain Discipline that a Ghoul has. Returns false if they don't.

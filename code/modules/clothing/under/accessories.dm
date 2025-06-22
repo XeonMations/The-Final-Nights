@@ -17,7 +17,14 @@
 	if(user)
 		to_chat(user, "<span class='warning'>There doesn't seem to be anywhere to put [src]...</span>")
 
+/**
+ * Actually attach this accessory to the passed clothing article.
+ *
+ * The accessory is not yet within the clothing's loc at this point, this hapens after success.
+ */
 /obj/item/clothing/accessory/proc/attach(obj/item/clothing/under/U, user)
+	SHOULD_CALL_PARENT(TRUE)
+
 	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
 	if(storage)
 		if(SEND_SIGNAL(U, COMSIG_CONTAINS_STORAGE))
@@ -48,6 +55,8 @@
 	return TRUE
 
 /obj/item/clothing/accessory/proc/detach(obj/item/clothing/under/U, user)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(detached_pockets && detached_pockets.parent == U)
 		TakeComponent(detached_pockets)
 
@@ -115,7 +124,7 @@
 
 //Pinning medals on people
 /obj/item/clothing/accessory/medal/attack(mob/living/carbon/human/M, mob/living/user)
-	if(ishuman(M) && (user.a_intent == INTENT_HELP))
+	if(ishuman(M) && !user.combat_mode)
 
 		if(M.wear_suit)
 			if((M.wear_suit.flags_inv & HIDEJUMPSUIT)) //Check if the jumpsuit is covered
