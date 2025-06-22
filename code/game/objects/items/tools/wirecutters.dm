@@ -48,18 +48,6 @@
 	. = ..()
 	if(!random_color) //icon override
 		return
-	else if(istype(attacked_carbon) && attacked_carbon.has_status_effect(/datum/status_effect/strandling))
-		user.visible_message(span_notice("[user] attempts to cut the durathread strand from around [attacked_carbon]'s neck."))
-		if(do_after(user, 1.5 SECONDS, attacked_carbon))
-			user.visible_message(span_notice("[user] succesfully cuts the durathread strand from around [attacked_carbon]'s neck."))
-			attacked_carbon.remove_status_effect(/datum/status_effect/strandling)
-			playsound(loc, usesound, 50, TRUE, -1)
-		return
-	else if(istype(C) && C.has_status_effect(STATUS_EFFECT_CHOKINGSTRAND))
-		to_chat(C, "<span class='notice'>You attempt to remove the durathread strand from around your neck.</span>")
-		if(do_after(user, 1.5 SECONDS, C))
-			to_chat(C, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
-			C.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 	else
 		..()
 
