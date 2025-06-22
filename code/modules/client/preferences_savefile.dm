@@ -42,7 +42,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
-		if(current_version < 33)
+	if(current_version < 33)
 		toggles |= SOUND_ENDOFROUND
 
 	if(current_version < 34)
