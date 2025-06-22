@@ -2558,40 +2558,42 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(slotlocked || !(pref_species.id == "kindred"))
 						return
 
-					if (tgui_alert(user, "Are you sure you want to change your Clan? This will reset your Disciplines.", "Confirmation", list("Yes", "No")) != "Yes")
+					if(tgui_alert(user, "Are you sure you want to change your Clan? This will reset your Disciplines.", "Confirmation", list("Yes", "No")) != "Yes")
 						return
 
+					// Create a list of Clans that can be played by anyone or this user has a whitelist for
 					var/list/available_clans = list()
-					for (var/adding_clan in GLOB.vampire_clans)
-						if (GLOB.vampire_clans[adding_clan].whitelisted && !SSwhitelists.is_whitelisted(user.ckey, adding_clan))
+					for(var/adding_clan in GLOB.vampire_clans)
+						var/datum/vampire_clan/checking_clan = GLOB.vampire_clans[adding_clan]
+						if(checking_clan.whitelisted && !SSwhitelists.is_whitelisted(user.ckey, checking_clan.name))
 							continue
-						available_clans += GLOB.vampire_clans[adding_clan]
+						available_clans += checking_clan
 					var/result = tgui_input_list(user, "Select a Clan", "Clan Selection", sort_list(available_clans))
-					if (!result)
+					if(!result)
 						return
 					clan = result
 
 					discipline_types = list()
 					discipline_levels = list()
 
-					if (result == GLOB.vampire_clans[/datum/vampire_clan/caitiff])
+					if(result == GLOB.vampire_clans[/datum/vampire_clan/caitiff])
 						generation = 13
-						for (var/i in 1 to 3)
+						for(var/i in 1 to 3)
 							if (slotlocked)
 								break
 
 							var/list/possible_new_disciplines = subtypesof(/datum/discipline) - discipline_types - /datum/discipline/bloodheal
-							for (var/discipline_type in possible_new_disciplines)
+							for(var/discipline_type in possible_new_disciplines)
 								var/datum/discipline/discipline = new discipline_type
 								if (discipline.clan_restricted)
 									possible_new_disciplines -= discipline_type
 								qdel(discipline)
 							var/new_discipline = tgui_input_list(user, "Select a Discipline", "Discipline Selection", sort_list(possible_new_disciplines))
-							if (new_discipline)
+							if(new_discipline)
 								discipline_types += new_discipline
 								discipline_levels += 1
 
-					for (var/i in 1 to length(clan.clan_disciplines))
+					for(var/i in 1 to length(clan.clan_disciplines))
 						discipline_types += clan.clan_disciplines[i]
 						discipline_levels += 1
 					
