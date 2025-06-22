@@ -103,8 +103,8 @@
 /turf/open/floor/blob_act(obj/structure/blob/B)
 	return
 
-/turf/open/floor/attack_paw(mob/user)
-	return attack_hand(user)
+/turf/open/floor/attack_paw(mob/user, list/modifiers)
+	return attack_hand(user, modifiers)
 
 /turf/open/floor/proc/break_tile_to_plating()
 	var/turf/open/floor/plating/T = make_plating()
@@ -145,7 +145,7 @@
 	W.update_appearance()
 	return W
 
-/turf/open/floor/attackby(obj/item/object, mob/user, params)
+/turf/open/floor/attackby(obj/item/object, mob/living/user, params)
 	if(!object || !user)
 		return TRUE
 	. = ..()
@@ -154,7 +154,7 @@
 	if(intact && istype(object, /obj/item/stack/tile))
 		try_replace_tile(object, user, params)
 		return TRUE
-	if(user.a_intent == INTENT_HARM && istype(object, /obj/item/stack/sheet))
+	if(user.combat_mode && istype(object, /obj/item/stack/sheet))
 		var/obj/item/stack/sheet/sheets = object
 		return sheets.on_attack_floor(user, params)
 	return FALSE
