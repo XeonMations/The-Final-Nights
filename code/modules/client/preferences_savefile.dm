@@ -42,8 +42,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
-	return
-
 	if (current_version < 41)
 		LAZYADD(key_bindings["F"], "toggle_combat_mode")
 		LAZYADD(key_bindings["4"], "toggle_combat_mode")
