@@ -483,13 +483,13 @@
 	switch (advancedupgrade)
 		if ("Bone armour")
 			ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
-			user.unique_body_sprite = "tziarmor"
+			user.set_body_sprite("tziarmor")
 			advanced_original_skin_tone = user.skin_tone
 			user.skin_tone = "albino"
 			advanced_original_hairstyle = user.hairstyle
 			user.hairstyle = "Bald"
 			advanced_original_body_mod = user.base_body_mod
-			user.base_body_mod = ""
+			user.set_body_model(NORMAL_BODY_MODEL)
 			user.physiology.armor.melee += 60
 			user.physiology.armor.bullet += 60
 		if ("Centipede legs")
@@ -514,9 +514,6 @@
 			ADD_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
 			user.dna.species.GiveSpeciesFlight(user)
 			user.add_movespeed_modifier(/datum/movespeed_modifier/membranewings)
-/*		if ("Cuttlefish skin")
-			var/datum/action/active_camo/camo= new()
-			camo.Grant(owner)*/
 
 	user.do_jitter_animation(10)
 	playsound(get_turf(user), 'code/modules/wod13/sounds/vicissitude.ogg', 100, TRUE, -6)
@@ -531,10 +528,10 @@
 	switch (selected_advanced_upgrade)
 		if ("Bone armour")
 			REMOVE_TRAIT(user, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
-			user.unique_body_sprite = null
+			user.set_body_sprite()
 			user.skin_tone = advanced_original_skin_tone
 			user.hairstyle = advanced_original_hairstyle
-			user.base_body_mod = advanced_original_body_mod
+			user.set_body_model(advanced_original_body_mod)
 			user.physiology.armor.melee -= 60
 			user.physiology.armor.bullet -= 60
 		if ("Centipede legs")

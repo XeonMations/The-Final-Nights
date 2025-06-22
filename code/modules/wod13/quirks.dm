@@ -172,8 +172,7 @@ Dancer
 	allowed_species = list("Vampire", "Kuei-Jin")
 
 /datum/quirk/frenetic_aura/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
-	H.clan.frenzymod += 1
+	ADD_TRAIT(quirk_holder, TRAIT_LONGER_FRENZY, "frenetic_aura")
 
 /datum/quirk/blush_of_health
 	name = "Blush of Health"

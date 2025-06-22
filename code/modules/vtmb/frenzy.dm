@@ -25,8 +25,12 @@
 		var/check
 		if(iscathayan(src))
 			check = SSroll.storyteller_roll(dice = max(1, mind.dharma.Hun), difficulty =  min(10, (mind.dharma.level*2)-max_demon_chi), mobs_to_show_output = src)
+		else if(ishuman(src))
+			var/mob/living/carbon/human/human_mob = src
+			check = SSroll.storyteller_roll(dice = max(1, round(human_mob.morality_path.score/2)), difficulty = min(frenzy_chance_boost, frenzy_hardness), mobs_to_show_output = src)
 		else
-			check = SSroll.storyteller_roll(dice = max(1, round(humanity/2)), difficulty = min(frenzy_chance_boost, frenzy_hardness), mobs_to_show_output = src)
+			check = SSroll.storyteller_roll(dice = 4, difficulty = min(frenzy_chance_boost, frenzy_hardness), mobs_to_show_output = src)
+
 
 		// Modifier for frenzy duration
 		var/length_modifier = HAS_TRAIT(src, TRAIT_LONGER_FRENZY) ? 2 : 1

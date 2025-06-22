@@ -5,23 +5,31 @@
 	icon_state = "sell"
 	icon = 'code/modules/wod13/props.dmi'
 	anchored = TRUE
-	var/illegal = FALSE
+	var/black_market = FALSE
 
 /obj/lombard/attackby(obj/item/W, mob/living/user, params)
-	var/mob/living/carbon/human/H = user
-
-	if(W.cost <= 0)
-		to_chat(H, span_notice("[W] isn't worth anything!"))
-		return
-	if(W.illegal)
-		to_chat(H, span_notice("The pawnshop doesn't accept illegal goods!"))
+	var/datum/component/selling/selling_component = W.GetComponent(/datum/component/selling)
+	if(!selling_component)
 		return
 	if(istype(W, /obj/item/stack))
 		return
+	if(selling_component.illegal == black_market)
+		sell_one_item(W, user)
+	else
+		..()
 
-	var/amount = round(W.cost / 5 * (user.social + (user.additional_social * 0.1)))
-	if(amount > 0)
-		new /obj/item/stack/dollar(get_turf(src), amount)
+/obj/lombard/proc/sell_one_item(obj/item/sold, mob/living/user)
+	var/datum/component/selling/sold_sc = sold.GetComponent(/datum/component/selling)
+	if(!sold_sc.can_sell())
+		to_chat(user, sold_sc.sale_fail_message())
+		return
+	generate_money(sold, user)
+	playsound(loc, 'code/modules/wod13/sounds/sell.ogg', 50, TRUE)
+	to_chat(user, sold_sc.sale_success_message())
+	var/mob/living/carbon/human/seller = user
+	if(istype(seller))
+		seller.AdjustHumanity(sold_sc.humanity_loss, sold_sc.humanity_loss_limit)
+	qdel(sold)
 
 //This assumes that all items are of the same type
 /obj/lombard/proc/sell_multiple_items(var/list/items_to_sell, mob/living/user)
@@ -140,39 +148,4 @@
 	icon_state = "sell_d"
 	icon = 'code/modules/wod13/props.dmi'
 	anchored = TRUE
-	illegal = TRUE
-
-/obj/lombard/blackmarket/attackby(obj/item/W, mob/living/user, params)
-	var/mob/living/carbon/human/H = user
-
-	if(W.cost <= 0)
-		to_chat(H, span_notice("[W] isn't worth anything!"))
-		return
-	if(!W.illegal)
-		to_chat(H, span_notice("The black market only accepts illegal goods!"))
-		return
-	if(istype(W, /obj/item/stack))
-		return
-	if(istype(W, /obj/item/organ))
-		var/obj/item/organ/O = W
-		if(O.damage > round(O.maxHealth/2))
-			to_chat(user, span_warning("[W] is too damaged to sell!"))
-			return
-
-	if(istype(W, /obj/item/organ))
-		to_chat(H, span_userdanger("<b>Selling organs is a depraved act... If I keep doing this, I will become a wight!</b>"))
-		SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 0)
-	else if(istype(W, /obj/item/reagent_containers/food/drinks/meth/cocaine))
-		SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 5)
-	else if(istype(W, /obj/item/reagent_containers/food/drinks/meth))
-		SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 4)
-	else if(illegal)
-		SEND_SIGNAL(H, COMSIG_PATH_HIT, PATH_SCORE_DOWN, 7)
-
-	var/amount = round(W.cost / 5 * (user.social + (user.additional_social * 0.1)))
-	if(amount > 0)
-		new /obj/item/stack/dollar(get_turf(src), amount)
-
-	playsound(get_turf(src), 'code/modules/wod13/sounds/sell.ogg', 50, TRUE)
-	qdel(W)
-	return
+	black_market = TRUE
