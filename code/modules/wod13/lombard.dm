@@ -28,7 +28,7 @@
 	to_chat(user, sold_sc.sale_success_message())
 	var/mob/living/carbon/human/seller = user
 	if(istype(seller))
-		seller.AdjustHumanity(sold_sc.humanity_loss, sold_sc.humanity_loss_limit)
+		SEND_SIGNAL(src, COMSIG_PATH_HIT, PATH_SCORE_DOWN, sold_sc.humanity_loss_limit)
 	qdel(sold)
 
 //This assumes that all items are of the same type
@@ -110,16 +110,16 @@
 		return
 
 	var/humanity_penalty_limit = sold_sc.humanity_loss_limit
-	if(sold_sc.humanity_loss && !seller.client?.prefs?.enlightenment) //Do the prompt if the user cares about humanity.
+	if(sold_sc.humanity_loss && !seller.client?.prefs?.is_enlightened) //Do the prompt if the user cares about humanity.
 		//We use these variable to determine whether a prospective seller should be notified about their humanity hit, prompting them if they're gonna lose it.
 		var/humanity_loss_modifier = HAS_TRAIT(user, TRAIT_SENSITIVE_HUMANITY) ? 2 : 1
 		var/humanity_loss_risk = length(item_list_to_sell) * humanity_loss_modifier * sold_sc.humanity_loss
-		if(humanity_penalty_limit < seller.humanity) //Check if the user is actually at risk of losing more humanity.
-			if((humanity_penalty_limit <= 0) && ((user.humanity + humanity_loss_risk) <= 0)) //User will wight out if they do this, don't offer the alert, just warn the user.
+		if(humanity_penalty_limit < seller.morality_path.score) //Check if the user is actually at risk of losing more humanity.
+			if((humanity_penalty_limit <= 0) && ((seller.morality_path.score + humanity_loss_risk) <= 0)) //User will wight out if they do this, don't offer the alert, just warn the user.
 				to_chat(user, span_warning("Selling all of this will remove all of your Humanity!"))
 				return
-			var/maximum_humanity_loss = min(seller.humanity - humanity_penalty_limit, -humanity_loss_risk)
-			var/choice = alert(seller, "Your HUMANITY is currently at [seller.humanity], you will LOSE [maximum_humanity_loss] humanity if you proceed. Do you proceed?",,"Yes", "No")
+			var/maximum_humanity_loss = min(seller.morality_path.score - humanity_penalty_limit, -humanity_loss_risk)
+			var/choice = alert(seller, "Your HUMANITY is currently at [seller.morality_path.score], you will LOSE [maximum_humanity_loss] humanity if you proceed. Do you proceed?",,"Yes", "No")
 			if(choice == "No")
 				return
 			//Check for proximity again
@@ -136,7 +136,8 @@
 	//Items that have been returned were successfully sold
 	if(!length(sold_items))
 		return
-	seller.AdjustHumanity(sold_sc.humanity_loss * length(sold_items), humanity_penalty_limit)
+	for(var/i in 1 to (sold_sc.humanity_loss * length(sold_items)))
+		SEND_SIGNAL(src, COMSIG_PATH_HIT, PATH_SCORE_DOWN, humanity_penalty_limit)
 	//Leave this deletion at the very end just in case any earlier qdel would decide to hard-del the item and remove the item from the list before actually adjusting humanity and such
 	for(var/item_to_delete in sold_items)
 		qdel(item_to_delete)
