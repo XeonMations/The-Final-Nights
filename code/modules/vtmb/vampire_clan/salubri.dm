@@ -17,7 +17,7 @@
 	whitelisted = TRUE
 	clan_keys = /obj/item/vamp/keys/salubri
 
-/datum/vampireclane/salubri/on_gain(mob/living/carbon/human/H)
+/datum/vampire_clan/salubri/on_gain(mob/living/carbon/human/H)
 	..()
 	ADD_TRAIT(H, TRAIT_SALUBRI_EYE, TRAIT_CLAN)
 

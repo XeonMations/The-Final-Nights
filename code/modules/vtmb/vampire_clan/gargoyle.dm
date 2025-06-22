@@ -24,7 +24,7 @@
 /datum/vampire_clan/gargoyle/on_gain(mob/living/carbon/human/H)
 	. = ..()
 
-/datum/vampireclane/gargoyle/post_gain(mob/living/carbon/human/gargoyle)
+/datum/vampire_clan/gargoyle/post_gain(mob/living/carbon/human/gargoyle)
 	..()
 	gargoyle.dna.species.GiveSpeciesFlight(gargoyle)
 

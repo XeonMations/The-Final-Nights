@@ -235,15 +235,15 @@
 		H.bloodpool = max(0, H.bloodpool-1)
 		to_chat(H, "<span class='warning'>Necromancy Vision reduces your blood points too sustain itself.</span>")
 
-	if(H.clane?.name == CLAN_TZIMISCE || H.clane?.name == CLAN_OLD_TZIMISCE)
-		var/datum/vampireclane/tzimisce/TZ = H.clane
+	if(H.clan?.name == CLAN_TZIMISCE || H.clan?.name == CLAN_OLD_TZIMISCE)
+		var/datum/vampire_clan/tzimisce/TZ = H.clan
 		if(TZ.heirl)
 			if(!(TZ.heirl in H.GetAllContents()))
 				if(prob(5))
 					to_chat(H, "<span class='warning'>You are missing your home soil...</span>")
 					H.bloodpool = max(0, H.bloodpool-1)
-	if(H.clane?.name == CLAN_KIASYD)
-		var/datum/vampireclane/kiasyd/kiasyd = H.clane
+	if(H.clan?.name == CLAN_KIASYD)
+		var/datum/vampire_clan/kiasyd/kiasyd = H.clan
 		for(var/obj/item/I in H.contents)
 			if(I?.is_iron)
 				if (COOLDOWN_FINISHED(kiasyd, cold_iron_frenzy))

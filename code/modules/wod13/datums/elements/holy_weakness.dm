@@ -7,7 +7,7 @@
  * "holy areas" means churches.
  */
 /datum/element/holy_weakness
-	element_flags = ELEMENT_DETACH
+	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY
 
 	/// Mobs being exposed to and harmed by holiness
 	var/list/mob/living/exposed_to_holiness

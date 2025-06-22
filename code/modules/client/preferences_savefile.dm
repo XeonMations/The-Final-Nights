@@ -55,9 +55,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		player_experience += true_experience
 		true_experience = 0
 	if (current_version < 43)
-		// Translate from misspelled clane name save to new clan typepath save
+		// Translate from misspelled clan name save to new clan typepath save
 		var/clan_name
-		READ_FILE(S["clane"], clan_name)
+		READ_FILE(S["clan"], clan_name)
 		if (clan_name)
 			for (var/found_clan in GLOB.vampire_clans)
 				if (GLOB.vampire_clans[found_clan].name != clan_name)
@@ -66,8 +66,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 			clan = GLOB.vampire_clans[clan_name]
 
-		// Translate from misspelled clane_accessory to new clan_accessory
-		READ_FILE(S["clane_accessory"], clan_accessory)
+		// Translate from misspelled clan_accessory to new clan_accessory
+		READ_FILE(S["clan_accessory"], clan_accessory)
 
 /// checks through keybindings for outdated unbound keys and updates them
 /datum/preferences/proc/check_keybindings()

@@ -62,8 +62,8 @@
 		return
 	if(iskindred(target) && is_iron)
 		var/mob/living/carbon/human/L = target
-		if(L.clane?.name == CLAN_KIASYD)
-			var/datum/vampireclane/kiasyd/kiasyd = L.clane
+		if(L.clan?.name == CLAN_KIASYD)
+			var/datum/vampire_clan/kiasyd/kiasyd = L.clan
 			if (COOLDOWN_FINISHED(kiasyd, cold_iron_frenzy))
 				COOLDOWN_START(kiasyd, cold_iron_frenzy, 10 SECONDS)
 				to_chat(L, "<span class='danger'><b>COLD IRON!</b></span>")

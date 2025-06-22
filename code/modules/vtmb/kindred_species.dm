@@ -98,7 +98,7 @@
 		dat += "The Camarilla thinks I[masquerade_level]<BR>"
 		var/humanity = "I'm out of my mind."
 
-		if(!host.clane.is_enlightened)
+		if(!host.clan.is_enlightened)
 			switch(host.morality_path.score)
 				if(8 to 10)
 					humanity = "I'm saintly."
@@ -130,10 +130,10 @@
 
 		dat += "[humanity]<BR>"
 
-		var/datum/phonecontact/clane_leader_contact = GLOB.important_contacts[host.clan.name]
-		if (!isnull(clane_leader_contact) && host.real_name != clane_leader_contact.name)
-			var/clane_leader_number = isnull(clane_leader_contact.number) ? "unknown" : clane_leader_contact.number
-			dat += " My clan leader is [clane_leader_contact.name]. Their phone number is [clane_leader_number].<BR>"
+		var/datum/phonecontact/clan_leader_contact = GLOB.important_contacts[host.clan.name]
+		if (!isnull(clan_leader_contact) && host.real_name != clan_leader_contact.name)
+			var/clan_leader_number = isnull(clan_leader_contact.number) ? "unknown" : clan_leader_contact.number
+			dat += " My clan leader is [clan_leader_contact.name]. Their phone number is [clan_leader_number].<BR>"
 
 		dat += "<b>Physique</b>: [host.physique] + [host.additional_physique]<BR>"
 		dat += "<b>Dexterity</b>: [host.dexterity] + [host.additional_dexterity]<BR>"
@@ -404,7 +404,6 @@
 							else
 								save_data_v = FALSE
 
-						childe.roundstart_vampire = FALSE
 						childe.set_species(/datum/species/kindred)
 						childe.set_clan(null)
 						childe.generation = sire.generation+1
@@ -414,12 +413,12 @@
 
 						if(childe.generation <= 13)
 							childe.set_clan(sire.clan)
-							childe.clane.on_gain(childe)
-							childe.clane.post_gain(childe)
+							childe.clan.on_gain(childe)
+							childe.clan.post_gain(childe)
 						else
-							childe.set_clan(/datum/vampireclane/caitiff)
+							childe.set_clan(/datum/vampire_clan/caitiff)
 
-						if(childe.clane.alt_sprite)
+						if(childe.clan.alt_sprite)
 							childe.skin_tone = "albino"
 							childe.update_body()
 
@@ -431,7 +430,7 @@
 						childe.create_disciplines(FALSE, disciplines_to_give)
 						// TODO: Rework the max blood pool calculations.
 						childe.maxbloodpool = 10+((13-min(13, childe.generation))*3)
-						childe.clane.is_enlightened = sire.clane.is_enlightened
+						childe.clan.is_enlightened = sire.clan.is_enlightened
 
 						//Verify if they accepted to save being a vampire
 						if(iskindred(childe) && save_data_v)
@@ -439,7 +438,7 @@
 
 							childe_prefs_v.pref_species.id = "kindred"
 							childe_prefs_v.pref_species.name = "Vampire"
-							childe_prefs_v.clane = childe.clane
+							childe_prefs_v.clan = childe.clan
 							// If the childe is somehow 15th gen, reset to 14th.
 							if(childe.generation <= 14)
 								childe_prefs_v.generation = childe.generation
@@ -447,7 +446,7 @@
 								childe_prefs_v.generation = 14
 
 							childe_prefs_v.skin_tone = get_vamp_skin_color(childe.skin_tone)
-							childe_prefs_v.clane.is_enlightened = sire.clane.is_enlightened
+							childe_prefs_v.clan.is_enlightened = sire.clan.is_enlightened
 
 							//Rarely the new mid round vampires get the 3 brujah skil(it is default)
 							//This will remove if it happens
@@ -462,7 +461,7 @@
 
 							if(childe_prefs_v.discipline_types.len == 0)
 								for (var/i in 1 to 3)
-									childe_prefs_v.discipline_types += childe_prefs_v.clane.clane_disciplines[i]
+									childe_prefs_v.discipline_types += childe_prefs_v.clan.clan_disciplines[i]
 									childe_prefs_v.discipline_levels += 1
 
 							childe_prefs_v.save_character()
@@ -517,7 +516,6 @@
 						if(NPC.ghoulificate(owner))
 							if(!HAS_TRAIT(regnant, TRAIT_UNBONDING))
 								new_master = TRUE
-								NPC.roundstart_vampire = FALSE
 					if(thrall.mind)
 						if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
 							thrall.mind.link_blood_of_creator(owner)
@@ -544,7 +542,6 @@
 						thrall.set_species(/datum/species/ghoul)
 						thrall.set_clan(null)
 						var/response_g = input(thrall, "Do you wish to keep being a ghoul on your save slot?(Yes will be a permanent choice and you can't go back)") in list("Yes", "No")
-						thrall.roundstart_vampire = FALSE
 						var/datum/species/ghoul/ghoul = thrall.dna.species
 						ghoul.master = owner
 						ghoul.last_vitae = world.time

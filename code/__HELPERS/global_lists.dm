@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(glyph_list)
 	for(var/clan_type in subtypesof(/datum/vampire_clan))
 		var/datum/vampire_clan/clan = new clan_type
 		GLOB.vampire_clans[clan_type] = clan
-	sortList(GLOB.vampire_clans)
+	sort_list(GLOB.vampire_clans)
 
 	for(var/spath in subtypesof(/datum/garou_tribe))
 		var/datum/garou_tribe/S = new spath()
