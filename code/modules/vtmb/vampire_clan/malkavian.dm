@@ -1,16 +1,3 @@
-GLOBAL_LIST_INIT(malkavian_character_replacements, list(
-		"a"    = "𝙖",            "A" = "𝘼",
-		"d"    = pick("𝓭","𝓓"), "D" = "𝓓",
-		"e"    = "𝙚",            "E" = "𝙀",
-		"i"    = "𝙞",            "I" = pick("ﾉ", "𝐼"),
-		"l"    = pick("𝙇","l"),  "L" = pick("𝙇","𝓛"),
-		"n"    = "𝙣",            "N" = pick("𝓝","𝙉"),
-		"o"    = "𝙤",            "O" = "𝙊",
-		"s"    = "𝘴",            "S" = "𝙎",
-		"u"    = "𝙪",            "U" = "𝙐",
-		"v"	   = "𝐯",            "V" = "𝓥",
-	))
-
 /datum/vampire_clan/malkavian
 	name = CLAN_MALKAVIAN
 	desc = "Derided as Lunatics by other vampires, the Blood of the Malkavians lets them perceive and foretell truths hidden from others. Like the �wise madmen� of poetry their fractured perspective stems from seeing too much of the world at once, from understanding too deeply, and feeling emotions that are just too strong to bear."
@@ -92,7 +79,7 @@ GLOBAL_LIST_INIT(malkavian_character_replacements, list(
 	if (!(owner in clan_malkavian.madness_network))
 		return
 
-	var/new_thought = stripped_input(owner, "Have any thoughts about this, buddy?")
+	var/new_thought = tgui_input_text(owner, "Have any thoughts about this, buddy?")
 	if (!new_thought)
 		return
 
@@ -114,7 +101,7 @@ GLOBAL_LIST_INIT(malkavian_character_replacements, list(
 	. = ..()
 	var/mad_speak = FALSE
 	if(IsAvailable())
-		mad_speak = input(owner, "What revelations do we wish to convey?") as null|text
+		mad_speak = tgui_input_text(owner, "What revelations do we wish to convey?")
 	if(CHAT_FILTER_CHECK(mad_speak))
 		//before we inadvertently obfuscate the message to pass filters, filter it first.
 		//as funny as malkavians saying "amogus" would be, the filter also includes slurs... how unfortunate.
@@ -126,7 +113,18 @@ GLOBAL_LIST_INIT(malkavian_character_replacements, list(
 		StartCooldown()
 		// replace some letters to make the font more closely resemble that of vtm: bloodlines' malkavian dialogue
 		// big thanks to Metek for helping me condense this from a bunch of ugly regex replace procs
-
-		for(var/letter in GLOB.malkavian_character_replacements)
-			mad_speak = replacetextEx(mad_speak, letter, GLOB.malkavian_character_replacements[letter])
-		owner.say(mad_speak, spans = list(SPAN_YELL, SPAN_ITALICS)) // say() handles sanitation on its own
+		var/list/replacements = list(
+			"a"    = "𝙖",            "A" = "𝘼",
+			"d"    = pick("𝓭","𝓓"), "D" = "𝓓",
+			"e"    = "𝙚",            "E" = "𝙀",
+			"i"    = "𝙞",            "I" = pick("ﾉ", "𝐼"), //rudimentary prob(50) to pick one or the other
+			"l"    = pick("𝙇","l"),  "L" = pick("𝙇","𝓛"),
+			"n"    = "𝙣",            "N" = pick("𝓝","𝙉"),
+			"o"    = "𝙤",            "O" = "𝙊",
+			"s"    = "𝘴",            "S" = "𝙎",
+			"u"    = "𝙪",            "U" = "𝙐",
+			"v"	   = "𝐯",            "V" = "𝓥",
+		)
+		for(var/letter in replacements)
+			mad_speak = replacetextEx(mad_speak, letter, replacements[letter])
+		owner.say(mad_speak, spans = list(SPAN_SANS)) // say() handles sanitation on its own

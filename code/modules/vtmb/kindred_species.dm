@@ -413,8 +413,6 @@
 
 						if(childe.generation <= 13)
 							childe.set_clan(sire.clan)
-							childe.clan.on_gain(childe)
-							childe.clan.on_gain(childe)
 						else
 							childe.set_clan(/datum/vampire_clan/caitiff)
 
