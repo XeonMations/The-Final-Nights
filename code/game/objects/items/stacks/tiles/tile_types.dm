@@ -387,7 +387,7 @@
 	merge_type = /obj/item/stack/tile/pod/dark
 
 //Plasteel (normal)
-/obj/item/stack/tile/plasteel
+/obj/item/stack/tile/iron
 	name = "floor tile"
 	singular_name = "floor tile"
 	desc = "The ground you walk on."
@@ -404,7 +404,7 @@
 	matter_amount = 1
 	cost = 125
 	source = /datum/robot_energy_storage/metal
-	merge_type = /obj/item/stack/tile/plasteel
+	merge_type = /obj/item/stack/tile/iron
 
 /obj/item/stack/tile/plastic
 	name = "plastic tile"
