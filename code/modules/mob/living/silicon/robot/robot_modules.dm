@@ -658,7 +658,7 @@
 /datum/robot_energy_storage/proc/add_charge(amount)
 	energy = min(energy + amount, max_energy)
 
-/datum/robot_energy_storage/metal
+/datum/robot_energy_storage/iron
 	name = "Metal Synthesizer"
 
 /datum/robot_energy_storage/glass

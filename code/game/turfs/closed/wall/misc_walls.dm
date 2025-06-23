@@ -46,7 +46,6 @@
 	smoothing_flags = NONE
 	canSmoothWith = null
 	smoothing_groups = null
-	rcd_memory = null
 
 /turf/closed/wall/vault/rock
 	name = "rocky wall"
