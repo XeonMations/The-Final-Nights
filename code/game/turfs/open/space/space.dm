@@ -1,44 +1,3 @@
-///The base color of light space emits
-GLOBAL_VAR_INIT(base_starlight_color, default_starlight_color())
-///The color of light space is currently emitting
-GLOBAL_VAR_INIT(starlight_color, default_starlight_color())
-/proc/default_starlight_color()
-	var/turf/open/space/read_from = /turf/open/space
-	return initial(read_from.light_color)
-
-///The range of the light space is displaying
-GLOBAL_VAR_INIT(starlight_range, default_starlight_range())
-/proc/default_starlight_range()
-	var/turf/open/space/read_from = /turf/open/space
-	return initial(read_from.light_range)
-
-///The power of the light space is throwin out
-GLOBAL_VAR_INIT(starlight_power, default_starlight_power())
-/proc/default_starlight_power()
-	var/turf/open/space/read_from = /turf/open/space
-	return initial(read_from.light_power)
-
-/proc/set_base_starlight(star_color = null, range = null, power = null)
-	GLOB.base_starlight_color = star_color
-	set_starlight(star_color, range, power)
-
-/proc/set_starlight(star_color = null, range = null, power = null)
-	if(isnull(star_color))
-		star_color = GLOB.starlight_color
-	var/old_star_color = GLOB.starlight_color
-	GLOB.starlight_color = star_color
-	// set light color on all lit turfs
-	for(var/turf/open/space/spess as anything in GLOB.starlight)
-		spess.set_light(l_range = range, l_power = power, l_color = star_color)
-
-	if(star_color == old_star_color)
-		return
-
-	// Send some signals that'll update everything that uses the color
-	SEND_GLOBAL_SIGNAL(COMSIG_STARLIGHT_COLOR_CHANGED, old_star_color, star_color)
-
-GLOBAL_LIST_EMPTY(starlight)
-
 /turf/open/space
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
@@ -54,11 +13,7 @@ GLOBAL_LIST_EMPTY(starlight)
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
-	light_power = 1
-	light_range = 2
-	light_color = COLOR_STARLIGHT
-	light_on
-	space_lit = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	bullet_bounce_sound = null
 	vis_flags = VIS_INHERIT_ID	//when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
@@ -120,25 +75,15 @@ GLOBAL_LIST_EMPTY(starlight)
 /turf/open/space/RemoveLattice()
 	return
 
-/// Updates starlight. Called when we're unsure of a turf's starlight state
-/// Returns TRUE if we succeed, FALSE otherwise
 /turf/open/space/proc/update_starlight()
-	for(var/t in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-		// I've got a lot of cordons near spaceturfs, be good kids
-		if(isspaceturf(t) || istype(t, /turf/cordon))
-			//let's NOT update this that much pls
-			continue
-		enable_starlight()
-		return TRUE
-	GLOB.starlight -= src
-	set_light(l_on = FALSE)
-	return FALSE
-
-/// Turns on the stars, if they aren't already
-/turf/open/space/proc/enable_starlight()
-	if(!light_on)
-		set_light(l_on = TRUE, l_range = GLOB.starlight_range, l_power = GLOB.starlight_power, l_color = GLOB.starlight_color)
-		GLOB.starlight += src
+	if(CONFIG_GET(flag/starlight))
+		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
+			if(isspaceturf(t))
+				//let's NOT update this that much pls
+				continue
+			set_light(2)
+			return
+		set_light(0)
 
 /turf/open/space/attack_paw(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)

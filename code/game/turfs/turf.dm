@@ -45,10 +45,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	var/dynamic_lighting = TRUE
 
-	///Bool, whether this turf will always be illuminated no matter what area it is in
-	///Makes it look blue, be warned
-	var/space_lit = FALSE
-
 	var/tmp/lighting_corners_initialised = FALSE
 
 	///List of light sources affecting this turf.

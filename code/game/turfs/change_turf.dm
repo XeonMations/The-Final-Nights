@@ -69,20 +69,14 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(flags & CHANGETURF_SKIP)
 		return new path(src)
 
+	var/old_dynamic_lighting = dynamic_lighting
+	var/old_affecting_lights = affecting_lights
 	var/old_lighting_object = lighting_object
-	var/old_lighting_corner_NE = lighting_corner_NE
-	var/old_lighting_corner_SE = lighting_corner_SE
-	var/old_lighting_corner_SW = lighting_corner_SW
-	var/old_lighting_corner_NW = lighting_corner_NW
+	var/old_corners = corners
 	var/old_directional_opacity = directional_opacity
-	var/old_dynamic_lumcount = dynamic_lumcount
-	// I'm so sorry brother
-	// This is used for a starlight optimization
-	var/old_light_range = light_range
-	// We get just the bits of explosive_resistance that aren't the turf
+
 	var/old_exl = explosion_level
 	var/old_exi = explosion_id
-
 	var/old_bp = blueprint_data
 	blueprint_data = null
 
@@ -119,46 +113,33 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	else
 		new_turf.baseturfs = baseturfs_string_list(old_baseturfs, new_turf) //Just to be safe
 
+	new_turf.explosion_id = old_exi
+	new_turf.explosion_level = old_exl
+
 	if(!(flags & CHANGETURF_DEFER_CHANGE))
 		new_turf.AfterChange(flags, old_type)
 
-	new_turf.explosion_id = old_exi
-	new_turf.explosion_level = old_exl
 	new_turf.blueprint_data = old_bp
-
-	lighting_corner_NE = old_lighting_corner_NE
-	lighting_corner_SE = old_lighting_corner_SE
-	lighting_corner_SW = old_lighting_corner_SW
-	lighting_corner_NW = old_lighting_corner_NW
-
-	dynamic_lumcount = old_dynamic_lumcount
 
 	new_turf.weak_reference = old_ref
 
 	if(SSlighting.initialized)
-		// Space tiles should never have lighting objects
-		if(!space_lit)
-			// Should have a lighting object if we never had one
-			lighting_object = old_lighting_object || new /datum/lighting_object(src)
-		else if (old_lighting_object)
-			qdel(old_lighting_object, force = TRUE)
-
+		lighting_object = old_lighting_object
+		affecting_lights = old_affecting_lights
+		corners = old_corners
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
 
-		if(lighting_object && !lighting_object.needs_update)
+		if (dynamic_lighting != old_dynamic_lighting)
+			if (IS_DYNAMIC_LIGHTING(src))
+				lighting_build_overlay()
+			else
+				lighting_clear_overlay()
+		else if(lighting_object && !lighting_object.needs_update)
 			lighting_object.update()
 
-	// If we're space, then we're either lit, or not, and impacting our neighbors, or not
-	if(isspaceturf(src))
-		var/turf/open/space/lit_turf = src
-		// This also counts as a removal, so we need to do a full rebuild
-		if(!ispath(old_type, /turf/open/space))
-			lit_turf.update_starlight()
-			for(var/turf/open/space/space_tile in RANGE_TURFS(1, src) - src)
-				space_tile.update_starlight()
-		else if(old_light_range)
-			lit_turf.enable_starlight()
+		for(var/turf/open/space/space_tile in RANGE_TURFS(1, src))
+			space_tile.update_starlight()
 
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	QUEUE_SMOOTH(src)
