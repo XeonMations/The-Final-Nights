@@ -30,6 +30,15 @@
 /datum/vampire_clan/cappadocian/on_join_round(mob/living/carbon/human/H)
 	. = ..()
 
+	var/obj/item/necromancy_tome/necrotome = new()
+	var/list/slots = list(
+		LOCATION_LPOCKET = ITEM_SLOT_LPOCKET,
+		LOCATION_RPOCKET = ITEM_SLOT_RPOCKET,
+		LOCATION_BACKPACK = ITEM_SLOT_BACKPACK,
+		LOCATION_HANDS = ITEM_SLOT_HANDS
+	)
+	H.equip_in_one_of_slots(necrotome, slots, FALSE)
+
 	// Only old, skeletonised Cappadocians need the robes and mask
 	var/alternative_appearance = GET_BODY_SPRITE(H)
 	if ((alternative_appearance == "rotten1") || (alternative_appearance == "rotten2"))
