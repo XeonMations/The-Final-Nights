@@ -8,7 +8,6 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	icon            = 'icons/turf/floors.dmi'
 	icon_state      = "grey"
 	plane = TRANSPARENT_FLOOR_PLANE
-	layer = SPACE_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	//I don't know why the others are aligned but I shall do the same.
 	vis_flags		= VIS_INHERIT_ID
