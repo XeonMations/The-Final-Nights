@@ -70,41 +70,22 @@
 
 /obj/machinery/firealarm/update_overlays()
 	. = ..()
-	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-
 	if(machine_stat & NOPOWER)
 		return
 
-	. += "fire_overlay"
+	if(panel_open)
+		return
 
-	if(is_station_level(z))
-		. += "fire_[SSsecurity_level.current_level]"
-		. += mutable_appearance(icon, "fire_[SSsecurity_level.current_level]")
-		. += emissive_appearance(icon, "fire_[SSsecurity_level.current_level]")
-	else
-		. += "fire_[SEC_LEVEL_GREEN]"
-		. += mutable_appearance(icon, "fire_[SEC_LEVEL_GREEN]")
-		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]")
+	if(obj_flags & EMAGGED)
+		. += mutable_appearance(icon, "fire_emag")
+		. += emissive_appearance(icon, "fire_emag_e", src, alpha = src.alpha)
+		set_light(l_color = LIGHT_COLOR_BLUE)
 
-	var/area/A = get_area(src)
 
-	if(!detecting || !A.fire)
-		. += "fire_off"
-		. += mutable_appearance(icon, "fire_off")
-		. += emissive_appearance(icon, "fire_off")
-	else if(obj_flags & EMAGGED)
-		. += "fire_emagged"
-		. += mutable_appearance(icon, "fire_emagged")
-		. += emissive_appearance(icon, "fire_emagged")
-	else
-		. += "fire_on"
-		. += mutable_appearance(icon, "fire_on")
-		. += emissive_appearance(icon, "fire_on")
-
-	if(!panel_open && detecting && triggered) //It just looks horrible with the panel open
-		. += "fire_detected"
-		. += mutable_appearance(icon, "fire_detected")
-		. += emissive_appearance(icon, "fire_detected") //Pain
+	. += mutable_appearance(icon, "fire_offstation")
+	. += emissive_appearance(icon, "fire_level_e", src, alpha = src.alpha)
+	set_light(l_color = LIGHT_COLOR_FAINT_BLUE)
+	
 
 /obj/machinery/firealarm/emp_act(severity)
 	. = ..()

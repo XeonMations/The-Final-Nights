@@ -36,11 +36,17 @@
 		else
 			. += icon_keyboard
 
-	// This whole block lets screens ignore lighting and be visible even in the darkest room
 	if(machine_stat & BROKEN)
-		overlay_state = "[icon_state]_broken"
-	. += mutable_appearance(icon, overlay_state)
-	. += emissive_appearance(icon, overlay_state)
+		. += mutable_appearance(icon, "[icon_state]_broken")
+		return // If we don't do this broken computers glow in the dark.
+
+	if(machine_stat & NOPOWER) // Your screen can't be on if you've got no damn charge
+		return
+
+	// This lets screens ignore lighting and be visible even in the darkest room
+	if(icon_screen)
+		. += mutable_appearance(icon, icon_screen)
+		. += emissive_appearance(icon, icon_screen, src)
 
 /obj/machinery/computer/power_change()
 	. = ..()
