@@ -145,9 +145,7 @@
 //Do not sell the magically summoned katanas for infinite cash
 /obj/item/melee/vampirearms/katana/fire/Initialize()
 	. = ..()
-	var/datum/component/selling/sell_component = GetComponent(/datum/component/selling)
-	if(sell_component)
-		sell_component.RemoveComponent()
+	qdel(GetComponent(/datum/component/selling))
 
 /obj/item/melee/vampirearms/katana/blood
 	name = "bloody katana"
@@ -160,9 +158,7 @@
 
 /obj/item/melee/vampirearms/katana/blood/Initialize()
 	. = ..()
-	var/datum/component/selling/sell_component = GetComponent(/datum/component/selling)
-	if(sell_component)
-		sell_component.RemoveComponent()
+	qdel(GetComponent(/datum/component/selling))
 
 /obj/item/melee/vampirearms/rapier
 	name = "rapier"
