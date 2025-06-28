@@ -3716,13 +3716,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 		character.skin_tone = get_vamp_skin_color(skin_tone)
 
+		character.set_clan(clan, TRUE)
+
 		character.generation = generation
 		character.morality_path = MOR
 		character.clan.is_enlightened = is_enlightened // TODO: detach is_enlightened from the clan datum
 		character.maxbloodpool = 10 + ((13 - generation) * 3)
 		character.bloodpool = rand(2, character.maxbloodpool)
-
-		character.set_clan(clan, TRUE)
 
 		character.max_yin_chi = character.maxbloodpool
 		character.yin_chi = character.max_yin_chi
