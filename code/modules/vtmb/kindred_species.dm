@@ -418,7 +418,7 @@
 
 						if(childe.clan.alt_sprite)
 							childe.skin_tone = "albino"
-							childe.set_body_sprite()
+							childe.update_body()
 
 						//Gives the Childe the Sire's first three Disciplines
 
