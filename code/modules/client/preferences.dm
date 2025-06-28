@@ -3619,14 +3619,49 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.true_real_name = real_name
 	character.name = character.real_name
 
+	character.flavor_text = sanitize_text(flavor_text)
+	character.flavor_text_nsfw = sanitize_text(flavor_text_nsfw)
+	character.ooc_notes = sanitize_text(ooc_notes)
+	character.character_notes = sanitize_text(character_notes)
+	character.show_flavor_text_when_masked = show_flavor_text_when_masked
+	character.headshot_link = headshot_link
+
+	character.age = age
+	character.chronological_age = total_age
+
 	character.gender = gender
 	if(gender == MALE || gender == FEMALE)
 		character.body_type = gender
 	else
 		character.body_type = body_type
 
+	character.eye_color = eye_color
+	var/obj/item/organ/eyes/organ_eyes = character.getorgan(/obj/item/organ/eyes)
+	if(organ_eyes)
+		if(!initial(organ_eyes.eye_color))
+			organ_eyes.eye_color = eye_color
+		organ_eyes.old_eye_color = eye_color
+
+	character.hair_color = hair_color
+	character.facial_hair_color = facial_hair_color
+	character.hairstyle = hairstyle
+	character.facial_hairstyle = facial_hairstyle
+	character.underwear = underwear
+	character.underwear_color = underwear_color
+	character.undershirt = undershirt
+	character.socks = socks
+	character.backpack = backpack
+	character.jumpsuit_style = jumpsuit_style
+	character.skin_tone = skin_tone
+
+	var/datum/species/chosen_species
+	chosen_species = pref_species.type
+	character.dna.features = features.Copy()
+	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
+	character.dna.real_name = character.real_name
+
 	character.diablerist = diablerist
-	character.headshot_link = headshot_link // TFN EDIT
+
 	character.physique = physique
 	character.dexterity = dexterity
 	character.social = social
@@ -3644,8 +3679,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.additional_lockpicking = A.archetype_additional_lockpicking
 	character.additional_athletics = A.archetype_additional_athletics
 	A.special_skill(character)
-	character.maxHealth = round((initial(character.maxHealth)+(initial(character.maxHealth)/4)*(character.physique + character.additional_physique)))
-	character.health = character.maxHealth
 
 	character.masquerade = masquerade
 	if(!character_setup)
@@ -3679,16 +3712,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.max_yin_chi = 2
 
 	if(pref_species.name == "Vampire")
-		var/datum/morality/MOR = new morality_path.type()
 		character.skin_tone = get_vamp_skin_color(skin_tone)
-		character.set_clan(clan, TRUE)
-		character.generation = generation
+
+		var/datum/morality/MOR = new morality_path.type()
 		character.morality_path = MOR
+
+		character.generation = generation
 		character.maxbloodpool = 10 + ((13 - generation) * 3)
 		character.bloodpool = rand(2, character.maxbloodpool)
 
+		character.set_clan(clan, TRUE)
+
 		character.max_yin_chi = character.maxbloodpool
 		character.yin_chi = character.max_yin_chi
+
 		// TODO: detach is_enlightened from the clan datum
 		// Apply Clan accessory
 		if (character.clan?.accessories?.Find(clan_accessory))
@@ -3697,6 +3734,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/mutable_appearance/acc_overlay = mutable_appearance('code/modules/wod13/icons.dmi', clan_accessory, -accessory_layer)
 			character.overlays_standing[accessory_layer] = acc_overlay
 			character.apply_overlay(accessory_layer)
+
+		character.morality_path.score = path_score
 	else
 		character.set_clan(null)
 		character.morality_path = null
@@ -3724,75 +3763,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.wisdom = wisdom
 		character.glory = glory
 		character.renownrank = renownrank
-	if(pref_species.name == "Vampire")
-		character.morality_path.score = path_score
 
-	character.masquerade = masquerade
-	if(!character_setup)
-		if(character in GLOB.masquerade_breakers_list)
-			if(character.masquerade > 2)
-				GLOB.masquerade_breakers_list -= character
-		else if(character.masquerade < 3)
-			GLOB.masquerade_breakers_list += character
-
-	character.flavor_text = sanitize_text(flavor_text)
-	character.flavor_text_nsfw = sanitize_text(flavor_text_nsfw)
-	character.ooc_notes = sanitize_text(ooc_notes)
-	character.character_notes = sanitize_text(character_notes)
-	character.show_flavor_text_when_masked = show_flavor_text_when_masked
-	character.gender = gender
-	character.age = age
-	character.chronological_age = total_age
-
-	character.eye_color = eye_color
-	var/obj/item/organ/eyes/organ_eyes = character.getorgan(/obj/item/organ/eyes)
-	if(organ_eyes)
-		if(!initial(organ_eyes.eye_color))
-			organ_eyes.eye_color = eye_color
-		organ_eyes.old_eye_color = eye_color
-	character.hair_color = hair_color
-	character.facial_hair_color = facial_hair_color
-
-	if(pref_species.name == "Vampire")
-		if(clan.alt_sprite && !clan.alt_sprite_greyscale)
-			character.skin_tone = "albino"
-		else
-			character.skin_tone = get_vamp_skin_color(skin_tone)
-	else
-		character.skin_tone = skin_tone
-
-	character.hairstyle = hairstyle
-	if(character.age < 16)
-		facial_hairstyle = "Shaved"
-		character.facial_hairstyle = facial_hairstyle
-	else
-		character.facial_hairstyle = facial_hairstyle
-	character.underwear = underwear
-	character.underwear_color = underwear_color
-	character.undershirt = undershirt
-	character.socks = socks
-
-	character.backpack = backpack
-
-	character.jumpsuit_style = jumpsuit_style
-
-	// TFN ADDITION START: loadout
-	if(loadout)
-		for(var/gear in equipped_gear)
-			var/datum/gear/G = GLOB.gear_datums[gear]
-			if(G?.slot)
-				if(!character.equip_to_slot_or_del(G.spawn_item(character, character), G.slot))
-					continue
-	// TFN ADDITION END: loadout
-
-	var/datum/species/chosen_species
-	chosen_species = pref_species.type
-
-	character.dna.features = features.Copy()
-	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
-	character.dna.real_name = character.real_name
-
-	if(pref_species.name == "Werewolf")
 		var/datum/auspice/CLN = new auspice.type()
 		character.auspice = CLN
 		character.auspice.level = auspice_level
@@ -3905,6 +3876,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			corvid.health = corvid.maxHealth
 			cor_crinos.maxHealth = round((cor_crinos::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
 			cor_crinos.health = cor_crinos.maxHealth
+
+	// TFN ADDITION START: loadout
+	if(loadout)
+		for(var/gear in equipped_gear)
+			var/datum/gear/G = GLOB.gear_datums[gear]
+			if(G?.slot)
+				if(!character.equip_to_slot_or_del(G.spawn_item(character, character), G.slot))
+					continue
+	// TFN ADDITION END: loadout
+
 	if(pref_species.mutant_bodyparts["tail_lizard"])
 		character.dna.species.mutant_bodyparts["tail_lizard"] = pref_species.mutant_bodyparts["tail_lizard"]
 	if(pref_species.mutant_bodyparts["spines"])

@@ -81,6 +81,10 @@
 	for (var/trait in clan_traits)
 		ADD_TRAIT(vampire, trait, CLAN_TRAIT)
 
+	//this needs to be adjusted to be more accurate for blood spending rates
+	var/datum/discipline/bloodheal/giving_bloodheal = new(clamp(11 - vampire.generation, 1, 10))
+	vampire.give_discipline(giving_bloodheal)
+
 	// Applies on_join_round effects when a client logs into this mob
 	if (joining_round)
 		RegisterSignal(vampire, COMSIG_MOB_LOGIN, PROC_REF(on_join_round), override = TRUE)
@@ -104,6 +108,10 @@
 	// Remove unique Clan feature traits
 	for (var/trait in clan_traits)
 		REMOVE_TRAIT(vampire, trait, CLAN_TRAIT)
+
+	var/datum/species/kindred/vampire_species = vampire?.dna.species
+	var/datum/discipline/bloodheal/removing_bloodheal = vampire_species.get_discipline(/datum/discipline/bloodheal)
+	qdel(removing_bloodheal)
 
 	// Sets the vampire back to their default body sprite
 	if (alt_sprite && (GET_BODY_SPRITE(vampire) == alt_sprite))
