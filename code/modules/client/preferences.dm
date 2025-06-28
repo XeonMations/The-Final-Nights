@@ -2596,7 +2596,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					for(var/i in 1 to length(clan.clan_disciplines))
 						discipline_types += clan.clan_disciplines[i]
 						discipline_levels += 1
-					
+
 					is_enlightened = clan.is_enlightened
 					if(is_enlightened)
 						qdel(morality_path)
@@ -3791,7 +3791,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
 	character.dna.real_name = character.real_name
-	
+
 	if(pref_species.name == "Werewolf")
 		var/datum/auspice/CLN = new auspice.type()
 		character.auspice = CLN
