@@ -56,3 +56,5 @@
   - bugfix: Kuei-jin can now rot or ash on death according to their age.
   darkincarnate:
   - rscadd: rich suits+suitskirts to shops
+  - rscadd: endron security holster
+  - qol: ID sprite changes
