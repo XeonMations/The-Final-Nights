@@ -93,6 +93,8 @@
 				to_chat(childe, span_userdanger("Gaia has forsaken you."))
 				message_admins("[ADMIN_LOOKUPFLW(src)] has turned [ADMIN_LOOKUPFLW(childe)] into an Abomination.")
 				log_game("[key_name(src)] has turned [key_name(childe)] into an Abomination.")
+				embrace_target(childe)
+				return
 			if(ROLL_FAILURE)
 				childe.visible_message(span_warning("[childe.name] convulses in sheer agony!"))
 				childe.Shake(15, 15, 5 SECONDS)
