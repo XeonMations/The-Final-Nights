@@ -352,7 +352,6 @@
 				var/mob/living/carbon/human/childe = grabbed_victim
 				var/mob/living/carbon/human/sire = vampire
 
-				var/new_master = FALSE
 				childe.drunked_of |= "[sire.dna.real_name]"
 
 				if(childe.stat == DEAD && !iskindred(childe))
@@ -508,9 +507,7 @@
 
 					if(!isghoul(thrall) && istype(thrall, /mob/living/carbon/human/npc))
 						var/mob/living/carbon/human/npc/NPC = thrall
-						if(NPC.ghoulificate(owner))
-							if(!HAS_TRAIT(regnant, TRAIT_UNBONDING))
-								new_master = TRUE
+						NPC.ghoulificate(owner)
 					if(thrall.mind)
 						if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
 							thrall.mind.link_blood_of_creator(owner)
@@ -519,7 +516,6 @@
 							thrall.mind.enslave_mind_to_creator(owner)
 							thrall.mind.link_blood_of_creator(owner)
 							to_chat(thrall, span_userdanger("<b>AS PRECIOUS VITAE ENTERS YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [regnant]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b>"))
-							new_master = TRUE
 						else if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE))
 							thrall.mind.link_blood_of_creator(owner)
 							to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
@@ -529,36 +525,8 @@
 					if(isghoul(thrall))
 						var/datum/species/ghoul/ghoul = thrall.dna.species
 						ghoul.master = owner
-						ghoul.last_vitae = world.time
-						if(new_master)
-							ghoul.changed_master = TRUE
 					else if(!iskindred(thrall) && !isnpc(thrall))
-						var/save_data_g = FALSE
-						thrall.set_species(/datum/species/ghoul)
-						thrall.set_clan(null)
-						var/response_g = input(thrall, "Do you wish to keep being a ghoul on your save slot?(Yes will be a permanent choice and you can't go back)") in list("Yes", "No")
-						var/datum/species/ghoul/ghoul = thrall.dna.species
-						ghoul.master = owner
-						ghoul.last_vitae = world.time
-						if(new_master)
-							ghoul.changed_master = TRUE
-						if(response_g == "Yes")
-							save_data_g = TRUE
-						else
-							save_data_g = FALSE
-						if(save_data_g)
-							var/datum/preferences/thrall_prefs_g = thrall.client.prefs
-							if(thrall_prefs_g.discipline_types.len == 3)
-								for (var/i in 1 to 3)
-									var/removing_discipline = thrall_prefs_g.discipline_types[1]
-									if (removing_discipline)
-										var/index = thrall_prefs_g.discipline_types.Find(removing_discipline)
-										thrall_prefs_g.discipline_types.Cut(index, index + 1)
-										thrall_prefs_g.discipline_levels.Cut(index, index + 1)
-							thrall_prefs_g.pref_species.name = "Ghoul"
-							thrall_prefs_g.pref_species.id = "ghoul"
-							//thrall_prefs_g.regnant = ghoul.master
-							thrall_prefs_g.save_character()
+						prompt_permenant_ghouling(thrall)
 			else
 				giving = FALSE
 
