@@ -3760,6 +3760,7 @@
 #include "modular_tfn\modules\discord\discord_link_record.dm"
 #include "modular_tfn\modules\discord\tgs_commands.dm"
 #include "modular_tfn\modules\discord\toggle_notify.dm"
+#include "modular_tfn\modules\embrace\embracing.dm"
 #include "modular_tfn\modules\fomori\code\fomori.dm"
 #include "modular_tfn\modules\ghoul\prompt_preference_change..dm"
 #include "modular_tfn\modules\loadout\_loadout.dm"
