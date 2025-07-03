@@ -24,7 +24,7 @@
 		response_v = tgui_input_list(childe, "Do you wish to keep being a vampire on your save slot?(Yes will be a permanent choice and you can't go back!)", "Embrace", list("Yes", "No"), "No")
 
 	childe.set_species(/datum/species/kindred)
-	childe.set_clan(clan)
+	childe.set_clan(clan, FALSE)
 	childe.generation = generation + 1
 
 	childe.skin_tone = get_vamp_skin_color(childe.skin_tone)
