@@ -394,7 +394,7 @@
 
 				if(!isghoul(thrall) && istype(thrall, /mob/living/carbon/human/npc))
 					var/mob/living/carbon/human/npc/NPC = thrall
-					NPC.ghoulificate(owner)
+					NPC.npc_ghoulificate(owner)
 				if(thrall.mind)
 					if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
 						thrall.mind.link_blood_of_creator(owner)
@@ -410,7 +410,8 @@
 					var/datum/species/ghoul/ghoul = thrall.dna.species
 					ghoul.master = owner
 				else if(!iskindred(thrall) && !isnpc(thrall))
-					prompt_permenant_ghouling(thrall)
+					thrall.ghoulificate(owner)
+					thrall.prompt_permenant_ghouling()
 
 /**
  * Initialises Disciplines for new vampire mobs, applying effects and creating action buttons.

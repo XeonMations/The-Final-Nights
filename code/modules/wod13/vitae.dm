@@ -22,9 +22,5 @@
 		embracer.attempt_embrace_target(exposed_mob, (usr == data["donor"]) ? null : usr)
 		return
 	var/mob/living/carbon/human/victim = exposed_mob
-	prompt_permenant_ghouling(victim)
-	var/datum/species/ghoul/ghoul = victim.dna.species
-	if(victim.mind.enslaved_to != data["donor"])
-		victim.mind.enslave_mind_to_creator(data["donor"])
-		to_chat(victim, span_userdanger("<b>AS PRECIOUS VITAE ENTER YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [data["donor"]]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b>"))
-		ghoul.master = data["donor"]
+	victim.ghoulificate(data["donor"])
+	victim.prompt_permenant_ghouling()
