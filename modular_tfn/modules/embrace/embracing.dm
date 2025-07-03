@@ -1,22 +1,25 @@
-/mob/living/carbon/human/proc/attempt_embrace_target(mob/living/carbon/human/childe)
+/mob/living/carbon/human/proc/attempt_embrace_target(mob/living/carbon/human/childe, second_party_embrace)
+	var/chat_message_reciever = src
+	if(second_party_embrace)
+		chat_message_reciever = second_party_embrace
 	if(!childe.can_be_embraced)
-		to_chat(src, span_notice("[childe.name] doesn't respond to your Vitae."))
+		to_chat(chat_message_reciever, span_notice("[childe.name] doesn't respond to the Vitae."))
 		return
 		// If they've been dead for more than 5 minutes, then nothing happens.
 	if(childe.mind?.damned || !childe.mind)
-		to_chat(src, span_notice("[childe.name] doesn't respond to your Vitae."))
+		to_chat(chat_message_reciever, span_notice("[childe.name] doesn't respond to the Vitae."))
 		return
 	if(!((childe.timeofdeath + 5 MINUTES) > world.time))
-		to_chat(src, span_notice("[childe] is totally <b>DEAD</b>!"))
+		to_chat(chat_message_reciever, span_notice("[childe] is totally <b>DEAD</b>!"))
 		return FALSE
 
 	if(childe.auspice?.level) //here be Abominations
 		attempt_abomination_embrace(childe)
-	embrace_target(childe)
+	embrace_target(childe, second_party_embrace)
 
-/mob/living/carbon/human/proc/embrace_target(mob/living/carbon/human/childe)
-	log_game("[key_name(src)] has Embraced [key_name(childe)].")
-	message_admins("[ADMIN_LOOKUPFLW(src)] has Embraced [ADMIN_LOOKUPFLW(childe)].")
+/mob/living/carbon/human/proc/embrace_target(mob/living/carbon/human/childe, second_party_embrace)
+	log_game("[key_name(src)] has Embraced [key_name(childe)]. [second_party_embrace ? "Using [second_party_embrace]'s vitae!" : null]")
+	message_admins("[ADMIN_LOOKUPFLW(src)] has Embraced [ADMIN_LOOKUPFLW(childe)]. [second_party_embrace ? "Using [second_party_embrace]'s vitae!" : null]")
 	childe.revive(full_heal = TRUE, admin_revive = TRUE)
 	childe.grab_ghost(force = TRUE)
 	to_chat(childe, span_userdanger("You rise with a start, you're alive! Or not... You feel your soul going somewhere, as you realize you are embraced by a vampire..."))
@@ -41,21 +44,21 @@
 
 	INVOKE_ASYNC(childe, PROC_REF(embrace_persistence_confirmation))
 
-/mob/living/carbon/human/proc/attempt_abomination_embrace(mob/living/carbon/human/childe)
+/mob/living/carbon/human/proc/attempt_abomination_embrace(mob/living/carbon/human/childe, second_party_embrace)
 	if(!(childe.auspice?.level)) //here be Abominations
 		return
 	if(childe.auspice.force_abomination)
 		to_chat(src, span_danger("Something terrible is happening."))
 		to_chat(childe, span_userdanger("Gaia has forsaken you."))
-		message_admins("[ADMIN_LOOKUPFLW(src)] has turned [ADMIN_LOOKUPFLW(childe)] into an Abomination through an admin setting the force_abomination var.")
-		log_game("[key_name(src)] has turned [key_name(childe)] into an Abomination through an admin setting the force_abomination var.")
+		message_admins("[ADMIN_LOOKUPFLW(src)] has turned [ADMIN_LOOKUPFLW(childe)] into an Abomination through an admin setting the force_abomination var. [second_party_embrace ? "Using [second_party_embrace]'s vitae!" : null]")
+		log_game("[key_name(src)] has turned [key_name(childe)] into an Abomination through an admin setting the force_abomination var. [second_party_embrace ? "Using [second_party_embrace]'s vitae!" : null]")
 	else
 		switch(SSroll.storyteller_roll(childe.auspice.level))
 			if(ROLL_BOTCH)
 				to_chat(src, span_danger("Something terrible is happening."))
 				to_chat(childe, span_userdanger("Gaia has forsaken you."))
-				message_admins("[ADMIN_LOOKUPFLW(src)] has turned [ADMIN_LOOKUPFLW(childe)] into an Abomination.")
-				log_game("[key_name(src)] has turned [key_name(childe)] into an Abomination.")
+				message_admins("[ADMIN_LOOKUPFLW(src)] has turned [ADMIN_LOOKUPFLW(childe)] into an Abomination. [second_party_embrace ? "Using [second_party_embrace]'s vitae!" : null]")
+				log_game("[key_name(src)] has turned [key_name(childe)] into an Abomination. [second_party_embrace ? "Using [second_party_embrace]'s vitae!" : null]")
 				embrace_target(childe)
 				return
 			if(ROLL_FAILURE)
