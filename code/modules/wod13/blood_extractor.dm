@@ -30,7 +30,9 @@
 		if(target.bloodpool < 4)
 			to_chat(user, span_warning("The [src] can't find enough blood in [target]'s body!"))
 			return
-		new /obj/item/reagent_containers/blood/vitae(get_turf(src))
+		var/obj/item/reagent_containers/blood/vitae/vitae_bloodpack = new /obj/item/reagent_containers/blood/vitae(get_turf(src))
+		target.transfer_blood_to(vitae_bloodpack, 200, TRUE)
+		vitae_bloodpack.update_appearance()
 		target.bloodpool = max(0, target.bloodpool - 4)
 		return
 
@@ -38,7 +40,11 @@
 		to_chat(user, span_warning("The [src] can't find enough blood in [target]'s body!"))
 		return
 	if(HAS_TRAIT(target, TRAIT_POTENT_BLOOD))
-		new /obj/item/reagent_containers/blood/elite(get_turf(src))
+		var/obj/item/reagent_containers/blood/elite/elite_bloodpack = new /obj/item/reagent_containers/blood/elite(get_turf(src))
+		target.transfer_blood_to(elite_bloodpack, 200, TRUE)
+		elite_bloodpack.update_appearance()
 	else
-		new /obj/item/reagent_containers/blood(get_turf(src))
+		var/obj/item/reagent_containers/empty/bloodpack = new /obj/item/reagent_containers/blood(get_turf(src))
+		target.transfer_blood_to(bloodpack, 200, TRUE)
+		bloodpack.update_appearance()
 	target.bloodpool = max(0, target.bloodpool - 2)

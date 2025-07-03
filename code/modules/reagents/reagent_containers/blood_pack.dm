@@ -110,6 +110,9 @@
 		M.adjustFireLoss(-20, TRUE)
 		M.update_blood_hud()
 
+/obj/item/reagent_containers/blood/empty
+	blood_type = null
+
 /obj/item/reagent_containers/blood/a_plus
 	blood_type = "A+"
 
@@ -134,6 +137,7 @@
 /obj/item/reagent_containers/blood/elite
 	name = "\improper elite blood pack (full)"
 	amount_of_bloodpoints = 4
+	blood_type = null
 
 /obj/item/reagent_containers/blood/elite/Initialize(mapload)
 	if(mapload)
@@ -144,17 +148,6 @@
 	name = "\improper vampire vitae pack (full)"
 	amount_of_bloodpoints = 4
 	blood_type = null
-
-/obj/item/reagent_containers/blood/vitae/Initialize(mapload)
-	. = ..()
-	reagents.add_reagent(/datum/reagent/blood/vitae, 200,
-	list("donor" = null,
-		"viruses" = null,
-		"blood_DNA" = null,
-		"blood_type" = pick("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"),
-		"resistances" = null,
-		"trace_chem" = null))
-	update_appearance()
 
 /obj/item/reagent_containers/blood/random
 
