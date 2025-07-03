@@ -223,7 +223,7 @@
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
 		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
-			if(blood_id == typesof(/datum/reagent/blood)) //normal blood
+			if(blood_id in typesof(/datum/reagent/blood)) //normal blood
 				if(blood_data["viruses"])
 					for(var/thing in blood_data["viruses"])
 						var/datum/disease/D = thing
@@ -245,7 +245,7 @@
 	return
 
 /mob/living/carbon/get_blood_data(blood_id)
-	if(blood_id == typesof(/datum/reagent/blood))
+	if(blood_id in typesof(/datum/reagent/blood))
 		var/blood_data = list()
 		//set the blood data
 		blood_data["donor"] = src

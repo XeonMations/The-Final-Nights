@@ -31,8 +31,7 @@
 			to_chat(user, span_warning("The [src] can't find enough blood in [target]'s body!"))
 			return
 		var/obj/item/reagent_containers/blood/vitae/vitae_bloodpack = new /obj/item/reagent_containers/blood/vitae(get_turf(src))
-		target.transfer_blood_to(vitae_bloodpack, 200, TRUE)
-		vitae_bloodpack.update_appearance()
+		generate_blood_pack(target, vitae_bloodpack)
 		target.bloodpool = max(0, target.bloodpool - 4)
 		return
 
@@ -41,10 +40,16 @@
 		return
 	if(HAS_TRAIT(target, TRAIT_POTENT_BLOOD))
 		var/obj/item/reagent_containers/blood/elite/elite_bloodpack = new /obj/item/reagent_containers/blood/elite(get_turf(src))
-		target.transfer_blood_to(elite_bloodpack, 200, TRUE)
-		elite_bloodpack.update_appearance()
+		generate_blood_pack(target, elite_bloodpack)
 	else
-		var/obj/item/reagent_containers/empty/bloodpack = new /obj/item/reagent_containers/blood(get_turf(src))
-		target.transfer_blood_to(bloodpack, 200, TRUE)
-		bloodpack.update_appearance()
+		var/obj/item/reagent_containers/blood/empty/bloodpack = new /obj/item/reagent_containers/blood/empty(get_turf(src))
+		generate_blood_pack(target, bloodpack)
 	target.bloodpool = max(0, target.bloodpool - 2)
+
+/obj/structure/bloodextractor/proc/generate_blood_pack(mob/living/target, obj/item/reagent_containers/blood/blood_pack)
+	var/blood_id = target.get_blood_id()
+	if(!blood_id)
+		return FALSE
+	var/list/blood_data = target.get_blood_data(blood_id)
+	blood_pack.reagents.add_reagent(blood_id, 200, blood_data)
+	blood_pack.update_appearance()

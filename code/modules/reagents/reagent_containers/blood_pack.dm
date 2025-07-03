@@ -56,17 +56,24 @@
 
 /// Handles updating the container when the reagents change.
 /obj/item/reagent_containers/blood/on_reagent_change(datum/reagents/holder, ...)
-	var/datum/reagent/blood/B = (holder.has_reagent(/datum/reagent/blood) || holder.has_reagent(/datum/reagent/blood/vitae))
-	if(B && B.data && B.data["blood_type"])
-		blood_type = B.data["blood_type"]
-	else
-		blood_type = null
-	update_name()
+	update_appearance()
 	return ..()
+
+/obj/item/reagent_containers/blood/update_appearance(updates)
+	. = ..()
+	update_blood_type()
+	update_name()
 
 /obj/item/reagent_containers/blood/update_name(updates)
 	. = ..()
 	name = "\improper blood pack - [blood_type ? "[blood_type]" : "(empty)"]"
+
+/obj/item/reagent_containers/blood/proc/update_blood_type()
+	var/datum/reagent/blood/B = (reagents.has_reagent(/datum/reagent/blood) || reagents.has_reagent(/datum/reagent/blood/vitae))
+	if(B && B.data && B.data["blood_type"])
+		blood_type = B.data["blood_type"]
+	else
+		blood_type = null
 
 /obj/item/reagent_containers/blood/attackby(obj/item/I, mob/user, params)
 	if(!IS_WRITING_UTENSIL(I))
