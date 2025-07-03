@@ -69,6 +69,8 @@
 	name = "\improper blood pack - [blood_type ? "[blood_type]" : "(empty)"]"
 
 /obj/item/reagent_containers/blood/proc/update_blood_type()
+	if(!reagents)
+		return
 	var/datum/reagent/blood/B = (reagents.has_reagent(/datum/reagent/blood) || reagents.has_reagent(/datum/reagent/blood/vitae))
 	if(B && B.data && B.data["blood_type"])
 		blood_type = B.data["blood_type"]

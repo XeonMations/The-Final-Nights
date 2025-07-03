@@ -3,7 +3,7 @@
 		to_chat(src, span_notice("[childe.name] doesn't respond to your Vitae."))
 		return
 		// If they've been dead for more than 5 minutes, then nothing happens.
-	if(childe.mind.damned)
+	if(childe.mind?.damned || !childe.mind)
 		to_chat(src, span_notice("[childe.name] doesn't respond to your Vitae."))
 		return
 	if(!((childe.timeofdeath + 5 MINUTES) > world.time))

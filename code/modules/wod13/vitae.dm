@@ -19,7 +19,7 @@
 		return
 	if(exposed_mob.stat == DEAD && data["donor"])
 		var/mob/living/carbon/human/embracer = data["donor"]
-		embracer.attempt_embrace_target()
+		embracer.attempt_embrace_target(exposed_mob)
 		return
 	var/mob/living/carbon/human/victim = exposed_mob
 	prompt_permenant_ghouling(victim)
