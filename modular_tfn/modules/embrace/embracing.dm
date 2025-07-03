@@ -17,7 +17,6 @@
 /mob/living/carbon/human/proc/embrace_target(mob/living/carbon/human/childe)
 	log_game("[key_name(src)] has Embraced [key_name(childe)].")
 	message_admins("[ADMIN_LOOKUPFLW(src)] has Embraced [ADMIN_LOOKUPFLW(childe)].")
-	var/response_v
 	childe.revive(full_heal = TRUE, admin_revive = TRUE)
 	childe.grab_ghost(force = TRUE)
 	to_chat(childe, span_userdanger("You rise with a start, you're alive! Or not... You feel your soul going somewhere, as you realize you are embraced by a vampire..."))
@@ -32,7 +31,6 @@
 	childe.set_body_sprite()
 
 	//Gives the Childe the src's first three Disciplines
-
 	var/list/disciplines_to_give = list()
 	for (var/i in 1 to min(3, client?.prefs.discipline_types.len))
 		disciplines_to_give += client?.prefs.discipline_types[i]
@@ -41,7 +39,7 @@
 	childe.maxbloodpool = 10+((13-min(13, childe.generation))*3)
 	childe.clan.is_enlightened = clan.is_enlightened
 
-	INVOKE_ASYNC(src, PROC_REF(embrace_persistence_confirmation), childe)
+	INVOKE_ASYNC(childe, PROC_REF(embrace_persistence_confirmation))
 
 /mob/living/carbon/human/proc/attempt_abomination_embrace(mob/living/carbon/human/childe)
 	if(!(childe.auspice?.level)) //here be Abominations
@@ -71,18 +69,18 @@
 				childe.can_be_embraced = FALSE
 				return
 
-/mob/living/carbon/human/proc/embrace_persistence_confirmation(mob/living/carbon/human/childe)
-	response_v = tgui_input_list(childe, "Do you wish to keep being a vampire on your save slot?(Yes will be a permanent choice and you can't go back!)", "Embrace", list("Yes", "No"), "No")
+/mob/living/carbon/human/proc/embrace_persistence_confirmation()
+	var/response_v = tgui_input_list(src, "Do you wish to keep being a vampire on your save slot? (Yes will be a permanent choice and you can't go back!)", "Embrace", list("Yes", "No"), "No")
 	//Verify if they accepted to save being a vampire
 	if(response_v != "Yes")
 		return
-	var/datum/preferences/childe_prefs_v = childe.client.prefs
+	var/datum/preferences/childe_prefs_v = client.prefs
 
 	childe_prefs_v.pref_species.id = "kindred"
 	childe_prefs_v.pref_species.name = "Vampire"
-	childe_prefs_v.clan = childe.clan
+	childe_prefs_v.clan = clan
 
-	childe_prefs_v.skin_tone = get_vamp_skin_color(childe.skin_tone)
+	childe_prefs_v.skin_tone = get_vamp_skin_color(skin_tone)
 	childe_prefs_v.clan.is_enlightened = clan.is_enlightened
 
 	//Rarely the new mid round vampires get the 3 brujah skil(it is default)
