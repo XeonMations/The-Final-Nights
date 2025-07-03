@@ -34,8 +34,8 @@
 	//Gives the Childe the src's first three Disciplines
 
 	var/list/disciplines_to_give = list()
-	for (var/i in 1 to min(3, client.prefs.discipline_types.len))
-		disciplines_to_give += client.prefs.discipline_types[i]
+	for (var/i in 1 to min(3, client?.prefs.discipline_types.len))
+		disciplines_to_give += client?.prefs.discipline_types[i]
 	childe.create_disciplines(FALSE, disciplines_to_give)
 	// TODO: Rework the max blood pool calculations.
 	childe.maxbloodpool = 10+((13-min(13, childe.generation))*3)
