@@ -313,7 +313,6 @@
 	button_icon_state = "vitae"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	vampiric = TRUE
-	var/giving = FALSE
 
 /datum/action/give_vitae/Trigger(trigger_flags)
 	if(iskindred(owner))
@@ -340,14 +339,10 @@
 					to_chat(owner, span_warning("You need [grabbed_victim]'s mind to Embrace!"))
 					return
 				message_admins("[ADMIN_LOOKUPFLW(vampire)] is Embracing [ADMIN_LOOKUPFLW(grabbed_victim)]!")
-			if(giving)
-				return
-			giving = TRUE
 			owner.visible_message(span_warning("[owner] tries to feed [grabbed_victim] with their own blood!"), span_notice("You started to feed [grabbed_victim] with your own blood."))
 			// Embraces or ghouls the grabbed victim after 10 seconds.
-			if(do_mob(owner, grabbed_victim, 10 SECONDS))
+			if(do_after(owner, 10 SECONDS, grabbed_victim))
 				vampire.bloodpool = max(0, vampire.bloodpool-2)
-				giving = FALSE
 
 				var/mob/living/carbon/human/childe = grabbed_victim
 				var/mob/living/carbon/human/sire = vampire
@@ -391,7 +386,6 @@
 					W.remove_wound()
 				thrall.adjustFireLoss(-25, TRUE)
 				thrall.bloodpool = min(thrall.maxbloodpool, thrall.bloodpool+2)
-				giving = FALSE
 
 				if(iskindred(thrall))
 					var/datum/species/kindred/species = thrall.dna.species
@@ -404,15 +398,12 @@
 				if(thrall.mind)
 					if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
 						thrall.mind.link_blood_of_creator(owner)
-						to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. You feel no loyalty, though, to the source; only the substance.</i>"))
+						to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
 					else if(thrall.mind.enslaved_to != owner && !HAS_TRAIT(thrall, TRAIT_UNBONDABLE) && !HAS_TRAIT(regnant, TRAIT_UNBONDING))
 						thrall.mind.enslave_mind_to_creator(owner)
 						thrall.mind.link_blood_of_creator(owner)
 						to_chat(thrall, span_userdanger("<b>AS PRECIOUS VITAE ENTERS YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [regnant]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b>"))
-					else if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE))
-						thrall.mind.link_blood_of_creator(owner)
-						to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
-					else if(HAS_TRAIT(regnant, TRAIT_UNBONDING))
+					else if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_UNBONDING))
 						thrall.mind.link_blood_of_creator(owner)
 						to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
 				if(isghoul(thrall))
@@ -420,8 +411,6 @@
 					ghoul.master = owner
 				else if(!iskindred(thrall) && !isnpc(thrall))
 					prompt_permenant_ghouling(thrall)
-			else
-				giving = FALSE
 
 /**
  * Initialises Disciplines for new vampire mobs, applying effects and creating action buttons.
