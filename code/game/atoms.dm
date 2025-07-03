@@ -803,7 +803,7 @@
 
 ///Get the mobs dna list
 /mob/living/carbon/get_blood_dna_list()
-	if((get_blood_id() in typesof(/datum/reagent/blood)))
+	if(!(get_blood_id() in typesof(/datum/reagent/blood)))
 		return
 	var/list/blood_dna = list()
 	if(dna)
