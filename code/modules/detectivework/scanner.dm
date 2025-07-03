@@ -108,7 +108,7 @@
 					reagents[R.name] = R.volume
 
 					// Get blood data from the blood reagent.
-					if(istype(R, typesof(/datum/reagent/blood)))
+					if(istype(R, /datum/reagent/blood))
 
 						if(R.data["blood_DNA"] && R.data["blood_type"])
 							var/blood_DNA = R.data["blood_DNA"]

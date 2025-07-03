@@ -338,7 +338,7 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip)
-	if(get_blood_id() != typesof(/datum/reagent/blood))
+	if(!(get_blood_id() in typesof(/datum/reagent/blood)))
 		return
 	if(!T)
 		T = get_turf(src)
