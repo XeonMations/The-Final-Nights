@@ -7,7 +7,7 @@
 		to_chat(src, span_notice("[childe.name] doesn't respond to your Vitae."))
 		return
 	if(!((childe.timeofdeath + 5 MINUTES) > world.time))
-		to_chat(owner, span_notice("[childe] is totally <b>DEAD</b>!"))
+		to_chat(src, span_notice("[childe] is totally <b>DEAD</b>!"))
 		return FALSE
 
 	if(childe.auspice?.level) //here be Abominations
@@ -17,7 +17,6 @@
 /mob/living/carbon/human/proc/embrace_target(mob/living/carbon/human/childe)
 	log_game("[key_name(src)] has Embraced [key_name(childe)].")
 	message_admins("[ADMIN_LOOKUPFLW(src)] has Embraced [ADMIN_LOOKUPFLW(childe)].")
-	giving = FALSE
 	var/response_v
 	if(childe.revive(full_heal = TRUE, admin_revive = TRUE))
 		childe.grab_ghost(force = TRUE)
@@ -78,7 +77,7 @@
 
 	childe_prefs_v.save_character()
 
-/mob/living/carbon/human/proc/attempt_abomination_embrace(/mob/living/carbon/human/childe)
+/mob/living/carbon/human/proc/attempt_abomination_embrace(mob/living/carbon/human/childe)
 	if(!(childe.auspice?.level)) //here be Abominations
 		return
 	if(childe.auspice.force_abomination)
