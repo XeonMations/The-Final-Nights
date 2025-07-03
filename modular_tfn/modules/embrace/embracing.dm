@@ -35,14 +35,18 @@
 
 	//Gives the Childe the src's first three Disciplines
 	var/list/disciplines_to_give = list()
-	for (var/i in 1 to min(3, client?.prefs.discipline_types.len))
+	var/discipline_number = 0
+	if(client)
+		discipline_number = min(3, client?.prefs.discipline_types.len)
+	for (var/i in 1 to discipline_number)
 		disciplines_to_give += client?.prefs.discipline_types[i]
 	childe.create_disciplines(FALSE, disciplines_to_give)
 	// TODO: Rework the max blood pool calculations.
 	childe.maxbloodpool = 10+((13-min(13, childe.generation))*3)
+	childe.morality_path = morality_path
 	childe.clan.is_enlightened = clan.is_enlightened
 
-	INVOKE_ASYNC(childe, PROC_REF(embrace_persistence_confirmation))
+	addtimer(CALLBACK(childe, PROC_REF(embrace_persistence_confirmation)), 1 SECONDS)
 
 /mob/living/carbon/human/proc/attempt_abomination_embrace(mob/living/carbon/human/childe, second_party_embrace)
 	if(!(childe.auspice?.level)) //here be Abominations
