@@ -1,22 +1,11 @@
 //Regular blooc packs are considered O-, due to being the all-purpose donation blood type.
 /obj/item/reagent_containers/blood
-	name = "blood pack"
-	desc = "Contains blood used for transfusion. Must be attached to an IV drip."
-	icon_state = "blood0"
 	inhand_icon_state = "blood0"
-	icon = 'code/modules/wod13/items.dmi'
 	lefthand_file = 'code/modules/wod13/lefthand.dmi'
 	righthand_file = 'code/modules/wod13/righthand.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
-	volume = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	fill_icon_thresholds = list(0, 25, 50, 75, 100)
-
-	var/blood_type = "O-"
-	var/labelled = FALSE
 	var/amount_of_bloodpoints = 2
 
 /obj/item/reagent_containers/blood/Initialize(mapload)
