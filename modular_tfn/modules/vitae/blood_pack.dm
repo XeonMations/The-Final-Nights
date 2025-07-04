@@ -111,20 +111,6 @@
 /obj/item/reagent_containers/blood/empty
 	blood_type = null
 
-/obj/item/reagent_containers/blood/a_plus
-	blood_type = "A+"
-
-/obj/item/reagent_containers/blood/a_minus
-	blood_type = "A-"
-
-/obj/item/reagent_containers/blood/b_plus
-	blood_type = "B+"
-
-/obj/item/reagent_containers/blood/b_minus
-	blood_type = "B-"
-
-/obj/item/reagent_containers/blood/o_plus
-	blood_type = "O+"
 
 /obj/item/reagent_containers/blood/ab_plus
 	blood_type = "AB+"
