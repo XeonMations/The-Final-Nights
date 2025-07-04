@@ -34,7 +34,7 @@
 /obj/item/reagent_containers/blood/is_drainable()
 	return TRUE
 
-/obj/item/reagent_containers/blood/is_drawable(mob/user, allowmobs)
+/obj/item/reagent_containers/blood/is_drawable(mob/user, allowmobs) //TFN ADDITION
 	return TRUE
 
 /obj/item/reagent_containers/blood/update_appearance(updates)
@@ -56,10 +56,10 @@
 
 /// Handles updating the container when the reagents change.
 /obj/item/reagent_containers/blood/on_reagent_change(datum/reagents/holder, ...)
-	update_appearance()
+	update_appearance() ////TFN EDIT, ORIGINAL IN update_blood_type()
 	return ..()
 
-/obj/item/reagent_containers/blood/update_appearance(updates)
+/obj/item/reagent_containers/blood/update_appearance(updates) //TFN ADDITION
 	. = ..()
 	update_blood_type()
 	update_name()
@@ -68,7 +68,7 @@
 	. = ..()
 	name = "\improper blood pack - [blood_type ? "[blood_type]" : "(empty)"]"
 
-/obj/item/reagent_containers/blood/proc/update_blood_type()
+/obj/item/reagent_containers/blood/proc/update_blood_type() //TFN ADDITION
 	if(!reagents)
 		return
 	var/datum/reagent/blood/B = (reagents.has_reagent(/datum/reagent/blood) || reagents.has_reagent(/datum/reagent/blood/vitae))

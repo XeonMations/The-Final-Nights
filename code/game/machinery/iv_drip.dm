@@ -201,7 +201,7 @@
 		return
 	if(beaker)
 		beaker.forceMove(drop_location())
-		beaker.dropped()
+		beaker.dropped() //TFN ADDITION
 		beaker = null
 		update_icon()
 
