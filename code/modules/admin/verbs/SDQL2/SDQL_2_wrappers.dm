@@ -33,6 +33,15 @@
 /proc/_cos(X)
 	return cos(X)
 
+/proc/_findtext(Haystack, Needle, Start = 1, End = 0)
+	return findtext(Haystack, Needle, Start, End)
+
+/proc/_findtextEx(Haystack, Needle, Start = 1, End = 0)
+	return findtextEx(Haystack, Needle, Start, End)
+
+/proc/_flick(Icon, Object)
+	flick(Icon, Object)
+
 /proc/_get_dir(Loc1, Loc2)
 	return get_dir(Loc1, Loc2)
 
@@ -41,6 +50,9 @@
 
 /proc/_get_step(Ref, Dir)
 	return get_step(Ref, Dir)
+
+/proc/_hascall(object, procname)
+	return hascall(object, procname)
 
 /proc/_hearers(Depth = world.view, Center = usr)
 	return hearers(Depth, Center)
@@ -52,6 +64,8 @@
 	return istype(object, type)
 
 /proc/_ispath(path, type)
+	if(isnull(type))
+		return ispath(path)
 	return ispath(path, type)
 
 /proc/_length(E)
@@ -62,15 +76,21 @@
 
 /proc/_locate(X, Y, Z)
 	if (isnull(Y)) // Assuming that it's only a single-argument call.
-		return locate(X)
+		// direct ref locate
+		var/datum/D = locate(X)
+		// &&'s to last value
+		return istype(D) && D.can_vv_mark() && D
 
 	return locate(X, Y, Z)
 
 /proc/_log(X, Y)
 	return log(X, Y)
 
-/proc/_lowertext(T)
-	return lowertext(T)
+/proc/_uppertext(T)
+	return uppertext(T)
+
+/proc/_LOWER_TEXT(T)
+	return LOWER_TEXT(T)
 
 /proc/_matrix(a, b, c, d, e, f)
 	return matrix(a, b, c, d, e, f)
@@ -85,10 +105,22 @@
 	return min(arglist(args))
 
 /proc/_new(type, arguments)
-	return new type (arglist(arguments))
+	var/datum/result
+
+	if(!length(arguments))
+		result = new type()
+	else
+		result = new type(arglist(arguments))
+
+	if(istype(result))
+		result.datum_flags |= DF_VAR_EDITED
+	return result
 
 /proc/_num2text(N, SigFig = 6)
 	return num2text(N, SigFig)
+
+/proc/_text2num(T)
+	return text2num(T)
 
 /proc/_ohearers(Dist, Center = usr)
 	return ohearers(Dist, Center)
@@ -111,6 +143,16 @@
 /proc/_pick(...)
 	return pick(arglist(args))
 
+/// Allow me to explain
+/// for some reason, if pick() is passed arglist(args) directly and args contains only one list
+/// it considers it to be a list of lists
+/// this means something like _pick(list) would fail
+/// need to do this instead
+///
+/// I hate this timeline
+/proc/_pick_list(list/pick_from)
+	return pick(pick_from)
+
 /proc/_prob(P)
 	return prob(P)
 
@@ -119,6 +161,9 @@
 
 /proc/_range(Dist, Center = usr)
 	return range(Dist, Center)
+
+/proc/_rect_turfs(H_Radius = 0, V_Radius = 0, atom/Center)
+	return RECT_TURFS(H_Radius, V_Radius, Center)
 
 /proc/_regex(pattern, flags)
 	return regex(pattern, flags)
@@ -178,6 +223,9 @@
 /proc/_list_set(list/L, key, value)
 	L[key] = value
 
+/proc/_list_get(list/L, key)
+	return L[key]
+
 /proc/_list_numerical_add(L, key, num)
 	L[key] += num
 
@@ -214,11 +262,11 @@
 /proc/_step_away(ref, trg, max)
 	step_away(ref, trg, max)
 
-/proc/_has_trait(datum/thing,trait)
-	return HAS_TRAIT(thing,trait)
+/proc/_has_trait(datum/thing, trait)
+	return HAS_TRAIT(thing, trait)
 
-/proc/_add_trait(datum/thing,trait,source)
-	ADD_TRAIT(thing,trait,source)
+/proc/_add_trait(datum/thing, trait, source)
+	ADD_TRAIT(thing, trait, source)
 
 /proc/_remove_trait(datum/thing, trait, source)
 	REMOVE_TRAIT(thing, trait, source)
@@ -227,13 +275,19 @@
 	winset(player, control_id, params)
 
 /proc/_winget(player, control_id, params)
-	winget(player, control_id, params)
+	return winget(player, control_id, params)
 
 /proc/_text2path(text)
 	return text2path(text)
 
 /proc/_turn(dir, angle)
 	return turn(dir, angle)
+
+/proc/_view(Dist, Center = usr)
+	return view(Dist, Center)
+
+/proc/_viewers(Dist, Center = usr)
+	return viewers(Dist, Center)
 
 /// Auxtools REALLY doesn't know how to handle filters as values;
 /// when passed as arguments to auxtools-called procs, they aren't simply treated as nulls -
@@ -248,3 +302,29 @@
 	if(!filter_index || filter_index < 1 || filter_index > length(target.filters))
 		return
 	animate(target.filters[filter_index], appearance = set_vars, time, loop, easing, flags)
+
+/proc/_is_type_in_typecache(thing_to_check, typecache)
+	return is_type_in_typecache(thing_to_check, typecache)
+
+/proc/_floor(a)
+	return floor(a)
+
+/proc/_ceil(a)
+	return ceil(a)
+
+/proc/_typesof(a, subtypes_only = FALSE)
+	. = typesof(a)
+	if(subtypes_only)
+		. -= a
+
+/proc/_html_encode(text)
+	return html_encode(text)
+
+/proc/_html_decode(text)
+	return html_decode(text)
+
+/proc/_url_encode(text)
+	return url_encode(text)
+
+/proc/_url_decode(text)
+	return url_decode(text)
