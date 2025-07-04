@@ -22,7 +22,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(src)] has Embraced [ADMIN_LOOKUPFLW(childe)]. [second_party_embrace ? "Using [second_party_embrace]'s vitae!" : null]")
 	childe.revive(full_heal = TRUE, admin_revive = TRUE)
 	childe.grab_ghost(force = TRUE)
-	to_chat(childe, span_userdanger("You rise with a start, you're alive! Or not... You feel your soul going somewhere, as you realize you are embraced by a vampire..."))
+	to_chat(childe, span_cult("You rise with a start! You feel a tremendous pulse echoing in your ears. As you focus your mind on it, you discover it to be the last few throbs of your heart beating until it slows to a halt. The warmth from your skin slowly fades until it settles to the ambient temperature around you...- and you are very hungry."))
 
 	childe.set_species(/datum/species/kindred)
 	childe.set_clan(clan, FALSE)
