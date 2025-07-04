@@ -9,10 +9,9 @@
 	var/labelled = FALSE
 	fill_icon_thresholds = list(0, 25, 50, 75, 100) //TFN EDIT, ORIGINAL: fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 
-/* TFN REMOVAL
+/* TFN REMOVAL, SEE: modular_tfn/modules/vitae/code/blood_pack.dm
 /obj/item/reagent_containers/blood/canconsume(mob/eater, mob/user)
 	return FALSE
-*/
 
 /obj/item/reagent_containers/blood/Initialize()
 	. = ..()
@@ -34,6 +33,7 @@
 	if(labelled)
 		return
 	name = "blood_pack[blood_type ? " - [blood_type]" : null]"
+*/
 
 /obj/item/reagent_containers/blood/random
 	icon_state = "random_bloodpack"
