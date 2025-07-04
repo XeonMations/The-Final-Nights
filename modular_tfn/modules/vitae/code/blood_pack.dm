@@ -111,7 +111,6 @@
 /obj/item/reagent_containers/blood/empty
 	blood_type = null
 
-
 /obj/item/reagent_containers/blood/ab_plus
 	blood_type = "AB+"
 
