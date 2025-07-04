@@ -1,7 +1,7 @@
 /obj/structure/bloodextractor
 	name = "blood extractor"
 	desc = "Extract blood in packs."
-	icon = 'code/modules/wod13/props.dmi'
+	icon = 'modular_tfn/modules/vitae/icons/blood_extractor.dmi'
 	icon_state = "bloodextractor"
 	plane = GAME_PLANE
 	layer = CAR_LAYER
