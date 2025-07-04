@@ -79,7 +79,7 @@
 /mob/living/carbon/human/proc/embrace_persistence_confirmation()
 	var/response_v = tgui_input_list(src, "Do you wish to keep being a vampire on your save slot? (Yes will be a permanent choice and you can't go back!)", "Embrace", list("Yes", "No"), "No")
 	//Verify if they accepted to save being a vampire
-	if(response_v != "Yes")
+	if(response_v != "Yes" || !client)
 		return
 	var/datum/preferences/childe_prefs_v = client.prefs
 

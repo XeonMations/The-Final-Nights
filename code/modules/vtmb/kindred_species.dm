@@ -331,14 +331,12 @@
 			if(iscathayan(grabbed_victim) || iszombie(grabbed_victim))
 				to_chat(owner, span_warning("[grabbed_victim] vomits the vitae back!"))
 				return
-			if(!grabbed_victim.client && !isnpc(vampire.pulling))
+			if(!grabbed_victim.mind && !isnpc(vampire.pulling))
 				to_chat(owner, span_warning("You need [grabbed_victim]'s attention to do that!"))
 				return
-			if(grabbed_victim.stat == DEAD)
-				if(!grabbed_victim.key)
-					to_chat(owner, span_warning("You need [grabbed_victim]'s mind to Embrace!"))
-					return
-				message_admins("[ADMIN_LOOKUPFLW(vampire)] is Embracing [ADMIN_LOOKUPFLW(grabbed_victim)]!")
+			if(grabbed_victim.stat != DEAD)
+				return
+			message_admins("[ADMIN_LOOKUPFLW(vampire)] is Embracing [ADMIN_LOOKUPFLW(grabbed_victim)]!")
 			owner.visible_message(span_warning("[owner] tries to feed [grabbed_victim] with their own blood!"), span_notice("You started to feed [grabbed_victim] with your own blood."))
 			// Embraces or ghouls the grabbed victim after 10 seconds.
 			if(do_after(owner, 10 SECONDS, grabbed_victim))
