@@ -4,8 +4,8 @@
 	icon = 'modular_tfn/master_files/icons/obj/bloodpack.dmi' //TFN EDIT, ORIGINAL: icon = 'icons/obj/bloodpack.dmi'
 	icon_state = "blood0" //TFN EDIT, ORIGINAL: icon_state = "bloodpack"
 	volume = 200
-	var/blood_type = null
-	var/unique_blood = "O-" //TFN edit, ORIGINAL: var/unique_blood = null
+	var/blood_type = "O-" //TFN edit, ORIGINAL: var/blood_type = null
+	var/unique_blood = null
 	var/labelled = FALSE
 	fill_icon_thresholds = list(0, 25, 50, 75, 100) //TFN EDIT, ORIGINAL: fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 
