@@ -40,10 +40,10 @@
 			return
 		else
 			victim.bloodpool = min(victim.maxbloodpool, victim.bloodpool+1) //Otherwise, they just consume vitae normally.
-			if(data["donor"])
-				send_ghoul_vitae_consumption_message(data["donor"])
+			send_ghoul_vitae_consumption_message(data["donor"])
 	if(iskindred(exposed_mob)) //Are we a kindred species?
 		victim.bloodpool = min(victim.maxbloodpool, victim.bloodpool+1)
-		victim.apply_status_effect(STATUS_EFFECT_INLOVE, data["donor"])
+		if(data["donor"])
+			victim.apply_status_effect(STATUS_EFFECT_INLOVE, data["donor"])
 	if(isgarou(expose_mob)) //Are we a garou species?
 		exposed_mob.rollfrenzy()
