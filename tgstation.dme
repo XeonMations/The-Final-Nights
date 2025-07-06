@@ -3776,6 +3776,7 @@
 #include "modular_tfn\modules\panicbunker\code\panicbunker.dm"
 #include "modular_tfn\modules\subtle\subtle.dm"
 #include "modular_tfn\modules\taser_tfn13\taser_tfn13.dm"
+#include "modular_tfn\modules\vitae\code\blood_bond.dm"
 #include "modular_tfn\modules\vitae\code\blood_extractor.dm"
 #include "modular_tfn\modules\vitae\code\blood_pack.dm"
 #include "modular_tfn\modules\vitae\code\embracing.dm"

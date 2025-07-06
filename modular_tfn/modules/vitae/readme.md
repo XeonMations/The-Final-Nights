@@ -6,7 +6,7 @@ Module ID: VITAE
 
 ### Description:
 
-This module handles everything related to ghouling, vitae reagent, blood packs and embraces.
+This module handles everything related to ghouling, blood bonds, vitae reagent, blood packs and embraces.
 
 ### TG Proc/File Changes:
 
