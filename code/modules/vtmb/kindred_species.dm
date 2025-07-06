@@ -355,7 +355,7 @@
 				var/mob/living/carbon/human/regnant = vampire
 
 
-				if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_UNBONDING))
+				if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
 					to_chat(owner, span_warning("You successfuly fed [thrall] with vitae."))
 					to_chat(thrall, span_warning("You feel good when you drink this <b>BLOOD</b>... but you feel no connection to its source."))
 				else if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
@@ -366,7 +366,7 @@
 					to_chat(owner, span_warning("You successfuly fed [thrall] with vitae."))
 					to_chat(thrall, span_warning("You feel good when you drink this <b>BLOOD</b>..."))
 
-				if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_UNBONDING))
+				if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
 					message_admins("[ADMIN_LOOKUPFLW(regnant)] has attempted to bloodbond [ADMIN_LOOKUPFLW(thrall)] (UNBONDABLE/UNBONDING).")
 					log_game("[key_name(regnant)] has attempted to bloodbond [key_name(thrall)] (UNBONDABLE/UNBONDING).")
 				else if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
@@ -397,11 +397,11 @@
 					if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
 						thrall.mind.link_blood_of_creator(owner)
 						to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
-					else if(thrall.mind.enslaved_to != owner && !HAS_TRAIT(thrall, TRAIT_UNBONDABLE) && !HAS_TRAIT(regnant, TRAIT_UNBONDING))
+					else if(thrall.mind.enslaved_to != owner && !HAS_TRAIT(thrall, TRAIT_UNBONDABLE) && !HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
 						thrall.mind.enslave_mind_to_creator(owner)
 						thrall.mind.link_blood_of_creator(owner)
 						to_chat(thrall, span_userdanger("<b>AS PRECIOUS VITAE ENTERS YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [regnant]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b>"))
-					else if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_UNBONDING))
+					else if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
 						thrall.mind.link_blood_of_creator(owner)
 						to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
 				if(isghoul(thrall))

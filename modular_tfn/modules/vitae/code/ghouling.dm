@@ -20,10 +20,10 @@
 	send_ghoul_vitae_consumption_message(owner)
 
 /mob/living/carbon/human/proc/send_ghoul_vitae_consumption_message(mob/living/carbon/human/owner)
-	if(HAS_TRAIT(owner, TRAIT_UNBONDING) || !owner)
+	if(HAS_TRAIT(owner, TRAIT_DEFICIENT_VITAE) || !owner)
 		to_chat(src, span_danger("<i>Precious vitae enters your mouth, an addictive drug. You feel no loyalty, though, to the source; only the substance.</i>"))
 		return TRUE
-	if(mind.enslaved_to != owner && !HAS_TRAIT(owner, TRAIT_UNBONDING))
+	if(mind.enslaved_to != owner && !HAS_TRAIT(owner, TRAIT_DEFICIENT_VITAE))
 		mind.enslave_mind_to_creator(owner)
 		apply_status_effect(STATUS_EFFECT_INLOVE, owner)
 		to_chat(src, span_userdanger("<b>AS PRECIOUS VITAE ENTER YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [owner]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b>"))

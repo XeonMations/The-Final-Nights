@@ -1,0 +1,22 @@
+/mob/living/carbon/human/proc/blood_bond(mob/living/carbon/human/victim)
+	if(HAS_TRAIT(victim, TRAIT_UNBONDABLE) || HAS_TRAIT(src, TRAIT_DEFICIENT_VITAE))
+		to_chat(owner, span_warning("You successfuly fed [victim] with vitae."))
+		to_chat(victim, span_warning("You feel good when you drink this <b>BLOOD</b>... but you feel no connection to its source."))
+		owner.visible_message("")
+		message_admins("[ADMIN_LOOKUPFLW(src)] has attempted to bloodbond [ADMIN_LOOKUPFLW(victim)] (UNBONDABLE/UNBONDING).")
+		log_game("[key_name(src)] has attempted to bloodbond [key_name(victim)] (UNBONDABLE/UNBONDING).")
+	else
+		victim.apply_status_effect(STATUS_EFFECT_INLOVE, owner)
+		to_chat(owner, span_warning("You successfuly fed [victim] with vitae."))
+		to_chat(victim, span_warning("You feel good when you drink this <b>BLOOD</b>..."))
+
+	if(HAS_TRAIT(victim, TRAIT_UNBONDABLE) || HAS_TRAIT(src, TRAIT_DEFICIENT_VITAE))
+		message_admins("[ADMIN_LOOKUPFLW(src)] has attempted to bloodbond [ADMIN_LOOKUPFLW(victim)] (UNBONDABLE/UNBONDING).")
+		log_game("[key_name(src)] has attempted to bloodbond [key_name(victim)] (UNBONDABLE/UNBONDING).")
+	else if(iskindred(victim) && HAS_TRAIT(src, TRAIT_DEFICIENT_VITAE))
+		message_admins("[ADMIN_LOOKUPFLW(src)] has attempted to bloodbond [ADMIN_LOOKUPFLW(victim)] (UNBONDABLE/UNBONDING).")
+		log_game("[key_name(src)] has attempted to bloodbond [key_name(victim)] (UNBONDABLE/UNBONDING).")
+	else
+		message_admins("[ADMIN_LOOKUPFLW(src)] has bloodbonded [ADMIN_LOOKUPFLW(victim)].")
+		log_game("[key_name(src)] has bloodbonded [key_name(victim)].")
+	victim.apply_status_effect(STATUS_EFFECT_INLOVE, data["donor"])

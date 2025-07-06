@@ -35,6 +35,6 @@
 	if(iskindred(victim)) //Are we a kindred species?
 		victim.bloodpool = min(victim.maxbloodpool, victim.bloodpool+1)
 		if(data["donor"])
-			victim.apply_status_effect(STATUS_EFFECT_INLOVE, data["donor"])
+			victim.blood_bond(data["donor"])
 	if(isgarou(victim)) //Are we a garou species?
 		victim.rollfrenzy()
