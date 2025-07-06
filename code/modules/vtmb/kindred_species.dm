@@ -315,116 +315,85 @@
 	vampiric = TRUE
 
 /datum/action/give_vitae/Trigger(trigger_flags)
-	if(iskindred(owner))
-		var/mob/living/carbon/human/vampire = owner
-		if(vampire.bloodpool < 2)
-			to_chat(owner, span_warning("You don't have enough <b>BLOOD</b> to do that!"))
+	if(!iskindred(owner))
+		return
+	var/mob/living/carbon/human/vampire = owner
+	if(vampire.bloodpool < 2)
+		to_chat(owner, span_warning("You don't have enough <b>BLOOD</b> to do that!"))
+		return
+	if(isanimal(vampire.pulling))
+		var/mob/living/animal = vampire.pulling
+		animal.bloodpool = min(animal.maxbloodpool, animal.bloodpool+2)
+		vampire.bloodpool = max(0, vampire.bloodpool-2)
+		animal.adjustBruteLoss(-25)
+		animal.adjustFireLoss(-25)
+		return
+	if(!ishuman(vampire.pulling))
+		return
+
+	var/mob/living/carbon/human/grabbed_victim = vampire.pulling
+	if(iscathayan(grabbed_victim) || iszombie(grabbed_victim))
+		to_chat(owner, span_warning("[grabbed_victim] vomits the vitae back!"))
+		return
+	if(!grabbed_victim.mind && !isnpc(vampire.pulling)) //Prevent doing things to SSD people.
+		to_chat(owner, span_warning("You need [grabbed_victim]'s attention to do that!"))
+		return
+	message_admins("[ADMIN_LOOKUPFLW(vampire)] is feeding [ADMIN_LOOKUPFLW(grabbed_victim)] their blood!")
+	owner.visible_message(span_warning("[owner] tries to feed [grabbed_victim] with their own blood!"), span_notice("You started to feed [grabbed_victim] with your own blood."))
+
+	// Embraces or ghouls the grabbed victim after 10 seconds.
+	if(!do_after(owner, 10 SECONDS, grabbed_victim))
+		return
+
+	vampire.bloodpool = max(0, vampire.bloodpool-2)
+
+	var/mob/living/carbon/human/childe = grabbed_victim
+	var/mob/living/carbon/human/sire = vampire
+
+	if(length(sire.reagents?.reagent_list))
+		sire.reagents.trans_to(childe, min(10, sire.reagents.total_volume), transfered_by = sire, methods = VAMPIRE)
+	childe.adjustBruteLoss(-25, TRUE)
+	if(length(childe.all_wounds))
+		var/datum/wound/W = pick(childe.all_wounds)
+		W.remove_wound()
+	childe.adjustFireLoss(-25, TRUE)
+	childe.bloodpool = min(childe.maxbloodpool, childe.bloodpool+2)
+	childe.drunked_of |= "[sire.dna.real_name]"
+
+	// Sabbatist Embrace Logic
+	if(sire.mind && is_sabbatist(sire))
+		if(childe.mind && !is_sabbatist(childe))
+			childe.mind.assigned_role = "Sabbat Pack"
+			var/datum/antagonist/temp_antag = new()
+			temp_antag.add_antag_hud(ANTAG_HUD_REV, "rev", childe)
+			qdel(temp_antag)
+			log_game("[key_name(sire)] has spread Sabbatism to [key_name(childe)] via vitae.")
+
+	if(iskindred(childe)) //Cant do much to kindred other than try and  bond them.
+		var/datum/species/kindred/species = childe.dna.species
+		if(HAS_TRAIT(childe, TRAIT_TORPOR) && COOLDOWN_FINISHED(species, torpor_timer))
+			childe.untorpor()
+		childe.blood_bond(sire)
+		return
+
+	if(isghoul(childe))
+		if(childe.stat == DEAD)
+			sire.attempt_embrace_target(childe)
 			return
-		if(isanimal(vampire.pulling))
-			var/mob/living/animal = vampire.pulling
-			animal.bloodpool = min(animal.maxbloodpool, animal.bloodpool+2)
-			vampire.bloodpool = max(0, vampire.bloodpool-2)
-			animal.adjustBruteLoss(-25)
-			animal.adjustFireLoss(-25)
-		if(ishuman(vampire.pulling))
-			var/mob/living/carbon/human/grabbed_victim = vampire.pulling
-			if(iscathayan(grabbed_victim) || iszombie(grabbed_victim))
-				to_chat(owner, span_warning("[grabbed_victim] vomits the vitae back!"))
-				return
-			if(!grabbed_victim.mind && !isnpc(vampire.pulling))
-				to_chat(owner, span_warning("You need [grabbed_victim]'s attention to do that!"))
-				return
-			if(grabbed_victim.stat != DEAD)
-				return
-			message_admins("[ADMIN_LOOKUPFLW(vampire)] is Embracing [ADMIN_LOOKUPFLW(grabbed_victim)]!")
-			owner.visible_message(span_warning("[owner] tries to feed [grabbed_victim] with their own blood!"), span_notice("You started to feed [grabbed_victim] with your own blood."))
-			// Embraces or ghouls the grabbed victim after 10 seconds.
-			if(do_after(owner, 10 SECONDS, grabbed_victim))
-				vampire.bloodpool = max(0, vampire.bloodpool-2)
+		childe.blood_bond(sire)
+		var/datum/species/ghoul/ghoul = childe.dna.species
+		ghoul.master = sire
+		return
 
-				var/mob/living/carbon/human/childe = grabbed_victim
-				var/mob/living/carbon/human/sire = vampire
+	if(isnpc(childe))
+		var/mob/living/carbon/human/npc/NPC = childe
+		NPC.npc_ghoulificate(sire)
+		return
 
-				childe.drunked_of |= "[sire.dna.real_name]"
-
-				if(childe.stat == DEAD && !iskindred(childe))
-					vampire.attempt_embrace_target(childe)
-					return
-				// Sabbatist Embrace Logic
-				if(sire.mind && is_sabbatist(sire))
-					if(childe.mind && !is_sabbatist(childe))
-						childe.mind.assigned_role = "Sabbat Pack"
-						var/datum/antagonist/temp_antag = new()
-						temp_antag.add_antag_hud(ANTAG_HUD_REV, "rev", childe)
-						qdel(temp_antag)
-						log_game("[key_name(sire)] has spread Sabbatism to [key_name(childe)] via Embrace.")
-				// Ghouling
-				var/mob/living/carbon/human/thrall = grabbed_victim
-				var/mob/living/carbon/human/regnant = vampire
-
-
-				if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
-					to_chat(owner, span_warning("You successfuly fed [thrall] with vitae."))
-					to_chat(thrall, span_warning("You feel good when you drink this <b>BLOOD</b>... but you feel no connection to its source."))
-				else if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
-					to_chat(owner, span_warning("You successfuly fed [thrall] with vitae."))
-					to_chat(thrall, span_warning("You feel good when you drink this <b>BLOOD</b>... but you feel no connection to its source."))
-				else
-					thrall.apply_status_effect(STATUS_EFFECT_INLOVE, owner)
-					to_chat(owner, span_warning("You successfuly fed [thrall] with vitae."))
-					to_chat(thrall, span_warning("You feel good when you drink this <b>BLOOD</b>..."))
-
-				if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
-					message_admins("[ADMIN_LOOKUPFLW(regnant)] has attempted to bloodbond [ADMIN_LOOKUPFLW(thrall)] (UNBONDABLE/UNBONDING).")
-					log_game("[key_name(regnant)] has attempted to bloodbond [key_name(thrall)] (UNBONDABLE/UNBONDING).")
-				else if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
-					message_admins("[ADMIN_LOOKUPFLW(regnant)] has attempted to bloodbond [ADMIN_LOOKUPFLW(thrall)] (UNBONDABLE/UNBONDING).")
-					log_game("[key_name(regnant)] has attempted to bloodbond [key_name(thrall)] (UNBONDABLE/UNBONDING).")
-				else
-					message_admins("[ADMIN_LOOKUPFLW(regnant)] has bloodbonded [ADMIN_LOOKUPFLW(thrall)].")
-					log_game("[key_name(regnant)] has bloodbonded [key_name(thrall)].")
-
-				if(length(regnant.reagents?.reagent_list))
-					regnant.reagents.trans_to(thrall, min(10, regnant.reagents.total_volume), transfered_by = regnant, methods = VAMPIRE)
-				thrall.adjustBruteLoss(-25, TRUE)
-				if(length(thrall.all_wounds))
-					var/datum/wound/W = pick(thrall.all_wounds)
-					W.remove_wound()
-				thrall.adjustFireLoss(-25, TRUE)
-				thrall.bloodpool = min(thrall.maxbloodpool, thrall.bloodpool+2)
-
-				if(iskindred(thrall))
-					var/datum/species/kindred/species = thrall.dna.species
-					if(HAS_TRAIT(thrall, TRAIT_TORPOR) && COOLDOWN_FINISHED(species, torpor_timer))
-						thrall.untorpor()
-				// Sabbatist Ghouling Logic
-				if(regnant.mind && 	is_sabbatist(regnant))
-					if(thrall.mind && !is_sabbatist(thrall))
-						thrall.mind.assigned_role = "Sabbat Pack"
-						var/datum/antagonist/temp_antag = new()
-						temp_antag.add_antag_hud(ANTAG_HUD_REV, "rev", thrall)
-						qdel(temp_antag)
-						log_game("[key_name(regnant)] has spread Sabbatism to [key_name(thrall)] via vitae.")
-				if(!isghoul(thrall) && istype(thrall, /mob/living/carbon/human/npc))
-					var/mob/living/carbon/human/npc/NPC = thrall
-					NPC.npc_ghoulificate(owner)
-				if(thrall.mind)
-					if(iskindred(thrall) && HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
-						thrall.mind.link_blood_of_creator(owner)
-						to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
-					else if(thrall.mind.enslaved_to != owner && !HAS_TRAIT(thrall, TRAIT_UNBONDABLE) && !HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
-						thrall.mind.enslave_mind_to_creator(owner)
-						thrall.mind.link_blood_of_creator(owner)
-						to_chat(thrall, span_userdanger("<b>AS PRECIOUS VITAE ENTERS YOUR MOUTH, YOU NOW ARE IN THE BLOODBOND OF [regnant]. SERVE YOUR REGNANT CORRECTLY, OR YOUR ACTIONS WILL NOT BE TOLERATED.</b>"))
-					else if(HAS_TRAIT(thrall, TRAIT_UNBONDABLE) || HAS_TRAIT(regnant, TRAIT_DEFICIENT_VITAE))
-						thrall.mind.link_blood_of_creator(owner)
-						to_chat(thrall, span_warning("<i>Precious vitae enters your mouth, an addictive drug. But for you, you feel no loyalty to the source; only the substance.</i>"))
-				if(isghoul(thrall))
-					var/datum/species/ghoul/ghoul = thrall.dna.species
-					ghoul.master = owner
-				else if(!iskindred(thrall) && !isnpc(thrall))
-					thrall.ghoulificate(owner)
-					thrall.prompt_permenant_ghouling()
+	if(ishuman(childe))
+		childe.ghoulificate(sire)
+		childe.prompt_permenant_ghouling()
+		return
 
 /**
  * Initialises Disciplines for new vampire mobs, applying effects and creating action buttons.
