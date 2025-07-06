@@ -350,6 +350,14 @@
 				if(childe.stat == DEAD && !iskindred(childe))
 					vampire.attempt_embrace_target(childe)
 					return
+				// Sabbatist Embrace Logic
+				if(sire.mind && is_sabbatist(sire))
+					if(childe.mind && !is_sabbatist(childe))
+						childe.mind.assigned_role = "Sabbat Pack"
+						var/datum/antagonist/temp_antag = new()
+						temp_antag.add_antag_hud(ANTAG_HUD_REV, "rev", childe)
+						qdel(temp_antag)
+						log_game("[key_name(sire)] has spread Sabbatism to [key_name(childe)] via Embrace.")
 				// Ghouling
 				var/mob/living/carbon/human/thrall = grabbed_victim
 				var/mob/living/carbon/human/regnant = vampire
@@ -389,7 +397,14 @@
 					var/datum/species/kindred/species = thrall.dna.species
 					if(HAS_TRAIT(thrall, TRAIT_TORPOR) && COOLDOWN_FINISHED(species, torpor_timer))
 						thrall.untorpor()
-
+				// Sabbatist Ghouling Logic
+				if(regnant.mind && 	is_sabbatist(regnant))
+					if(thrall.mind && !is_sabbatist(thrall))
+						thrall.mind.assigned_role = "Sabbat Pack"
+						var/datum/antagonist/temp_antag = new()
+						temp_antag.add_antag_hud(ANTAG_HUD_REV, "rev", thrall)
+						qdel(temp_antag)
+						log_game("[key_name(regnant)] has spread Sabbatism to [key_name(thrall)] via vitae.")
 				if(!isghoul(thrall) && istype(thrall, /mob/living/carbon/human/npc))
 					var/mob/living/carbon/human/npc/NPC = thrall
 					NPC.npc_ghoulificate(owner)
