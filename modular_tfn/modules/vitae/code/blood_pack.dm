@@ -127,7 +127,7 @@
 
 /obj/item/reagent_containers/blood/elite/Initialize(mapload)
 	if(mapload)
-		blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-")
+		blood_type = random_blood_type()
 	return ..()
 
 /obj/item/reagent_containers/blood/vitae
@@ -139,7 +139,7 @@
 
 /obj/item/reagent_containers/blood/random/Initialize(mapload)
 	if(mapload)
-		blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-")
+		blood_type = random_blood_type()
 	return ..()
 
 /obj/item/reagent_containers/blood/bweedpack
@@ -154,7 +154,7 @@
 		list("donor" = null,
 			"viruses" = null,
 			"blood_DNA" = null,
-			"blood_type" = pick("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"),
+			"blood_type" = random_blood_type(),
 			"resistances" = null,
 			"trace_chem" = null))
 	update_appearance()
@@ -170,7 +170,7 @@
 		list("donor" = null,
 			"viruses" = null,
 			"blood_DNA" = null,
-			"blood_type" = pick("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"),
+			"blood_type" = random_blood_type(),
 			"resistances" = null,
 			"trace_chem" = null))
 	update_appearance()
@@ -187,7 +187,7 @@
 		list("donor" = null,
 			"viruses" = null,
 			"blood_DNA" = null,
-			"blood_type" = pick("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"),
+			"blood_type" = random_blood_type(),
 			"resistances" = null,
 			"trace_chem" = null))
 	update_appearance()
@@ -203,7 +203,7 @@
 		list("donor" = null,
 			"viruses" = null,
 			"blood_DNA" = null,
-			"blood_type" = pick("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"),
+			"blood_type" = random_blood_type(),
 			"resistances" = null,
 			"trace_chem" = null))
 	update_appearance()
