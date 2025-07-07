@@ -345,6 +345,9 @@
 	if(!do_after(owner, 10 SECONDS, grabbed_victim))
 		return
 
+	message_admins("[ADMIN_LOOKUPFLW(vampire)] has fed [ADMIN_LOOKUPFLW(grabbed_victim)] their blood!")
+	owner.visible_message(span_warning("[owner] feeds [grabbed_victim] with their own blood!"), span_notice("You successfully feed [grabbed_victim] with your own blood."))
+
 	vampire.bloodpool = max(0, vampire.bloodpool-2)
 
 	var/mob/living/carbon/human/childe = grabbed_victim
