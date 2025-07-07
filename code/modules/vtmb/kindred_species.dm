@@ -390,7 +390,7 @@
 		NPC.npc_ghoulificate(sire)
 		return
 
-	if(ishuman(childe))
+	if(ishumanbasic(childe))
 		childe.ghoulificate(sire)
 		childe.prompt_permenant_ghouling()
 		return
