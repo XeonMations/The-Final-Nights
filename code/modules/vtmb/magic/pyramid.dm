@@ -767,7 +767,7 @@
 				var/message = generate_message(generation, clan)
 				to_chat(user, "[message]")
 			else
-				to_chat(user, "The blood speaks not-it is empty of power!")
+				to_chat(user, "The blood speaks not; it is empty of power!")
 		playsound(loc, 'code/modules/wod13/sounds/thaum.ogg', 50, FALSE)
 		color = rgb(255,0,0)
 		activated = TRUE
