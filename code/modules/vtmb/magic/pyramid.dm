@@ -759,7 +759,7 @@
 
 /obj/ritualrune/bloodwalk/attack_hand(mob/user)
 	for(var/obj/item/reagent_containers/syringe/S in loc)
-		for(var/datum/reagent/blood/vitae/B in S.reagents.reagent_list)
+		for(var/datum/reagent/blood/B in S.reagents.reagent_list)
 			var/blood_data = B.data
 			if(blood_data)
 				var/generation = blood_data["generation"]
