@@ -2,7 +2,7 @@
 	name = "arcane tome"
 	desc = "The secrets of Blood Magic..."
 	icon_state = "arcane"
-	icon = 'code/modules/wod13/items.dmi'
+	icon = 'modular_tfn/modules/rituals/icons/arcane_tome.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	is_magic = TRUE
