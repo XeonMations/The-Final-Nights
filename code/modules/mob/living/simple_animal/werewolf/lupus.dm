@@ -65,7 +65,6 @@
 	var/mutable_appearance/flight_overlay = mutable_appearance(corvid.icon, "eyes[HAS_TRAIT(corvid, TRAIT_MOVE_FLYING) ? "_flying" : ""]")
 	flight_overlay.color = corvid.sprite_eye_color
 	flight_overlay.plane = ABOVE_LIGHTING_PLANE
-	flight_overlay.layer = ABOVE_LIGHTING_LAYER
 	corvid.add_overlay(flight_overlay)
 
 /datum/movespeed_modifier/lupusform

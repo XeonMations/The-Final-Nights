@@ -64,7 +64,6 @@
 	icon = 'code/modules/wod13/32x48.dmi'
 	icon_state = "sstation"
 	plane = GAME_PLANE
-	layer = CAR_LAYER
 	anchored = TRUE
 	pixel_y = 0
 	density = 1

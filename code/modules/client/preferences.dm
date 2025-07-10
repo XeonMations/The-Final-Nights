@@ -693,7 +693,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/obj/effect/overlay/apparel_crinos = new(DAWOF)
 				apparel_crinos.icon = 'code/modules/wod13/werewolf.dmi'
 				apparel_crinos.icon_state = "[werewolf_apparel]"
-				apparel_crinos.layer = ABOVE_HUD_LAYER
+				apparel_crinos.plane = ABOVE_HUD_PLANE
 				DAWOF.overlays |= apparel_crinos
 
 				var/obj/effect/overlay/hair_crinos = new(DAWOF)
