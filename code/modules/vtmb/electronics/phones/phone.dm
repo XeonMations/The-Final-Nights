@@ -1,9 +1,9 @@
 /// Index to a define to point at a runtime-global list at compile-time.
-#define NETWORK_ID 1
+#define NETWORK_ID "network_id"
 /// Index to a string, for the contact title.
-#define OUR_ROLE 2
+#define OUR_ROLE "our_role"
 /// Index to a boolean, on whether to replace role with job title (or alt-title).
-#define USE_JOB_TITLE 3
+#define USE_JOB_TITLE "use_job_title"
 
 
 /proc/create_unique_phone_number(exchange = 513)

@@ -16,16 +16,16 @@ GLOBAL_LIST_INIT(vampire_leader_network, list())
 GLOBAL_LIST_INIT(endron_network, list())
 
 
-#define MILLENIUM_TOWER_NETWORK 1
-#define LASOMBRA_NETWORK 2
-#define TREMERE_NETWORK 3
-#define GIOVANNI_NETWORK 4
-#define TZMISCE_NETWORK 5
-#define ANARCH_NETWORK 6
-#define WAREHOUSE_NETWORK 7
-#define TRIADS_NETWORK 8
-#define VAMPIRE_LEADER_NETWORK 9
-#define ENDRON_NETWORK 10
+#define MILLENIUM_TOWER_NETWORK "millennium_tower"
+#define LASOMBRA_NETWORK "lasombra"
+#define TREMERE_NETWORK "tremere"
+#define GIOVANNI_NETWORK "giovanni"
+#define TZMISCE_NETWORK "tzimisce"
+#define ANARCH_NETWORK "anarchs"
+#define WAREHOUSE_NETWORK "warehouse"
+#define TRIADS_NETWORK "triads"
+#define VAMPIRE_LEADER_NETWORK "vampire_leader"
+#define ENDRON_NETWORK "endron"
 
 
 /proc/contact_network_from_define(network_id)
