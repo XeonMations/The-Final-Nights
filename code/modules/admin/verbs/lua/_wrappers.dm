@@ -16,21 +16,23 @@
 	SHOULD_NOT_SLEEP(TRUE)
 	if(!usr)
 		usr = GLOB.lua_usr
+	var/ret
 	if(usr)
-		SSlua.gc_guard = WrapAdminProcCall(thing_to_call, proc_name, arguments)
+		ret = WrapAdminProcCall(thing_to_call, proc_name, arguments)
 	else
-		SSlua.gc_guard = HandleUserlessProcCall("lua", thing_to_call, proc_name, arguments)
-	return SSlua.gc_guard
+		ret = HandleUserlessProcCall("lua", thing_to_call, proc_name, arguments)
+	return ret
 
 /proc/wrap_lua_global_proc_call(proc_name, list/arguments)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(!usr)
 		usr = GLOB.lua_usr
+	var/ret
 	if(usr)
-		SSlua.gc_guard = WrapAdminProcCall(GLOBAL_PROC, proc_name, arguments)
+		ret = WrapAdminProcCall(GLOBAL_PROC, proc_name, arguments)
 	else
-		SSlua.gc_guard = HandleUserlessProcCall("lua", GLOBAL_PROC, proc_name, arguments)
-	return SSlua.gc_guard
+		ret = HandleUserlessProcCall("lua", GLOBAL_PROC, proc_name, arguments)
+	return ret
 
 /proc/wrap_lua_print(state_id, list/arguments)
 	SHOULD_NOT_SLEEP(TRUE)
@@ -42,7 +44,7 @@
 	if(!target_state)
 		return
 	var/print_message = jointext(arguments, "\t")
-	var/result = list("status" = "print", "param" = print_message)
-	INVOKE_ASYNC(target_state, /datum/lua_state.proc/log_result, result, TRUE)
+	var/result = list("status" = "print", "message" = print_message)
+	INVOKE_ASYNC(target_state, TYPE_PROC_REF(/datum/lua_state, log_result), result, TRUE)
 	log_lua("[target_state]: [print_message]")
 #endif

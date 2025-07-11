@@ -2163,25 +2163,6 @@
 	else if (href_list["searchwhitelistckey"])
 		whitelist_panel(href_list["searchwhitelistckey"])
 
-	else if(href_list["show_paper"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		var/obj/item/paper/paper_to_show = locate(href_list["show_paper"])
-		if(!paper_to_show)
-			return
-		paper_to_show.ui_interact(usr)
-	else if(href_list["play_internet"])
-		if(!check_rights(R_SOUND))
-			return
-
-		var/credit = href_list["credit"]
-		var/link_url = href_list["play_internet"]
-		if(!link_url)
-			return
-
-		web_sound(usr, link_url, credit)
-
 	else if(href_list["tag_datum"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2227,3 +2208,22 @@
 				editor.force_modal = "viewChunk"
 		editor.ui_interact(usr)
 #endif
+	else if(href_list["show_paper"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/obj/item/paper/paper_to_show = locate(href_list["show_paper"])
+		if(!paper_to_show)
+			return
+		paper_to_show.ui_interact(usr)
+
+	else if(href_list["play_internet"])
+		if(!check_rights(R_SOUND))
+			return
+
+		var/credit = href_list["credit"]
+		var/link_url = href_list["play_internet"]
+		if(!link_url)
+			return
+
+		web_sound(usr, link_url, credit)

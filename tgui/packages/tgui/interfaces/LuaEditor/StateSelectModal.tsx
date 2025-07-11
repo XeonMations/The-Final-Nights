@@ -1,15 +1,22 @@
-import { useBackend, useLocalState } from '../../backend';
-import { Button, Modal, Input, Section, Stack } from '../../components';
+import { useState } from 'react';
+import { Button, Input, Modal, Section, Stack } from 'tgui-core/components';
 
-export const StateSelectModal = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [, setModal] = useLocalState(context, 'modal', 'states');
-  const [input, setInput] = useLocalState(context, 'newStateName', '');
+import { useBackend } from '../../backend';
+import type { LuaEditorData, LuaEditorModal } from './types';
+
+type StateSelectModalProps = {
+  setModal: (modal: LuaEditorModal) => void;
+};
+
+export const StateSelectModal = (props: StateSelectModalProps) => {
+  const { act, data } = useBackend<LuaEditorData>();
+  const { setModal } = props;
+
+  const [input, setInput] = useState('');
   const { states } = data;
+
   return (
-    <Modal
-      height={`${window.innerHeight * 0.5}px`}
-      width={`${window.innerWidth * 0.3}px`}>
+    <Modal position="absolute" width="30%" height="50%" top="25%" left="35%">
       <Section
         fill
         title="States"
@@ -18,37 +25,38 @@ export const StateSelectModal = (props, context) => {
             color="red"
             icon="window-close"
             onClick={() => {
-              setModal(null);
-            }}>
+              setModal(undefined);
+            }}
+          >
             Cancel
           </Button>
-        }>
+        }
+      >
         {states.map((value, i) => (
           <Button
             key={i}
             onClick={() => {
-              setModal(null);
+              setModal(undefined);
               act('switchState', { index: i + 1 });
-            }}>
+            }}
+          >
             {value}
           </Button>
         ))}
         <Stack fill>
-          <Stack.Item shrink basis="100%">
+          <Stack.Item grow>
             <Input
               fluid
               placeholder="New State"
               value={input}
-              onInput={(_, value) => {
-                setInput(value);
-              }}
+              onChange={setInput}
             />
           </Stack.Item>
           <Stack.Item>
             <Button
               icon="plus"
               onClick={() => {
-                setModal(null);
+                setModal(undefined);
                 act('newState', { name: input });
               }}
             />
