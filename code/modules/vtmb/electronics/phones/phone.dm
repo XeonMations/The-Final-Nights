@@ -88,7 +88,7 @@
 
 	if(LAZYLEN(contact_networks_pre_init))
 		LAZYINITLIST(contact_networks)
-		for(var/list/contact_network_info  as anything in contact_networks_pre_init)
+		for(var/alist/contact_network_info  as anything in contact_networks_pre_init)
 			var/list/network_contacts = contact_network_from_define(contact_network_info[NETWORK_ID])
 
 			var/our_role = contact_network_info[OUR_ROLE]
@@ -642,41 +642,41 @@
 /obj/item/vamp/phone/prince
 	exchange_num = 267
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "C.E.O.")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group C.E.O.")
+		alist(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "C.E.O.")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group C.E.O.")
 		)
 
 /obj/item/vamp/phone/seneschal
 	exchange_num = 267
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Vice President")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group Vice President")
+		alist(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Vice President")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group Vice President")
 		)
 
 /obj/item/vamp/phone/sheriff
 	exchange_num = 267
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Head of Security")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group Head of Security")
+		alist(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Head of Security")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group Head of Security")
 		)
 
 /obj/item/vamp/phone/harpy
 	exchange_num = 267
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Public Relations")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group Public Relations")
+		alist(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Public Relations")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Millenium Group Public Relations")
 		)
 
 /obj/item/vamp/phone/hound
 	exchange_num = 267
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Tower Security")
+		alist(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Tower Security")
 		)
 
 /obj/item/vamp/phone/tower_employee
 	exchange_num = 267
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Tower Employee", USE_JOB_TITLE = TRUE)
+		alist(NETWORK_ID = MILLENIUM_TOWER_NETWORK, OUR_ROLE = "Tower Employee", USE_JOB_TITLE = TRUE)
 		)
 
 // VENTRUE
@@ -684,7 +684,7 @@
 /obj/item/vamp/phone/ventrue_primo
 	important_contact_of = CLAN_VENTRUE
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Crown Blue Jazz Club Owner")
+		alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Crown Blue Jazz Club Owner")
 		)
 
 // TOREADOR
@@ -692,7 +692,7 @@
 /obj/item/vamp/phone/toreador_primo
 	important_contact_of = CLAN_TOREADOR
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Rosebud Night Club Owner")
+		alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Rosebud Night Club Owner")
 		)
 
 // NOSFERATU
@@ -700,7 +700,7 @@
 /obj/item/vamp/phone/nosferatu_primo
 	important_contact_of = CLAN_NOSFERATU
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Utility Administrator")
+		alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Utility Administrator")
 		)
 
 // MALKAVIAN
@@ -708,7 +708,7 @@
 /obj/item/vamp/phone/malkavian_primo
 	important_contact_of = CLAN_MALKAVIAN
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Hospital Administrator")
+		alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Hospital Administrator")
 		)
 
 // LASOMBRA
@@ -716,13 +716,13 @@
 /obj/item/vamp/phone/lasombra_primo
 	important_contact_of = CLAN_LASOMBRA
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = LASOMBRA_NETWORK, OUR_ROLE = "Church Administrator")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Church Administrator")
+		alist(NETWORK_ID = LASOMBRA_NETWORK, OUR_ROLE = "Church Administrator")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Church Administrator")
 		)
 
 /obj/item/vamp/phone/lasombra_caretaker
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = LASOMBRA_NETWORK, OUR_ROLE = "Church Caretaker")
+		alist(NETWORK_ID = LASOMBRA_NETWORK, OUR_ROLE = "Church Caretaker")
 		)
 
 // BANU HAQIM
@@ -730,7 +730,7 @@
 /obj/item/vamp/phone/banu_primo
 	important_contact_of = CLAN_BANU_HAQIM
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "SFPD Civilian Consultant")
+		alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "SFPD Civilian Consultant")
 		)
 
 // TREMERE
@@ -738,18 +738,18 @@
 /obj/item/vamp/phone/tremere_regent
 	important_contact_of = CLAN_TREMERE
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = TREMERE_NETWORK, OUR_ROLE = "Library Manager")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Library Manager")
+		alist(NETWORK_ID = TREMERE_NETWORK, OUR_ROLE = "Library Manager")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Library Manager")
 		)
 
 /obj/item/vamp/phone/archivist
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = TREMERE_NETWORK, OUR_ROLE = "Library Archivist")
+		alist(NETWORK_ID = TREMERE_NETWORK, OUR_ROLE = "Library Archivist")
 		)
 
 /obj/item/vamp/phone/gargoyle
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = TREMERE_NETWORK, OUR_ROLE = "Library Maintenance")
+		alist(NETWORK_ID = TREMERE_NETWORK, OUR_ROLE = "Library Maintenance")
 		)
 
 // GIOVANNI
@@ -757,18 +757,18 @@
 /obj/item/vamp/phone/giovanni_capo
 	important_contact_of = CLAN_GIOVANNI
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Manager")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Bank Manager")
+		alist(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Manager")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Bank Manager")
 		)
 
 /obj/item/vamp/phone/giovanni_squadra
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Security")
+		alist(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Security")
 		)
 
 /obj/item/vamp/phone/giovanni_famiglia
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Employee")
+		alist(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Employee")
 		)
 
 // TZMISCE
@@ -776,18 +776,18 @@
 /obj/item/vamp/phone/voivode
 	important_contact_of = CLAN_TZIMISCE
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = TZMISCE_NETWORK, OUR_ROLE = "Lord of the Manor")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Lord of the Manor")
+		alist(NETWORK_ID = TZMISCE_NETWORK, OUR_ROLE = "Lord of the Manor")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Lord of the Manor")
 		)
 
 /obj/item/vamp/phone/bogatyr
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = TZMISCE_NETWORK, OUR_ROLE = "Resident of the Manor")
+		alist(NETWORK_ID = TZMISCE_NETWORK, OUR_ROLE = "Resident of the Manor")
 		)
 
 /obj/item/vamp/phone/zadruga
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = TZMISCE_NETWORK, OUR_ROLE = "Servant of the Manor")
+		alist(NETWORK_ID = TZMISCE_NETWORK, OUR_ROLE = "Servant of the Manor")
 		)
 
 // ANARCHS
@@ -795,25 +795,25 @@
 /obj/item/vamp/phone/baron
 	exchange_num = 485
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Manager")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Anarchy Rose Club Manager")
+		alist(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Manager")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Anarchy Rose Club Manager")
 		)
 
 /obj/item/vamp/phone/emissary
 	exchange_num = 485
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Representative")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Anarchy Rose Club Representative")
+		alist(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Representative")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Anarchy Rose Club Representative")
 		)
 
 /obj/item/vamp/phone/bruiser
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Bouncer")
+		alist(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Bouncer")
 		)
 
 /obj/item/vamp/phone/sweeper
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Bartender")
+		alist(NETWORK_ID = ANARCH_NETWORK, OUR_ROLE = "Club Bartender")
 		)
 
 // WAREHOUSE
@@ -821,20 +821,20 @@
 /obj/item/vamp/phone/dealer
 	exchange_num = 485
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = WAREHOUSE_NETWORK, OUR_ROLE = "Warehouse Manager")
-		, list(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Warehouse Manager")
+		alist(NETWORK_ID = WAREHOUSE_NETWORK, OUR_ROLE = "Warehouse Manager")
+		, alist(NETWORK_ID = VAMPIRE_LEADER_NETWORK, OUR_ROLE = "Warehouse Manager")
 		)
 
 /obj/item/vamp/phone/supply_tech
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = WAREHOUSE_NETWORK, OUR_ROLE = "Supply Technician")
+		alist(NETWORK_ID = WAREHOUSE_NETWORK, OUR_ROLE = "Supply Technician")
 		)
 
 // TRIADS
 
 /obj/item/vamp/phone/triads_soldier
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = TRIADS_NETWORK, OUR_ROLE = "Chinatown Associate")
+		alist(NETWORK_ID = TRIADS_NETWORK, OUR_ROLE = "Chinatown Associate")
 		)
 
 // ENDRON
@@ -842,32 +842,32 @@
 /obj/item/vamp/phone/endron_lead
 	exchange_num = 485
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Branch Lead")
+		alist(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Branch Lead")
 		)
 
 /obj/item/vamp/phone/endron_exec
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Executive")
+		alist(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Executive")
 		)
 
 /obj/item/vamp/phone/endron_affairs
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Internal Affairs Agent")
+		alist(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Internal Affairs Agent")
 		)
 
 /obj/item/vamp/phone/endron_sec_chief
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Chief of Security")
+		alist(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Chief of Security")
 		)
 
 /obj/item/vamp/phone/endron_security
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Security Agent")
+		alist(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Security Agent")
 		)
 
 /obj/item/vamp/phone/endron_employee
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Employee", USE_JOB_TITLE = TRUE)
+		alist(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Employee", USE_JOB_TITLE = TRUE)
 		)
 
 // MISC PROCS
@@ -884,7 +884,7 @@
 		var/obj/item/vamp/phone/their_phone = their_contact.phone_ref.resolve()
 		if (isnull(their_phone)) // Physical phone item was destroyed.
 			continue
-
+		
 		var/we_already_have_their_contact = FALSE
 		for (var/datum/phonecontact/phone_contact as anything in contacts)
 			if (phone_contact.number == their_phone.number)
