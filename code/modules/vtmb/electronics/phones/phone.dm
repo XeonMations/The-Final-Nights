@@ -884,7 +884,7 @@
 		var/obj/item/vamp/phone/their_phone = their_contact.phone_ref.resolve()
 		if (isnull(their_phone)) // Physical phone item was destroyed.
 			continue
-		
+
 		var/we_already_have_their_contact = FALSE
 		for (var/datum/phonecontact/phone_contact as anything in contacts)
 			if (phone_contact.number == their_phone.number)
