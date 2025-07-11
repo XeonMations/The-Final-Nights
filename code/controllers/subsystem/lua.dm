@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(lua)
 	DREAMLUAU_SET_GLOBAL_CALL_WRAPPER("/proc/wrap_lua_global_proc_call")
 	// Set the print wrapper, as otherwise, the print function is meaningless
 	DREAMLUAU_SET_PRINT_WRAPPER("/proc/wrap_lua_print")
-	return TRUE
+	return ..()
 
 /datum/controller/subsystem/lua/OnConfigLoad()
 	// Read the paths from the config file
