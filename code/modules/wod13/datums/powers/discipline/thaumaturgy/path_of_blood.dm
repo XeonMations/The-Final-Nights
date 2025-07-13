@@ -58,8 +58,9 @@
 // This'd also should show the last time the blood owner's person last fed, but we dont track that and I frankly dont want to.
 /datum/discipline_power/thaumaturgy/a_taste_for_blood/activate(atom/target)
 	. = ..()
-	var/datum/reagent/blood/blood = target.reagents.has_reagent(/datum/reagent/blood)
+	var/datum/reagent/blood/blood = target.reagents.has_reagent(/datum/reagent/blood) || target.reagents.has_reagent(/datum/reagent/blood/vitae)
 	if(!blood)
+		to_chat(owner, span_notice("This blood tastes bland."))
 		return
 
 	var/mob/living/carbon/human/blood_owner = blood.data["donor"]
