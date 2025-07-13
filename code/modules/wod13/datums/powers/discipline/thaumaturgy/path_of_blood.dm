@@ -41,6 +41,7 @@
 	desc = "Touch the blood of a subject and gain information about the subject."
 
 	level = 1
+	range = 1
 	check_flags = DISC_CHECK_FREE_HAND | DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED
 	target_type = TARGET_OBJ
 	aggravating = FALSE
@@ -69,28 +70,28 @@
 	var/list/message = list()
 
 	if(rand(1, success_count) > 1)
-		message += span_notice("[blood_owner] has [blood_owner.bloodpool] blood left.")
+		message += span_notice("The owner of the blood has [blood_owner.bloodpool] blood points left.")
 	else
-		message += span_notice("[blood_owner] has [rand(1, blood_owner.bloodpool)] blood left.")
+		message += span_notice("The owner of the blood has [rand(1, blood_owner.bloodpool)] blood points left.")
 
 	if(rand(1, success_count) > 2)
 		if(iskindred(blood_owner))
-			message += span_notice("[blood_owner]'s blood tastes like a kindred's blood.")
+			message += span_notice("The blood tastes like a kindred's blood.")
 		else
-			message += span_danger("[blood_owner]'s blood doesn't taste like that of a kindred's.")
+			message += span_danger("The blood doesn't taste like that of a kindred's.")
 	else
-		message += span_danger("[blood_owner]'s blood doesn't taste like that of a kindred's.")
+		message += span_danger("The blood doesn't taste like that of a kindred's.")
 
 	if(rand(1, success_count) > 3)
 		if(blood_owner.client.prefs.diablerist)
-			message += span_danger("[blood_owner]'s commmited the act of Diablerie in their past.")
+			message += span_danger("The owner of this blood has commmited the act of Diablerie in their past.")
 	else if(success_count <= 0) //Botches.
-		message += span_danger("[blood_owner]'s commmited the act of Diablerie in their past.")
+		message += span_danger("The owner of this blood has commmited the act of Diablerie in their past.")
 
 	if(rand(1, success_count) > 4)
-		message += span_notice("[blood_owner]'s generation tastes like [blood_owner.generation].")
+		message += span_notice("This blood tastes like that of the [blood_owner.generation]\th generation.")
 	else
-		message += span_notice("[blood_owner]'s generation tastes like [rand(LOWEST_GENERATION_LIMIT, blood_owner.generation)].")
+		message += span_notice("This blood tastes like that of the [rand(LOWEST_GENERATION_LIMIT, blood_owner.generation)]\th generation.")
 
 	to_chat(owner, boxed_message(jointext(message, "\n")))
 
