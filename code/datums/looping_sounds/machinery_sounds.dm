@@ -1,8 +1,8 @@
 /datum/looping_sound/showering
 	start_sound = 'sound/machines/shower/shower_start.ogg'
-	start_length = 2
+	start_length = 1.025 SECONDS
 	mid_sounds = list('sound/machines/shower/shower_mid1.ogg'=1,'sound/machines/shower/shower_mid2.ogg'=1,'sound/machines/shower/shower_mid3.ogg'=1)
-	mid_length = 10
+	mid_length = 5 SECONDS
 	end_sound = 'sound/machines/shower/shower_end.ogg'
 	volume = 20
 
@@ -39,9 +39,9 @@
 
 /datum/looping_sound/generator
 	start_sound = 'sound/machines/generator/generator_start.ogg'
-	start_length = 4
+	start_length = 2.3 SECONDS
 	mid_sounds = list('sound/machines/generator/generator_mid1.ogg'=1, 'sound/machines/generator/generator_mid2.ogg'=1, 'sound/machines/generator/generator_mid3.ogg'=1)
-	mid_length = 4
+	mid_length = 2 SECONDS
 	end_sound = 'sound/machines/generator/generator_end.ogg'
 	volume = 15
 
@@ -50,9 +50,9 @@
 
 /datum/looping_sound/deep_fryer
 	start_sound = 'sound/machines/fryer/deep_fryer_immerse.ogg' //my immersions
-	start_length = 10
+	start_length = 1.3 SECONDS
 	mid_sounds = list('sound/machines/fryer/deep_fryer_1.ogg' = 1, 'sound/machines/fryer/deep_fryer_2.ogg' = 1)
-	mid_length = 2
+	mid_length = 1 SECONDS
 	end_sound = 'sound/machines/fryer/deep_fryer_emerge.ogg'
 	volume = 15
 
@@ -61,7 +61,7 @@
 
 /datum/looping_sound/grill
 	mid_sounds = list('sound/machines/grill/grillsizzle.ogg' = 1)
-	mid_length = 18
+	mid_length = 2 SECONDS
 	volume = 50
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@
 /datum/looping_sound/server
 	mid_sounds = list('sound/machines/tcomms/tcomms_mid1.ogg'=1,'sound/machines/tcomms/tcomms_mid2.ogg'=1,'sound/machines/tcomms/tcomms_mid3.ogg'=1,'sound/machines/tcomms/tcomms_mid4.ogg'=1,\
 										'sound/machines/tcomms/tcomms_mid5.ogg'=1,'sound/machines/tcomms/tcomms_mid6.ogg'=1,'sound/machines/tcomms/tcomms_mid7.ogg'=1)
-	mid_length = 1.8 SECONDS
+	mid_length = 2 SECONDS
 	extra_range = -11
 	falloff_distance = 1
 	falloff_exponent = 5
