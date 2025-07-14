@@ -3794,6 +3794,7 @@
 #include "modular_tfn\modules\loadout\loadout_uniform.dm"
 #include "modular_tfn\modules\magic\code\_ritual.dm"
 #include "modular_tfn\modules\magic\code\thaumaturgy\arcane_tome.dm"
+#include "modular_tfn\modules\magic\code\thaumaturgy\blood_rage_effect.dm"
 #include "modular_tfn\modules\magic\code\thaumaturgy\rune_drawing.dm"
 #include "modular_tfn\modules\morality\morality.dm"
 #include "modular_tfn\modules\morality\morality_component.dm"

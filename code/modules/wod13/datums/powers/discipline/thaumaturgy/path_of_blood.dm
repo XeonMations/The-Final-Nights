@@ -32,6 +32,16 @@
 	. = ..()
 	//Thaumaturgy powers have different effects based off the amount of successes. I dont want to copy paste the code, so this is being put here.
 	success_count = SSroll.storyteller_roll(dice = owner.get_total_mentality(), difficulty = (level + 3), numerical = TRUE, mobs_to_show_output = owner, force_chat_result = TRUE)
+	if(success_count < 0)
+		thaumaturgy_botch_effect()
+		return TRUE
+	return FALSE
+
+/datum/discipline_power/thaumaturgy/proc/thaumaturgy_botch_effect()
+	to_chat(owner, span_danger("You feel like something snapped inside of you."))
+	for(var/obj/item/bodypart/limb in owner.bodyparts)
+		var/type_wound = pick(list(/datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/moderate))
+		limb.force_wound_upwards(type_wound)
 
 
 //------------------------------------------------------------------------------------------------
@@ -57,7 +67,8 @@
 
 // This'd also should show the last time the blood owner's person last fed, but we dont track that and I frankly dont want to.
 /datum/discipline_power/thaumaturgy/a_taste_for_blood/activate(atom/target)
-	. = ..()
+	if(..())
+		return
 	var/datum/reagent/blood/blood = target.reagents.has_reagent(/datum/reagent/blood) || target.reagents.has_reagent(/datum/reagent/blood/vitae)
 	if(!blood)
 		to_chat(owner, span_notice("This blood tastes bland."))
@@ -103,8 +114,12 @@
 	desc = "Impose your will on another Kindred's vitae and force them to spend it as you wish."
 
 	level = 2
-
-	cooldown_length = 2.5 SECONDS
+	range = 1
+	check_flags = DISC_CHECK_FREE_HAND | DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED
+	target_type = TARGET_VAMPIRE | TARGET_SELF
+	aggravating = FALSE
+	hostile = FALSE
+	violates_masquerade = FALSE
 
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
@@ -113,8 +128,17 @@
 		/datum/discipline_power/thaumaturgy/cauldron_of_blood
 	)
 
-/datum/discipline_power/thaumaturgy/blood_rage/activate(mob/living/target)
-	. = ..()
+// "Each success forces the subject to spend one blood point immediately in the way the caster desires" -v20 Core Rulebook
+/datum/discipline_power/thaumaturgy/blood_rage/activate(mob/living/carbon/human/target)
+	if(..())
+		return
+	var/datum/species/kindred/kindred_species = target.dna.species // Get the vampire's species
+	for(var/i in 1 to success_count)
+		var/datum/discipline/random_discipline = pick(kindred_species.disciplines) //Choose a random discipline that they have
+		var/datum/discipline_power/random_discipline_power = pick(random_discipline.known_powers) //Choose a random level of that discipline
+		random_discipline_power.activate(target) //Activate it at themselves.
+
+	target.apply_status_effect(/datum/status_effect/blood_rage, target, success_count)
 
 //------------------------------------------------------------------------------------------------
 
@@ -134,7 +158,8 @@
 	)
 
 /datum/discipline_power/thaumaturgy/blood_of_potency/activate(mob/living/target)
-	. = ..()
+	if(..())
+		return
 
 //------------------------------------------------------------------------------------------------
 
@@ -154,7 +179,8 @@
 	)
 
 /datum/discipline_power/thaumaturgy/theft_of_vitae/activate(mob/living/target)
-	. = ..()
+	if(..())
+		return
 
 //------------------------------------------------------------------------------------------------
 
@@ -174,4 +200,6 @@
 	)
 
 /datum/discipline_power/thaumaturgy/cauldron_of_blood/activate(mob/living/target)
-	. = ..()
+	if(..())
+		return
+
