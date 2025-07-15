@@ -193,8 +193,8 @@
 	level = 4
 
 	effect_sound = 'sound/magic/enter_blood.ogg'
-	range = 8
-	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED | DISC_CHECK_SEE
+	range = 8 // Within 50 feet (15 meters).
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED | DISC_CHECK_SEE | DISC_CHECK_DIRECT_SEE // The subject must be visible to the thaumaturge
 	target_type = TARGET_MOB
 	aggravating = TRUE
 	hostile = TRUE
@@ -209,6 +209,12 @@
 /datum/discipline_power/thaumaturgy/theft_of_vitae/activate(mob/living/target)
 	if(..())
 		return
+
+	owner.Beam(BeamTarget = target, icon_state = "drainbeam", time = 1 SECONDS)
+	target.visible_message(span_danger("[target]'s blood streams out in a torrent towards [owner]!"), span_userdanger("Your blood streams out in a torrent towards [owner]!"))
+	var/blood_taken = clamp(success_count, 0, target.bloodpool)
+	target.bloodpool = max(target.bloodpool - blood_taken, 0)
+	owner.bloodpool = min(owner.bloodpool + blood_taken, owner.maxbloodpool)
 
 //------------------------------------------------------------------------------------------------
 
