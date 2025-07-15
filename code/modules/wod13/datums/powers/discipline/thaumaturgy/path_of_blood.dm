@@ -35,6 +35,9 @@
 	if(success_count < 0)
 		thaumaturgy_botch_effect()
 		return TRUE
+	else if(success_count == 0)
+		to_chat(owner, span_notice("Your magic fizzles out!"))
+		return TRUE
 	return FALSE
 
 /datum/discipline_power/thaumaturgy/proc/thaumaturgy_botch_effect()
@@ -237,8 +240,13 @@
 	name = "Cauldron of Blood"
 	desc = "Boil your target's blood in their body, killing almost anyone."
 
-	cooldown_length = 15.0 SECONDS
 	level = 5
+	range = 1 //The Kindred must touch the subject
+	check_flags = DISC_CHECK_FREE_HAND | DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED
+	target_type = TARGET_MOB | TARGET_SELF
+	aggravating = TRUE
+	hostile = TRUE
+	violates_masquerade = TRUE
 
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
@@ -250,3 +258,10 @@
 	if(..())
 		return
 
+	target.visible_message(span_danger("As [owner] touches [target], their body seems to boil!"), span_userdanger("As [owner] touches you, your body feels like it's boiling in a pool of lava!"))
+	playsound(target, pick('sound/effects/wounds/sizzle1.ogg', 'sound/effects/wounds/sizzle2.ogg'), 50, TRUE)
+	target.bloodpool = max(target.bloodpool - success_count, 0)
+	if(isnpc(target))
+		target.apply_damage(success_count * 100, CLONE) //A single success kills any mortal
+	else
+		target.apply_damage(success_count * 20, CLONE) //8 successes = 180 aggravated damagge
