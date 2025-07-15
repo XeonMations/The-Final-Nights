@@ -60,7 +60,6 @@
 
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/blood_rage,
-		/datum/discipline_power/thaumaturgy/blood_of_potency,
 		/datum/discipline_power/thaumaturgy/theft_of_vitae,
 		/datum/discipline_power/thaumaturgy/cauldron_of_blood
 	)
@@ -123,7 +122,6 @@
 
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
-		/datum/discipline_power/thaumaturgy/blood_of_potency,
 		/datum/discipline_power/thaumaturgy/theft_of_vitae,
 		/datum/discipline_power/thaumaturgy/cauldron_of_blood
 	)
@@ -148,21 +146,16 @@
 
 	level = 3
 
-	duration_override = TRUE // This power's length depends on the amount chosen by the user.
+	duration_length = 0 // This power's length depends on the amount chosen by the user.
 	cooldown_length = 8 INGAME_HOURS // This power can only be used once per night.
 
 	target_type = NONE
-	check_flags = DISC_CHECK_FREE_HAND | DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED
+	check_flags = DISC_CHECK_TORPORED
 	aggravating = FALSE
 	hostile = FALSE
 	violates_masquerade = FALSE
 
-	grouped_powers = list(
-		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
-		/datum/discipline_power/thaumaturgy/blood_rage,
-		/datum/discipline_power/thaumaturgy/theft_of_vitae,
-		/datum/discipline_power/thaumaturgy/cauldron_of_blood
-	)
+	grouped_powers = list()
 
 /datum/discipline_power/thaumaturgy/blood_of_potency/activate()
 	if(..())
@@ -172,10 +165,10 @@
 	var/points_to_spend = success_count
 
 	var/list/generation_choices = list()
-	for(var/i in 1 to clamp(points_to_spend, points_to_spend, (HIGHEST_GENERATION_LIMIT - LOWEST_GENERATION_LIMIT)))
+	for(var/i in 1 to clamp(points_to_spend, points_to_spend, ((HIGHEST_GENERATION_LIMIT - LOWEST_GENERATION_LIMIT) + 1)))
 		generation_choices += (owner.generation - i)
 	chosen_generation = tgui_input_list(owner, "What Generation would you like to lower your blood's potency to?", "Generation", generation_choices, (owner.generation - 1))
-	points_to_spend -= chosen_generation
+	points_to_spend -= (owner.generation - chosen_generation)
 
 	var/list/time_choices = list()
 	for(var/i in 1 to points_to_spend)
@@ -183,9 +176,10 @@
 	set_time = tgui_input_list(owner, "How many hours do you want this to last?", "Time", time_choices, 1)
 
 	chosen_generation = clamp(chosen_generation, LOWEST_GENERATION_LIMIT, chosen_generation) //Lowest im gonna let you go is LOWEST_GENERATION_LIMIT bucko
-	owner.apply_status_effect(/datum/status_effect/blood_of_potency, generation, (set_time INGAME_HOURS))
+	owner.apply_status_effect(/datum/status_effect/blood_of_potency, chosen_generation, (set_time INGAME_HOURS))
 
 /datum/discipline_power/thaumaturgy/blood_of_potency/deactivate()
+	. = ..()
 	owner.remove_status_effect(/datum/status_effect/blood_of_potency)
 
 //------------------------------------------------------------------------------------------------
@@ -201,7 +195,6 @@
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
 		/datum/discipline_power/thaumaturgy/blood_rage,
-		/datum/discipline_power/thaumaturgy/blood_of_potency,
 		/datum/discipline_power/thaumaturgy/cauldron_of_blood
 	)
 
@@ -222,7 +215,6 @@
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
 		/datum/discipline_power/thaumaturgy/blood_rage,
-		/datum/discipline_power/thaumaturgy/blood_of_potency,
 		/datum/discipline_power/thaumaturgy/theft_of_vitae
 	)
 
