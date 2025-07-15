@@ -38,11 +38,20 @@
 	return FALSE
 
 /datum/discipline_power/thaumaturgy/proc/thaumaturgy_botch_effect()
-	to_chat(owner, span_danger("You feel like something snapped inside of you."))
-	for(var/obj/item/bodypart/limb in owner.bodyparts)
-		var/type_wound = pick(list(/datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/moderate))
-		limb.force_wound_upwards(type_wound)
-
+	var/random_effect = rand(1, 3)
+	switch(random_effect)
+		if(1)
+			to_chat(owner, span_userdanger("You feel like something snapped inside of you!"))
+			for(var/obj/item/bodypart/limb in owner.bodyparts)
+				var/type_wound = pick(list(/datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/moderate))
+				limb.force_wound_upwards(type_wound)
+		if(2)
+			to_chat(owner, span_userdanger("You feel the sun inside of you!"))
+			owner.adjust_fire_stacks(5)
+			owner.IgniteMob()
+		if(3)
+			to_chat(owner, span_userdanger("You feel slightly less competent!"))
+			owner.mentality = max(owner.mentality - 1, 1)
 
 //------------------------------------------------------------------------------------------------
 
