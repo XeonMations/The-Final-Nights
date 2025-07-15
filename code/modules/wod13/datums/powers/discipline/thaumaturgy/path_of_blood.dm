@@ -112,6 +112,8 @@
 	name = "Blood Rage"
 	desc = "Impose your will on another Kindred's vitae and force them to spend it as you wish."
 
+	effect_sound = 'sound/magic/demon_consume.ogg'
+
 	level = 2
 	range = 1
 	check_flags = DISC_CHECK_FREE_HAND | DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED
@@ -190,7 +192,13 @@
 
 	level = 4
 
-	effect_sound = 'code/modules/wod13/sounds/vomit.ogg'
+	effect_sound = 'sound/magic/enter_blood.ogg'
+	range = 8
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED | DISC_CHECK_SEE
+	target_type = TARGET_MOB
+	aggravating = TRUE
+	hostile = TRUE
+	violates_masquerade = TRUE
 
 	grouped_powers = list(
 		/datum/discipline_power/thaumaturgy/a_taste_for_blood,
