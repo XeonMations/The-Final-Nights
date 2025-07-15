@@ -162,20 +162,25 @@
 /datum/discipline_power/thaumaturgy/blood_of_potency/activate()
 	if(..())
 		return
-	var/chosen_generation = owner.generation - 1
-	var/set_time = 1
 	var/points_to_spend = success_count
+	var/chosen_generation
+	var/set_time
 
 	var/list/generation_choices = list()
 	for(var/i in 1 to clamp(points_to_spend, points_to_spend, ((HIGHEST_GENERATION_LIMIT - LOWEST_GENERATION_LIMIT) + 1)))
 		generation_choices += (owner.generation - i)
-	chosen_generation = tgui_input_list(owner, "What Generation would you like to lower your blood's potency to?", "Generation", generation_choices, (owner.generation - 1))
+	chosen_generation = tgui_input_list(owner, "What Generation would you like to lower your blood's potency to?", "Generation", generation_choices, generation_choices[1])
+	if(!chosen_generation)
+		chosen_generation = owner.generation - 1
+
 	points_to_spend -= (owner.generation - chosen_generation)
 
 	var/list/time_choices = list()
 	for(var/i in 1 to points_to_spend)
 		time_choices += i
 	set_time = tgui_input_list(owner, "How many hours do you want this to last?", "Time", time_choices, 1)
+	if(!set_time)
+		set_time = 1
 
 	chosen_generation = clamp(chosen_generation, LOWEST_GENERATION_LIMIT, chosen_generation) //Lowest im gonna let you go is LOWEST_GENERATION_LIMIT bucko
 	owner.apply_status_effect(/datum/status_effect/blood_of_potency, chosen_generation, (set_time INGAME_HOURS))
