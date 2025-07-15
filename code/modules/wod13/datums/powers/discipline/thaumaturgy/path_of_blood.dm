@@ -49,7 +49,7 @@
 				var/type_wound = pick(list(/datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/moderate))
 				limb.force_wound_upwards(type_wound)
 		if(2)
-			to_chat(owner, span_userdanger("You feel the sun inside of you!"))
+			to_chat(owner, span_userdanger("You feel like there's a sun inside of you!"))
 			owner.adjust_fire_stacks(5)
 			owner.IgniteMob()
 		if(3)
