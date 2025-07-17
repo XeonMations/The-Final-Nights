@@ -3797,6 +3797,7 @@
 #include "modular_tfn\modules\magic\code\magic_effects\blood_of_potency_effect.dm"
 #include "modular_tfn\modules\magic\code\magic_effects\blood_rage_effect.dm"
 #include "modular_tfn\modules\magic\code\rituals\_ritual.dm"
+#include "modular_tfn\modules\magic\code\rituals\ritual_knowledge.dm"
 #include "modular_tfn\modules\magic\code\rituals\rune_drawing.dm"
 #include "modular_tfn\modules\magic\code\rituals\thaumaturgy\rituals.dm"
 #include "modular_tfn\modules\magic\code\rituals\thaumaturgy\arcane_tome\arcane_tome.dm"

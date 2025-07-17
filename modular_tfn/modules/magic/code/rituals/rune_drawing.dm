@@ -1,4 +1,5 @@
 
+/*
 //RUNE DRAWING
 /datum/action/thaumaturgy
 	name = "Thaumaturgy"
@@ -56,3 +57,6 @@
 					H.AdjustMasquerade(-1)
 			else
 				drawing = FALSE
+*/
+
+
