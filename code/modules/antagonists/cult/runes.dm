@@ -50,7 +50,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 
 /obj/effect/rune/examine(mob/user)
 	. = ..()
-	if(HAS_TRAIT(user, TRAIT_THAUMATURGY_KNOWLEDGE) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects, TFN EDIT, ORIGINAL: if(iscultist(user) || user.stat == DEAD)
+	if(iscultist(user) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
 		. += "<b>Name:</b> [cultist_name]\n"+\
 		"<b>Effects:</b> [capitalize(cultist_desc)]\n"+\
 		"<b>Required Acolytes:</b> [req_cultists_text ? "[req_cultists_text]":"[req_cultists]"]"
@@ -85,7 +85,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 	. = ..()
 	if(.)
 		return
-	if(!HAS_TRAIT(user, TRAIT_THAUMATURGY_KNOWLEDGE)) //TFN EDIT, ORIGINAL: if(!iscultist(user))
+	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>You aren't able to understand the words of [src].</span>")
 		return
 	var/list/invokers = can_invoke(user)
@@ -133,7 +133,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(req_cultists > 1 || istype(src, /obj/effect/rune/convert))
 		var/list/things_in_range = range(1, src)
 		for(var/mob/living/L in things_in_range)
-			if(HAS_TRAIT(L, TRAIT_THAUMATURGY_KNOWLEDGE)) //TFN EDIT, ORIGINAL: if(iscultist(L))
+			if(iscultist(L))
 				if(L == user)
 					continue
 				if(ishuman(L))
