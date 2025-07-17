@@ -494,33 +494,31 @@
 	background_icon_state = "bg_demon"
 
 /datum/action/item_action/cult_dagger/Grant(mob/M)
-	if(!IS_CULTIST(M))
+	if(iscultist(M))
+		..()
+		button.screen_loc = "6:157,4:-2"
+		button.moved = "6:157,4:-2"
+	else
 		Remove(owner)
-		return
 
-	. = ..()
-	button.screen_loc = "6:157,4:-2"
-	button.moved = "6:157,4:-2"
 
 /datum/action/item_action/cult_dagger/Trigger(trigger_flags)
-	for(var/obj/item/held_item as anything in owner.held_items) // In case we were already holding a dagger
-		if(istype(held_item, /obj/item/melee/cultblade/dagger))
-			held_item.attack_self(owner)
+	for(var/obj/item/H in owner.held_items) //In case we were already holding another dagger
+		if(istype(H, /obj/item/melee/cultblade/dagger))
+			H.attack_self(owner)
 			return
-	var/obj/item/target_item = target
-	if(owner.can_equip(target_item, ITEM_SLOT_HANDS))
-		owner.temporarilyRemoveItemFromInventory(target_item)
-		owner.put_in_hands(target_item)
-		target_item.attack_self(owner)
+	var/obj/item/I = target
+	if(owner.can_equip(I, ITEM_SLOT_HANDS))
+		owner.temporarilyRemoveItemFromInventory(I)
+		owner.put_in_hands(I)
+		I.attack_self(owner)
 		return
-
 	if(!isliving(owner))
 		to_chat(owner, "<span class='warning'>You lack the necessary living force for this action.</span>")
 		return
-
 	var/mob/living/living_owner = owner
 	if (living_owner.usable_hands <= 0)
-		to_chat(living_owner, span_warning("You don't have any usable hands!"))
+		to_chat(living_owner, "<span class='warning'>You dont have any usable hands!</span>")
 	else
 		to_chat(living_owner, "<span class='warning'>Your hands are full!</span>")
 

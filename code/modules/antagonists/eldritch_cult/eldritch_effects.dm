@@ -17,12 +17,14 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(activate) , user)
 
-/obj/effect/eldritch/proc/activate(mob/living/user)
-	is_in_use = TRUE
-	// Have fun trying to read this proc.
-	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	var/list/knowledge = cultie.get_all_knowledge()
-	var/list/atoms_in_range = list()
+/obj/effect/heretic_rune/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	if(istype(I,/obj/item/nullrod))
+		qdel(src)
+
+/obj/effect/heretic_rune/proc/activate(mob/living/user)
+	flick("[icon_state]_active",src)
+	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
 
 /// A 3x3 heretic rune. The kind heretics actually draw in game.
