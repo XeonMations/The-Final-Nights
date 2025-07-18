@@ -172,9 +172,11 @@
 	grouped_powers = list()
 	var/activated = FALSE
 
-/datum/discipline_power/thaumaturgy/can_activate(atom/target, alert = FALSE)
+/datum/discipline_power/thaumaturgy/blood_of_potency/can_activate(atom/target, alert = FALSE)
 	. = ..()
 	if(activated)
+		if(alert)
+			to_chat(owner, span_warning("You cannot cast [src] more than once per night!"))
 		return FALSE
 	return TRUE
 
