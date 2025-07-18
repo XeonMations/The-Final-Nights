@@ -161,7 +161,7 @@
 	level = 3
 
 	duration_length = 0 // This power's length depends on the amount chosen by the user.
-	cooldown_length = 8 INGAME_HOURS // This power can only be used once per night.
+	cooldown_override = TRUE // This power can only be used once per night.
 
 	target_type = NONE
 	check_flags = DISC_CHECK_TORPORED
@@ -170,6 +170,13 @@
 	violates_masquerade = FALSE
 
 	grouped_powers = list()
+	var/activated = FALSE
+
+/datum/discipline_power/thaumaturgy/can_activate(atom/target, alert = FALSE)
+	. = ..()
+	if(activated)
+		return FALSE
+	return TRUE
 
 /datum/discipline_power/thaumaturgy/blood_of_potency/activate()
 	if(..())
@@ -196,6 +203,7 @@
 
 	chosen_generation = max(LOWEST_GENERATION_LIMIT, chosen_generation) //Lowest im gonna let you go is LOWEST_GENERATION_LIMIT bucko
 	owner.apply_status_effect(/datum/status_effect/blood_of_potency, chosen_generation, (set_time INGAME_HOURS))
+	activated = TRUE
 
 /datum/discipline_power/thaumaturgy/blood_of_potency/deactivate()
 	. = ..()
