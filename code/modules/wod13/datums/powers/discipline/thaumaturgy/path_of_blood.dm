@@ -183,14 +183,18 @@
 /datum/discipline_power/thaumaturgy/blood_of_potency/activate()
 	if(..())
 		return
+	if(owner.generation == LOWEST_GENERATION_LIMIT)
+		to_chat(owner, span_warning("You can't make your blood any more powerful!"))
+		return
 	var/points_to_spend = success_count
 	var/chosen_generation
 	var/set_time
 
 	var/list/generation_choices = list()
 	for(var/i in 1 to max(points_to_spend, ((HIGHEST_GENERATION_LIMIT - LOWEST_GENERATION_LIMIT) + 1)))
-		generation_choices += (owner.generation - i)
-	chosen_generation = tgui_input_list(owner, "What Generation would you like to lower your blood's potency to?", "Generation", generation_choices, generation_choices[1])
+		generation_choices += max(LOWEST_GENERATION_LIMIT, min(owner.generation, owner.generation - i))
+	chosen_generation = tgui_input_list(owner, "What Generation would you like to lower your blood's potency to?", "Generation", uniqueList(generation_choices), generation_choices[1])
+
 	if(!chosen_generation)
 		chosen_generation = owner.generation - 1
 
