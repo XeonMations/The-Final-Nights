@@ -264,4 +264,4 @@
 	if(isnpc(target))
 		target.apply_damage(success_count * 100, CLONE) //A single success kills any mortal
 	else
-		target.apply_damage(success_count * 20, CLONE) //8 successes = 180 aggravated damagge
+		target.apply_damage(success_count * 40, CLONE) // Note that for each success_count to pass, it needs to pass a diff 8 check.
