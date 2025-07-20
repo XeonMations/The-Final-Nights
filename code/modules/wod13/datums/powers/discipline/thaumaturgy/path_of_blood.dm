@@ -193,7 +193,7 @@
 	var/list/generation_choices = list()
 	for(var/i in 1 to points_to_spend)
 		generation_choices += clamp((owner.generation - i), LOWEST_GENERATION_LIMIT, HIGHEST_GENERATION_LIMIT)
-	chosen_generation = tgui_input_list(owner, "What Generation would you like to lower your blood's potency to?", "Generation", uniqueList(generation_choices), generation_choices[1])
+	chosen_generation = tgui_input_list(owner, "What Generation would you like to lower your blood's potency to?", "Generation", uniqueList(generation_choices), null)
 
 	if(!chosen_generation)
 		chosen_generation = owner.generation - 1
