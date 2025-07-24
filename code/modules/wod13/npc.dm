@@ -348,13 +348,10 @@
 /mob/living/carbon/human/npc/proc/AssignSocialRole(datum/socialrole/S, var/dont_random = FALSE)
 	if(!S)
 		return
-	physique = rand(1, max_stat)
-	social = rand(1, max_stat)
-	mentality = rand(1, max_stat)
-	lockpicking = rand(1, max_stat)
-	blood = rand(1, 2)
-	maxHealth = round(initial(maxHealth)+(initial(maxHealth)/3)*(physique))
-	health = round(initial(health)+(initial(health)/3)*(physique))
+	trait_holder.randomize_attributes(1, max_stat)
+	trait_holder.randomize_abilities(0, max_stat)	maxHealth = round(initial(maxHealth)+(initial(maxHealth)/3)*(physique))
+	maxHealth = round(initial(maxHealth)+(initial(maxHealth)/3)*(trait_holder.get_stat(ST_TRAIT_STAMINA)))
+	health = round(initial(health)+(initial(health)/3)*(trait_holder.get_stat(ST_TRAIT_STAMINA)))
 	last_health = health
 	socialrole = new S()
 

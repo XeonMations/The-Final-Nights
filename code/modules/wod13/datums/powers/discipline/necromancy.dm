@@ -76,7 +76,7 @@
 /datum/discipline_power/necromancy/ethereal_horde/activate()
 	. = ..()
 
-	var/limit = 2 + owner.social + owner.more_companions - 1
+	var/limit = 2 + owner.trait_holder.get_stat(ST_TRAIT_LEADERSHIP)
 	var/diff = limit - length(owner.beastmaster)
 	if(diff <= 0)
 		to_chat(owner, span_warning("The vitae cools - you cannot extend your will to any more followers."))
@@ -231,7 +231,7 @@
 
 /datum/discipline_power/necromancy/shambling_horde/activate(mob/living/target)
 	. = ..()
-	var/limit = 2 + owner.social + owner.more_companions - 1
+	var/limit = 2 + owner.trait_holder.get_stat(ST_TRAIT_LEADERSHIP)
 	var/diff = limit - length(owner.beastmaster)
 	if (target.stat == DEAD)
 		if(diff <= 0)
