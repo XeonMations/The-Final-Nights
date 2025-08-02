@@ -40,7 +40,7 @@ export function TguiSay() {
     keyof typeof RADIO_PREFIXES | null
   >(null);
   const [size, setSize] = useState(WindowSize.Small);
-  const [maxLength, setMaxLength] = useState(1024);
+  const [maxLength, setMaxLength] = useState(10240);
   const [lightMode, setLightMode] = useState(false);
   const [position, setPosition] = useState([window.screenX, window.screenY]);
   const [value, setValue] = useState('');

@@ -45,7 +45,7 @@ export class TguiSay extends Component<{}, State> {
     this.currentPrefix = null;
     this.innerRef = createRef();
     this.lightMode = false;
-    this.maxLength = 1024;
+    this.maxLength = 10240;
     this.messages = byondMessages;
     this.state = {
       buttonContent: '',
