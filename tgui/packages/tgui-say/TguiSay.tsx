@@ -3,9 +3,9 @@ import './styles/main.scss';
 import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler } from 'tgui/drag';
 import { isEscape, KEY } from 'tgui-core/keys';
-import { BooleanLike, classes } from 'tgui-core/react';
+import { type BooleanLike, classes } from 'tgui-core/react';
 
-import { Channel, ChannelIterator } from './ChannelIterator';
+import { type Channel, ChannelIterator } from './ChannelIterator';
 import { ChatHistory } from './ChatHistory';
 import { LineLength, RADIO_PREFIXES, WindowSize } from './constants';
 import { getPrefix, windowClose, windowOpen, windowSet } from './helpers';
@@ -18,6 +18,7 @@ type ByondOpen = {
 type ByondProps = {
   maxLength: number;
   lightMode: BooleanLike;
+  scale: BooleanLike;
 };
 
 export function TguiSay() {
@@ -25,6 +26,7 @@ export function TguiSay() {
   const channelIterator = useRef(new ChannelIterator());
   const chatHistory = useRef(new ChatHistory());
   const messages = useRef(byondMessages);
+  const scale = useRef(true);
 
   // I initially wanted to make these an object or a reducer, but it's not really worth it.
   // You lose the granulatity and add a lot of boilerplate.
@@ -32,7 +34,6 @@ export function TguiSay() {
   const [currentPrefix, setCurrentPrefix] = useState<
     keyof typeof RADIO_PREFIXES | null
   >(null);
-  const [size, setSize] = useState(WindowSize.Small);
   const [lightMode, setLightMode] = useState(false);
   const [maxLength, setMaxLength] = useState(10240);
   const [size, setSize] = useState(WindowSize.Small);
@@ -111,7 +112,7 @@ export function TguiSay() {
 
   function handleClose(): void {
     innerRef.current?.blur();
-    windowClose();
+    windowClose(scale.current);
 
     setTimeout(() => {
       chatHistory.current.reset();
@@ -161,7 +162,7 @@ export function TguiSay() {
     const iterator = channelIterator.current;
     let newValue = event.currentTarget.value;
 
-    let newPrefix = getPrefix(newValue) || currentPrefix;
+    const newPrefix = getPrefix(newValue) || currentPrefix;
     // Handles switching prefixes
     if (newPrefix && newPrefix !== currentPrefix) {
       setButtonContent(RADIO_PREFIXES[newPrefix]);
@@ -230,6 +231,7 @@ export function TguiSay() {
   function handleProps(data: ByondProps): void {
     setMaxLength(data.maxLength);
     setLightMode(!!data.lightMode);
+    scale.current = !!data.scale;
   }
 
   function unloadChat(): void {
@@ -259,7 +261,7 @@ export function TguiSay() {
     }
 
     if (size !== newSize) {
-      windowSet(newSize);
+      windowSet(newSize, scale.current);
       setSize(newSize);
     }
   }, [value]);
@@ -277,7 +279,12 @@ export function TguiSay() {
       >
         {!lightMode && <div className={`shine shine-${theme}`} />}
       </div>
-      <div className={classes(['content', lightMode && 'content-lightMode'])}>
+      <div
+        className={classes(['content', lightMode && 'content-lightMode'])}
+        style={{
+          zoom: scale.current ? '' : `${100 / window.devicePixelRatio}%`,
+        }}
+      >
         <button
           className={`button button-${theme}`}
           onMouseDown={handleButtonClick}
