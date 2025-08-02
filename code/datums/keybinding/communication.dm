@@ -11,7 +11,7 @@
 	. = ..()
 	if(.)
 		return
-	winset(user, null, "command=[user.tgui_say_create_open_command(SAY_CHANNEL)]")
+	winset(user, null, "command=[user.tgui_say_create_open_command(SAY_CHANNEL)];")
 	winset(user, "tgui_say.browser", "focus=true")
 	return TRUE
 
