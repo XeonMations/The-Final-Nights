@@ -1,13 +1,6 @@
 import './styles/main.scss';
 
-import {
-  FormEvent,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler } from 'tgui/drag';
 import { isEscape, KEY } from 'tgui-core/keys';
 import { BooleanLike, classes } from 'tgui-core/react';
@@ -27,13 +20,6 @@ type ByondProps = {
   lightMode: BooleanLike;
 };
 
-const ROWS: Record<keyof typeof WindowSize, number> = {
-  Small: 1,
-  Medium: 2,
-  Large: 3,
-  Width: 1, // not used
-} as const;
-
 export function TguiSay() {
   const innerRef = useRef<HTMLTextAreaElement>(null);
   const channelIterator = useRef(new ChannelIterator());
@@ -47,8 +33,9 @@ export function TguiSay() {
     keyof typeof RADIO_PREFIXES | null
   >(null);
   const [size, setSize] = useState(WindowSize.Small);
-  const [maxLength, setMaxLength] = useState(10240);
   const [lightMode, setLightMode] = useState(false);
+  const [maxLength, setMaxLength] = useState(10240);
+  const [size, setSize] = useState(WindowSize.Small);
   const [value, setValue] = useState('');
 
   const position = useRef([window.screenX, window.screenY]);
@@ -98,7 +85,7 @@ export function TguiSay() {
     }
   }
 
-  function handleButtonClick(event: MouseEvent<HTMLButtonElement>): void {
+  function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>): void {
     isDragging.current = true;
 
     setTimeout(() => {
@@ -170,7 +157,7 @@ export function TguiSay() {
     messages.current.channelIncrementMsg(iterator.isVisible());
   }
 
-  function handleInput(event: FormEvent<HTMLTextAreaElement>): void {
+  function handleInput(event: React.FormEvent<HTMLTextAreaElement>): void {
     const iterator = channelIterator.current;
     let newValue = event.currentTarget.value;
 
@@ -195,7 +182,9 @@ export function TguiSay() {
     setValue(newValue);
   }
 
-  function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>): void {
+  function handleKeyDown(
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
+  ): void {
     if (event.getModifierState('AltGraph')) return;
 
     switch (event.key) {
@@ -228,20 +217,14 @@ export function TguiSay() {
   }
 
   function handleOpen(data: ByondOpen): void {
-    const { channel } = data;
-    const iterator = channelIterator.current;
-    // Catches the case where the modal is already open
-    if (iterator.isSay()) {
-      iterator.set(channel);
-    }
+    channelIterator.current.set(data.channel);
 
-    setButtonContent(iterator.current());
-    windowOpen(iterator.current());
+    setCurrentPrefix(null);
+    setButtonContent(channelIterator.current.current());
 
-    const input = innerRef.current;
-    setTimeout(() => {
-      input?.focus();
-    }, 1);
+    windowOpen(channelIterator.current.current(), scale.current);
+
+    innerRef.current?.focus();
   }
 
   function handleProps(data: ByondProps): void {
@@ -276,8 +259,8 @@ export function TguiSay() {
     }
 
     if (size !== newSize) {
-      setSize(newSize);
       windowSet(newSize);
+      setSize(newSize);
     }
   }, [value]);
 
@@ -305,13 +288,16 @@ export function TguiSay() {
         </button>
         <textarea
           autoCorrect="off"
-          className={`textarea textarea-${theme}`}
+          className={classes([
+            'textarea',
+            `textarea-${theme}`,
+            value.length > LineLength.Large && 'textarea-large',
+          ])}
           maxLength={maxLength}
           onInput={handleInput}
           onKeyDown={handleKeyDown}
           ref={innerRef}
           spellCheck={false}
-          rows={ROWS[size] || 1}
           value={value}
         />
       </div>
