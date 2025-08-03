@@ -253,7 +253,9 @@
 	target.visible_message(span_danger("[target]'s blood streams out in a torrent towards [owner]!"), span_userdanger("Your blood streams out in a torrent towards [owner]!"))
 	var/blood_taken = clamp(success_count, 0, target.bloodpool)
 	target.bloodpool = max(target.bloodpool - blood_taken, 0)
-	owner.bloodpool = min(owner.bloodpool + blood_taken, owner.maxbloodpool)
+
+	var/blood_gained = blood_taken * max(1, target.bloodquality-1)
+	owner.bloodpool = min(owner.bloodpool + blood_gained, owner.maxbloodpool)
 
 //------------------------------------------------------------------------------------------------
 
