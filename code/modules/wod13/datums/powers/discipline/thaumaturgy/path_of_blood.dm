@@ -223,6 +223,7 @@
 
 	level = 4
 
+	vitae_cost = 0 //Since 1 success should give one vitae, balancing.
 	effect_sound = 'sound/magic/enter_blood.ogg'
 	range = 8 // Within 50 feet (15 meters).
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_TORPORED | DISC_CHECK_SEE | DISC_CHECK_DIRECT_SEE // The subject must be visible to the thaumaturge
