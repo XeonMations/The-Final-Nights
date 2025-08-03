@@ -215,7 +215,7 @@
 		set_time = 1
 
 	chosen_generation = max(LOWEST_GENERATION_LIMIT, chosen_generation) //Lowest im gonna let you go is LOWEST_GENERATION_LIMIT bucko
-	owner.apply_status_effect(/datum/status_effect/blood_of_potency, chosen_generation, (set_time INGAME_HOURS))
+	owner.apply_status_effect(/datum/status_effect/blood_of_potency, chosen_generation, set_time)
 	activated = TRUE
 
 /datum/discipline_power/thaumaturgy/blood_of_potency/deactivate()
