@@ -286,6 +286,6 @@
 	playsound(target, pick('sound/effects/wounds/sizzle1.ogg', 'sound/effects/wounds/sizzle2.ogg'), 50, TRUE)
 	target.bloodpool = max(target.bloodpool - success_count, 0)
 	if(isnpc(target))
-		target.apply_damage(success_count * 100 + owner.thaum_damage_plus, CLONE) //A single success kills any mortal
+		target.apply_damage(success_count * 200 + owner.thaum_damage_plus, CLONE) //A single success kills any mortal
 	else
-		target.apply_damage(success_count * 20 + owner.thaum_damage_plus, CLONE) //8 successes = 180 aggravated damagge
+		target.apply_damage(success_count * 40 + owner.thaum_damage_plus, CLONE) //8 successes = 320 aggravated damage, however this is diffulty 8 so more than 2 successes is rare.
