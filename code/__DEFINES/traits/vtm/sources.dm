@@ -4,3 +4,5 @@
 #define SALUBRI_EYE_TRAIT "Salubri Eye"
 // used by the obfuscate ability
 #define OBFUSCATE_TRAIT "obfuscate_trait"
+/// Given due to the player being a thinblood
+#define THINBLOOD_TRAIT
