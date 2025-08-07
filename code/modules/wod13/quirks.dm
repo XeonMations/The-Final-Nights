@@ -727,7 +727,7 @@ Dancer
 
 /datum/quirk/thinblood
 	name = "Thinblood"
-	desc = "Your blood is a lot thinner than usual. You cannot bond, frenzy or ash in the sun, and your disciplines take double the vitae cost. (Generations 14 and above only.)"
+	desc = "Your blood is a lot thinner than usual. You cannot bond, frenzy, or ash in the sun, and your disciplines take double the vitae cost. (Generations 14 and above only.)"
 	value = 0
 	gain_text = "<span class='notice'>Your blood feels thin.</span>"
 	lose_text = "<span class='notice'>Your blood feels potent again.</span>"
