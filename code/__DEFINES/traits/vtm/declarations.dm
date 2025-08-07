@@ -81,3 +81,5 @@
 #define TRAIT_NO_FRENZY "no_frenzy"
 /// If the user doesn't burn up in the sun.
 #define TRAIT_NO_SUN_ASHING "no_sun_ashing"
+/// Double vitae cost for abilities. Thinbloods for example
+#define TRAIT_DOUBLE_VITAE_COST "double_vitae"
