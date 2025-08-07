@@ -734,6 +734,8 @@ Dancer
 	allowed_species = list("Vampire")
 
 /datum/quirk/thinblood/add()
+	if(quirk_holder.generation < 14)
+		return
 	ADD_TRAIT(quirk_holder, TRAIT_DEFICIENT_VITAE, THINBLOOD_TRAIT)
 	ADD_TRAIT(quirk_holder, TRAIT_NO_FRENZY, THINBLOOD_TRAIT)
 	ADD_TRAIT(quirk_holder, TRAIT_DOUBLE_VITAE_COST, THINBLOOD_TRAIT)

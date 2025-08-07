@@ -5,4 +5,4 @@
 // used by the obfuscate ability
 #define OBFUSCATE_TRAIT "obfuscate_trait"
 /// Given due to the player being a thinblood
-#define THINBLOOD_TRAIT
+#define THINBLOOD_TRAIT "thinblood_trait"
