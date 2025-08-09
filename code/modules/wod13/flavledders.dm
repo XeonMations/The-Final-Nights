@@ -107,5 +107,4 @@
 
 /obj/transfer_point_vamp/Bumped(atom/movable/AM)
 	. = ..()
-	var/turf/T = get_step(exit, get_dir(AM, src))
-	AM.forceMove(T)
+	AM.forceMove(exit)

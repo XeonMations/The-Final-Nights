@@ -3812,6 +3812,12 @@
 	},
 /turf/closed/wall/vampwall/junk/alt/low,
 /area/vtm/interior/ghetto)
+"bcw" = (
+/obj/effect/decal/bordur{
+	dir = 1
+	},
+/turf/closed/wall/vampwall/rock,
+/area/vtm/forest)
 "bcy" = (
 /obj/structure/bricks,
 /turf/open/floor/plating/roofwalk,
@@ -5813,6 +5819,12 @@
 	icon_state = "canal_concrete"
 	},
 /area/vtm/sewer/nosferatu_warren)
+"bDV" = (
+/obj/effect/decal/asphaltline/alt{
+	dir = 8
+	},
+/turf/closed/wall/vampwall/painted,
+/area/vtm)
 "bDY" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -14087,6 +14099,17 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/theatre)
+"dOn" = (
+/obj/effect/decal/asphaltline/alt{
+	dir = 8
+	},
+/obj/transfer_point_vamp{
+	alpha = 0;
+	density = 0;
+	id = 999
+	},
+/turf/open/floor/plating/asphalt,
+/area/vtm/pacificheights/community)
 "dOt" = (
 /mob/living/simple_animal/hostile/cockroach,
 /turf/open/floor/plating/concrete{
@@ -14633,9 +14656,6 @@
 	icon_state = "stone8"
 	},
 /area/vtm/sewer/nosferatu_warren)
-"dVu" = (
-/turf/closed/wall/vampwall/rock,
-/area/vtm/pacificheights/community)
 "dVA" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor4-old"
@@ -65748,14 +65768,6 @@
 /obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/vampgrass,
 /area/vtm/interior/tzimisce_manor)
-"rcs" = (
-/obj/transfer_point_vamp{
-	alpha = 0;
-	density = 0;
-	id = 999
-	},
-/turf/open/space/basic,
-/area/vtm/pacificheights/community)
 "rcB" = (
 /obj/structure/table,
 /obj/item/melee/chainofcommand{
@@ -71018,14 +71030,6 @@
 /obj/structure/table,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/strip)
-"szP" = (
-/obj/transfer_point_vamp{
-	alpha = 0;
-	density = 0;
-	id = 999
-	},
-/turf/open/floor/plating/asphalt,
-/area/vtm)
 "sAo" = (
 /obj/effect/turf_decal/siding/white{
 	color = "#636363";
@@ -72740,14 +72744,6 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/cog/caern)
-"sYN" = (
-/obj/transfer_point_vamp{
-	alpha = 0;
-	density = 0;
-	id = 999
-	},
-/turf/closed/wall/vampwall/rock,
-/area/vtm/pacificheights/community)
 "sYO" = (
 /obj/machinery/jukebox,
 /turf/open/floor/plating/rough{
@@ -132850,13 +132846,13 @@ xfw
 rCB
 rCB
 rCB
-dVu
-rcs
-sYN
-rcs
-bal
-bal
-bal
+uvs
+uvs
+uvs
+uvs
+rCB
+rCB
+rCB
 rCB
 rCB
 rCB
@@ -133051,13 +133047,13 @@ rCB
 rCB
 rCB
 bal
-dVu
-dVu
+uvs
+uvs
 cbn
-lfV
+dOn
 cbn
-oMC
-tcy
+bcw
+bal
 bal
 bal
 bal
@@ -274523,9 +274519,9 @@ fwq
 rCB
 eGA
 eGA
-szP
-szP
-szP
+eGA
+eGA
+eGA
 eGA
 eGA
 rCB
@@ -274726,7 +274722,7 @@ rCB
 eGA
 ylv
 rdo
-oGD
+dvg
 rdo
 dTE
 eGA
@@ -294319,9 +294315,9 @@ rCB
 rCB
 eGA
 wVK
-szP
-dvg
-szP
+eGA
+bDV
+eGA
 wBA
 eGA
 rCB
