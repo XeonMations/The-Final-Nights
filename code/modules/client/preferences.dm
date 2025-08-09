@@ -194,10 +194,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	///Ranks of the Disciplines this character knows, corresponding to discipline_types.
 	var/list/discipline_levels = list()
 
-	var/physique = 1
-	var/dexterity = 1
-	var/social = 1
-	var/mentality = 1
 	var/blood = 1
 
 	//Skills

@@ -439,12 +439,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["humanity"], path_score)
 	READ_FILE(S["enlightement"], is_enlightened)
 	READ_FILE(S["true_experience"], true_experience)
-	READ_FILE(S["physique"], physique)
-	READ_FILE(S["dexterity"], dexterity)
-	READ_FILE(S["social"], social)
-	READ_FILE(S["mentality"], mentality)
-	READ_FILE(S["lockpicking"], lockpicking)
-	READ_FILE(S["athletics"], athletics)
 	READ_FILE(S["blood"], blood)
 	READ_FILE(S["archetype"], archetype)
 	READ_FILE(S["discipline1level"], discipline1level)
@@ -516,6 +510,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_moth_antennae"], features["moth_antennae"])
 	READ_FILE(S["feature_moth_markings"], features["moth_markings"])
 	READ_FILE(S["persistent_scars"] , persistent_scars)
+
 	READ_FILE(S["experience_used_on_character"], experience_used_on_character)
 	READ_FILE(S["derangement"], derangement)
 	READ_FILE(S["dharma_type"], dharma_type)
@@ -527,6 +522,65 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["yin"], yin)
 	READ_FILE(S["chi_types"], chi_types)
 	READ_FILE(S["chi_levels"], chi_levels)
+
+
+	////////////////////////////////////////////// Attributes
+
+	//Physical
+	READ_FILE(S["strength"], strength)
+	READ_FILE(S["dexterity"], dexterity)
+	READ_FILE(S["stamina"], stamina)
+
+	//Social
+	READ_FILE(S["charismma"], charismma)
+	READ_FILE(S["manipulation"], manipulation)
+	READ_FILE(S["appearance"], appearance)
+
+	//Social
+	READ_FILE(S["perception"], perception)
+	READ_FILE(S["intelligence"], intelligence)
+	READ_FILE(S["wits"], wits)
+
+	/////////////////////////////////////////////// Abilities
+
+	//Talents
+	READ_FILE(S["alertness"], alertness)
+	READ_FILE(S["athletics"], athletics)
+	READ_FILE(S["awareness"], awareness)
+	READ_FILE(S["brawl"], brawl)
+	READ_FILE(S["empathy"], empathy)
+	READ_FILE(S["expression"], expression)
+	READ_FILE(S["intimidation"], intimidation)
+	READ_FILE(S["leadership"], leadership)
+	READ_FILE(S["streetwise"], streetwise)
+	READ_FILE(S["subterfuge"], subterfuge)
+
+	//Skills
+	READ_FILE(S["animal_ken"], animal_ken)
+	READ_FILE(S["crafts"], crafts)
+	READ_FILE(S["drive"], drive)
+	READ_FILE(S["etiquette"], etiquette)
+	READ_FILE(S["firearms"], firearms)
+	READ_FILE(S["larceny"], larceny)
+	READ_FILE(S["melee"], melee)
+	READ_FILE(S["performance"], performance)
+	READ_FILE(S["stealth"], stealth)
+	READ_FILE(S["survival"], survival)
+
+	//Knowledges
+	READ_FILE(S["academics"], academics)
+	READ_FILE(S["computer"], computer)
+	READ_FILE(S["finance"], finance)
+	READ_FILE(S["investigation"], investigation)
+	READ_FILE(S["law"], law)
+	READ_FILE(S["medicine"], medicine)
+	READ_FILE(S["occult"], occult)
+	READ_FILE(S["politics"], politics)
+	READ_FILE(S["science"], science)
+	READ_FILE(S["technology"], technology)
+
+
+
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
 		features["ears"] = "none"
@@ -646,12 +700,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	path_score				= sanitize_integer(path_score, 0, 10, initial(path_score))
 	is_enlightened				= sanitize_integer(is_enlightened, 0, 1, initial(is_enlightened))
 	true_experience				= sanitize_integer(true_experience, 0, 99999999, initial(true_experience))
-	physique				= sanitize_integer(physique, 1, 10, initial(physique))
-	dexterity				= sanitize_integer(dexterity, 1, 10, initial(dexterity))
-	social					= sanitize_integer(social, 1, 10, initial(social))
-	mentality				= sanitize_integer(mentality, 1, 10, initial(mentality))
-	lockpicking				= sanitize_integer(lockpicking, 1, 10, initial(lockpicking))
-	athletics				= sanitize_integer(athletics, 1, 10, initial(athletics))
 	blood					= sanitize_integer(blood, 1, 10, initial(blood))
 	auspice_level			= sanitize_integer(auspice_level, 1, 5, initial(auspice_level))
 	discipline1level				= sanitize_integer(discipline1level, 1, 5, initial(discipline1level))
@@ -688,6 +736,60 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	renownrank = sanitize_integer(renownrank, 0, 5, initial(renownrank))
 	extra_gnosis = sanitize_integer(extra_gnosis, 0, 5, initial(extra_gnosis))
 	// TFN EDIT END
+
+	////////////////////////////////////////////// Attributes
+
+	//Physical
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	dexterity = sanitize_integer(dexterity, 1, 5, initial(dexterity))
+	stamina = sanitize_integer(stamina, 1, 5, initial(stamina))
+
+	//Social
+	charisma = sanitize_integer(charisma, 1, 5, initial(charisma))
+	manipulation = sanitize_integer(manipulation, 1, 5, initial(manipulation))
+	appearance = sanitize_integer(appearance, 1, 5, initial(appearance))
+
+	//Mental
+	perception = sanitize_integer(perception, 1, 5, initial(perception))
+	intelligence = sanitize_integer(intelligence, 1, 5, initial(intelligence))
+	wits = sanitize_integer(wits, 1, 5, initial(wits))
+
+	/////////////////////////////////////////////// Abilities
+
+	//Talents
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	subterfuge = sanitize_integer(subterfuge, 1, 5, initial(subterfuge))
+
+	//Talents
+	animal_ken = sanitize_integer(animal_ken, 1, 5, initial(animal_ken))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	subterfuge = sanitize_integer(subterfuge, 1, 5, initial(subterfuge))
+
+	//Knowledges
+	academics = sanitize_integer(academics, 1, 5, initial(academics))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	strength = sanitize_integer(strength, 1, 5, initial(strength))
+	subterfuge = sanitize_integer(subterfuge, 1, 5, initial(subterfuge))
+
+
 	hair_color			= sanitize_hexcolor(hair_color)
 	facial_hair_color			= sanitize_hexcolor(facial_hair_color)
 	underwear_color			= sanitize_hexcolor(underwear_color)
@@ -789,12 +891,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["humanity"]			, path_score)
 	WRITE_FILE(S["enlightement"]			, is_enlightened)
 	WRITE_FILE(S["auspice_level"]			, auspice_level)
-	WRITE_FILE(S["physique"]		, physique)
-	WRITE_FILE(S["dexterity"]		, dexterity)
-	WRITE_FILE(S["social"]			, social)
-	WRITE_FILE(S["mentality"]		, mentality)
-	WRITE_FILE(S["lockpicking"]		, lockpicking)
-	WRITE_FILE(S["athletics"]		, athletics)
 	WRITE_FILE(S["blood"]			, blood)
 	WRITE_FILE(S["archetype"]			, archetype)
 	WRITE_FILE(S["discipline1level"]			, discipline1level)
@@ -882,6 +978,61 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["chi_types"], chi_types)
 	WRITE_FILE(S["chi_levels"], chi_levels)
 	WRITE_FILE(S["path"], morality_path.name)
+
+	////////////////////////////////////////////// Attributes
+
+	//Physical
+	WRITE_FILE(S["strength"], strength)
+	WRITE_FILE(S["dexterity"], dexterity)
+	WRITE_FILE(S["stamina"], stamina)
+
+	//Social
+	WRITE_FILE(S["charismma"], charismma)
+	WRITE_FILE(S["manipulation"], manipulation)
+	WRITE_FILE(S["appearance"], appearance)
+
+	//Social
+	WRITE_FILE(S["perception"], perception)
+	WRITE_FILE(S["intelligence"], intelligence)
+	WRITE_FILE(S["wits"], wits)
+
+	/////////////////////////////////////////////// Abilities
+
+	//Talents
+	WRITE_FILE(S["alertness"], alertness)
+	WRITE_FILE(S["athletics"], athletics)
+	WRITE_FILE(S["awareness"], awareness)
+	WRITE_FILE(S["brawl"], brawl)
+	WRITE_FILE(S["empathy"], empathy)
+	WRITE_FILE(S["expression"], expression)
+	WRITE_FILE(S["intimidation"], intimidation)
+	WRITE_FILE(S["leadership"], leadership)
+	WRITE_FILE(S["streetwise"], streetwise)
+	WRITE_FILE(S["subterfuge"], subterfuge)
+
+	//Skills
+	WRITE_FILE(S["animal_ken"], animal_ken)
+	WRITE_FILE(S["crafts"], crafts)
+	WRITE_FILE(S["drive"], drive)
+	WRITE_FILE(S["etiquette"], etiquette)
+	WRITE_FILE(S["firearms"], firearms)
+	WRITE_FILE(S["larceny"], larceny)
+	WRITE_FILE(S["melee"], melee)
+	WRITE_FILE(S["performance"], performance)
+	WRITE_FILE(S["stealth"], stealth)
+	WRITE_FILE(S["survival"], survival)
+
+	//Knowledges
+	WRITE_FILE(S["academics"], academics)
+	WRITE_FILE(S["computer"], computer)
+	WRITE_FILE(S["finance"], finance)
+	WRITE_FILE(S["investigation"], investigation)
+	WRITE_FILE(S["law"], law)
+	WRITE_FILE(S["medicine"], medicine)
+	WRITE_FILE(S["occult"], occult)
+	WRITE_FILE(S["politics"], politics)
+	WRITE_FILE(S["science"], science)
+	WRITE_FILE(S["technology"], technology)
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
