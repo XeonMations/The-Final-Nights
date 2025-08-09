@@ -73,6 +73,6 @@
 /obj/generator/process(delta_time)
 	if(!on)
 		return
-	fuel_remain = max(0, fuel_remain-10)
+	fuel_remain = max(0, fuel_remain - 0.01)
 	if(fuel_remain == 0)
 		brek()
