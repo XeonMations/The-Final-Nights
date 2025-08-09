@@ -9935,10 +9935,6 @@
 /obj/item/bodybag,
 /turf/open/floor/plating/vampplating/stone,
 /area/vtm/interior/cog/pantry)
-"cIh" = (
-/obj/structure/table/wood,
-/turf/open/floor/plating/vampgrass,
-/area/vtm)
 "cIv" = (
 /turf/open/floor/plating/vampplating/stone,
 /area/vtm/interior/cog/pantry)
@@ -23943,6 +23939,10 @@
 	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
+"gvJ" = (
+/obj/structure/table/wood,
+/turf/open/floor/plating/sandy_dirt,
+/area/vtm)
 "gvO" = (
 /obj/structure/railing{
 	dir = 8;
@@ -27372,11 +27372,6 @@
 	color = "#bfbfbf"
 	},
 /area/vtm/interior)
-"hpv" = (
-/obj/structure/vamptree/pine,
-/obj/structure/table/wood,
-/turf/open/floor/plating/vampgrass,
-/area/vtm)
 "hpw" = (
 /obj/effect/decal/wallpaper/grey,
 /turf/closed/wall/vampwall/old,
@@ -34162,10 +34157,6 @@
 "jca" = (
 /turf/open/floor/plating/asphalt,
 /area/vtm/interior/shop)
-"jcb" = (
-/obj/machinery/grill,
-/turf/open/floor/plating/vampgrass,
-/area/vtm)
 "jcd" = (
 /turf/open/floor/plating/vampocean,
 /area/vtm/fishermanswharf/lower)
@@ -53926,6 +53917,10 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/anarch/basement)
+"obr" = (
+/obj/machinery/grill,
+/turf/open/floor/plating/sandy_dirt,
+/area/vtm)
 "obE" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers{
@@ -282807,7 +282802,7 @@ vzH
 qKw
 vzH
 vzH
-cIh
+wlT
 wlT
 wlT
 uNy
@@ -283009,7 +283004,7 @@ qKw
 vzH
 vzH
 vzH
-hpv
+mTv
 wlT
 wlT
 wlT
@@ -283211,10 +283206,10 @@ wlT
 vzH
 vzH
 vzH
-cIh
+wlT
 wlT
 mTv
-jcb
+wlT
 wlT
 wlT
 wlT
@@ -283826,7 +283821,7 @@ vvv
 vvv
 vvv
 vvv
-vvv
+obr
 gwb
 uQF
 eTs
@@ -284029,7 +284024,7 @@ vvv
 vvv
 vvv
 vvv
-vvv
+gvJ
 uQF
 eTs
 eTs
@@ -284231,7 +284226,7 @@ vvv
 vvv
 vvv
 vvv
-vvv
+gvJ
 vvv
 eTs
 uQF
@@ -284433,7 +284428,7 @@ vvv
 vvv
 vvv
 vvv
-vvv
+gvJ
 vvv
 uQF
 eTs
@@ -284635,7 +284630,7 @@ vvv
 vvv
 vvv
 vvv
-vvv
+gvJ
 vvv
 vvv
 uQF
