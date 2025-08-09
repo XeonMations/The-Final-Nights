@@ -32,6 +32,7 @@
 	on = FALSE
 	soundloop.stop()
 	icon_state = "gen_off"
+	var/area/A = get_area(src)
 	A.requires_power = TRUE
 	A.fire_controled = FALSE
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
@@ -45,22 +46,17 @@
 	if(fuel_remain == 0)
 		to_chat(user, "<span class='warning'>There is no fuel in [src].</span>")
 		return
-	if(!switching_on)
-		switching_on = TRUE
-		if(do_after(user, 50, src))
-			var/area/A = get_area(src)
-			on = TRUE
-			soundloop.start()
-			icon_state = "gen"
-			A.requires_power = FALSE
-			if(initial(A.fire_controled))
-				A.fire_controled = TRUE
-			for(var/obj/machinery/light/L in A)
-				L.update(FALSE)
-			switching_on = FALSE
-			to_chat(user, "<span class='notice'>You switch [src] on.</span>")
-		else
-			switching_on = FALSE
+	if(do_after(user, 50, src))
+		var/area/A = get_area(src)
+		on = TRUE
+		soundloop.start()
+		icon_state = "gen"
+		A.requires_power = FALSE
+		if(initial(A.fire_controled))
+			A.fire_controled = TRUE
+		for(var/obj/machinery/light/L in A)
+			L.update(FALSE)
+		to_chat(user, "<span class='notice'>You switch [src] on.</span>")
 
 /obj/generator/Initialize()
 	. = ..()
@@ -77,8 +73,6 @@
 /obj/generator/process(delta_time)
 	if(!on)
 		return
-	if(DT_PROB(50), delta_time)
-		G.brek()
-	G.fuel_remain = max(0, G.fuel_remain-10)
-	if(G.fuel_remain == 0)
-		G.brek()
+	fuel_remain = max(0, fuel_remain-10)
+	if(fuel_remain == 0)
+		brek()
