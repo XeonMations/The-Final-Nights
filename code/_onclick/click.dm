@@ -289,7 +289,6 @@
  */
 /mob/proc/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(ismob(A))
-		var/mob/simple = src
 		changeNext_move(CLICK_CD_MELEE)
 	return
 
