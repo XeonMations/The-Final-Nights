@@ -511,7 +511,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		tickdrift = max(0, MC_AVERAGE_FAST(tickdrift, newdrift))
 		var/starting_tick_usage = TICK_USAGE
 
-		if(newdrift - olddrift >= CONFIG_GET(number/drift_dump_threshold))
+		//if(newdrift - olddrift >= CONFIG_GET(number/drift_dump_threshold))
 			//AttemptProfileDump(CONFIG_GET(number/drift_profile_delay)) // Temporarily commenting this out until we can fix our life() issues
 		olddrift = newdrift
 

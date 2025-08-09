@@ -5,11 +5,11 @@
 	alert_type = /atom/movable/screen/alert/status_effect/inspiration
 
 /datum/status_effect/inspiration/tick()
-	if(stat != DEAD)
-		adjustBruteLoss(-10, TRUE)
-		var/obj/effect/celerity/C = new(get_turf(src))
-		C.appearance = appearance
-		C.dir = dir
+	if(owner.stat != DEAD)
+		owner.adjustBruteLoss(-10, TRUE)
+		var/obj/effect/celerity/C = new(get_turf(owner))
+		C.appearance = owner.appearance
+		C.dir = owner.dir
 		var/matrix/ntransform = matrix(C.transform)
 		ntransform.Scale(2, 2)
 		animate(C, transform = ntransform, alpha = 0, time = 3)
