@@ -25,6 +25,7 @@
 					radio.announce_crime("murder", get_turf(src))
 					break
 	GLOB.masquerade_breakers_list -= src
+	GLOB.veil_breakers_list -= src
 	GLOB.sabbatites -= src
 
 	//So upon death the corpse is filled with yin chi

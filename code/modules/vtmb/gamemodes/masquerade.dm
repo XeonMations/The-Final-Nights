@@ -23,8 +23,8 @@ SUBSYSTEM_DEF(masquerade)
 /datum/controller/subsystem/masquerade/fire()
 	var/masquerade_violators = 0
 	var/sabbat = 0
-	if(length(GLOB.masquerade_breakers_list))
-		masquerade_violators = (2000/length(GLOB.player_list))*length(GLOB.masquerade_breakers_list)
+	if(length(GLOB.masquerade_breakers_list) || length(GLOB.veil_breakers_list))
+		masquerade_violators = (2000/length(GLOB.player_list))*(length(GLOB.masquerade_breakers_list) + length(GLOB.veil_breakers_list))
 	if(length(GLOB.sabbatites))
 		sabbat = (2000/length(GLOB.player_list))*length(GLOB.sabbatites)
 
@@ -44,17 +44,15 @@ SUBSYSTEM_DEF(masquerade)
 	if(last_level != shit_happens)
 		last_level = shit_happens
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
-			if(H)
-				if(iskindred(H) || isghoul(H))
-					switch(last_level)
-						if("stable")
-							to_chat(H, "The night becomes clear. Nothing can threaten the Masquerade.")
-						if("slightly")
-							to_chat(H, "Something is going wrong here...")
-						if("moderate")
-							to_chat(H, "People start noticing...")
-						if("breach")
-							to_chat(H, "The Masquerade is about to fall...")
+			switch(last_level)
+				if("stable")
+					to_chat(H, "The night becomes clear. Nothing can threaten the Masquerade.")
+				if("slightly")
+					to_chat(H, "Something is going wrong here...")
+				if("moderate")
+					to_chat(H, "People start noticing...")
+				if("breach")
+					to_chat(H, "The Masquerade is about to fall...")
 
 //Spotted body -25
 //Blood -5 for each

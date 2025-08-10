@@ -3732,6 +3732,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		else if(character.masquerade < 3)
 			GLOB.masquerade_breakers_list += character
 
+		if(character in GLOB.veil_breakers_list)
+			if(character.masquerade > 2)
+				GLOB.veil_breakers_list -= character
+		else if(character.masquerade < 3)
+			GLOB.veil_breakers_list += character
+
 	switch (body_model)
 		if (SLIM_BODY_MODEL_NUMBER)
 			character.set_body_model(SLIM_BODY_MODEL)

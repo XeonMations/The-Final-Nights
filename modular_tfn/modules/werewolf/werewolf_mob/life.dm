@@ -105,11 +105,11 @@
 			if(wisdomadj)
 				adjust_renown("wisdom", wisdomadj, vessel = vessel)
 
-		if(src in GLOB.masquerade_breakers_list)
+		if(src in GLOB.veil_breakers_list)
 			if(masquerade > 2)
-				GLOB.masquerade_breakers_list -= src
+				GLOB.veil_breakers_list -= src
 		else if(masquerade < 3)
-			GLOB.masquerade_breakers_list |= src
+			GLOB.veil_breakers_list |= src
 
 	var/datum/preferences/P = GLOB.preferences_datums[ckey(key)]
 	if(P)
