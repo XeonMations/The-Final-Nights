@@ -1,6 +1,6 @@
 /obj/item/masquerade_contract
 	name = "\improper elegant scroll"
-	desc = "This piece of thaumaturgy shows Masquerade breakers. <b>CLICK ON the Contract to see possible breakers for catching. PUSH the target in torpor, to restore the Masquerade.</b>"
+	desc = "An elegant looking scroll."
 	icon = 'code/modules/wod13/items.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "masquerade"
@@ -11,6 +11,8 @@
 
 /obj/item/masquerade_contract/attack_self(mob/user)
 	. = ..()
+	if(!iskindred(user) && !isghoul(user))
+		return
 	var/turf/current_location = get_turf(user)
 	to_chat(user, "<b>YOU</b>, [get_area_name(user)] X:[current_location.x] Y:[current_location.y] Z:[current_location.z]")
 	for(var/mob/living/carbon/breacher as anything in GLOB.masquerade_breakers_list)
@@ -27,7 +29,7 @@
 
 /obj/item/veil_contract
 	name = "\improper brass pocketwatch"
-	desc = "The hands do not tell the time, but a spirit's blessing on this fetish points you to dangers to the veil. <b>CLICK ON the clock to see possible breakers for catching. Shame or execute the offender for crimes against the nation.</b>"
+	desc = "A posh looking pocketwatch."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	icon_state = "pocketwatch"
@@ -38,6 +40,8 @@
 
 /obj/item/veil_contract/attack_self(mob/user)
 	. = ..()
+	if(!isgarou(user))
+		return
 	var/turf/current_location = get_turf(user)
 	to_chat(user, "<b>YOU</b>, [get_area_name(user)] X:[current_location.x] Y:[current_location.y] Z:[current_location.z]")
 	for(var/mob/living/breacher as anything in GLOB.veil_breakers_list)
