@@ -60,6 +60,7 @@ ahroun
 ragabash
 umbra
 homid
+homids
 metis
 wyrmspawn
 moon bridge
@@ -82,6 +83,7 @@ ebon dragon
 koldunic sorcery
 voivode
 neonate
+neonates
 umbral realms
 incarna
 na kua
@@ -90,6 +92,7 @@ schlatza
 dracul
 autarkis
 primogen
+primogens
 stygia
 black spiral dancer
 domitor
@@ -98,6 +101,7 @@ second inquisition
 shovelhead
 praesidium
 archon
+archons
 gerousia
 golconda
 arhat xue
@@ -116,6 +120,26 @@ ancillae
 vinculum
 lextalionis
 tal'mahe'ra
+fledgling vampires
+vampire fledglings
+fledgling kindreds
+kindred fledglings
+neonate vampires
+vampire neonates
+neonate kindreds
+kindred neonates
+ancilla vampires
+vampire ancillas
+ancilla kindreds
+kindred ancillas
+elder vampires
+vampire elders
+elder kindreds
+kindred elders
+methuselah vampires
+vampire methuselahs
+methuselah kindreds
+kindred methuselahs
 fledgling vampire
 vampire fledgling
 fledgling kindred
@@ -140,7 +164,7 @@ black furies
 bone gnawers
 children of gaia
 get of fenris
-glass Walkers
+glass walkers
 red talons
 shadow lords
 silent striders
@@ -149,7 +173,7 @@ black fury
 bone gnawer
 child of gaia
 get of fenris
-glass Walker
+glass walker
 red talon
 shadow lord
 silent strider
