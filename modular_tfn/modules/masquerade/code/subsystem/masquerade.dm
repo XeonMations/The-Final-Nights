@@ -44,20 +44,13 @@ SUBSYSTEM_DEF(masquerade)
 	if(last_level != shit_happens)
 		last_level = shit_happens
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
-			if(H)
-				if(iskindred(H) || isghoul(H))
-					switch(last_level)
-						if("stable")
-							to_chat(H, "The night becomes clear. Nothing can threaten the Masquerade.")
-						if("slightly")
-							to_chat(H, "Something is going wrong here...")
-						if("moderate")
-							to_chat(H, "People start noticing...")
-						if("breach")
-							to_chat(H, "The Masquerade is about to fall...")
-
-//Spotted body -25
-//Blood -5 for each
-//Masquerade violation -50
-//Masquerade reinforcement +25
-//Final death +50
+			if(iskindred(H) || isghoul(H))
+				switch(last_level)
+					if("stable")
+						to_chat(H, "The night becomes clear. Nothing can threaten the Masquerade.")
+					if("slightly")
+						to_chat(H, "Something is going wrong here...")
+					if("moderate")
+						to_chat(H, "People start noticing...")
+					if("breach")
+						to_chat(H, "The Masquerade is about to fall...")
