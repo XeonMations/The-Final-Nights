@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(masquerade)
 	wait = 1200
 	priority = FIRE_PRIORITY_VERYLOW
 
-	var/total_level = 1000
+	var/total_level = 25
 	var/dead_level = 0
 	var/last_level = "stable"
 	var/manual_adjustment = 0
