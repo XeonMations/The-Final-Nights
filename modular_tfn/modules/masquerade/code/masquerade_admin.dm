@@ -15,7 +15,7 @@
 			if(value < 0)
 				if(masquerade > 0)
 					masquerade = max(0, masquerade+value)
-					SEND_SOUND(src, sound('code/modules/wod13/sounds/masquerade_violation.ogg', 0, 0, 75))
+					SEND_SOUND(src, sound('modular_tfn/modules/masquerade/sound/masquerade_violation.ogg', 0, 0, 75))
 					to_chat(src, "<span class='userdanger'><b>MASQUERADE VIOLATION!</b></span>")
 				SSbad_guys_party.next_fire = max(world.time, SSbad_guys_party.next_fire - 2 MINUTES)
 			if(value > 0)
@@ -23,7 +23,7 @@
 					H.voted_for -= dna.real_name
 				if(masquerade < 5)
 					masquerade = min(5, masquerade+value)
-					SEND_SOUND(src, sound('code/modules/wod13/sounds/general_good.ogg', 0, 0, 75))
+					SEND_SOUND(src, sound('modular_tfn/modules/masquerade/sound/masquerade_reinforce.ogg', 0, 0, 75))
 					to_chat(src, "<span class='userhelp'><b>MASQUERADE REINFORCED!</b></span>")
 				SSbad_guys_party.next_fire = max(world.time, SSbad_guys_party.next_fire + 1 MINUTES)
 

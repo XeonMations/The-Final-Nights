@@ -501,11 +501,7 @@
  */
 /datum/discipline_power/proc/do_masquerade_violation(atom/target)
 	if (violates_masquerade)
-		if (owner.CheckEyewitness(target ? target : owner, owner, 7, TRUE))
-			//TODO: detach this from being a human
-			if (ishuman(owner))
-				var/mob/living/carbon/human/human = owner
-				human.AdjustMasquerade(-1)
+		SEND_SIGNAL(owner, COMSIG_MASQUERADE_VIOLATION)
 
 /**
  * Overridable proc handling the spending of resources (vitae/blood)

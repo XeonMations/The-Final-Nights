@@ -78,12 +78,10 @@
 
 /mob/living/carbon/werewolf/lupus/Life()
 	if(hispo)
-		if(CheckEyewitness(src, src, 7, FALSE))
-			adjust_veil(-1,random = -1)
+		SEND_SIGNAL(src, COMSIG_MASQUERADE_VIOLATION)
 	else
 		if(!(HAS_TRAIT(src, TRAIT_DOGWOLF) || !iscorax(src))) // ravens don't spook people
-			if(CheckEyewitness(src, src, 4, FALSE))
-				adjust_veil(-1,threshold = 4)
+			SEND_SIGNAL(src, COMSIG_MASQUERADE_VIOLATION)
 	. = ..()
 
 /mob/living/carbon/werewolf/lupus/corvid // yes, this is a subtype of lupus, god help us all

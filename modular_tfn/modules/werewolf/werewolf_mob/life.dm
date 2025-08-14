@@ -29,25 +29,21 @@
 /datum/species/garou/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE))
-		if(H.CheckEyewitness(H, H, 7, FALSE))
-			H.adjust_veil(-1,random = -1)
+		SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 
 	if((H.last_bloodpool_restore + GAROU_BP_REGEN) <= world.time)
 		H.last_bloodpool_restore = world.time
 		H.bloodpool = min(H.maxbloodpool, H.bloodpool+1)
 	if(glabro)
-		if(H.CheckEyewitness(H, H, 3, FALSE))
-			H.adjust_veil(-1,random = -1)
+		SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 
 /mob/living/carbon/werewolf/crinos/Life()
 	. = ..()
-	if(CheckEyewitness(src, src, 5, FALSE))
-		adjust_veil(-1, honoradj = -1)
+	SEND_SIGNAL(src, COMSIG_MASQUERADE_VIOLATION)
 
 /mob/living/carbon/werewolf/corax/corax_crinos/Life() // realizing I screwed myself over by not making this a subtype, oh well.
 	. = ..()
-	if(CheckEyewitness(src, src, 5, FALSE))
-		adjust_veil(-1, honoradj = -1)
+	SEND_SIGNAL(src, COMSIG_MASQUERADE_VIOLATION)
 
 
 /mob/living/carbon/werewolf/handle_status_effects()

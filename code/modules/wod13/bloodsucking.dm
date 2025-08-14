@@ -63,8 +63,7 @@
 			to_chat(src, span_userdanger("YOU TRY TO COMMIT DIABLERIE ON [mob]."))
 
 	if(!HAS_TRAIT(src, TRAIT_BLOODY_LOVER))
-		if(CheckEyewitness(src, src, 7, FALSE))
-			AdjustMasquerade(-1)
+		SEND_SIGNAL(src, COMSIG_MASQUERADE_VIOLATION)
 	if(do_after(src, 30, target = mob, timed_action_flags = NONE, progress = FALSE))
 		mob.bloodpool = max(0, mob.bloodpool-1)
 		suckbar.icon_state = "[round(14*(mob.bloodpool/mob.maxbloodpool))]"
