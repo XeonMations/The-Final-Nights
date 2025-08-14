@@ -3789,6 +3789,7 @@
 #include "modular_tfn\modules\magic\code\thaumaturgy\rune_drawing.dm"
 #include "modular_tfn\modules\masquerade\code\masquerade_admin.dm"
 #include "modular_tfn\modules\masquerade\code\masquerade_contract.dm"
+#include "modular_tfn\modules\masquerade\code\components\masquerade_hud.dm"
 #include "modular_tfn\modules\masquerade\code\components\violation_observer.dm"
 #include "modular_tfn\modules\masquerade\code\fields\violation_check_aoe.dm"
 #include "modular_tfn\modules\masquerade\code\subsystem\masquerade.dm"
