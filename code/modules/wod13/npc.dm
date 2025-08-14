@@ -71,6 +71,10 @@
 
 	var/list/drop_on_death_list = null
 
+/mob/living/carbon/human/npc/Initialize()
+	. = ..()
+	AddComponent(/datum/component/violation_observer)
+
 /mob/living/carbon/human/npc/LateInitialize()
 	. = ..()
 	if(role_weapons_chances.Find(type))
