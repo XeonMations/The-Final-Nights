@@ -19,4 +19,5 @@
 /datum/proximity_monitor/advanced/violation_check_aoe/proc/violation_observer_breach_callback(datum/source)
 	SIGNAL_HANDLER
 
-	SEND_SIGNAL(host, COMSIG_SEEN_MASQUERADE_VIOLATION, source)
+	if(isInSight(host, source))
+		SEND_SIGNAL(host, COMSIG_SEEN_MASQUERADE_VIOLATION, source)

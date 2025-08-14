@@ -27,3 +27,4 @@
 			mob_parent.face_atom(player_breacher)
 	atom_parent.do_alert_animation()
 	playsound(parent, 'code/modules/wod13/sounds/snake.ogg', 50, FALSE, -5)
+	SEND_SIGNAL(player_breacher, COMSIG_MASQUERADE_BREACH, source)

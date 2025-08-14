@@ -70,7 +70,6 @@
 					if(!HAS_TRAIT(BD, TRAIT_BLOODY_LOVER))
 						playsound(BD, 'code/modules/wod13/sounds/drinkblood1.ogg', 50, TRUE)
 						LV.visible_message("<span class='warning'><b>[BD] bites [LV]'s neck!</b></span>", "<span class='warning'><b>[BD] bites your neck!</b></span>")
-					if(!HAS_TRAIT(BD, TRAIT_BLOODY_LOVER))
 						SEND_SIGNAL(BD, COMSIG_MASQUERADE_VIOLATION)
 					else
 						playsound(BD, 'code/modules/wod13/sounds/kiss.ogg', 50, TRUE)
