@@ -21,9 +21,12 @@
 
 	if(!GLOB.canon_event)
 		return
-	if(!isInSight(host, source))
+	var/mob/living/host_mob = host
+	if(host_mob.incapacitated() || host_mob.stat >= SOFT_CRIT || host_mob.IsSleeping() || host_mob.IsParalyzed())
+		return
+	if(!isInSight(host_mob, source))
 		return
 	if(!COOLDOWN_FINISHED(source, masquerade_timer))
 		return
 	COOLDOWN_START(source, masquerade_timer, 10 SECONDS)
-	SEND_SIGNAL(host, COMSIG_SEEN_MASQUERADE_VIOLATION, source)
+	SEND_SIGNAL(host_mob, COMSIG_SEEN_MASQUERADE_VIOLATION, source)

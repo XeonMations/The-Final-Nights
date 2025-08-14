@@ -30,11 +30,12 @@
 	atom_parent.do_alert_animation()
 	playsound(parent, 'code/modules/wod13/sounds/snake.ogg', 50, FALSE, -5)
 	atom_parent.AddComponent(/datum/component/masquerade_hud, player_breacher)
-	RegisterSignals(atom_parent, list(COMSIG_MASQUERADE_REINFORCE, COMSIG_LIVING_DEATH), PROC_REF(on_masquerade_violation_reinforced), player_breacher)
+	RegisterSignal(atom_parent, COMSIG_MASQUERADE_REINFORCE, PROC_REF(on_masquerade_violation_reinforced), _player_breacher = player_breacher)
+	RegisterSignal(atom_parent, COMSIG_LIVING_DEATH, PROC_REF(on_masquerade_violation_reinforced), gibbed, _player_breacher = player_breacher)
 	SSmasquerade.masquerade_breach(source, player_breacher)
 
-/datum/component/violation_observer/proc/on_masquerade_violation_reinforced(datum/source, mob/living/player_breacher)
+/datum/component/violation_observer/proc/on_masquerade_violation_reinforced(datum/source, mob/living/_player_breacher)
 	SIGNAL_HANDLER
 
 	SEND_SIGNAL(source, COMSIG_MASQUERADE_HUD_DELETE)
-	SSmasquerade.masquerade_reinforce(source, player_breacher)
+	SSmasquerade.masquerade_reinforce(source, _player_breacher)
