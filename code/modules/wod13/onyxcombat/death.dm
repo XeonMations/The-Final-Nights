@@ -1,14 +1,6 @@
 /mob/living/carbon/human/death()
 	. = ..()
 
-	if(iskindred(src))
-		SSmasquerade.dead_level = min(1000, SSmasquerade.dead_level+50)
-	else
-		if(istype(get_area(src), /area/vtm))
-			var/area/vtm/V = get_area(src)
-			if(V.zone_type == "masquerade")
-				SSmasquerade.dead_level = max(0, SSmasquerade.dead_level-25)
-
 	if(bloodhunted)
 		SSbloodhunt.hunted -= src
 		bloodhunted = FALSE

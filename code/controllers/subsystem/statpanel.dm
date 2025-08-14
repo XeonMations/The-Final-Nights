@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(statpanels)
 			"Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]",
 			"---",
 			"Canon: [GLOB.canon_event ? "Yes" : "No"]",
-			"Masquerade: [SSmasquerade.get_description()] [SSmasquerade.total_level]/1000",
+			"Masquerade: [SSmasquerade.get_description()]",
 		)
 
 		if(SSshuttle.emergency)

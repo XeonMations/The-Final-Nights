@@ -4,8 +4,8 @@
 #define COMSIG_MASQUERADE_VIOLATION "masquerade_violation"
 // /datum/component/violation_observer
 #define COMSIG_SEEN_MASQUERADE_VIOLATION "seen_masquerade_violation"
-// /datum/component/violation_observer
-#define COMSIG_MASQUERADE_VIOLATION_REINFORCED "masquerade_violation_reinforced"
+// /datum/component/masquerade_hud
+#define COMSIG_MASQUERADE_HUD_DELETE "masquerade_hud_delete"
 
 // The actual signal that lowers a player's masquerade by one, because we should never need to do it more than once.
 #define COMSIG_MASQUERADE_BREACH "masquerade_breach"

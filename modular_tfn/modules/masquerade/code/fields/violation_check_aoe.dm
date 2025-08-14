@@ -16,8 +16,14 @@
 /datum/proximity_monitor/advanced/violation_check_aoe/field_turf_uncrossed(atom/movable/movable, turf/old_location, turf/new_location)
 	UnregisterSignal(movable, COMSIG_MASQUERADE_VIOLATION)
 
-/datum/proximity_monitor/advanced/violation_check_aoe/proc/violation_observer_breach_callback(datum/source)
+/datum/proximity_monitor/advanced/violation_check_aoe/proc/violation_observer_breach_callback(mob/living/source)
 	SIGNAL_HANDLER
 
-	if(isInSight(host, source))
-		SEND_SIGNAL(host, COMSIG_SEEN_MASQUERADE_VIOLATION, source)
+	if(!GLOB.canon_event)
+		return
+	if(!isInSight(host, source))
+		return
+	if(!COOLDOWN_FINISHED(source, masquerade_timer))
+		return
+	COOLDOWN_START(source, masquerade_timer, 10 SECONDS)
+	SEND_SIGNAL(host, COMSIG_SEEN_MASQUERADE_VIOLATION, source)

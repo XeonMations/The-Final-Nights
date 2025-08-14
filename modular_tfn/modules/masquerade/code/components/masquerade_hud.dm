@@ -12,9 +12,17 @@
 
 	masquerade_breacher = _masquerade_breacher.client
 
+	RegisterSignal(parent, COMSIG_MASQUERADE_HUD_DELETE, PROC_REF(delete_myself))
+
 	create_masquerade_overlay()
 
+/datum/component/masquerade_hud/proc/delete_myself()
+	SIGNAL_HANDLER
+
+	qdel(src)
+
 /datum/component/masquerade_hud/Destroy(force)
+	UnregisterSignal(parent, COMSIG_MASQUERADE_HUD_DELETE)
 	masquerade_breacher = null
 	new_masquerade_image = null
 	..()
