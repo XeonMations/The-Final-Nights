@@ -292,8 +292,7 @@
 				message_admins("[ADMIN_LOOKUPFLW(H)] spotted [ADMIN_LOOKUPFLW(src)]'s Masquerade violation. Description: [reason]")
 				H.voted_for |= dna.real_name
 				last_masquerade_violation = 0
-				H.observe_masquerade_violation(src)
-				AdjustMasquerade(-1)
+				SEND_SIGNAL(H, COMSIG_SEEN_MASQUERADE_VIOLATION, H, src)
 
 	if(href_list["reinforcement"])
 		if(!ishumanbasic(usr))
