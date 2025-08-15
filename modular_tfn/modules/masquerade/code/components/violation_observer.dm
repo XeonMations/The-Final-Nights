@@ -8,7 +8,8 @@
 	var/breached_player
 
 /datum/component/violation_observer/Initialize()
-	area_of_effect = new(parent, 7)
+	if(isnpc(parent) || isobj(parent)) //Only add the AOE checker for NPCs and camera objects.
+		area_of_effect = new(parent, 7)
 
 /datum/component/violation_observer/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_SEEN_MASQUERADE_VIOLATION, PROC_REF(on_observed_violation))
