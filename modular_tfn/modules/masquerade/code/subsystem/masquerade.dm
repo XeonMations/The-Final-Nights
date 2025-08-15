@@ -21,8 +21,6 @@ SUBSYSTEM_DEF(masquerade)
 	return return_list
 
 /datum/controller/subsystem/masquerade/proc/masquerade_reinforce(datum/source, mob/living/player_breacher)
-	if(source)
-		SEND_SIGNAL(source, COMSIG_MASQUERADE_REINFORCE, player_breacher)
 	player_breacher.masquerade += 1
 	masquerade_level += 1
 

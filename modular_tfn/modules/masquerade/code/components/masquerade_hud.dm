@@ -23,6 +23,7 @@
 
 /datum/component/masquerade_hud/Destroy(force)
 	UnregisterSignal(parent, COMSIG_MASQUERADE_HUD_DELETE)
+	masquerade_breacher.images -= new_masquerade_image
 	masquerade_breacher = null
 	new_masquerade_image = null
 	..()
@@ -39,8 +40,5 @@
 		atom_parent.hud_list[HUD_LIST_MASQUERADE].appearance_flags |= TILE_BOUND
 	new_masquerade_image = atom_parent.hud_list[HUD_LIST_MASQUERADE]
 	masquerade_breacher.images |= new_masquerade_image
-
-/datum/component/masquerade_hud/UnregisterFromParent()
-	masquerade_breacher.images -= new_masquerade_image
 
 #undef HUD_LIST_MASQUERADE
