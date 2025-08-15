@@ -30,7 +30,7 @@
 			mob_parent.face_atom(player_breacher)
 	atom_parent.do_alert_animation()
 	playsound(player_breacher, 'modular_tfn/modules/masquerade/sound/masquerade_violation.ogg', 50, FALSE, -5)
-	to_chat(player_breacher, span_userdanger("Masquerade breach!"))
+	to_chat(player_breacher, span_userdanger(span_bold("MASQUERADE VIOLATION")))
 	atom_parent.AddComponent(/datum/component/masquerade_hud, player_breacher)
 	RegisterSignal(atom_parent, COMSIG_MASQUERADE_REINFORCE, PROC_REF(on_masquerade_violation_reinforced))
 	RegisterSignal(atom_parent, COMSIG_LIVING_DEATH, PROC_REF(on_masquerade_violation_reinforced))
@@ -42,5 +42,5 @@
 
 	SEND_SIGNAL(source, COMSIG_MASQUERADE_HUD_DELETE)
 	SSmasquerade.masquerade_reinforce(source, breached_player)
-	to_chat(breached_player, span_nicegreen("Masquerade reinforced!"))
+	to_chat(breached_player, span_big(span_boldnicegreen("MASQUERADE REINFORCED")))
 	playsound(breached_player, 'modular_tfn/modules/masquerade/sound/masquerade_reinforce.ogg', 50, FALSE, -5)
