@@ -4,6 +4,12 @@ SUBSYSTEM_DEF(masquerade)
 	flags = SS_NO_FIRE
 
 	var/masquerade_level = 25
+	var/list/masquerade_breachers
+
+/datum/controller/subsystem/masquerade/Initialize()
+	masquerade_breachers = new()
+	..()
+
 
 /datum/controller/subsystem/masquerade/proc/get_description()
 	var/return_list = ""
@@ -20,14 +26,17 @@ SUBSYSTEM_DEF(masquerade)
 	return return_list
 
 /datum/controller/subsystem/masquerade/proc/masquerade_reinforce(datum/source, mob/living/player_breacher)
-	player_breacher.masquerade = min(5, player_breacher.masquerade + 1)
-	masquerade_level = min(25, masquerade_level + 1)
+	for(var/masquerade_breach as anything in masquerade_breachers)
+		if(source == masquerade_breachers[masquerade_breach])
+			player_breacher.masquerade = min(5, player_breacher.masquerade + 1)
+			masquerade_level = min(25, masquerade_level + 1)
 	if(player_breacher.masquerade == 5)
 		GLOB.masquerade_breakers_list -= player_breacher
 
 /datum/controller/subsystem/masquerade/proc/masquerade_breach(datum/source, mob/living/player_breacher)
 	var/temporary_masq_check = player_breacher.masquerade
 	player_breacher.masquerade = max(0, player_breacher.masquerade - 1)
+	masquerade_breachers += player_breacher[source]
 	GLOB.masquerade_breakers_list |= player_breacher
 	if(temporary_masq_check == player_breacher.masquerade) //We're only letting one player tank the masquerade to the max of 5 points
 		return
