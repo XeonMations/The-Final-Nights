@@ -607,8 +607,11 @@
 	if(custom_examine_message)
 		. += span_purple(custom_examine_message)
 
-	if(ishuman(user))
-		. += "<a href='byond://?src=[REF(src)];masquerade=1'>Spot a Masquerade violation</a>"
+	if(ishumanbasic(user))
+		. += "<a href='byond://?src=[REF(src)];masquerade=1'>Report a Masquerade violation</a>"
+		. += "---------------"
+		. += "<a href='byond://?src=[REF(src)];reinforcement=1'>Report a Masquerade reinforcement</a>"
+		. += "<br>"
 
 	. += flavor_text_creation()
 

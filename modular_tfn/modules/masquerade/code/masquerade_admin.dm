@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/AdjustMasquerade(value, forced = FALSE)
+/mob/living/carbon/human/proc/AdjustMasquerade(value)
 	if(!iskindred(src) && !isghoul(src) && !iscathayan(src) && !iszombie(src) && !isgarou(src))
 		return
 	if(!GLOB.canon_event)
