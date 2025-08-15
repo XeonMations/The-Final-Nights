@@ -23,6 +23,9 @@
 /datum/component/violation_observer/proc/on_observed_violation(datum/source, mob/living/player_breacher)
 	SIGNAL_HANDLER
 
+	if(!source || !player_breacher)
+		return
+
 	var/atom/atom_parent = source
 	var/mob/living/mob_parent
 	if(isliving(atom_parent))
