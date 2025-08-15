@@ -58,11 +58,11 @@
 	var/mob/living/host_mob = host
 	if(host_mob.incapacitated() || host_mob.stat >= SOFT_CRIT || host_mob.IsSleeping() || host_mob.IsParalyzed())
 		return
-	if(!isInSight(host_mob, source))
-		return
 	if(HAS_TRAIT(source, TRAIT_OBFUSCATED))
 		return
 	if(!CheckZoneMasquerade(host_mob))
+		return
+	if(!can_see(host_mob, source, 7))
 		return
 	if(!COOLDOWN_FINISHED(source, masquerade_timer))
 		return
