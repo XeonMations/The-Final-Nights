@@ -27,6 +27,9 @@ SUBSYSTEM_DEF(masquerade)
 		GLOB.masquerade_breakers_list -= player_breacher
 
 /datum/controller/subsystem/masquerade/proc/masquerade_breach(datum/source, mob/living/player_breacher)
+	var/temporary_masq_check = player_breacher.masquerade
 	player_breacher.masquerade = max(0, player_breacher.masquerade - 1)
+	GLOB.masquerade_breakers_list |= player_breacher
+	if(temporary_masq_check == player_breacher.masquerade) //We're only letting one player tank the masquerade to the max of 5 points
+		return
 	masquerade_level = max(0, masquerade_level - 1)
-	GLOB.masquerade_breakers_list += player_breacher
