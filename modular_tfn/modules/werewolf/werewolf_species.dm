@@ -22,13 +22,6 @@
 #define RAGE_LIFE_COOLDOWN 30 SECONDS
 
 /datum/species/garou/spec_life(mob/living/carbon/human/H)
-	if(H.key && H.stat <= HARD_CRIT)
-		var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]
-		if(P)
-			if(P.masquerade != H.masquerade)
-				P.masquerade = H.masquerade
-				P.save_character()
-
 	if(H.stat != DEAD)
 		var/gaining_rage = TRUE
 		for(var/obj/structure/werewolf_totem/W in GLOB.totems)
