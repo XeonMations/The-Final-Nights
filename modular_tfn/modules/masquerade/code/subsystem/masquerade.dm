@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(masquerade)
 /datum/controller/subsystem/masquerade/proc/masquerade_reinforce(datum/source, mob/living/player_breacher)
 	for(var/masquerade_breach as anything in masquerade_breachers)
 		if(source in masquerade_breach)
-			masquerade_breachers -= masquerade_breach
+			masquerade_breachers -= list(masquerade_breach)
 			player_breacher.masquerade = min(5, player_breacher.masquerade + 1)
 			masquerade_level = min(25, masquerade_level + 1)
 	if(player_breacher.masquerade == 5)
