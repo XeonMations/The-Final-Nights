@@ -98,13 +98,6 @@
 			if(wisdomadj)
 				adjust_renown("wisdom", wisdomadj, vessel = vessel)
 
-		if(src in GLOB.veil_breakers_list)
-			if(masquerade > 2)
-				GLOB.veil_breakers_list -= src
-		else if(masquerade < 3)
-			GLOB.veil_breakers_list |= src
-
-
 /mob/living/proc/adjust_renown(attribute, amount, threshold, mob/living/vessel)
 	if(!GLOB.canon_event)
 		return
