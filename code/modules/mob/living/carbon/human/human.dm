@@ -307,6 +307,7 @@
 			message_admins("[ADMIN_LOOKUPFLW(H)] repaired [ADMIN_LOOKUPFLW(src)]'s Masquerade violation.")
 			H.observe_masquerade_reinforce(src)
 			AdjustMasquerade(1)
+			H.voted_for -= real_name
 		else
 			to_chat(H, span_warning("You didin't report a masquerade breach on this person!"))
 
