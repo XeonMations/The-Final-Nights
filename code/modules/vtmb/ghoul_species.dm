@@ -256,13 +256,6 @@
 	. = ..()
 	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE))
 		SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
-	if(H.key && H.stat != DEAD)
-		var/datum/preferences/P = GLOB.preferences_datums[ckey(H.key)]
-		if(P)
-			if(P.masquerade != H.masquerade)
-				P.masquerade = H.masquerade
-				P.save_preferences()
-				P.save_character()
 
 /datum/species/human/spec_life(mob/living/carbon/human/H)
 	. = ..()

@@ -306,10 +306,6 @@
 				P.yang = H.max_yang_chi
 				P.save_preferences()
 				P.save_character()
-			if(P.masquerade != H.masquerade)
-				P.masquerade = H.masquerade
-				P.save_preferences()
-				P.save_character()
 
 		H.update_chi_hud()
 		if(!H.in_frenzy)

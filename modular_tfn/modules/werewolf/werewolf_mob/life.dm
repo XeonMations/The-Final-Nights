@@ -104,12 +104,6 @@
 		else if(masquerade < 3)
 			GLOB.veil_breakers_list |= src
 
-	var/datum/preferences/P = GLOB.preferences_datums[ckey(key)]
-	if(P)
-		P.masquerade = masquerade
-		P.save_character()
-		P.save_preferences()
-
 
 /mob/living/proc/adjust_renown(attribute, amount, threshold, mob/living/vessel)
 	if(!GLOB.canon_event)

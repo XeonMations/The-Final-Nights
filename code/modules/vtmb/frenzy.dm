@@ -248,10 +248,6 @@
 				P.path_score = H.morality_path.score
 				P.save_preferences()
 				P.save_character()
-			if(P.masquerade != H.masquerade)
-				P.masquerade = H.masquerade
-				P.save_preferences()
-				P.save_character()
 			if(!H.antifrenzy)
 				if(P.path_score < 1)
 					H.enter_frenzymod()
