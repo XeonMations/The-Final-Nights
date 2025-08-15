@@ -60,9 +60,6 @@
 		return
 	if(next_veil_time >= world.time && !forced)
 		return
-	if(amount > 0)
-		if(HAS_TRAIT(src, TRAIT_VIOLATOR))
-			return
 	if(amount < 0)
 		if(!CheckZoneMasquerade(src) && !forced)
 			return

@@ -28,6 +28,8 @@
 		return
 	if(HAS_TRAIT(source, TRAIT_OBFUSCATED))
 		return
+	if(!CheckZoneMasquerade(host_mob))
+		return
 	if(!COOLDOWN_FINISHED(source, masquerade_timer))
 		return
 	COOLDOWN_START(source, masquerade_timer, 10 SECONDS)
