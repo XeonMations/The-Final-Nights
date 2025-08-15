@@ -433,10 +433,6 @@ SUBSYSTEM_DEF(job)
 					JobDebug("DO player not enough renown rank, Player: [player]")
 					continue
 
-				if((player.client.prefs.masquerade < job.minimal_masquerade) && !bypass)
-					JobDebug("DO player not enough masquerade, Player: [player]")
-					continue
-
 				if(!job.allowed_species.Find(player.client.prefs.pref_species.name) && !bypass)
 					JobDebug("DO player species not allowed, Player: [player]")
 					continue
