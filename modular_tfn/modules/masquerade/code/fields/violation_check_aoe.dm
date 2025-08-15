@@ -24,7 +24,7 @@
 
 /datum/proximity_monitor/advanced/violation_check_aoe/on_uncrossed(turf/source, atom/movable/gone, direction)
 	. = ..()
-	if(isliving(gone))
+	if(!isliving(gone))
 		return
 	if(!(gone in tracking_mobs))
 		return
