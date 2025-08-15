@@ -289,14 +289,11 @@
 					to_chat(H, "<span class='warning'>You have already noted their masquerade breach! Wait some time until you do that again.</span>")
 					return
 				reason = sanitize(reason)
-				masquerade_votes++
 				message_admins("[ADMIN_LOOKUPFLW(H)] spotted [ADMIN_LOOKUPFLW(src)]'s Masquerade violation. Description: [reason]")
 				H.voted_for |= dna.real_name
-				if(masquerade_votes > 1)
-					masquerade_votes = 0
-					last_masquerade_violation = 0
-					H.observe_masquerade_violation(src)
-					AdjustMasquerade(-1)
+				last_masquerade_violation = 0
+				H.observe_masquerade_violation(src)
+				AdjustMasquerade(-1)
 
 	if(href_list["reinforcement"])
 		if(!ishumanbasic(usr))
@@ -307,7 +304,6 @@
 		if(usr == src)
 			return
 		if(H.voted_for.Find(real_name))
-			masquerade_votes = 0
 			message_admins("[ADMIN_LOOKUPFLW(H)] repaired [ADMIN_LOOKUPFLW(src)]'s Masquerade violation.")
 			H.observe_masquerade_reinforce(src)
 			AdjustMasquerade(1)

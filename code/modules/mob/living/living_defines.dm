@@ -250,7 +250,6 @@
 	var/last_bloodpower_click = 0
 	var/last_drinkblood_click = 0
 	var/harm_focus = SOUTH
-	var/masquerade_votes = 0
 	var/list/voted_for = list()
 	var/true_real_name
 	var/died_already = FALSE

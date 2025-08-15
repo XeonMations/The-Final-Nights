@@ -24,8 +24,9 @@
 	SIGNAL_HANDLER
 
 	var/atom/atom_parent = source
+	var/mob/living/mob_parent
 	if(isliving(atom_parent))
-		var/mob/living/mob_parent = source
+		mob_parent = source
 		if(!mob_parent.incapacitated(ignore_restraints = 1))
 			mob_parent.face_atom(player_breacher)
 	atom_parent.observe_masquerade_violation(player_breacher)
@@ -40,13 +41,13 @@
 
 	SEND_SIGNAL(source, COMSIG_MASQUERADE_HUD_DELETE)
 	SSmasquerade.masquerade_reinforce(source, breached_player)
-	source.observe_masquerade_reinforce(player_breacher)
+	source.observe_masquerade_reinforce(breached_player)
 
-/mob/living/proc/observe_masquerade_violation(player_breacher)
+/atom/proc/observe_masquerade_violation(player_breacher)
 	do_alert_animation()
 	playsound(player_breacher, 'modular_tfn/modules/masquerade/sound/masquerade_violation.ogg', 50, FALSE, -5)
 	to_chat(player_breacher, span_userdanger(span_bold("MASQUERADE VIOLATION")))
 
-/mob/living/proc/observe_masquerade_reinforce(player_breacher)
-	to_chat(breached_player, span_big(span_boldnicegreen("MASQUERADE REINFORCED")))
-	playsound(breached_player, 'modular_tfn/modules/masquerade/sound/masquerade_reinforce.ogg', 50, FALSE, -5)
+/atom/proc/observe_masquerade_reinforce(player_breacher)
+	to_chat(player_breacher, span_big(span_boldnicegreen("MASQUERADE REINFORCED")))
+	playsound(player_breacher, 'modular_tfn/modules/masquerade/sound/masquerade_reinforce.ogg', 50, FALSE, -5)
