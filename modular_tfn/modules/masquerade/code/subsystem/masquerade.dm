@@ -32,12 +32,18 @@ SUBSYSTEM_DEF(masquerade)
 			player_breacher.masquerade = min(5, player_breacher.masquerade + 1)
 			masquerade_level = min(25, masquerade_level + 1)
 	if(player_breacher.masquerade == 5)
-		GLOB.masquerade_breakers_list -= player_breacher
+		if(isgarou(player_breacher))
+			GLOB.veil_breakers_list -= player_breacher
+		else
+			GLOB.masquerade_breakers_list -= player_breacher
 
 /datum/controller/subsystem/masquerade/proc/masquerade_breach(datum/source, mob/living/player_breacher)
 	player_breacher.masquerade = max(0, player_breacher.masquerade - 1)
 	masquerade_breachers += list(list(player_breacher, source))
-	GLOB.masquerade_breakers_list |= player_breacher
+	if(isgarou(player_breacher))
+		GLOB.veil_breakers_list |= player_breacher
+	else
+		GLOB.masquerade_breakers_list |= player_breacher
 	if(player_breacher.masquerade <= 0) //We're only letting one player tank the masquerade to the max of 5 points
 		return
 	masquerade_level = max(0, masquerade_level - 1)
