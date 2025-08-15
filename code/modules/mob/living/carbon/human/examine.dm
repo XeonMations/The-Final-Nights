@@ -611,7 +611,6 @@
 		. += "<a href='byond://?src=[REF(src)];masquerade=1'>Report a Masquerade violation</a>"
 		. += "---------------"
 		. += "<a href='byond://?src=[REF(src)];reinforcement=1'>Report a Masquerade reinforcement</a>"
-		. += "<br>"
 
 	. += flavor_text_creation()
 

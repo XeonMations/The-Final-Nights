@@ -295,6 +295,7 @@
 				if(masquerade_votes > 1)
 					masquerade_votes = 0
 					last_masquerade_violation = 0
+					H.observe_masquerade_violation(src)
 					AdjustMasquerade(-1)
 
 	if(href_list["reinforcement"])
@@ -308,6 +309,7 @@
 		if(H.voted_for.Find(real_name))
 			masquerade_votes = 0
 			message_admins("[ADMIN_LOOKUPFLW(H)] repaired [ADMIN_LOOKUPFLW(src)]'s Masquerade violation.")
+			H.observe_masquerade_reinforce(src)
 			AdjustMasquerade(1)
 		else
 			to_chat(H, span_warning("You didin't report a masquerade breach on this person!"))
