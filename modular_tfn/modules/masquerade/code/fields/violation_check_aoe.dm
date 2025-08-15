@@ -45,6 +45,11 @@
 		UnregisterSignal(mob, COMSIG_MASQUERADE_VIOLATION)
 		tracking_mobs -= mob
 
+/datum/proximity_monitor/advanced/violation_check_aoe/cleanup_field_turf(turf/target)
+	for(var/mob/living/living_mob in target.contents)
+		UnregisterSignal(living_mob, COMSIG_MASQUERADE_VIOLATION)
+		tracking_mobs -= living_mob
+
 /datum/proximity_monitor/advanced/violation_check_aoe/proc/violation_observer_breach_callback(mob/living/source)
 	SIGNAL_HANDLER
 
