@@ -17,6 +17,10 @@
 	. = ..()
 	if(!isliving(entered))
 		return
+	if(isnpc(entered)) //only track non-NPCs
+		return
+	if(entered == host)
+		return
 	if(entered in tracking_mobs)
 		return
 	tracking_mobs |= entered
@@ -26,10 +30,20 @@
 	. = ..()
 	if(!isliving(gone))
 		return
+	if(isnpc(gone)) //only track non-NPCs
+		return
+	if(gone == host)
+		return
 	if(!(gone in tracking_mobs))
 		return
 	tracking_mobs -= gone
 	UnregisterSignal(gone, COMSIG_MASQUERADE_VIOLATION)
+
+/datum/proximity_monitor/advanced/violation_check_aoe/on_z_change()
+	. = ..()
+	for(var/mob as anything in tracking_mobs)
+		UnregisterSignal(mob, COMSIG_MASQUERADE_VIOLATION)
+		tracking_mobs -= mob
 
 /datum/proximity_monitor/advanced/violation_check_aoe/proc/violation_observer_breach_callback(mob/living/source)
 	SIGNAL_HANDLER
