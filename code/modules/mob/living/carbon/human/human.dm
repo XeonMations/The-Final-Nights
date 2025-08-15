@@ -293,6 +293,7 @@
 				H.voted_for |= dna.real_name
 				last_masquerade_violation = 0
 				SEND_SIGNAL(H, COMSIG_SEEN_MASQUERADE_VIOLATION, H, src)
+				to_chat(src, span_danger("You were found to be violating the masquereade for: [reason]"))
 
 	if(href_list["reinforcement"])
 		if(!ishumanbasic(usr))
