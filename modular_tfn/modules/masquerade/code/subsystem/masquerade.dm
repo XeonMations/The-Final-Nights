@@ -21,9 +21,12 @@ SUBSYSTEM_DEF(masquerade)
 	return return_list
 
 /datum/controller/subsystem/masquerade/proc/masquerade_reinforce(datum/source, mob/living/player_breacher)
-	player_breacher.masquerade += 1
-	masquerade_level += 1
+	player_breacher.masquerade = min(5, player_breacher.masquerade + 1)
+	masquerade_level = min(25, masquerade_level + 1)
+	if(player_breacher.masquerade == 5)
+		GLOB.masquerade_breakers_list -= player_breacher
 
 /datum/controller/subsystem/masquerade/proc/masquerade_breach(datum/source, mob/living/player_breacher)
-	player_breacher.masquerade -= 1
-	masquerade_level -= 1
+	player_breacher.masquerade = max(0, player_breacher.masquerade - 1)
+	masquerade_level = max(0, masquerade_level - 1)
+	GLOB.masquerade_breakers_list += player_breacher
