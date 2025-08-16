@@ -6,6 +6,6 @@
 
 	switch(value)
 		if(1)
-			SSmasquerade.masquerade_reinforce(null, src)
+			SSmasquerade.masquerade_reinforce("admin", src)
 		if(-1)
-			SSmasquerade.masquerade_breach(null, src)
+			SSmasquerade.masquerade_breach("admin", src)
