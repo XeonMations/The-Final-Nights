@@ -5,18 +5,19 @@
 	var/datum/proximity_monitor/advanced/violation_check_aoe/area_of_effect
 	/// Time between us checking for violations
 	COOLDOWN_DECLARE(scan_cooldown)
-	var/breached_player
+	var/list/breached_players
 
 /datum/component/violation_observer/Initialize()
 	if(isnpc(parent) || isobj(parent)) //Only add the AOE checker for NPCs and camera objects.
 		area_of_effect = new(parent, 7)
+	breached_players = new()
 
 /datum/component/violation_observer/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_SEEN_MASQUERADE_VIOLATION, PROC_REF(on_observed_violation))
 
 /datum/component/violation_observer/UnregisterFromParent(force, silent)
 	QDEL_NULL(area_of_effect)
-	breached_player = null
+	breached_players = null
 	UnregisterSignal(parent, COMSIG_SEEN_MASQUERADE_VIOLATION)
 	UnregisterSignal(parent, COMSIG_MASQUERADE_REINFORCE)
 	UnregisterSignal(parent, COMSIG_LIVING_DEATH)
@@ -37,15 +38,16 @@
 	atom_parent.AddComponent(/datum/component/masquerade_hud, player_breacher)
 	RegisterSignal(atom_parent, COMSIG_MASQUERADE_REINFORCE, PROC_REF(on_masquerade_violation_reinforced))
 	RegisterSignal(atom_parent, COMSIG_LIVING_DEATH, PROC_REF(on_masquerade_violation_reinforced))
-	breached_player = player_breacher
+	breached_players |= player_breacher
 	SSmasquerade.masquerade_breach(source, player_breacher)
 
-/datum/component/violation_observer/proc/on_masquerade_violation_reinforced(mob/living/source)
+/datum/component/violation_observer/proc/on_masquerade_violation_reinforced(mob/living/source, mob/living/player_breacher)
 	SIGNAL_HANDLER
 
 	SEND_SIGNAL(source, COMSIG_MASQUERADE_HUD_DELETE)
-	SSmasquerade.masquerade_reinforce(source, breached_player)
-	source.observe_masquerade_reinforce(breached_player)
+	SSmasquerade.masquerade_reinforce(source, player_breacher)
+	source.observe_masquerade_reinforce(player_breacher)
+	breached_players -= player_breacher
 
 /atom/proc/observe_masquerade_violation(player_breacher)
 	do_alert_animation()

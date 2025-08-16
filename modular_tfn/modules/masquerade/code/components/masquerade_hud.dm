@@ -7,7 +7,7 @@
 	var/image/new_masquerade_image
 
 /datum/component/masquerade_hud/Initialize(mob/_masquerade_breacher)
-	if(!_masquerade_breacher.client)
+	if(isnpc(parent) || !_masquerade_breacher)
 		return COMPONENT_INCOMPATIBLE
 
 	masquerade_breacher = _masquerade_breacher.client

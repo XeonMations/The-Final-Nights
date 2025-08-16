@@ -289,7 +289,7 @@
 			message_admins("[ADMIN_LOOKUPFLW(H)] spotted [ADMIN_LOOKUPFLW(src)]'s Masquerade violation. Description: [reason]")
 			H.voted_for |= dna.real_name
 			last_masquerade_violation = 0
-			SEND_SIGNAL(H, COMSIG_SEEN_MASQUERADE_VIOLATION, H, src)
+			SEND_SIGNAL(H, COMSIG_SEEN_MASQUERADE_VIOLATION, src)
 			to_chat(src, span_danger("You were found to be violating the masquereade for: [reason]"))
 
 	if(href_list["reinforcement"])
@@ -302,7 +302,7 @@
 			return
 		if(H.voted_for.Find(real_name))
 			message_admins("[ADMIN_LOOKUPFLW(H)] repaired [ADMIN_LOOKUPFLW(src)]'s Masquerade violation.")
-			SEND_SIGNAL(H, COMSIG_MASQUERADE_REINFORCE, H)
+			SEND_SIGNAL(H, COMSIG_MASQUERADE_REINFORCE, src)
 			H.voted_for -= real_name
 		else
 			to_chat(H, span_warning("You didin't report a masquerade breach on this person!"))
