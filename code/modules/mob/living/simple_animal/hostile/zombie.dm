@@ -69,7 +69,7 @@
 								for(var/mob/living/carbon/human/L in GLOB.player_list)
 									if(L.mind?.assigned_role == "Graveyard Keeper")
 										if(istype(get_area(L), /area/vtm/graveyard))
-											L.AdjustMasquerade(-1)
+											L.AdjustMasquerade(-1, "zombies")
 											SSgraveyard.total_bad += 1
 								qdel(src)
 						else

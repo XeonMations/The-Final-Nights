@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/AdjustMasquerade(value)
+/mob/living/carbon/human/proc/AdjustMasquerade(value, reason = "debug")
 	if(!iskindred(src) && !isghoul(src) && !iscathayan(src) && !iszombie(src) && !isgarou(src))
 		return
 	if(!GLOB.canon_event)
@@ -6,6 +6,6 @@
 
 	switch(value)
 		if(1)
-			SSmasquerade.masquerade_reinforce("admin", src)
+			SSmasquerade.masquerade_reinforce(reason, src)
 		if(-1)
-			SSmasquerade.masquerade_breach("admin", src)
+			SSmasquerade.masquerade_breach(reason, src)
