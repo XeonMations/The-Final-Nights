@@ -74,3 +74,6 @@
 2025-08-17:
   SoreYew:
   - balance: rebalances prince role
+  XeonMations:
+  - refactor: Refactored MC and ticker SS, report any bugs to coding!
+  - bugfix: Fixed all existing roundstart runtimes. Hoo-fucking-ray.
