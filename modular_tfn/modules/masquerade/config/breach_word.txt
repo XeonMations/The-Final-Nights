@@ -8,6 +8,7 @@ anarch
 anarchs
 ventrue
 brujah
+trujah
 malkavian
 gangrel
 tremere
@@ -181,3 +182,6 @@ shadow lord
 silent strider
 silver fang
 nossie
+noddist
+noddism
+jyhad
