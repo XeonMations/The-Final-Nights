@@ -32,3 +32,16 @@ SUBSYSTEM_DEF(redaction)
 		filter += REGEX_QUOTE(line)
 	redacted_words_regex = filter.len ? regex("\\b([jointext(filter, "|")])\\b", "i") : null
 
+#define REDACTION "█"
+
+/datum/controller/subsystem/redaction/proc/redact_sentence(sentence)
+	var/character_count = length(SSredaction.redacted_words_regex.match)
+
+	var/generated_redaction = ""
+	for(var/i in 1 to character_count)
+		generated_redaction += REDACTION
+
+	var/redacted_sentence = replacetext(sentence, SSredaction.redacted_words_regex.match, generated_redaction)
+	return redacted_sentence
+
+#undef REDACTION
