@@ -23,7 +23,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(!SSredaction.redacted_words)
+	if(!length(SSredaction.redacted_words))
 		return
 
 	var/allowed_word = SSredaction.remove_word(usr)
