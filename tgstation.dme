@@ -3788,6 +3788,7 @@
 #include "modular_tfn\modules\masquerade\code\masquerade_admin.dm"
 #include "modular_tfn\modules\masquerade\code\masquerade_contract.dm"
 #include "modular_tfn\modules\masquerade\code\miscellaneous.dm"
+#include "modular_tfn\modules\masquerade\code\word_checker.dm"
 #include "modular_tfn\modules\masquerade\code\components\masquerade_hud.dm"
 #include "modular_tfn\modules\masquerade\code\components\violation_observer.dm"
 #include "modular_tfn\modules\masquerade\code\fields\violation_check_aoe.dm"

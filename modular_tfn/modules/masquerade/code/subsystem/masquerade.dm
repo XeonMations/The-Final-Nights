@@ -5,11 +5,17 @@ SUBSYSTEM_DEF(masquerade)
 
 	var/masquerade_level = 25
 	var/list/masquerade_breachers
+	var/static/regex/masquerade_breaching_phrase_regex
 
 /datum/controller/subsystem/masquerade/Initialize()
 	masquerade_breachers = new()
+	var/list/masquerade_filter = list()
+	for(var/line in world.file2list("modular_tfn/modules/masquerade/config/breach_word.txt"))
+		if(!line)
+			continue
+		masquerade_filter += REGEX_QUOTE(line)
+	masquerade_breaching_phrase_regex = masquerade_filter.len ? regex("\\b([jointext(masquerade_filter, "|")])\\b", "i") : null
 	..()
-
 
 /datum/controller/subsystem/masquerade/proc/get_description()
 	var/return_list = ""
@@ -29,8 +35,8 @@ SUBSYSTEM_DEF(masquerade)
 	for(var/masquerade_breach as anything in masquerade_breachers)
 		if(source in masquerade_breach)
 			masquerade_breachers -= list(masquerade_breach)
-			player_breacher.masquerade = min(5, player_breacher.masquerade + 1)
 			masquerade_level = min(25, masquerade_level + 1)
+			player_breacher.masquerade = min(5, player_breacher.masquerade + 1)
 	if(player_breacher.masquerade == 5)
 		if(isgarou(player_breacher))
 			GLOB.veil_breakers_list -= player_breacher
