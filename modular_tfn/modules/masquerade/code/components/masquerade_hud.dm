@@ -16,10 +16,11 @@
 
 	create_masquerade_overlay()
 
-/datum/component/masquerade_hud/proc/delete_myself()
+/datum/component/masquerade_hud/proc/delete_myself(datum/source, mob/player_breacher)
 	SIGNAL_HANDLER
 
-	qdel(src)
+	if(masquerade_breacher == player_breacher.client)
+		qdel(src)
 
 /datum/component/masquerade_hud/Destroy(force)
 	UnregisterSignal(parent, COMSIG_MASQUERADE_HUD_DELETE)
