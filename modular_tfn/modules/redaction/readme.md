@@ -10,11 +10,11 @@ This module is for events and redacting certain words from player speech, config
 
 ### TG Proc/File Changes:
 
-- N/A
+- `code/modules/admin/admin_verbs.dm`
 
 ### Modular Overrides:
 
-- N/A
+- `/mob/living/say()`
 
 ### Defines:
 
