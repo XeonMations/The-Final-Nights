@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(redaction)
 		generated_redaction += REDACTION
 
 	var/redacted_sentence = replacetext(sentence, SSredaction.redacted_words_regex.match, generated_redaction)
-	message_admins("[user] attempted to say the word: [SSredaction.redacted_words_regex.match]")
+	message_admins("[ADMIN_LOOKUPFLW(user)]] attempted to say the word: [SSredaction.redacted_words_regex.match]")
 	return redacted_sentence
 
 #undef REDACTION
