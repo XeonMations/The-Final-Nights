@@ -8,6 +8,9 @@
 
 	var/redacted_word = SSredaction.add_word(usr)
 
+	if(!redacted_word)
+		return
+
 	log_admin("[key_name(usr)] redacted the word: [redacted_word]")
 	message_admins("[key_name_admin(usr)] redacted the word: [redacted_word]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Redacted the word: [redacted_word]") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
