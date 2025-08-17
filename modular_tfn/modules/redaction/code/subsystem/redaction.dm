@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(redaction)
 
 #define REDACTION "█"
 
-/datum/controller/subsystem/redaction/proc/redact_sentence(sentence)
+/datum/controller/subsystem/redaction/proc/redact_sentence(sentence, mob/user)
 	var/character_count = length(SSredaction.redacted_words_regex.match)
 
 	var/generated_redaction = ""
@@ -42,6 +42,7 @@ SUBSYSTEM_DEF(redaction)
 		generated_redaction += REDACTION
 
 	var/redacted_sentence = replacetext(sentence, SSredaction.redacted_words_regex.match, generated_redaction)
+	message_admins("[user] attempted to say the word: [allowed_word]")
 	return redacted_sentence
 
 #undef REDACTION

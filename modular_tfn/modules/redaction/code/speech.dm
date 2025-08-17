@@ -3,7 +3,7 @@
 /mob/living/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(!lowertext(REDACTION_FILTER_CHECK(message)))
 		return ..()
-	message = SSredaction.redact_sentence(message)
+	message = SSredaction.redact_sentence(message, src)
 	..()
 
 #undef REDACTION_FILTER_CHECK
