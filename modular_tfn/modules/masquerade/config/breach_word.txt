@@ -85,6 +85,8 @@ dragon line
 ebon dragon
 koldunic sorcery
 voivode
+bogatyr
+zagruda
 neonate
 neonates
 umbral realms
@@ -185,3 +187,5 @@ nossie
 noddist
 noddism
 jyhad
+vaulderie
+ritae
