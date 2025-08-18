@@ -43,9 +43,9 @@ SUBSYSTEM_DEF(masquerade)
 		else
 			GLOB.masquerade_breakers_list -= player_breacher
 
-/datum/controller/subsystem/masquerade/proc/masquerade_breach(datum/source, mob/living/player_breacher)
+/datum/controller/subsystem/masquerade/proc/masquerade_breach(datum/source, mob/living/player_breacher, reason)
 	player_breacher.masquerade = max(0, player_breacher.masquerade - 1)
-	masquerade_breachers += list(list(player_breacher, source))
+	masquerade_breachers += list(list(player_breacher, source, reason))
 	if(isgarou(player_breacher))
 		GLOB.veil_breakers_list |= player_breacher
 	else

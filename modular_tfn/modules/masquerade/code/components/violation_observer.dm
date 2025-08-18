@@ -39,7 +39,7 @@
 	RegisterSignal(atom_parent, COMSIG_MASQUERADE_REINFORCE, PROC_REF(on_masquerade_violation_reinforced))
 	RegisterSignal(atom_parent, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	breached_players |= player_breacher
-	SSmasquerade.masquerade_breach(source, player_breacher)
+	SSmasquerade.masquerade_breach(source, player_breacher, "NPC")
 
 /datum/component/violation_observer/proc/on_masquerade_violation_reinforced(mob/living/source, mob/living/player_breacher)
 	SIGNAL_HANDLER
