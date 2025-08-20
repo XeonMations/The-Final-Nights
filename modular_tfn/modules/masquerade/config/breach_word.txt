@@ -4,8 +4,6 @@ baali
 diablerie
 sabbat
 camarilla
-anarch
-anarchs
 ventrue
 brujah
 trujah
