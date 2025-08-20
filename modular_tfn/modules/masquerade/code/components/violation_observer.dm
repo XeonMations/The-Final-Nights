@@ -22,26 +22,25 @@
 	UnregisterSignal(parent, COMSIG_MASQUERADE_REINFORCE)
 	UnregisterSignal(parent, COMSIG_LIVING_DEATH)
 
-/datum/component/violation_observer/proc/on_observed_violation(datum/source, mob/living/player_breacher)
+/datum/component/violation_observer/proc/on_observed_violation(atom/source, mob/living/player_breacher)
 	SIGNAL_HANDLER
 
 	if(!source || !player_breacher)
 		return
 
-	var/atom/atom_parent = source
 	var/mob/living/mob_parent
-	if(isliving(atom_parent))
+	if(isliving(source))
 		mob_parent = source
 		if(!mob_parent.incapacitated(ignore_restraints = 1))
 			mob_parent.face_atom(player_breacher)
-	atom_parent.observe_masquerade_violation(player_breacher)
-	atom_parent.AddComponent(/datum/component/masquerade_hud, player_breacher)
-	RegisterSignal(atom_parent, COMSIG_MASQUERADE_REINFORCE, PROC_REF(on_masquerade_violation_reinforced))
-	RegisterSignal(atom_parent, COMSIG_LIVING_DEATH, PROC_REF(on_death))
+	source.observe_masquerade_violation(player_breacher)
+	source.AddComponent(/datum/component/masquerade_hud, player_breacher)
+	RegisterSignal(source, COMSIG_MASQUERADE_REINFORCE, PROC_REF(on_masquerade_violation_reinforced))
+	RegisterSignal(source, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	breached_players |= player_breacher
-	SSmasquerade.masquerade_breach(source, player_breacher, "NPC")
+	SSmasquerade.masquerade_breach(source, player_breacher, (isliving(source) ? "NPC" : "Object"))
 
-/datum/component/violation_observer/proc/on_masquerade_violation_reinforced(mob/living/source, mob/living/player_breacher)
+/datum/component/violation_observer/proc/on_masquerade_violation_reinforced(atom/source, mob/living/player_breacher)
 	SIGNAL_HANDLER
 
 	SEND_SIGNAL(source, COMSIG_MASQUERADE_HUD_DELETE, player_breacher)
@@ -49,7 +48,7 @@
 	source.observe_masquerade_reinforce(player_breacher)
 	breached_players -= player_breacher
 
-/datum/component/violation_observer/proc/on_death(mob/living/source)
+/datum/component/violation_observer/proc/on_death(atom/source)
 	for(var/player_breacher as anything in breached_players)
 		SEND_SIGNAL(source, COMSIG_MASQUERADE_HUD_DELETE, player_breacher)
 		SSmasquerade.masquerade_reinforce(source, player_breacher)

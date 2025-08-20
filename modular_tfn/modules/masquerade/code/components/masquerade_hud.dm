@@ -16,7 +16,7 @@
 
 	create_masquerade_overlay()
 
-/datum/component/masquerade_hud/proc/delete_myself(datum/source, mob/player_breacher)
+/datum/component/masquerade_hud/proc/delete_myself(atom/source, mob/player_breacher)
 	SIGNAL_HANDLER
 
 	if(masquerade_breacher == player_breacher.client)
