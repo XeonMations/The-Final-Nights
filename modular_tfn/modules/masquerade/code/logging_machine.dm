@@ -12,10 +12,10 @@
 	. = ..()
 	saved_logs = new()
 	clearing_sound = new(list(src))
-	SSmasquerade.logging_machines += src
+	GLOB.logging_machines += src
 
 /obj/machinery/logging_machine/Destroy()
-	SSmasquerade.logging_machines -= src
+	GLOB.logging_machines -= src
 	QDEL_NULL(clearing_sound)
 	saved_logs = null
 	..()

@@ -6,11 +6,9 @@ SUBSYSTEM_DEF(masquerade)
 	var/masquerade_level = MASQUERADE_MAX_LEVEL
 	var/list/masquerade_breachers
 	var/static/regex/masquerade_breaching_phrase_regex
-	var/list/logging_machines
 
 /datum/controller/subsystem/masquerade/Initialize()
 	masquerade_breachers = new()
-	logging_machines = new()
 	var/list/masquerade_filter = list()
 	for(var/line in world.file2list("modular_tfn/modules/masquerade/config/breach_word.txt"))
 		if(!line)
@@ -57,5 +55,5 @@ SUBSYSTEM_DEF(masquerade)
 	masquerade_level = max(0, masquerade_level - 1)
 
 /datum/controller/subsystem/masquerade/proc/log_phone_message(message, obj/phone_source)
-	for(var/obj/machinery/logging_machine/logging_machine as anything in logging_machines)
+	for(var/obj/machinery/logging_machine/logging_machine as anything in GLOB.logging_machines)
 		logging_machine.saved_logs += list(list(message, phone_source))
