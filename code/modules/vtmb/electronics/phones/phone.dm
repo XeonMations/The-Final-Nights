@@ -106,6 +106,8 @@
 	if(important_contact_of && src.owner && number)
 		GLOB.important_contacts[important_contact_of] = new /datum/phonecontact(src.owner, number)
 
+	AddComponent(/datum/component/violation_observer, FALSE)
+
 /obj/item/vamp/phone/Destroy()
 	GLOB.phone_numbers_list -= number
 	GLOB.phones_list -= src

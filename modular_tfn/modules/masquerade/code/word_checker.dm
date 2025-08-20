@@ -12,4 +12,12 @@
 		SEND_SIGNAL(src, COMSIG_SEEN_MASQUERADE_VIOLATION, speaker)
 	..()
 
+/obj/item/vamp/phone/handle_hearing(datum/source, list/hearing_args)
+	if(online && talking)
+		if(istype(hearing_args[HEARING_SPEAKER], /obj/phonevoice))
+			return ..()
+		if(lowertext(MASQUERADE_FILTER_CHECK(hearing_args[HEARING_RAW_MESSAGE])))
+			SEND_SIGNAL(src, COMSIG_SEEN_MASQUERADE_VIOLATION, hearing_args[HEARING_SPEAKER])
+	..()
+
 #undef MASQUERADE_FILTER_CHECK

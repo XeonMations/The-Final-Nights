@@ -22,7 +22,7 @@
 	AddComponent(/datum/component/personal_crafting)
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	AddComponent(/datum/component/bloodysoles/feet)
-	AddComponent(/datum/component/violation_observer)
+	AddComponent(/datum/component/violation_observer, FALSE)
 	AddElement(/datum/element/ridable, /datum/component/riding/creature/human)
 	GLOB.human_list += src
 	phonevoicetag = length(GLOB.human_list)+10

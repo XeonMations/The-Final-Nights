@@ -7,8 +7,8 @@
 	COOLDOWN_DECLARE(scan_cooldown)
 	var/list/breached_players
 
-/datum/component/violation_observer/Initialize()
-	if(isnpc(parent) || isobj(parent)) //Only add the AOE checker for NPCs and camera objects.
+/datum/component/violation_observer/Initialize(add_area_of_effect) //Only add the AOE checker for NPCs and camera objects.
+	if(add_area_of_effect)
 		area_of_effect = new(parent, 7)
 	breached_players = new()
 
@@ -28,9 +28,8 @@
 	if(!source || !player_breacher)
 		return
 
-	var/mob/living/mob_parent
 	if(isliving(source))
-		mob_parent = source
+		var/mob/living/mob_parent = source
 		if(!mob_parent.incapacitated(ignore_restraints = 1))
 			mob_parent.face_atom(player_breacher)
 	source.observe_masquerade_violation(player_breacher)
