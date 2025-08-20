@@ -25,3 +25,4 @@ This module handles everything related to the masquerade, veil or whatnot.
 ### Credits:
 
 XeonMations
+ShadeAware (masquerade_failure.ogg)
