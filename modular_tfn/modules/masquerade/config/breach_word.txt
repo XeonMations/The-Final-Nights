@@ -54,7 +54,6 @@ thaumaturgy
 garou
 caern
 wyrm
-weaver
 wyld
 theurge
 galliard
