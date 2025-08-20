@@ -6,6 +6,8 @@
 #define COMSIG_SEEN_MASQUERADE_VIOLATION "seen_masquerade_violation"
 // /datum/component/masquerade_hud
 #define COMSIG_MASQUERADE_HUD_DELETE "masquerade_hud_delete"
+// mostly from phones
+#define COMSIG_ALL_MASQUERADE_REINFORCE "masquerade_all_reinforce"
 
 // The actual signal that lowers a player's masquerade by one, because we should never need to do it more than once.
 #define COMSIG_MASQUERADE_BREACH "masquerade_breach"

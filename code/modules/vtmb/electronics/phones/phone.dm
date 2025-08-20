@@ -585,6 +585,7 @@
 				var/obj/phonevoice/VOIC = new(online)
 				VOIC.name = voice_saying
 				VOIC.speech_span = spchspn
+				VOIC.phone = src
 				VOIC.say("[message]")
 				qdel(VOIC)
 

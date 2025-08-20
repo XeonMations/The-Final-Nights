@@ -3,12 +3,14 @@ SUBSYSTEM_DEF(masquerade)
 	init_order = INIT_ORDER_DEFAULT
 	flags = SS_NO_FIRE
 
-	var/masquerade_level = 25
+	var/masquerade_level = MASQUERADE_MAX_LEVEL
 	var/list/masquerade_breachers
 	var/static/regex/masquerade_breaching_phrase_regex
+	var/list/logging_machines
 
 /datum/controller/subsystem/masquerade/Initialize()
 	masquerade_breachers = new()
+	logging_machines = new()
 	var/list/masquerade_filter = list()
 	for(var/line in world.file2list("modular_tfn/modules/masquerade/config/breach_word.txt"))
 		if(!line)
@@ -28,14 +30,14 @@ SUBSYSTEM_DEF(masquerade)
 			return_list += "SUSPICIOUS: "
 		else
 			return_list += "STABLE: "
-	return_list += "[masquerade_level]/25"
+	return_list += "[masquerade_level]/[MASQUERADE_MAX_LEVEL]"
 	return return_list
 
 /datum/controller/subsystem/masquerade/proc/masquerade_reinforce(atom/source, mob/living/player_breacher)
 	for(var/masquerade_breach as anything in masquerade_breachers)
 		if(source in masquerade_breach)
 			masquerade_breachers -= list(masquerade_breach)
-			masquerade_level = min(25, masquerade_level + 1)
+			masquerade_level = min(MASQUERADE_MAX_LEVEL, masquerade_level + 1)
 			player_breacher.masquerade = min(5, player_breacher.masquerade + 1)
 	if(player_breacher.masquerade == 5)
 		if(isgarou(player_breacher))
@@ -53,3 +55,7 @@ SUBSYSTEM_DEF(masquerade)
 	if(player_breacher.masquerade <= 0) //We're only letting one player tank the masquerade to the max of 5 points
 		return
 	masquerade_level = max(0, masquerade_level - 1)
+
+/datum/controller/subsystem/masquerade/proc/log_phone_message(message, obj/phone_source)
+	for(var/obj/machinery/logging_machine/logging_machine as anything in logging_machines)
+		logging_machine.saved_logs += list(list(message, phone_source))
