@@ -3753,7 +3753,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	if(!character_setup && !istype(character, /mob/living/carbon/human/dummy))
 		for(var/i = 5; i > masquerade_score; i--)
-			SSmasquerade.masquerade_breach(GLOB.blood_hunt_announcers, character, "Preferences")
+			SSmasquerade.masquerade_breach(GLOB.blood_hunt_announcers, character, MASQUERADE_REASON_PREFERENCES)
 
 	switch (body_model)
 		if (SLIM_BODY_MODEL_NUMBER)

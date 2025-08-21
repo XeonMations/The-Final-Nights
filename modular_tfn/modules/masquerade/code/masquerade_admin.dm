@@ -8,4 +8,4 @@
 		if(1)
 			SSmasquerade.masquerade_reinforce(reason, src)
 		if(-1)
-			SSmasquerade.masquerade_breach(reason, src, "OTHER")
+			SSmasquerade.masquerade_breach(reason, src, MASQUERADE_REASON_OTHER)
