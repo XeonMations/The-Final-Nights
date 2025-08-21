@@ -36,7 +36,7 @@
 	to_chat(user, span_warning("There is no such name in the city!"))
 
 /obj/item/blood_hunt/proc/start_hunt(mob/user, mob/target, reason)
-	to_chat(user, span_warning("You add [chosen_name] to the Hunted list."))
+	to_chat(user, span_warning("You add [target] to the Hunted list."))
 	ADD_TRAIT(target, TRAIT_HUNTED, "bloodhunt")
 	log_game("[user] started a bloodhunt on [target] for: [reason]")
 	message_admins("[user] started a bloodhunt on [target] for: [reason]")
