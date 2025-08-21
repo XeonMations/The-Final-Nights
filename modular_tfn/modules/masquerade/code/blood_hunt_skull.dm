@@ -31,20 +31,24 @@
 			if(HAS_TRAIT(player_mob, TRAIT_HUNTED))
 				end_hunt(user, player_mob)
 			else
-				start_hunt(user, player_mob)
+				start_hunt(user, player_mob, reason)
 			return
 	to_chat(user, span_warning("There is no such name in the city!"))
 
-/obj/item/blood_hunt/proc/start_hunt(mob/user, mob/target)
+/obj/item/blood_hunt/proc/start_hunt(mob/user, mob/target, reason)
 	to_chat(user, span_warning("You add [chosen_name] to the Hunted list."))
-	ADD_TRAIT(user, TRAIT_HUNTED, "bloodhunt")
+	ADD_TRAIT(target, TRAIT_HUNTED, "bloodhunt")
+	log_game("[user] started a bloodhunt on [target] for: [reason]")
+	message_admins("[user] started a bloodhunt on [target] for: [reason]")
 	for(var/player_mob in GLOB.kindred_list)
 		to_chat(player_mob, span_bold("The Blood Hunt after <span class='warning'>[target.real_name]</span> has been announced! <br> Reason: [reason]"))
 		SEND_SOUND(player_mob, sound('code/modules/wod13/sounds/announce.ogg'))
 
 /obj/item/blood_hunt/proc/end_hunt(mob/user, mob/target)
 	to_chat(user, span_warning("You remove [target] from the Hunted list."))
-	REMOVE_TRAIT(user, TRAIT_HUNTED, "bloodhunt")
+	REMOVE_TRAIT(target, TRAIT_HUNTED, "bloodhunt")
+	log_game("[user] ended a bloodhunt on [target].")
+	message_admins("[user] ended a bloodhunt on [target].")
 	for(var/player_mob in GLOB.kindred_list)
 		to_chat(player_mob, span_bold("The Blood Hunt after <span class='green'>[target.real_name]</span> is over!"))
 		SEND_SOUND(player_mob, sound('code/modules/wod13/sounds/announce.ogg'))
