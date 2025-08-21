@@ -45,6 +45,7 @@ SUBSYSTEM_DEF(masquerade)
 			masquerade_breachers -= list(masquerade_breach)
 			masquerade_level = min(MASQUERADE_MAX_LEVEL, masquerade_level + 1)
 			player_breacher.masquerade_score = min(5, player_breacher.masquerade_score + 1)
+			break
 	if(player_breacher.masquerade_score == 5)
 		if(isgarou(player_breacher))
 			GLOB.veil_breakers_list -= player_breacher
