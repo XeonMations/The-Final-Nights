@@ -1,3 +1,5 @@
+#define MAX_PAGE_LINES 20
+
 /obj/machinery/logging_machine
 	name = "surveillance machine"
 	desc = "It seems to be a contraption of sorts that stores a variety of logs. It seems to be connected to the city's mobile phone antenna."
@@ -44,12 +46,22 @@
 	do_log_printing(user)
 
 /obj/machinery/logging_machine/proc/do_log_printing(mob/user)
-	for(var/paper in 1 to length(saved_logs))
+	var/list/log_save_cache = list()
+	log_save_cache += saved_logs
+	var/pages_to_print = length(log_save_cache) / MAX_PAGE_LINES
+	for(var/page in 1 to ceil(pages_to_print))
 		if(!do_after(user, 1 SECONDS, src))
 			break
 		var/obj/item/paper/printed_paper = new /obj/item/paper(get_turf(src))
-		var/text = saved_logs[paper][1]
-		printed_paper.add_raw_text(text) //Print the oldest logs first.
+
+		var/list/page_text = list()
+		for(var/page_line in 1 to min(MAX_PAGE_LINES, length(log_save_cache)))
+			var/text = log_save_cache[1][1]
+			page_text += text
+			page_text += "<br>"
+			log_save_cache -= list(log_save_cache[1])
+
+		printed_paper.add_raw_text(page_text.Join()) //Print the oldest logs first.
 		printed_paper.update_appearance()
 		if(!COOLDOWN_FINISHED(src, printing_noise))
 			continue
@@ -72,3 +84,5 @@
 
 /obj/machinery/logging_machine/proc/stop_sound()
 	clearing_sound.stop()
+
+#undef MAX_PAGE_LINES
