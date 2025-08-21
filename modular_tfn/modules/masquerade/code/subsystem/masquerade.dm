@@ -42,6 +42,7 @@ SUBSYSTEM_DEF(masquerade)
 			GLOB.veil_breakers_list -= player_breacher
 		else
 			GLOB.masquerade_breakers_list -= player_breacher
+	save_persistent_masquerade(player_breacher)
 
 /datum/controller/subsystem/masquerade/proc/masquerade_breach(atom/source, mob/living/player_breacher, reason)
 	player_breacher.masquerade_score = max(0, player_breacher.masquerade_score - 1)
@@ -50,10 +51,15 @@ SUBSYSTEM_DEF(masquerade)
 		GLOB.veil_breakers_list |= player_breacher
 	else
 		GLOB.masquerade_breakers_list |= player_breacher
-	if(player_breacher.masquerade_score <= 0) //We're only letting one player tank the masquerade to the max of 5 points
-		return
 	masquerade_level = max(0, masquerade_level - 1)
+	save_persistent_masquerade(player_breacher)
 
 /datum/controller/subsystem/masquerade/proc/log_phone_message(message, obj/phone_source)
 	for(var/obj/machinery/logging_machine/logging_machine as anything in GLOB.logging_machines)
 		logging_machine.saved_logs += list(list(message, phone_source))
+
+/datum/controller/subsystem/masquerade/proc/save_persistent_masquerade(mob/living/player_breacher)
+	var/datum/preferences/preferences = GLOB.preferences_datums[ckey(player_breacher.key)]
+	if(preferences)
+		preferences.masquerade_score = player_breacher.masquerade_score
+		preferences.save_character()
