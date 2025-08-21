@@ -850,6 +850,7 @@
 	icon = 'code/modules/wod13/weapons.dmi'
 	onflooricon = 'code/modules/wod13/onfloor.dmi'
 	w_class = WEIGHT_CLASS_SMALL
+	custom_fire_overlay = "molotov_flamed"
 	var/active = FALSE
 
 /obj/item/molotov/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -864,7 +865,7 @@
 		log_bomber(user, "has primed a", src, "for detonation")
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
-		add_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay)
+		icon_state = custom_fire_overlay
 		addtimer(CALLBACK(src, PROC_REF(explode)), 10 SECONDS)
 
 /obj/item/molotov/proc/explode(atom/hit_atom)
