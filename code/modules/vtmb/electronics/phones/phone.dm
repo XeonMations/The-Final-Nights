@@ -70,7 +70,7 @@
 	/// A list of associative lists with three indeces: NETWORK_ID, OUR_ROLE and USE_JOB_TITLE. So that contact_networks is populated on init.
 	var/list/contact_networks_pre_init = null
 	/// A list of contact networks to be added in. Order matters, as if members overlap they will only get the first contact.
-	var/list/datum/contact_network/contact_networks = null
+	var/list/contact_networks = null
 	var/important_contact_of = null
 
 /obj/item/vamp/phone/Initialize()
@@ -97,21 +97,23 @@
 				var/alt_title = owner.client?.prefs?.alt_titles_preferences[job.title]
 				our_role = alt_title ? alt_title : job.title
 
-			var/datum/contact_network/contact_network = new(network_contacts, our_role = our_role)
-
-			update_global_contacts(contact_network)
+			var/datum/contact_network/contact_network = new(network_contacts, our_role)
 			contact_networks += contact_network
-		contact_networks_pre_init = null
 
-	if(important_contact_of && src.owner && number)
-		GLOB.important_contacts[important_contact_of] = new /datum/phonecontact(src.owner, number)
+			var/datum/contact/our_contact = new(owner, number, our_role, WEAKREF(src))
+			network_contacts |= our_contact
+
+	if(important_contact_of && owner && number)
+		GLOB.important_contacts[important_contact_of] = new /datum/phonecontact(owner, number)
 
 /obj/item/vamp/phone/Destroy()
 	GLOB.phone_numbers_list -= number
 	GLOB.phones_list -= src
 	UnregisterSignal(src, COMSIG_MOVABLE_HEAR)
-	for (var/datum/contact_network/network as anything in contact_networks)
-		remove_from_phone_lists(network)
+	for(var/datum/contact_network/contact_network as anything in contact_networks)
+		for(var/datum/contact/our_contact in contact_network.contacts)
+			if(our_contact.number == number)
+				contact_network.contacts -= our_contact
 	return ..()
 
 /obj/item/vamp/phone/attack_hand(mob/user)
