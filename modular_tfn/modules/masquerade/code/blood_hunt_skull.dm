@@ -33,7 +33,7 @@
 			else
 				start_hunt(user, player_mob, reason)
 			return
-	to_chat(user, span_warning("There is no such name in the city!"))
+	to_chat(user, span_danger("There is no such name in the city!"))
 
 /obj/item/blood_hunt/proc/start_hunt(mob/user, mob/target, reason)
 	to_chat(user, span_warning("You add [target] to the Hunted list."))
