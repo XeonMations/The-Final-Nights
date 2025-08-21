@@ -26,24 +26,26 @@
 	if(!reason)
 		reason = "No reason specified."
 
-	var/name_in_list = FALSE
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(H?.true_real_name == chosen_name)
-			if(H in SSbloodhunt.hunted)
-				if(HAS_TRAIT(src, TRAIT_HUNTED))
-					to_chat(user, span_warning("You can't remove [chosen_name] from the list!"))
-					return
-				SSbloodhunt.hunted -= H
-				H.bloodhunted = FALSE
-				SSbloodhunt.update_shit()
-				to_chat(user, span_warning("You remove [chosen_name] from the Hunted list."))
-				for(var/mob/living/carbon/human/R in GLOB.player_list)
-					if(R && iskindred(R) && R.client)
-						to_chat(R, "<b>The Blood Hunt after <span class='green'>[H.true_real_name]</span> is over!</b>")
-						SEND_SOUND(R, sound('code/modules/wod13/sounds/announce.ogg'))
+	for(var/mob/player_mob as anything in GLOB.kindred_list)
+		if(player_mob.real_name == chosen_name)
+			if(HAS_TRAIT(player_mob, TRAIT_HUNTED))
+				end_hunt(user, player_mob)
 			else
-				SSbloodhunt.announce_hunted(H, reason)
-				to_chat(user, span_warning("You add [chosen_name] to the Hunted list."))
-			name_in_list = TRUE
-	if(!name_in_list)
-		to_chat(user, span_warning("There is no such name in the city!"))
+				start_hunt(user, player_mob)
+			return
+	to_chat(user, span_warning("There is no such name in the city!"))
+
+/obj/item/blood_hunt/proc/start_hunt(mob/user, mob/target)
+	to_chat(user, span_warning("You add [chosen_name] to the Hunted list."))
+	ADD_TRAIT(user, TRAIT_HUNTED, "bloodhunt")
+	for(var/player_mob in GLOB.kindred_list)
+		to_chat(player_mob, span_bold("The Blood Hunt after <span class='warning'>[target.real_name]</span> has been announced! <br> Reason: [reason]"))
+		SEND_SOUND(player_mob, sound('code/modules/wod13/sounds/announce.ogg'))
+
+/obj/item/blood_hunt/proc/end_hunt(mob/user, mob/target)
+	to_chat(user, span_warning("You remove [target] from the Hunted list."))
+	REMOVE_TRAIT(user, TRAIT_HUNTED, "bloodhunt")
+	for(var/player_mob in GLOB.kindred_list)
+		to_chat(player_mob, span_bold("The Blood Hunt after <span class='green'>[target.real_name]</span> is over!"))
+		SEND_SOUND(player_mob, sound('code/modules/wod13/sounds/announce.ogg'))
+
