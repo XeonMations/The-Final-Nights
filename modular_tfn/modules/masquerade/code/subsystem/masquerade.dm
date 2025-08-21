@@ -36,21 +36,21 @@ SUBSYSTEM_DEF(masquerade)
 		if(source in masquerade_breach)
 			masquerade_breachers -= list(masquerade_breach)
 			masquerade_level = min(MASQUERADE_MAX_LEVEL, masquerade_level + 1)
-			player_breacher.masquerade = min(5, player_breacher.masquerade + 1)
-	if(player_breacher.masquerade == 5)
+			player_breacher.masquerade_score = min(5, player_breacher.masquerade_score + 1)
+	if(player_breacher.masquerade_score == 5)
 		if(isgarou(player_breacher))
 			GLOB.veil_breakers_list -= player_breacher
 		else
 			GLOB.masquerade_breakers_list -= player_breacher
 
 /datum/controller/subsystem/masquerade/proc/masquerade_breach(atom/source, mob/living/player_breacher, reason)
-	player_breacher.masquerade = max(0, player_breacher.masquerade - 1)
+	player_breacher.masquerade_score = max(0, player_breacher.masquerade_score - 1)
 	masquerade_breachers += list(list(player_breacher, source, reason))
 	if(isgarou(player_breacher))
 		GLOB.veil_breakers_list |= player_breacher
 	else
 		GLOB.masquerade_breakers_list |= player_breacher
-	if(player_breacher.masquerade <= 0) //We're only letting one player tank the masquerade to the max of 5 points
+	if(player_breacher.masquerade_score <= 0) //We're only letting one player tank the masquerade to the max of 5 points
 		return
 	masquerade_level = max(0, masquerade_level - 1)
 

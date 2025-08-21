@@ -18,11 +18,11 @@
 	for(var/mob/living/carbon/breacher as anything in GLOB.masquerade_breakers_list)
 		var/location_info
 		var/turf/turf = get_turf(breacher)
-		if(breacher.masquerade <= 2)
+		if(breacher.masquerade_score <= 2)
 			location_info = "[get_area_name(turf)], X:[turf.x] Y:[turf.y] Z:[turf.z]"
 		else
 			location_info = "[get_area_name(turf)]"
-		to_chat(user, span_info("[breacher.real_name], Masquerade: [breacher.masquerade], Diablerist: [breacher.diablerist ? "<b>YES</b>" : "NO"], [location_info]"))
+		to_chat(user, span_info("[breacher.real_name], Masquerade: [breacher.masquerade_score], Diablerist: [breacher.diablerist ? "<b>YES</b>" : "NO"], [location_info]"))
 
 	if(!GLOB.masquerade_breakers_list)
 		to_chat(user, span_info("No available Masquerade breakers in city..."))
@@ -47,11 +47,11 @@
 	for(var/mob/living/breacher as anything in GLOB.veil_breakers_list)
 		var/location_info
 		var/turf/turf = get_turf(breacher)
-		if(breacher.masquerade <= 2)
+		if(breacher.masquerade_score <= 2)
 			location_info = "[get_area_name(turf)], X:[turf.x] Y:[turf.y] Z:[turf.z]"
 		else
 			location_info = "[get_area_name(turf)]"
-		to_chat(user, span_info("[breacher.real_name], Veil: [breacher.masquerade], [location_info]"))
+		to_chat(user, span_info("[breacher.real_name], Veil: [breacher.masquerade_score], [location_info]"))
 
 	if(!GLOB.veil_breakers_list)
 		to_chat(user, span_info("No available Veil breakers in city..."))

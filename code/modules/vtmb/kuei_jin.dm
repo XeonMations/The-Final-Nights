@@ -170,7 +170,7 @@
 				if(A.objectives)
 					dat += "[printobjectives(A.objectives)]<BR>"
 		var/masquerade_level = " is clueless about my presence."
-		switch(host.masquerade)
+		switch(host.masquerade_score)
 			if(4)
 				masquerade_level = " has some thoughts of awareness."
 			if(3)

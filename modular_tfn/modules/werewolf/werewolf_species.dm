@@ -51,7 +51,7 @@
 				H.last_rage_gain = world.time
 				adjust_rage(1, H, TRUE)
 
-		if(H.masquerade == 0)
+		if(H.masquerade_score == 0)
 			if(!is_special_character(H))
 				if(H.auspice.gnosis)
 					to_chat(H, "<span class='warning'>My Veil is too low to connect with the spirits of the Umbra!</span>")
@@ -64,7 +64,7 @@
 					H.rollfrenzy()
 
 		if(H.last_veil_restore == 0 || (H.last_veil_restore + UMBRA_VEIL_COOLDOWN) < world.time)
-			if(H.masquerade < 5)
+			if(H.masquerade_score < 5)
 				H.check_veil_adjust()
 // currently being in your caern restores veil to max because theres no other way of doing. remember to cap it to THREE once shame rituals are back
 
@@ -110,7 +110,7 @@
 				if(A.objectives)
 					dat += "[printobjectives(A.objectives)]<BR>"
 		var/masquerade_level = " have followed the rules tonight."
-		switch(host.masquerade)
+		switch(host.masquerade_score)
 			if(4)
 				masquerade_level = " have made a faux pas tonight."
 			if(3)

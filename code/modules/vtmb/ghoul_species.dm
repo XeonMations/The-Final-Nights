@@ -65,7 +65,7 @@
 				if(A.objectives)
 					dat += "[printobjectives(A.objectives)]<BR>"
 		var/masquerade_level = " followed the Masquerade Tradition perfectly."
-		switch(host.masquerade)
+		switch(host.masquerade_score)
 			if(4)
 				masquerade_level = " broke the Masquerade rule once."
 			if(3)

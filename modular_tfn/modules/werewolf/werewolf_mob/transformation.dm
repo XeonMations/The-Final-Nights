@@ -44,7 +44,7 @@
 	return ..()
 
 /datum/werewolf_holder/transformation/proc/transfer_damage_and_traits(mob/living/carbon/transfer_from, mob/living/carbon/transfer_to)
-	transfer_to.masquerade = transfer_from.masquerade
+	transfer_to.masquerade_score = transfer_from.masquerade_score
 
 	var/division_parameter = transfer_from.maxHealth / transfer_to.maxHealth
 
@@ -332,7 +332,7 @@
 	lupus.wisdom = trans.wisdom
 	lupus.honor = trans.honor
 	lupus.renownrank = trans.renownrank
-	lupus.masquerade = trans.masquerade
+	lupus.masquerade_score = trans.masquerade_score
 	lupus.nutrition = trans.nutrition
 	if(trans.auspice.tribe.name == "Black Spiral Dancers" || HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
 		lupus.wyrm_tainted = TRUE
@@ -371,7 +371,7 @@
 	crinos.honor = trans.honor
 	crinos.renownrank = trans.renownrank
 	crinos.bloodpool = trans.bloodpool
-	crinos.masquerade = trans.masquerade
+	crinos.masquerade_score = trans.masquerade_score
 	crinos.nutrition = trans.nutrition
 	if(trans.auspice.tribe.name == "Black Spiral Dancers" || HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
 		crinos.wyrm_tainted = TRUE
@@ -408,7 +408,7 @@
 	cor_crinos.honor = trans.honor
 	cor_crinos.renownrank = trans.renownrank
 	cor_crinos.bloodpool = trans.bloodpool
-	cor_crinos.masquerade = trans.masquerade
+	cor_crinos.masquerade_score = trans.masquerade_score
 	cor_crinos.nutrition = trans.nutrition
 	if(HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
 		cor_crinos.wyrm_tainted = TRUE
@@ -447,7 +447,7 @@
 	homid.honor = trans.honor
 	homid.renownrank = trans.renownrank
 	homid.bloodpool = trans.bloodpool
-	homid.masquerade = trans.masquerade
+	homid.masquerade_score = trans.masquerade_score
 	homid.nutrition = trans.nutrition
 	homid.mind = trans.mind
 	homid.gender = trans.gender
@@ -484,7 +484,7 @@
 	corvid.honor = trans.honor
 	corvid.renownrank = trans.renownrank
 	corvid.bloodpool = trans.bloodpool
-	corvid.masquerade = trans.masquerade
+	corvid.masquerade_score = trans.masquerade_score
 	corvid.nutrition = trans.nutrition
 	if(HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
 		corvid.wyrm_tainted = TRUE

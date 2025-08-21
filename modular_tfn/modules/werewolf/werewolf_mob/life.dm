@@ -22,7 +22,7 @@
 				last_veil_restore = world.time
 
 		if("Black Spiral Dancers")
-			if(istype(get_area(src), /area/vtm/interior/endron_facility) && masquerade < 5)
+			if(istype(get_area(src), /area/vtm/interior/endron_facility) && masquerade_score < 5)
 				adjust_veil(1, random = -1)
 				last_veil_restore = world.time
 
@@ -68,19 +68,19 @@
 		if(!vessel)
 			vessel = src
 		if(amount < 0)
-			if(masquerade > 0 && masquerade > threshold)
+			if(masquerade_score > 0 && masquerade_score > threshold)
 				SEND_SOUND(vessel, sound('code/modules/wod13/sounds/veil_violation.ogg', 0, 0, 75))
 				to_chat(vessel, "<span class='boldnotice'><b>VEIL VIOLATION</b></span>")
-				if(threshold && masquerade+amount < threshold)
-					amount = threshold-masquerade
-				masquerade = max(0, masquerade+amount)
+				if(threshold && masquerade_score+amount < threshold)
+					amount = threshold-masquerade_score
+				masquerade_score = max(0, masquerade_score+amount)
 		if(amount > 0)
-			if(masquerade < 5)
+			if(masquerade_score < 5)
 				SEND_SOUND(vessel, sound('code/modules/wod13/sounds/humanity_gain.ogg', 0, 0, 75))
 				to_chat(vessel, "<span class='boldnotice'><b>VEIL REINFORCEMENT</b></span>")
-				if(threshold && masquerade+amount > threshold)
-					amount = threshold-masquerade
-				masquerade = min(5, masquerade+amount)
+				if(threshold && masquerade_score+amount > threshold)
+					amount = threshold-masquerade_score
+				masquerade_score = min(5, masquerade_score+amount)
 		if(random < 0 || random > 0)
 			var/random_renown = pick("Honor","Wisdom","Glory")
 			switch(random_renown)
