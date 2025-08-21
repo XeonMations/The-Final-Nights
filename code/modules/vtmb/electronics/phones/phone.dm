@@ -870,68 +870,6 @@
 		list(NETWORK_ID = ENDRON_NETWORK, OUR_ROLE = "Endron Employee", USE_JOB_TITLE = TRUE)
 		)
 
-// MISC PROCS
-
-/obj/item/vamp/phone/proc/update_global_contacts(datum/contact_network/network)
-	var/datum/contact/our_contact = new(owner, number, network.our_role, WEAKREF(src))
-
-	var/our_name = isnull(network.our_role) ? owner : "[owner] - [network.our_role]"
-	for (var/their_name in network.contacts)
-		if (their_name == owner)
-			continue
-		var/datum/contact/their_contact = network.contacts[their_name]
-
-		var/obj/item/vamp/phone/their_phone = their_contact.phone_ref.resolve()
-		if (isnull(their_phone)) // Physical phone item was destroyed.
-			continue
-
-		var/we_already_have_their_contact = FALSE
-		for (var/datum/phonecontact/phone_contact as anything in contacts)
-			if (phone_contact.number == their_phone.number)
-				we_already_have_their_contact = TRUE
-				break
-		if (!we_already_have_their_contact)
-			// We add their contact to our phone.
-			var/their_contact_name = isnull(their_contact.role) ? their_contact.name : "[their_contact.name] - [their_contact.role]"
-			contacts += new /datum/phonecontact(their_contact_name, their_contact.number)
-
-		var/they_already_have_our_contact = FALSE
-		for (var/datum/phonecontact/phone_contact as anything in their_phone.contacts)
-			if (phone_contact.number == number)
-				they_already_have_our_contact = TRUE
-				break
-		if (!they_already_have_our_contact)
-			//We also add our contact to their phone.
-			their_phone.contacts += new /datum/phonecontact(our_name, our_contact.number)
-			if(isliving(their_phone.loc))
-				to_chat(their_phone.loc, span_notice("A phone contact works again: that of [our_name]."))
-
-	network.contacts[owner] = our_contact
-
-
-/obj/item/vamp/phone/proc/remove_from_phone_lists(datum/contact_network/network)
-	for (var/their_name in network.contacts)
-		var/datum/contact/their_contact = network.contacts[their_name]
-
-		var/obj/item/vamp/phone/their_phone = their_contact.phone_ref.resolve()
-		if (isnull(their_phone)) // Physical phone item was destroyed.
-			continue
-
-		for (var/datum/phonecontact/phone_contact as anything in their_phone.contacts)
-			if (phone_contact.number != number)
-				continue
-			their_phone.contacts -= phone_contact
-
-	var/datum/contact/our_contact = network.contacts[owner]
-	if (!isnull(our_contact) && our_contact.number == number)
-		our_contact.number = null
-		our_contact.phone_ref = null
-
-	if (important_contact_of)
-		our_contact = GLOB.important_contacts[important_contact_of]
-		if (!isnull(our_contact) && our_contact.number == number)
-			our_contact.number = null
-
 #undef NETWORK_ID
 #undef OUR_ROLE
 #undef USE_JOB_TITLE
