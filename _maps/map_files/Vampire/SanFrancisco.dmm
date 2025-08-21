@@ -42684,10 +42684,6 @@
 	},
 /turf/open/floor/plating/rough/cave,
 /area/vtm)
-"ldG" = (
-/obj/machinery/logging_machine,
-/turf/open/floor/plating/parquetry/old,
-/area/vtm/interior/police)
 "ldK" = (
 /obj/structure/table/wood,
 /turf/open/floor/plating/concrete,
@@ -48749,6 +48745,9 @@
 	},
 /obj/item/pen{
 	pixel_y = 7
+	},
+/obj/item/folder/blue{
+	pixel_x = 12
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
@@ -59111,12 +59110,10 @@
 /turf/open/floor/plating/rough/cave,
 /area/vtm/forest/caves)
 "pfw" = (
-/obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/item/camera/detective,
 /obj/machinery/light{
 	pixel_y = 32
 	},
+/obj/machinery/logging_machine,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
 "pfC" = (
@@ -93235,6 +93232,7 @@
 /obj/item/taperecorder{
 	pixel_x = 3
 	},
+/obj/item/camera/detective,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
 "ycp" = (
@@ -153255,7 +153253,7 @@ mbP
 dmN
 qmc
 fxv
-ldG
+iJW
 aEA
 tXr
 mLE
