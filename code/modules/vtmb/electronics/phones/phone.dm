@@ -100,11 +100,14 @@
 			var/datum/contact_network/contact_network = new(network_contacts, our_role)
 			contact_networks += contact_network
 
-			var/datum/contact/our_contact = new(owner, number, our_role, WEAKREF(src))
+			var/datum/contact/our_contact = new(owner.real_name, number, our_role, WEAKREF(src))
 			network_contacts |= our_contact
 
+	for(var/obj/item/vamp/phone/P as anything in GLOB.phones_list)
+		P.update_contacts()
+
 	if(important_contact_of && owner && number)
-		GLOB.important_contacts[important_contact_of] = new /datum/phonecontact(owner, number)
+		GLOB.important_contacts[important_contact_of] = new /datum/phonecontact(owner.real_name, number)
 
 /obj/item/vamp/phone/Destroy()
 	GLOB.phone_numbers_list -= number
@@ -255,6 +258,9 @@
 			.= TRUE
 		if("call")
 			choosed_number = replacetext(choosed_number, " ", "")
+			if(choosed_number == number)
+				to_chat(usr, span_notice("You can't call yourself!"))
+				return
 			for(var/obj/item/vamp/phone/PHN in GLOB.phones_list)
 			//Loop through the Phone Global List
 				if(PHN.number == choosed_number)
@@ -588,6 +594,25 @@
 				VOIC.say("[message]")
 				qdel(VOIC)
 
+// Im sorry.
+/obj/item/vamp/phone/proc/update_contacts()
+	for(var/datum/contact_network/contact_network as anything in contact_networks)
+		for(var/datum/contact/our_contact in contact_network.contacts)
+			if(our_contact.number == number)
+				continue
+
+			var/already_in_contact = FALSE
+			for(var/datum/phonecontact/phone_contact as anything in contacts)
+				if(our_contact.number == phone_contact.number)
+					already_in_contact = TRUE
+					break
+			if(already_in_contact)
+				continue
+
+			var/contact_name = "[our_contact.name] - [our_contact.role]"
+			var/new_phone_contact = new /datum/phonecontact(contact_name, our_contact.number)
+			contacts |= new_phone_contact
+
 /obj/item/vamp/phone/street
 	desc = "An ordinary street payphone"
 	icon = 'code/modules/wod13/props.dmi'
@@ -626,16 +651,6 @@
 	folded_state = "redphone"
 	var/obj/machinery/p25transceiver/clinic_transceiver
 	var/obj/machinery/p25transceiver/police_transceiver
-
-/obj/item/vamp/phone/emergency/Initialize()
-	. = ..()
-	GLOB.phone_numbers_list += number
-	GLOB.phones_list += src
-
-/obj/item/vamp/phone/clean/Initialize()
-	. = ..()
-	GLOB.phone_numbers_list += number
-	GLOB.phones_list += src
 
 /// Phone Types
 
