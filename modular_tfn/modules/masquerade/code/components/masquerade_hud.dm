@@ -1,6 +1,6 @@
 #define HUD_LIST_MASQUERADE "masquerade"
 
-//Component that replaces all turfs and wallpapers with horrifying meat alternatives
+//Component that adds an exclamation mark to things that have caused you to breach the masquerade.
 /datum/component/masquerade_hud
 	dupe_mode = COMPONENT_DUPE_ALLOWED
 	var/client/masquerade_breacher
