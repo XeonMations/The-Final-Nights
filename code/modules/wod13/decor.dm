@@ -916,11 +916,6 @@
 		if(general_record.fields["name"] == mob_occupant.real_name)
 			qdel(general_record)
 
-	if(mob_occupant.bloodhunted)
-		SSbloodhunt.hunted -= mob_occupant
-		mob_occupant.bloodhunted = FALSE
-		SSbloodhunt.update_shit()
-
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(TRUE))
 		if(world.time < 15 MINUTES) // before the 15 minute mark

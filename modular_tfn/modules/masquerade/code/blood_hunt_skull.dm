@@ -37,7 +37,10 @@
 
 /obj/item/blood_hunt/proc/start_hunt(mob/user, mob/target, reason)
 	to_chat(user, span_warning("You add [target] to the Hunted list."))
+	SSbloodhunt.hunted |= target
+	SSbloodhunt.update_alert()
 	ADD_TRAIT(target, TRAIT_HUNTED, "bloodhunt")
+	RegisterSignals(target, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_LIVING_GIBBED), TYPE_PROC_REF(/mob, clear_blood_hunt))
 	log_game("[user] started a bloodhunt on [target] for: [reason]")
 	message_admins("[ADMIN_LOOKUPFLW(user)]] started a bloodhunt on [target] for: [reason]")
 	for(var/player_mob in GLOB.kindred_list)
@@ -46,7 +49,10 @@
 
 /obj/item/blood_hunt/proc/end_hunt(mob/user, mob/target)
 	to_chat(user, span_warning("You remove [target] from the Hunted list."))
+	SSbloodhunt.hunted -= target
+	SSbloodhunt.update_alert()
 	REMOVE_TRAIT(target, TRAIT_HUNTED, "bloodhunt")
+	UnregisterSignal(target, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_LIVING_GIBBED))
 	log_game("[user] ended a bloodhunt on [target].")
 	message_admins("[ADMIN_LOOKUPFLW(user)]] ended a bloodhunt on [target].")
 	for(var/player_mob in GLOB.kindred_list)

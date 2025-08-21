@@ -1,10 +1,6 @@
 /mob/living/carbon/human/death()
 	. = ..()
 
-	if(bloodhunted)
-		SSbloodhunt.hunted -= src
-		bloodhunted = FALSE
-		SSbloodhunt.update_shit()
 	var/witness_count
 	for(var/mob/living/carbon/human/npc/NEPIC in viewers(7, usr))
 		if(NEPIC && NEPIC.stat != DEAD)

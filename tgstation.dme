@@ -3787,6 +3787,7 @@
 #include "modular_tfn\modules\magic\code\thaumaturgy\blood_rage_effect.dm"
 #include "modular_tfn\modules\magic\code\thaumaturgy\rune_drawing.dm"
 #include "modular_tfn\modules\masquerade\code\blood_hunt_skull.dm"
+#include "modular_tfn\modules\masquerade\code\human.dm"
 #include "modular_tfn\modules\masquerade\code\logging_machine.dm"
 #include "modular_tfn\modules\masquerade\code\logging_machine_soundloop.dm"
 #include "modular_tfn\modules\masquerade\code\masquerade_admin.dm"
