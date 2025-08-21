@@ -3743,7 +3743,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	if(!character_setup)
 		for(var/i = 1; i >= masquerade_score; i--)
-			SSmasquerade.masquerade_breach(atom/source, character, reason)
+			SSmasquerade.masquerade_breach(list(GLOB.blood_hunt_announcers), character, "Preferences")
 
 	switch (body_model)
 		if (SLIM_BODY_MODEL_NUMBER)
