@@ -53,3 +53,16 @@
 		to_chat(player_mob, span_bold("The Blood Hunt after <span class='green'>[target.real_name]</span> is over!"))
 		SEND_SOUND(player_mob, sound('code/modules/wod13/sounds/announce.ogg'))
 
+// This code is for reinforcing a player's masquerade.
+/obj/item/blood_hunt/pre_attack(atom/A, mob/living/user, params)
+	if(!ishuman(A))
+		return
+	if(!iskindred(A))
+		return
+
+	to_chat(user, span_notice("You hold [src] up to [A]..."))
+	if(!do_after(user, 10 SECONDS, A))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+	to_chat(user, span_notice("You pardon [A]'s masquerade breach!"))
+	SSmasquerade.masquerade_reinforce(src, A, MASQUERADE_REASON_PREFERENCES)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
