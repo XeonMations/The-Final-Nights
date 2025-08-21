@@ -33,12 +33,12 @@ SUBSYSTEM_DEF(masquerade)
 	return return_list
 
 /*
- / Reinforces a specific player's masquerade and changes the global masquerade level accordingly.
- /
- / source - The object or mob that saw the masquerade breach.
- / player_breacher - The player which caused the masquerade breach.
- / reason - Optional, the reason for the breach. For example,
-*/
+ * Reinforces a specific player's masquerade and changes the global masquerade level accordingly.
+ *
+ * source - The object or mob that saw the masquerade breach.
+ * player_breacher - The player which caused the masquerade breach.
+ * reason - Optional, the reason for the breach. For example,
+ */
 /datum/controller/subsystem/masquerade/proc/masquerade_reinforce(atom/source, mob/living/player_breacher, reason)
 	for(var/masquerade_breach as anything in masquerade_breachers)
 		if((source in masquerade_breach) && (reason in masquerade_breach))
@@ -53,12 +53,12 @@ SUBSYSTEM_DEF(masquerade)
 	save_persistent_masquerade(player_breacher)
 
 /*
- / Breaches a specific player's masquerade and changes the global masquerade level accordingly.
- /
- / source - The object or mob that saw the masquerade breach.
- / player_breacher - The player which caused the masquerade breach.
- / reason - The reason for the breach. For example,
-*/
+ * Breaches a specific player's masquerade and changes the global masquerade level accordingly.
+ *
+ * source - The object or mob that saw the masquerade breach.
+ * player_breacher - The player which caused the masquerade breach.
+ * reason - The reason for the breach. For example,
+ */
 /datum/controller/subsystem/masquerade/proc/masquerade_breach(atom/source, mob/living/player_breacher, reason)
 	player_breacher.masquerade_score = max(0, player_breacher.masquerade_score - 1)
 	masquerade_breachers += list(list(player_breacher, source, reason))
