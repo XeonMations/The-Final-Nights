@@ -385,7 +385,7 @@ Dancer
 /datum/quirk/dwarf/add()
 	if(iswerewolf(quirk_holder))
 		return
-	quirk_holder.AddElement(/datum/element/dwarfism, COMSIG_PARENT_PREQDELETED, src)
+	quirk_holder.AddElement(/datum/element/dwarfism, COMSIG_PREQDELETED, src)
 
 /datum/quirk/dwarf/remove()
 	if (!quirk_holder)
@@ -661,7 +661,7 @@ Dancer
 /datum/quirk/tower/add()
 	if(iswerewolf(quirk_holder))
 		return
-	quirk_holder.AddElement(/datum/element/giantism, COMSIG_PARENT_PREQDELETED, src)
+	quirk_holder.AddElement(/datum/element/giantism, COMSIG_PREQDELETED, src)
 
 /datum/quirk/tower/remove()
 	if (!quirk_holder)
