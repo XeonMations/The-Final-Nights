@@ -28,14 +28,12 @@
 
 /datum/species/garou/spec_life(mob/living/carbon/human/H)
 	. = ..()
-	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE))
+	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE) || HAS_TRAIT(src, TRAIT_WYRMTAINTED) || glabro)
 		SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 
 	if((H.last_bloodpool_restore + GAROU_BP_REGEN) <= world.time)
 		H.last_bloodpool_restore = world.time
 		H.bloodpool = min(H.maxbloodpool, H.bloodpool+1)
-	if(glabro)
-		SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 
 /mob/living/carbon/werewolf/crinos/Life()
 	. = ..()

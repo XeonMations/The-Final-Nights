@@ -335,7 +335,7 @@
 	lupus.masquerade_score = trans.masquerade_score
 	lupus.nutrition = trans.nutrition
 	if(trans.auspice.tribe.name == "Black Spiral Dancers" || HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
-		lupus.wyrm_tainted = TRUE
+		ADD_TRAIT(lupus, TRAIT_WYRMTAINTED, "wyrm_tainted")
 	lupus.mind = trans.mind
 	lupus.gender = trans.gender
 	lupus.update_blood_hud()
@@ -374,7 +374,7 @@
 	crinos.masquerade_score = trans.masquerade_score
 	crinos.nutrition = trans.nutrition
 	if(trans.auspice.tribe.name == "Black Spiral Dancers" || HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
-		crinos.wyrm_tainted = TRUE
+		ADD_TRAIT(crinos, TRAIT_WYRMTAINTED, "wyrm_tainted")
 	crinos.mind = trans.mind
 	crinos.gender = trans.gender
 	crinos.update_blood_hud()
@@ -411,7 +411,7 @@
 	cor_crinos.masquerade_score = trans.masquerade_score
 	cor_crinos.nutrition = trans.nutrition
 	if(HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
-		cor_crinos.wyrm_tainted = TRUE
+		ADD_TRAIT(cor_crinos, TRAIT_WYRMTAINTED, "wyrm_tainted")
 	cor_crinos.mind = trans.mind
 	cor_crinos.gender = trans.gender
 	cor_crinos.update_blood_hud()
@@ -486,8 +486,6 @@
 	corvid.bloodpool = trans.bloodpool
 	corvid.masquerade_score = trans.masquerade_score
 	corvid.nutrition = trans.nutrition
-	if(HAS_TRAIT(trans, TRAIT_WYRMTAINTED))
-		corvid.wyrm_tainted = TRUE
 	corvid.mind = trans.mind
 	corvid.gender = trans.gender
 	corvid.update_blood_hud()
