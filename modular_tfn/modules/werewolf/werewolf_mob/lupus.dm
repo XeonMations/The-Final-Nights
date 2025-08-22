@@ -77,11 +77,10 @@
 	update_icons()
 
 /mob/living/carbon/werewolf/lupus/Life()
-	if(hispo || HAS_TRAIT(src, TRAIT_WYRMTAINTED))
-		SEND_SIGNAL(src, COMSIG_MASQUERADE_VIOLATION)
-	else
-		if(!(HAS_TRAIT(src, TRAIT_DOGWOLF) || !iscorax(src))) // ravens don't spook people
-			SEND_SIGNAL(src, COMSIG_MASQUERADE_VIOLATION)
+	if((HAS_TRAIT(src, TRAIT_DOGWOLF) || (iscorax(src) && !HAS_TRAIT(src, TRAIT_WYRMTAINTED)))) // ravens don't spook people
+		. = ..()
+		return
+	SEND_SIGNAL(src, COMSIG_MASQUERADE_VIOLATION)
 	. = ..()
 
 /mob/living/carbon/werewolf/lupus/corvid // yes, this is a subtype of lupus, god help us all
