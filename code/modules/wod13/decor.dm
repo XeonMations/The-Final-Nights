@@ -916,6 +916,8 @@
 		if(general_record.fields["name"] == mob_occupant.real_name)
 			qdel(general_record)
 
+	SSmasquerade.cryo_masquerade_breacher(mob_occupant)
+
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(TRUE))
 		if(world.time < 15 MINUTES) // before the 15 minute mark

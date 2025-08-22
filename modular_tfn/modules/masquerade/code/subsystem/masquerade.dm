@@ -81,3 +81,27 @@ SUBSYSTEM_DEF(masquerade)
 	if(preferences)
 		preferences.masquerade_score = player_breacher.masquerade_score
 		preferences.save_character()
+
+// This is for clearing the round's masquerade because a player matrix'd
+/datum/controller/subsystem/masquerade/proc/cryo_masquerade_breacher(mob/living/player_breacher)
+	for(var/masquerade_breach as anything in masquerade_breachers)
+		if((player_breacher in masquerade_breach))
+			masquerade_breachers -= list(masquerade_breach)
+			masquerade_level = min(MASQUERADE_MAX_LEVEL, masquerade_level + 1)
+	if(isgarou(player_breacher))
+		GLOB.veil_breakers_list -= player_breacher
+	else
+		GLOB.masquerade_breakers_list -= player_breacher
+
+// This is for checking if a joined player should be on the breachers list.
+/datum/controller/subsystem/masquerade/proc/masquerade_breacher_check(mob/living/player_breacher)
+	if(player_breacher.masquerade_score < 5)
+		if(isgarou(player_breacher))
+			GLOB.veil_breakers_list |= player_breacher
+		else
+			GLOB.masquerade_breakers_list |= player_breacher
+	else
+		if(isgarou(player_breacher))
+			GLOB.veil_breakers_list -= player_breacher
+		else
+			GLOB.masquerade_breakers_list -= player_breacher
