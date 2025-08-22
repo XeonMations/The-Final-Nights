@@ -829,8 +829,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["honor"]			, honor)
 	WRITE_FILE(S["glory"]			, glory)
 	WRITE_FILE(S["wisdom"]			, wisdom)
-	if(!clan) // Sometimes clan is null. That is bad...
-		clan = GLOB.vampire_clans[/datum/vampire_clan/brujah]
 	WRITE_FILE(S["clan"]			, clan.type)
 	WRITE_FILE(S["generation"]			, generation)
 	WRITE_FILE(S["generation_bonus"]			, generation_bonus)
