@@ -41,11 +41,12 @@ SUBSYSTEM_DEF(masquerade)
  */
 /datum/controller/subsystem/masquerade/proc/masquerade_reinforce(atom/source, mob/living/player_breacher, reason)
 	for(var/masquerade_breach as anything in masquerade_breachers)
-		if((source in masquerade_breach[2]) && (reason in masquerade_breach))
-			masquerade_breachers -= list(masquerade_breach)
-			masquerade_level = min(MASQUERADE_MAX_LEVEL, masquerade_level + 1)
-			player_breacher.masquerade_score = min(5, player_breacher.masquerade_score + 1)
-			break
+		if((source in masquerade_breach[2]))
+			if(!reason || (reason in masquerade_breach))
+				masquerade_breachers -= list(masquerade_breach)
+				masquerade_level = min(MASQUERADE_MAX_LEVEL, masquerade_level + 1)
+				player_breacher.masquerade_score = min(5, player_breacher.masquerade_score + 1)
+				break
 	if(player_breacher.masquerade_score == 5)
 		if(isgarou(player_breacher))
 			GLOB.veil_breakers_list -= player_breacher
