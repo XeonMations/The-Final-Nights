@@ -785,7 +785,7 @@
 
 /obj/item/vamp/phone/giovanni_famiglia
 	contact_networks_pre_init = list(
-		list(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Employee"), USE_JOB_TITLE = FALSE
+		list(NETWORK_ID = GIOVANNI_NETWORK, OUR_ROLE = "Bank Employee", USE_JOB_TITLE = FALSE)
 		)
 
 // TZMISCE
