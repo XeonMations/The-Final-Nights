@@ -77,7 +77,7 @@
 	update_icons()
 
 /mob/living/carbon/werewolf/lupus/Life()
-	if((HAS_TRAIT(src, TRAIT_DOGWOLF) || (iscorax(src) && !HAS_TRAIT(src, TRAIT_WYRMTAINTED)))) // ravens don't spook people
+	if((HAS_TRAIT(src, TRAIT_DOGWOLF) || (iscorvid(src) && !HAS_TRAIT(src, TRAIT_WYRMTAINTED)))) // ravens don't spook people
 		. = ..()
 		return
 	SEND_SIGNAL(src, COMSIG_MASQUERADE_VIOLATION)
