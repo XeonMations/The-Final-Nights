@@ -10,11 +10,15 @@
 
 /datum/proximity_monitor/advanced/violation_check_aoe/Destroy()
 	violation_observer_callback = null
+	for(var/mob as anything in tracking_mobs)
+		UnregisterSignal(mob, COMSIG_MASQUERADE_VIOLATION)
 	tracking_mobs = null
 	return ..()
 
 /datum/proximity_monitor/advanced/violation_check_aoe/on_entered(turf/source, atom/movable/entered, turf/old_loc)
 	. = ..()
+	if(QDELETED(src))
+		return
 	if(!isliving(entered))
 		return
 	if(isnpc(entered)) //only track non-NPCs
@@ -28,6 +32,8 @@
 
 /datum/proximity_monitor/advanced/violation_check_aoe/on_uncrossed(turf/source, atom/movable/gone, direction)
 	. = ..()
+	if(QDELETED(src))
+		return
 	if(!isliving(gone))
 		return
 	if(isnpc(gone)) //only track non-NPCs
@@ -40,12 +46,15 @@
 	UnregisterSignal(gone, COMSIG_MASQUERADE_VIOLATION)
 
 /datum/proximity_monitor/advanced/violation_check_aoe/on_z_change()
-	. = ..()
+	if(QDELETED(src))
+		return
 	for(var/mob as anything in tracking_mobs)
 		UnregisterSignal(mob, COMSIG_MASQUERADE_VIOLATION)
 		tracking_mobs -= mob
 
 /datum/proximity_monitor/advanced/violation_check_aoe/cleanup_field_turf(turf/target)
+	if(QDELETED(src))
+		return
 	for(var/mob/living/living_mob in target.contents)
 		UnregisterSignal(living_mob, COMSIG_MASQUERADE_VIOLATION)
 		tracking_mobs -= living_mob
