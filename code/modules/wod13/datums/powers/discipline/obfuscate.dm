@@ -211,6 +211,9 @@
 	for(var/mob/living/carbon/human/npc/NPC in GLOB.npc_list)
 		if (NPC.danger_source == owner)
 			NPC.danger_source = null
+		if(prob(5))
+			SEND_SIGNAL(NPC, COMSIG_MASQUERADE_REINFORCE, owner)
+
 	ADD_TRAIT(owner, TRAIT_OBFUSCATED, OBFUSCATE_TRAIT)
 
 /datum/discipline_power/obfuscate/vanish_from_the_minds_eye/deactivate()
