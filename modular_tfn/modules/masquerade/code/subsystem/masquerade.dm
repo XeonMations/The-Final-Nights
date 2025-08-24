@@ -112,6 +112,8 @@ SUBSYSTEM_DEF(masquerade)
 /datum/controller/subsystem/masquerade/proc/check_roundend_condition()
 	if(masquerade_level != 0)
 		return
+	for(var/player as anything in GLOB.player_list)
+		SEND_SOUND(player, 'modular_tfn/modules/masquerade/sound/masquerade_failure.ogg') //Alerting them of their demise.
 	addtimer(CALLBACK(src, PROC_REF(end_round)), 65 SECONDS)
 
 // Ending the actual round.
