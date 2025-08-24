@@ -50,7 +50,7 @@
 	log_save_cache += saved_logs
 	var/pages_to_print = length(log_save_cache) / MAX_PAGE_LINES
 	for(var/page in 1 to ceil(pages_to_print))
-		if(!do_after(user, 1 SECONDS, src))
+		if(!do_after(user, 0.5 SECONDS, src))
 			break
 		var/obj/item/paper/printed_paper = new /obj/item/paper(get_turf(src))
 
@@ -74,7 +74,7 @@
 		addtimer(CALLBACK(src, PROC_REF(stop_sound)), 7 SECONDS)
 		return
 	for(var/paper in 1 to length(saved_logs))
-		if(!do_after(user, 1 SECONDS, src))
+		if(!do_after(user, 0.5 SECONDS, src))
 			stop_sound()
 			break
 		var/obj/phone = saved_logs[1][2]

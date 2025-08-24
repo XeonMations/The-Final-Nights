@@ -14,14 +14,13 @@
 
 /datum/component/violation_observer/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_SEEN_MASQUERADE_VIOLATION, PROC_REF(on_observed_violation))
+	RegisterSignal(parent, COMSIG_MASQUERADE_REINFORCE, PROC_REF(on_masquerade_violation_reinforced))
+	RegisterSignals(parent, list(COMSIG_LIVING_DEATH, COMSIG_ALL_MASQUERADE_REINFORCE), PROC_REF(on_death))
 
 /datum/component/violation_observer/UnregisterFromParent(force, silent)
 	QDEL_NULL(area_of_effect)
 	breached_players = null
-	UnregisterSignal(parent, COMSIG_SEEN_MASQUERADE_VIOLATION)
-	UnregisterSignal(parent, COMSIG_MASQUERADE_REINFORCE)
-	UnregisterSignal(parent, COMSIG_LIVING_DEATH)
-	UnregisterSignal(parent, COMSIG_ALL_MASQUERADE_REINFORCE)
+	UnregisterSignal(parent, list(COMSIG_SEEN_MASQUERADE_VIOLATION, COMSIG_MASQUERADE_REINFORCE, COMSIG_LIVING_DEATH, COMSIG_ALL_MASQUERADE_REINFORCE))
 
 /datum/component/violation_observer/proc/on_observed_violation(atom/source, mob/living/player_breacher)
 	SIGNAL_HANDLER
@@ -35,8 +34,7 @@
 			mob_parent.face_atom(player_breacher)
 	source.observe_masquerade_violation(player_breacher)
 	source.AddComponent(/datum/component/masquerade_hud, player_breacher)
-	RegisterSignal(source, COMSIG_MASQUERADE_REINFORCE, PROC_REF(on_masquerade_violation_reinforced))
-	RegisterSignals(source, list(COMSIG_LIVING_DEATH, COMSIG_ALL_MASQUERADE_REINFORCE), PROC_REF(on_death))
+
 	breached_players |= player_breacher
 	SSmasquerade.masquerade_breach(source, player_breacher, (isliving(source) ? MASQUERADE_REASON_NPC : MASQUERADE_REASON_OBJECT))
 

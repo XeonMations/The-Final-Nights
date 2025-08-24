@@ -1,6 +1,6 @@
 /obj/item/blood_hunt
-	name = "Blood Hunt Announcer"
-	desc = "A stylized skull, made out of marble. This thaumaturgically-created artifact allows you to announce a Blood Hunt to the city. Name your target."
+	name = "ominous skull"
+	desc = "A stylized skull, made out of marble."
 	icon = 'code/modules/wod13/items.dmi'
 	icon_state = "eye"
 	item_flags = NOBLUDGEON
@@ -11,10 +11,17 @@
 /obj/item/blood_hunt/Initialize(mapload)
 	. = ..()
 	GLOB.blood_hunt_announcers += src
+	AddComponent(/datum/component/violation_observer, FALSE)
 
 /obj/item/blood_hunt/Destroy()
 	GLOB.blood_hunt_announcers -= src
 	..()
+
+/obj/item/blood_hunt/examine(mob/user)
+	. = ..()
+	if(iskindred(user))
+		. += span_notice("This thaumaturgically-created artifact allows you to announce a Blood Hunt to the city.")
+		. += span_notice("It also allows you to pardon a kindred's masquerade violation by <b>interacting</b> with the kindred while holding the skull.")
 
 /obj/item/blood_hunt/attack_self(mob/user)
 	. = ..()

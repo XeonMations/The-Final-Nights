@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(masquerade)
 	var/masquerade_level = MASQUERADE_MAX_LEVEL
 	var/list/masquerade_breachers
 	var/static/regex/masquerade_breaching_phrase_regex
+	var/ending = FALSE
 
 /datum/controller/subsystem/masquerade/Initialize()
 	masquerade_breachers = new()
@@ -21,7 +22,9 @@ SUBSYSTEM_DEF(masquerade)
 /datum/controller/subsystem/masquerade/proc/get_description()
 	var/return_list = ""
 	switch(masquerade_level)
-		if(0 to 9)
+		if(0)
+			return_list += "MASQUEARADE FAILURE: "
+		if(1 to 9)
 			return_list += "MASSIVE BREACH: "
 		if(10 to 14)
 			return_list += "MODERATE VIOLATION: "
@@ -110,18 +113,23 @@ SUBSYSTEM_DEF(masquerade)
 
 // A check for if we should be ending the round.
 /datum/controller/subsystem/masquerade/proc/check_roundend_condition()
-	if(masquerade_level != 0)
+	if((masquerade_level != 0) || ending)
 		return
+	ending = TRUE
 	for(var/player as anything in GLOB.player_list)
 		SEND_SOUND(player, 'modular_tfn/modules/masquerade/sound/masquerade_failure.ogg') //Alerting them of their demise.
 	addtimer(CALLBACK(src, PROC_REF(end_round)), 65 SECONDS)
 
 // Ending the actual round.
 /datum/controller/subsystem/masquerade/proc/end_round()
-	for(var/mob/NPC as anything in GLOB.npc_list)
-		for(var/masquerade_breach as anything in masquerade_breachers)
-			if(NPC in masquerade_breach)
-				SEND_SIGNAL(NPC, COMSIG_ALL_MASQUERADE_REINFORCE)
+	for(var/masquerade_breach as anything in masquerade_breachers)
+		var/list/masquerade_breach_list = masquerade_breach
+		if(islist(masquerade_breach_list[2])) //If its the skull list, then its a long term masq breach. Clear it.
+			for(var/atom/list_object as anything in masquerade_breach_list[2])
+				SSmasquerade.masquerade_reinforce(list_object, masquerade_breach_list[1], MASQUERADE_REASON_PREFERENCES)
+		else
+			var/atom/object = masquerade_breach_list[2]
+			SEND_SIGNAL(object, COMSIG_ALL_MASQUERADE_REINFORCE)
 	SSticker.force_ending = 1
 	SSticker.current_state = GAME_STATE_FINISHED
 	GLOB.canon_event = FALSE
