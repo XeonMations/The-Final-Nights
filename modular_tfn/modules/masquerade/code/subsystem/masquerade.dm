@@ -70,6 +70,7 @@ SUBSYSTEM_DEF(masquerade)
 		GLOB.masquerade_breakers_list |= player_breacher
 	masquerade_level = max(0, masquerade_level - 1)
 	save_persistent_masquerade(player_breacher)
+	check_roundend_condition()
 
 // Used for adding logging messages to every logging_machine in GLOB.loggin_machines
 /datum/controller/subsystem/masquerade/proc/log_phone_message(message, obj/phone_source)
@@ -106,3 +107,19 @@ SUBSYSTEM_DEF(masquerade)
 			GLOB.veil_breakers_list -= player_breacher
 		else
 			GLOB.masquerade_breakers_list -= player_breacher
+
+// A check for if we should be ending the round.
+/datum/controller/subsystem/masquerade/proc/check_roundend_condition()
+	if(masquerade_level != 0)
+		return
+	addtimer(CALLBACK(src, PROC_REF(end_round)), 65 SECONDS)
+
+// Ending the actual round.
+/datum/controller/subsystem/masquerade/proc/end_round()
+	SSticker.force_ending = 1
+	SSticker.current_state = GAME_STATE_FINISHED
+	GLOB.canon_event = FALSE
+	toggle_ooc(TRUE) // Turn it on
+	toggle_dooc(TRUE)
+	SSticker.declare_completion(SSticker.force_ending)
+	Master.SetRunLevel(RUNLEVEL_POSTGAME)
