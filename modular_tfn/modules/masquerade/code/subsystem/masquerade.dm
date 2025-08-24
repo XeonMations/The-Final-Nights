@@ -118,6 +118,10 @@ SUBSYSTEM_DEF(masquerade)
 
 // Ending the actual round.
 /datum/controller/subsystem/masquerade/proc/end_round()
+	for(var/mob/NPC as anything in GLOB.npc_list)
+		for(var/masquerade_breach as anything in masquerade_breachers)
+			if(NPC in masquerade_breach)
+				SEND_SIGNAL(NPC, COMSIG_ALL_MASQUERADE_REINFORCE)
 	SSticker.force_ending = 1
 	SSticker.current_state = GAME_STATE_FINISHED
 	GLOB.canon_event = FALSE
