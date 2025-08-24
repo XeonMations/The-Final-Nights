@@ -46,8 +46,6 @@ SUBSYSTEM_DEF(city_time)
 					if(role in list("Prince", "Sheriff", "Hound", "Seneschal", "Chantry Regent", "Baron", "Dealer", "Primogen Ventrue", "Primogen Lasombra", "Primogen Banu Haqim", "Primogen Nosferatu", "Primogen Malkavian", "Endron Branch Lead", "Endron Internal Affairs Agent", "Endron Executive", "Endron Chief of Security", "Painted City Councillor", "Painted City Keeper", "Painted City Warder", "Painted City Truthcatcher", "Amberlgade Councillor", "Amberglade Keeper", "Amberglade Truthcatcher", "Amberglade Warder"))
 						char_sheet.add_experience(2)
 
-					if(role in list("Hound", "Street Janitor", "Bruiser", "Graveyard Keeper"))
-						char_sheet.masquerade_score += 2
 
 					if(!HAS_TRAIT(H, TRAIT_NON_INT))
 						if(H.total_erp > 3000)
@@ -74,6 +72,13 @@ SUBSYSTEM_DEF(city_time)
 
 	if(hour == 6 && minutes == 0)
 		to_chat(world, "<span class='ghostalert'>THE NIGHT IS OVER.</span>")
+		for(var/mob/living/carbon/human/H in GLOB.human_list)
+			var/datum/preferences/char_sheet = GLOB.preferences_datums[ckey(H.key)]
+			if(char_sheet)
+				var/role = H.mind?.assigned_role
+				if(role in list("Hound", "Street Janitor", "Bruiser", "Graveyard Keeper"))
+					char_sheet.masquerade_score += 2
+					char_sheet.save_character()
 		SSticker.force_ending = 1
 		SSticker.current_state = GAME_STATE_FINISHED
 		GLOB.canon_event = FALSE
