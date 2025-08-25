@@ -44,12 +44,14 @@ SUBSYSTEM_DEF(masquerade)
  * reason - Optional, the reason for the breach. For example,
  */
 /datum/controller/subsystem/masquerade/proc/masquerade_reinforce(atom/source, mob/living/player_breacher, reason)
+	. = FALSE
 	for(var/masquerade_breach as anything in masquerade_breachers)
 		if((source in masquerade_breach[2]))
 			if(!reason || (reason in masquerade_breach))
 				masquerade_breachers -= list(masquerade_breach)
 				masquerade_level = min(MASQUERADE_MAX_LEVEL, masquerade_level + 1)
 				player_breacher.masquerade_score = min(5, player_breacher.masquerade_score + 1)
+				. = TRUE
 				break
 	if(player_breacher.masquerade_score == 5) //Doesn't matter if they weren't in one of these lists.
 		GLOB.veil_breakers_list -= player_breacher
@@ -65,7 +67,7 @@ SUBSYSTEM_DEF(masquerade)
 			if("Wisdom")
 				player_breacher.adjust_renown("wisdom", -1, vessel = player_breacher)
 	save_persistent_masquerade(player_breacher)
-	return TRUE
+	return .
 
 /*
  * Breaches a specific player's masquerade and changes the global masquerade level accordingly.
