@@ -22,51 +22,53 @@
 #define RAGE_LIFE_COOLDOWN 30 SECONDS
 
 /datum/species/garou/spec_life(mob/living/carbon/human/H)
-	if(H.stat != DEAD)
-		var/gaining_rage = TRUE
-		for(var/obj/structure/werewolf_totem/W in GLOB.totems)
-			if(W.totem_health)
-				if(W.tribe == H.auspice.tribe.name)
-					if(get_area(W) == get_area(H) && H.client)
-						gaining_rage = FALSE
-						if(H.last_gnosis_buff+300 < world.time)
-							H.last_gnosis_buff = world.time
-							adjust_gnosis(1, H, TRUE)
-		if(iscrinos(H))
-			if(H.auspice.breed_form == FORM_CRINOS)
-				gaining_rage = FALSE
-		if(islupus(H))
-			if(H.auspice.breed_form == FORM_LUPUS)
-				gaining_rage = FALSE
-		if(ishuman(H))
-			if(H.auspice.breed_form == FORM_HOMID || HAS_TRAIT(H, TRAIT_CORAX)) // Corvid-born Corax don't generate rage when in homid passively, the hope is to make talking more relaxed and the Corax weaker in combat.
-				gaining_rage = FALSE
-		if (iscorvid(H))
-			gaining_rage = FALSE // Corax will ideally be talking a lot, not having passive rage generation should also make them weaker in combat.
-		if (iscoraxcrinos(H))
-			gaining_rage = TRUE // Corax have no Metis, Crinos is uneasy no matter your breed, no "buts" about it.
+	if(H.stat == DEAD)
+		return
 
-		if(gaining_rage && H.client)
-			if(((H.last_rage_gain + RAGE_LIFE_COOLDOWN) < world.time) && (H.auspice.rage <= 6))
-				H.last_rage_gain = world.time
-				adjust_rage(1, H, TRUE)
+	var/gaining_rage = TRUE
+	for(var/obj/structure/werewolf_totem/W in GLOB.totems)
+		if(W.totem_health)
+			if(W.tribe == H.auspice.tribe.name)
+				if(get_area(W) == get_area(H) && H.client)
+					gaining_rage = FALSE
+					if(H.last_gnosis_buff+300 < world.time)
+						H.last_gnosis_buff = world.time
+						adjust_gnosis(1, H, TRUE)
+	if(iscrinos(H))
+		if(H.auspice.breed_form == FORM_CRINOS)
+			gaining_rage = FALSE
+	if(islupus(H))
+		if(H.auspice.breed_form == FORM_LUPUS)
+			gaining_rage = FALSE
+	if(ishuman(H))
+		if(H.auspice.breed_form == FORM_HOMID || HAS_TRAIT(H, TRAIT_CORAX)) // Corvid-born Corax don't generate rage when in homid passively, the hope is to make talking more relaxed and the Corax weaker in combat.
+			gaining_rage = FALSE
+	if (iscorvid(H))
+		gaining_rage = FALSE // Corax will ideally be talking a lot, not having passive rage generation should also make them weaker in combat.
+	if (iscoraxcrinos(H))
+		gaining_rage = TRUE // Corax have no Metis, Crinos is uneasy no matter your breed, no "buts" about it.
 
-		if(H.masquerade_score == 0)
-			if(!is_special_character(H))
-				if(H.auspice.gnosis)
-					to_chat(H, "<span class='warning'>My Veil is too low to connect with the spirits of the Umbra!</span>")
-					adjust_gnosis(-1, H, FALSE)
+	if(gaining_rage && H.client)
+		if(((H.last_rage_gain + RAGE_LIFE_COOLDOWN) < world.time) && (H.auspice.rage <= 6))
+			H.last_rage_gain = world.time
+			adjust_rage(1, H, TRUE)
 
-		if(H.auspice.rage >= 9)
-			if(!H.in_frenzy)
-				if((H.last_frenzy_check + 40 SECONDS) <= world.time)
-					H.last_frenzy_check = world.time
-					H.rollfrenzy()
+	if(H.masquerade_score == 0)
+		if(!is_special_character(H))
+			if(H.auspice.gnosis)
+				to_chat(H, "<span class='warning'>My Veil is too low to connect with the spirits of the Umbra!</span>")
+				adjust_gnosis(-1, H, FALSE)
 
-		if(H.masquerade_score < 5)
-			if(COOLDOWN_FINISHED(H, veil_restore))
-				COOLDOWN_START(H, veil_restore, UMBRA_VEIL_COOLDOWN)
-				H.check_veil_adjust()
+	if(H.auspice.rage >= 9)
+		if(!H.in_frenzy)
+			if((H.last_frenzy_check + 40 SECONDS) <= world.time)
+				H.last_frenzy_check = world.time
+				H.rollfrenzy()
+
+	if(H.masquerade_score < 5)
+		if(COOLDOWN_FINISHED(H, veil_restore))
+			COOLDOWN_START(H, veil_restore, UMBRA_VEIL_COOLDOWN)
+			H.check_veil_adjust()
 // currently being in your caern restores veil to max because theres no other way of doing. remember to cap it to THREE once shame rituals are back
 
 #undef RAGE_LIFE_COOLDOWN
