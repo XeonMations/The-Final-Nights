@@ -362,8 +362,8 @@
 					H.mind.dharma.roll_po(trigger, H)
 					COOLDOWN_START(H.mind.dharma, po_call, 5 SECONDS)
 	H.nutrition = NUTRITION_LEVEL_START_MAX
-	if((H.last_bloodpool_restore + 60 SECONDS) <= world.time)
-		H.last_bloodpool_restore = world.time
+	if(COOLDOWN_FINISHED(H, bloodpool_restore))
+		COOLDOWN_START(H, bloodpool_restore, 1 MINUTES)
 		H.bloodpool = min(H.maxbloodpool, H.bloodpool+1)
 
 /datum/action/breathe_chi

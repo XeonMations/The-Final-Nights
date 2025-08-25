@@ -22,7 +22,7 @@
 				last_veil_restore = world.time
 
 		if("Black Spiral Dancers")
-			if(istype(get_area(src), /area/vtm/interior/endron_facility) && masquerade_score < 5)
+			if(istype(get_area(src), /area/vtm/interior/endron_facility))
 				adjust_veil(1, random = -1)
 				last_veil_restore = world.time
 
@@ -31,8 +31,8 @@
 	if(HAS_TRAIT(H, TRAIT_UNMASQUERADE) || HAS_TRAIT(src, TRAIT_WYRMTAINTED) || glabro)
 		SEND_SIGNAL(H, COMSIG_MASQUERADE_VIOLATION)
 
-	if((H.last_bloodpool_restore + GAROU_BP_REGEN) <= world.time)
-		H.last_bloodpool_restore = world.time
+	if(COOLDOWN_FINISHED(H, bloodpool_restore))
+		COOLDOWN_START(H, bloodpool_restore, GAROU_BP_REGEN)
 		H.bloodpool = min(H.maxbloodpool, H.bloodpool+1)
 
 /mob/living/carbon/werewolf/crinos/Life()

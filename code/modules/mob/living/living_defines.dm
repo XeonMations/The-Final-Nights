@@ -221,7 +221,7 @@
 
 	var/frenzy_chance_boost = 10
 
-	var/last_bloodpool_restore = 0
+	COOLDOWN_DECLARE(bloodpool_restore)
 
 	var/list/knowscontacts = null
 
