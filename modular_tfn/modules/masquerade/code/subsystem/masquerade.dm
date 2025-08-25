@@ -65,6 +65,7 @@ SUBSYSTEM_DEF(masquerade)
 			if("Wisdom")
 				player_breacher.adjust_renown("wisdom", -1, vessel = player_breacher)
 	save_persistent_masquerade(player_breacher)
+	return TRUE
 
 /*
  * Breaches a specific player's masquerade and changes the global masquerade level accordingly.

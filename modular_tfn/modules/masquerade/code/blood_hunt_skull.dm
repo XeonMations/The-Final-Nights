@@ -76,6 +76,8 @@
 	to_chat(user, span_notice("You hold the [src] up to [A]..."))
 	if(!do_after(user, 10 SECONDS, A))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
-	to_chat(user, span_notice("You pardon [A]'s masquerade breach!"))
-	SSmasquerade.masquerade_reinforce(src, A, MASQUERADE_REASON_PREFERENCES)
+	if(SSmasquerade.masquerade_reinforce(src, A, MASQUERADE_REASON_PREFERENCES))
+		to_chat(user, span_notice("You pardon [A]'s masquerade breach!"))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+	to_chat(user, span_notice("[A]'s masquerade breach isn't worthy enough to be pardoned!"))
 	return COMPONENT_CANCEL_ATTACK_CHAIN
