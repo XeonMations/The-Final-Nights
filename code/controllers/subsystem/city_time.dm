@@ -84,7 +84,7 @@ SUBSYSTEM_DEF(city_time)
 		GLOB.canon_event = FALSE
 		toggle_ooc(TRUE) // Turn it on
 		toggle_dooc(TRUE)
-		SSticker.declare_completion(SSticker.force_ending)
+		SSticker.declare_completion()
 		Master.SetRunLevel(RUNLEVEL_POSTGAME)
 		for(var/mob/living/carbon/human/H in GLOB.human_list)
 			var/area/vtm/V = get_area(H)

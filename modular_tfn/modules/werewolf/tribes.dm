@@ -170,17 +170,7 @@
 		owner.visible_message(span_danger("[owner.name] crackles with static electricity!"), span_danger("You crackle with static electricity, charging up your Gift!"))
 		if(do_after(owner, 3 SECONDS))
 			playsound(owner, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-			if(CheckZoneMasquerade(owner))
-				var/mob/living/carbon/human/H
-				var/mob/living/carbon/werewolf/W
-				if(ishuman(owner))
-					H = owner
-				else
-					W = owner
-				if(H)
-					H.adjust_veil(-1)
-				if(W)
-					W.adjust_veil(-1)
+			SEND_SIGNAL(owner, COMSIG_MASQUERADE_VIOLATION)
 			for(var/mob/living/L in orange(6, owner))
 				if(L)
 					L.electrocute_act(30, owner, siemens_coeff = 1, flags = NONE)

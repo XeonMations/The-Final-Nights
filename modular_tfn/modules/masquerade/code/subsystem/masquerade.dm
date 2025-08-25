@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(masquerade)
 				player_breacher.masquerade_score = min(5, player_breacher.masquerade_score + 1)
 				break
 	if(player_breacher.masquerade_score == 5)
-		if(isgarou(player_breacher))
+		if(isgarou(player_breacher) || iswerewolf(player_breacher))
 			GLOB.veil_breakers_list -= player_breacher
 		else
 			GLOB.masquerade_breakers_list -= player_breacher
@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(masquerade)
 /datum/controller/subsystem/masquerade/proc/masquerade_breach(atom/source, mob/living/player_breacher, reason)
 	player_breacher.masquerade_score = max(0, player_breacher.masquerade_score - 1)
 	masquerade_breachers += list(list(player_breacher, source, reason))
-	if(isgarou(player_breacher))
+	if(isgarou(player_breacher) || iswerewolf(player_breacher))
 		GLOB.veil_breakers_list |= player_breacher
 	else
 		GLOB.masquerade_breakers_list |= player_breacher
@@ -93,7 +93,7 @@ SUBSYSTEM_DEF(masquerade)
 		if((player_breacher in masquerade_breach))
 			masquerade_breachers -= list(masquerade_breach)
 			masquerade_level = min(MASQUERADE_MAX_LEVEL, masquerade_level + 1)
-	if(isgarou(player_breacher))
+	if(isgarou(player_breacher) || iswerewolf(player_breacher))
 		GLOB.veil_breakers_list -= player_breacher
 	else
 		GLOB.masquerade_breakers_list -= player_breacher
@@ -101,12 +101,12 @@ SUBSYSTEM_DEF(masquerade)
 // This is for checking if a joined player should be on the breachers list.
 /datum/controller/subsystem/masquerade/proc/masquerade_breacher_check(mob/living/player_breacher)
 	if(player_breacher.masquerade_score < 5)
-		if(isgarou(player_breacher))
+		if(isgarou(player_breacher) || iswerewolf(player_breacher))
 			GLOB.veil_breakers_list |= player_breacher
 		else
 			GLOB.masquerade_breakers_list |= player_breacher
 	else
-		if(isgarou(player_breacher))
+		if(isgarou(player_breacher) || iswerewolf(player_breacher))
 			GLOB.veil_breakers_list -= player_breacher
 		else
 			GLOB.masquerade_breakers_list -= player_breacher
