@@ -16,6 +16,7 @@ SUBSYSTEM_DEF(masquerade)
 			continue
 		masquerade_filter += REGEX_QUOTE(line)
 	masquerade_breaching_phrase_regex = masquerade_filter.len ? regex("\\b([jointext(masquerade_filter, "|")])\\b", "i") : null
+	RegisterSignal(src, COMSIG_PLAYER_MASQUERADE_REINFORCE, PROC_REF(player_masquerade_reinforce))
 	..()
 
 // Used for the status menu's masquerade breach text.
@@ -50,11 +51,19 @@ SUBSYSTEM_DEF(masquerade)
 				masquerade_level = min(MASQUERADE_MAX_LEVEL, masquerade_level + 1)
 				player_breacher.masquerade_score = min(5, player_breacher.masquerade_score + 1)
 				break
-	if(player_breacher.masquerade_score == 5)
-		if(isgarou(player_breacher) || iswerewolf(player_breacher))
-			GLOB.veil_breakers_list -= player_breacher
-		else
-			GLOB.masquerade_breakers_list -= player_breacher
+	if(player_breacher.masquerade_score == 5) //Doesn't matter if they weren't in one of these lists.
+		GLOB.veil_breakers_list -= player_breacher
+		GLOB.masquerade_breakers_list -= player_breacher
+
+	if(isgarou(player_breacher) || iswerewolf(player_breacher))
+		var/random_renown = pick("Honor","Wisdom","Glory")
+		switch(random_renown)
+			if("Honor")
+				player_breacher.adjust_renown("honor", -1, vessel = player_breacher)
+			if("Glory")
+				player_breacher.adjust_renown("glory", -1, vessel = player_breacher)
+			if("Wisdom")
+				player_breacher.adjust_renown("wisdom", -1, vessel = player_breacher)
 	save_persistent_masquerade(player_breacher)
 
 /*
@@ -110,6 +119,20 @@ SUBSYSTEM_DEF(masquerade)
 			GLOB.veil_breakers_list -= player_breacher
 		else
 			GLOB.masquerade_breakers_list -= player_breacher
+
+/datum/controller/subsystem/masquerade/proc/player_masquerade_reinforce(datum/source, mob/living/player_breacher)
+	SIGNAL_HANDLER
+
+	for(var/masquerade_breach as anything in masquerade_breachers)
+		var/list/masquerade_breach_list = masquerade_breach
+		if(islist(masquerade_breach_list[2])) //If its the skull list, then its a long term masq breach. Clear it.
+			for(var/atom/list_object as anything in masquerade_breach_list[2])
+				SSmasquerade.masquerade_reinforce(list_object, masquerade_breach_list[1], MASQUERADE_REASON_PREFERENCES)
+				return
+		else
+			var/atom/object = masquerade_breach_list[2]
+			SEND_SIGNAL(object, COMSIG_MASQUERADE_REINFORCE, player_breacher)
+			return
 
 // A check for if we should be ending the round.
 /datum/controller/subsystem/masquerade/proc/check_roundend_condition()

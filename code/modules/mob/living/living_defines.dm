@@ -298,7 +298,7 @@
 	var/inspired = FALSE
 	var/last_gnosis_buff = 0
 	var/last_rage_gain = 0
-	var/last_veil_restore = 0
+	COOLDOWN_DECLARE(veil_restore)
 
 	var/list/beastmaster = list()
 

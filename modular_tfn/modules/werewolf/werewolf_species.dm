@@ -63,8 +63,9 @@
 					H.last_frenzy_check = world.time
 					H.rollfrenzy()
 
-		if(H.last_veil_restore == 0 || (H.last_veil_restore + UMBRA_VEIL_COOLDOWN) < world.time)
-			if(H.masquerade_score < 5)
+		if(H.masquerade_score < 5)
+			if(COOLDOWN_FINISHED(H, veil_restore))
+				COOLDOWN_START(H, veil_restore, UMBRA_VEIL_COOLDOWN)
 				H.check_veil_adjust()
 // currently being in your caern restores veil to max because theres no other way of doing. remember to cap it to THREE once shame rituals are back
 
