@@ -33,7 +33,7 @@
 	if(!reason)
 		reason = "No reason specified."
 
-	for(var/mob/player_mob as anything in GLOB.kindred_list)
+	for(var/mob/player_mob in GLOB.kindred_list)
 		if(player_mob.real_name == chosen_name)
 			if(HAS_TRAIT(player_mob, TRAIT_HUNTED))
 				end_hunt(user, player_mob)
