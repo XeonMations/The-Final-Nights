@@ -271,6 +271,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 			info_button.plane = ABOVE_HUD_PLANE
 			info_button.layer = RADIAL_CONTENT_LAYER
 			E.vis_contents += info_button
+		E.color = choice_datum?.color //TFN EDIT ADDITION
 
 /datum/radial_menu/New(display_close_button)
 	if(!display_close_button)
@@ -439,6 +440,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 	/// If provided, changes the tooltip theme for this choice
 	var/tooltip_theme
+
+	var/color //TFN EDIT ADDITION
 
 /datum/radial_menu_choice/Destroy(force)
 	. = ..()

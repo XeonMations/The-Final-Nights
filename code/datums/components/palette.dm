@@ -84,6 +84,7 @@
 		option.image = element
 		// We want only the name/tooltip to show the hexcolor to avoid having multiple choices with same ids (identical colors).
 		option.name = hexcolor
+		option.color = hexcolor //TFN EDIT ADDITION
 		radial_list["[index]"] = option
 	return radial_list
 
