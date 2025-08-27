@@ -94,8 +94,6 @@
 	 * Ditto with the other other lists below.
 	*/
 	var/static/list/graffiti = list(
-		"amyjon",
-		"antilizard",
 		"body",
 		"cyka",
 		"dwarf",
@@ -104,7 +102,6 @@
 		"face",
 		"guy",
 		"matt",
-		"prolizard",
 		"revolution",
 		"star",
 		"uboa",
@@ -189,10 +186,7 @@
 	)
 	/// List of selectable large options
 	var/static/list/graffiti_large_h = list(
-		"furrypride" = CRAYON_COST_LARGE,
 		"paint" = CRAYON_COST_LARGE,
-		"secborg" = CRAYON_COST_LARGE,
-		"yiffhell" = CRAYON_COST_LARGE,
 	)
 	/// Combined lists
 	var/static/list/all_drawables = graffiti + symbols + drawings + oriented + runes + graffiti_large_h
@@ -584,15 +578,18 @@
 	check_empty(user)
 	return ITEM_INTERACT_SUCCESS
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/afterattack(atom/interacting_with, mob/user, proximity, params)
 	. = ..()
 	if(!proximity)
 		return
-	if (isitem(target))
-		. = TRUE
-	if (!check_allowed_items(target))
+
+	if (!check_allowed_items(interacting_with))
 		return
-	use_on(target, user, params)
+
+	var/modifiers = params2list(params)
+	if(can_use_on(interacting_with, user, modifiers))
+		use_on(interacting_with, user, modifiers)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/toy/crayon/get_writing_implement_details()
 	return list(
