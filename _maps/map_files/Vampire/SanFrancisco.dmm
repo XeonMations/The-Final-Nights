@@ -2689,6 +2689,7 @@
 /obj/structure/table/wood,
 /obj/structure/sink{
 	pixel_y = -1;
+	dir = 2;
 	icon_state = "basin"
 	},
 /turf/closed/wall/vampwall/junk/alt/low,
@@ -4938,7 +4939,8 @@
 /area/vtm/interior/chantry)
 "bte" = (
 /obj/structure/lamppost/sidewalk{
-	pixel_x = 9
+	pixel_x = 9;
+	density = 0
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/financialdistrict/library)
@@ -7534,7 +7536,8 @@
 /area/vtm/interior/millennium_tower/f2)
 "cbN" = (
 /obj/structure/lamppost/sidewalk{
-	pixel_x = -9
+	pixel_x = -9;
+	density = 0
 	},
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#802d29";
@@ -8084,7 +8087,6 @@
 /obj/item/taperecorder{
 	pixel_x = 3
 	},
-/obj/item/camera/detective,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
 "chL" = (
@@ -10114,7 +10116,8 @@
 /area/vtm/interior)
 "cId" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 1
+	dir = 1;
+	density = 0
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
@@ -23806,7 +23809,8 @@
 /area/vtm/interior/giovanni)
 "glS" = (
 /obj/structure/lamppost/sidewalk{
-	pixel_x = 9
+	pixel_x = 9;
+	density = 0
 	},
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#802d29";
@@ -27362,7 +27366,8 @@
 /area/vtm/interior/techshop)
 "hhT" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 1
+	dir = 1;
+	density = 0
 	},
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
@@ -30384,7 +30389,8 @@
 	dir = 1
 	},
 /obj/structure/lamppost/one{
-	pixel_y = 16
+	pixel_y = 16;
+	density = 0
 	},
 /turf/open/floor/plating/sidewalk,
 /area/vtm/pacificheights)
@@ -32880,6 +32886,7 @@
 /obj/structure/table,
 /obj/structure/sink{
 	pixel_y = -1;
+	dir = 2;
 	icon_state = "basin"
 	},
 /obj/item/clothing/neck/stethoscope{
@@ -39369,7 +39376,8 @@
 /area/vtm/financialdistrict)
 "klN" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 4
+	dir = 4;
+	density = 0
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
@@ -40494,7 +40502,8 @@
 /area/vtm/interior/shop)
 "kyh" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 4
+	dir = 4;
+	density = 0
 	},
 /obj/effect/landmark/npcability,
 /obj/effect/landmark/npcbeacon,
@@ -40597,7 +40606,8 @@
 /area/vtm/financialdistrict)
 "kzH" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 4
+	dir = 4;
+	density = 0
 	},
 /obj/effect/landmark/npcability,
 /obj/effect/landmark/npcbeacon,
@@ -43169,7 +43179,8 @@
 	dir = 1
 	},
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 4
+	dir = 4;
+	density = 0
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
@@ -50946,7 +50957,8 @@
 	dir = 1
 	},
 /obj/structure/lamppost/one{
-	pixel_y = 16
+	pixel_y = 16;
+	density = 0
 	},
 /turf/open/floor/plating/sidewalk,
 /area/vtm/financialdistrict)
@@ -58276,10 +58288,12 @@
 /turf/open/floor/plating/vampcanalplating,
 /area/vtm/sewer)
 "oRY" = (
+/obj/structure/table/wood,
+/obj/item/folder/blue,
+/obj/item/camera/detective,
 /obj/machinery/light{
 	pixel_y = 32
 	},
-/obj/machinery/logging_machine,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
 "oSd" = (
@@ -62067,7 +62081,8 @@
 	pixel_y = 32
 	},
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 1
+	dir = 1;
+	density = 0
 	},
 /obj/effect/landmark/start/citizen,
 /turf/open/floor/plating/sidewalkalt,
@@ -66737,6 +66752,7 @@
 /area/vtm/interior/littleitaly)
 "qXo" = (
 /obj/structure/table/wood,
+/obj/item/vamp/phone/emergency,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
 "qXs" = (
@@ -83224,7 +83240,8 @@
 /area/vtm/financialdistrict)
 "vtL" = (
 /obj/structure/lamppost/sidewalk{
-	pixel_x = -9
+	pixel_x = -9;
+	density = 0
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/financialdistrict/library)
@@ -93852,9 +93869,6 @@
 	},
 /obj/item/pen{
 	pixel_y = 7
-	},
-/obj/item/folder/blue{
-	pixel_x = 12
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
