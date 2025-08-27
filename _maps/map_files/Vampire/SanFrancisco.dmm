@@ -1806,7 +1806,9 @@
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/interior/police/upstairs)
 "ayb" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "industrial district transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/pacificheights/industrial)
 "ayc" = (
@@ -1940,7 +1942,9 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior/millennium_tower/f3)
 "azz" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "museum transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/museum)
 "azJ" = (
@@ -4504,6 +4508,9 @@
 	id = 993;
 	pixel_y = 30
 	},
+/obj/structure/sink{
+	pixel_y = 16
+	},
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/tzimisce_manor)
 "bmo" = (
@@ -5110,7 +5117,9 @@
 /turf/closed/wall/vampwall/metal/glass,
 /area/vtm/interior/wyrm_corrupted)
 "bvt" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "processing plant transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/endron_facility/plant)
 "bvv" = (
@@ -8223,9 +8232,11 @@
 /turf/open/floor/plating/vampdirt,
 /area/vtm/forest/caves)
 "cjp" = (
-/obj/structure/table/wood/fancy/blue,
 /obj/effect/turf_decal/siding/wood/corner{
 	color = "#574d46";
+	dir = 4
+	},
+/obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
 /turf/open/floor/plating/parquetry/old,
@@ -15167,7 +15178,9 @@
 /turf/open/floor/plating/granite/black,
 /area/vtm/interior/museum)
 "dYM" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "manor transformer"
+	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/tzimisce_manor)
 "dZb" = (
@@ -16468,7 +16481,9 @@
 /turf/open/floor/plating/granite/black,
 /area/vtm/interior/millennium_tower)
 "esv" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "interior transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior)
 "esI" = (
@@ -17326,14 +17341,6 @@
 /obj/item/food/piedough,
 /turf/open/floor/plating/bacotell,
 /area/vtm/interior/shop)
-"eDs" = (
-/obj/item/kirbyplants{
-	icon_state = "plant5";
-	pixel_x = 11;
-	pixel_y = 19
-	},
-/turf/open/openspace,
-/area/vtm)
 "eDt" = (
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#004136";
@@ -23295,7 +23302,9 @@
 /turf/open/floor/plating/sidewalk,
 /area/vtm/pacificheights/industrial)
 "gdU" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "pacific heights transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/pacificheights)
 "geg" = (
@@ -26728,7 +26737,9 @@
 /turf/open/floor/plating/granite/black,
 /area/vtm/interior/millennium_tower/f3)
 "gZw" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "cultural square transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/financialdistrict/library)
 "gZB" = (
@@ -32640,7 +32651,9 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/jazzclub)
 "izU" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "courthouse transformer"
+	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/police/court)
 "izX" = (
@@ -32742,7 +32755,9 @@
 /turf/open/water,
 /area/vtm/interior/giovanni)
 "iBJ" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "church transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/church)
 "iBN" = (
@@ -35161,7 +35176,9 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/shop)
 "jiJ" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "milllennium tower transformer"
+	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/millennium_tower)
 "jjf" = (
@@ -35750,7 +35767,9 @@
 /turf/open/floor/plating/concrete,
 /area/vtm/sewer/police)
 "jpY" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "ghetto transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/ghetto)
 "jpZ" = (
@@ -37428,7 +37447,9 @@
 /turf/open/floor/plating/vampwood,
 /area/vtm)
 "jOq" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "police station transformer"
+	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/police)
 "jOr" = (
@@ -39186,7 +39207,9 @@
 	},
 /area/vtm/interior/giovanni/basement)
 "kjr" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "milllennium tower transformer"
+	},
 /obj/machinery/light/red{
 	pixel_y = 32
 	},
@@ -43535,6 +43558,13 @@
 	},
 /turf/open/floor/plating/concrete,
 /area/vtm/sewer/nosferatu_bar)
+"llQ" = (
+/obj/effect/turf_decal/siding/wood{
+	color = "#9a704a"
+	},
+/obj/structure/chair/sofa/corp/left,
+/turf/open/floor/plating/parquetry,
+/area/vtm/interior)
 "llT" = (
 /obj/machinery/light/prince{
 	dir = 4;
@@ -44000,7 +44030,9 @@
 /turf/open/floor/plating/sidewalk,
 /area/vtm/unionsquare)
 "lrM" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "strip club transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/strip)
 "lrP" = (
@@ -45168,7 +45200,9 @@
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
 "lIq" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "pantry transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/cog/pantry)
 "lIz" = (
@@ -45489,7 +45523,9 @@
 	},
 /area/vtm/interior/endron_facility/plant)
 "lMx" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "techshop transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/techshop)
 "lMC" = (
@@ -47758,7 +47794,9 @@
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/anarch/basement)
 "mpC" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "bank transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/bianchiBank)
 "mpI" = (
@@ -49708,7 +49746,9 @@
 	},
 /area/vtm/interior/police)
 "mPc" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "jazz club transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/jazzclub)
 "mPm" = (
@@ -56375,7 +56415,9 @@
 /turf/open/floor/plating/rough/cave,
 /area/vtm/interior/giovanni/basement)
 "osW" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "milllennium tower transformer"
+	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/millennium_tower/f2)
 "otd" = (
@@ -58029,6 +58071,7 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/food/condiment/sugar,
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/tzimisce_manor)
 "oPn" = (
@@ -62665,7 +62708,9 @@
 /turf/open/floor/plating/concrete,
 /area/vtm/anarch)
 "pZn" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "endron transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/endron_facility/restricted)
 "pZu" = (
@@ -67863,7 +67908,9 @@
 /turf/open/floor/plating/rough/cave,
 /area/vtm/sewer)
 "rnA" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "endron transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/endron_facility)
 "rnB" = (
@@ -69639,7 +69686,9 @@
 /turf/closed/wall/vampwall/market/low,
 /area/vtm/interior/police/upstairs)
 "rLG" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "hotel transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/hotel)
 "rLN" = (
@@ -71691,7 +71740,9 @@
 /turf/open/floor/plating/toilet,
 /area/vtm/clinic)
 "spl" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "union square transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/unionsquare)
 "spx" = (
@@ -72750,6 +72801,7 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/blood/random,
+/obj/item/reagent_containers/food/condiment/sugar,
 /turf/open/floor/plating/toilet,
 /area/vtm/interior/tzimisce_manor)
 "sEW" = (
@@ -76049,6 +76101,13 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/plating/vampgrass,
 /area/vtm/interior/bianchiBank)
+"txt" = (
+/obj/structure/sink/kitchen{
+	dir = 4;
+	pixel_x = -11
+	},
+/turf/open/floor/plating/toilet,
+/area/vtm/interior/laundromat)
 "txN" = (
 /obj/item/kirbyplants/dead{
 	desc = "It doesn't look very healthy...";
@@ -77096,7 +77155,9 @@
 /turf/open/floor/plating/asphalt,
 /area/vtm/pacificheights)
 "tKX" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "shop transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/shop)
 "tLk" = (
@@ -78771,6 +78832,13 @@
 	color = "#9c8064"
 	},
 /area/vtm/interior/shop)
+"uhU" = (
+/obj/effect/turf_decal/siding/wood{
+	color = "#9a704a"
+	},
+/obj/structure/chair/sofa/corp/right,
+/turf/open/floor/plating/parquetry,
+/area/vtm/interior)
 "uia" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 9
@@ -80369,7 +80437,9 @@
 /turf/open/floor/plating/bacotell,
 /area/vtm/interior/giovanni)
 "uDH" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "baywalk district transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/baywalk)
 "uDU" = (
@@ -80581,7 +80651,9 @@
 /turf/open/indestructible/necropolis/air,
 /area/vtm/interior/wyrm_corrupted)
 "uGh" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "financial district transformer"
+	},
 /turf/open/floor/plating/rough,
 /area/vtm/financialdistrict)
 "uGj" = (
@@ -86711,7 +86783,8 @@
 /area/vtm)
 "wrT" = (
 /obj/fusebox/transformer{
-	plane = 4.6
+	plane = 4.6;
+	name = "library transformer"
 	},
 /turf/open/floor/plating/rough,
 /area/vtm/interior/chantry)
@@ -91920,7 +91993,9 @@
 /turf/closed/wall/vampwall/rock,
 /area/vtm/forest/caves)
 "xJF" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "mansion transformer"
+	},
 /turf/open/floor/plating/concrete,
 /area/vtm/interior/giovanni)
 "xJH" = (
@@ -92245,10 +92320,13 @@
 /turf/open/floor/plating/vampcanalplating,
 /area/vtm/sewer)
 "xNz" = (
-/obj/structure/table/wood/fancy/blue,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4;
 	color = "#574d46"
+	},
+/obj/structure/chair/sofa/corp/left{
+	alpha = 225;
+	dir = 4
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior)
@@ -92780,17 +92858,6 @@
 	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/glasswalker)
-"xVl" = (
-/obj/effect/decal/bordur{
-	dir = 1
-	},
-/obj/structure/lamppost/one{
-	dir = 1
-	},
-/obj/effect/landmark/npcability,
-/obj/effect/landmark/npcbeacon,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/pacificheights)
 "xVm" = (
 /obj/structure/sink{
 	dir = 8;
@@ -93062,7 +93129,9 @@
 /turf/open/floor/plating/rough,
 /area/vtm/interior/ghetto)
 "xXM" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "hospital transformer"
+	},
 /turf/open/floor/plating/concrete,
 /area/vtm/clinic)
 "xXR" = (
@@ -93985,7 +94054,9 @@
 /turf/open/floor/plating/vampgrass,
 /area/vtm/hotel)
 "ykN" = (
-/obj/fusebox/transformer,
+/obj/fusebox/transformer{
+	name = "bar transformer"
+	},
 /turf/open/floor/plating/concrete,
 /area/vtm/anarch)
 "ykR" = (
@@ -139929,9 +140000,9 @@ tao
 oyj
 oqM
 aJL
-uDw
-uDw
-uDw
+gjZ
+gjZ
+gjZ
 tow
 tao
 oYt
@@ -141111,11 +141182,11 @@ sSa
 sSa
 sSa
 tYD
-uIZ
-uDw
-vGb
-uDw
-aAY
+qYl
+gjZ
+gjZ
+gjZ
+tow
 oqM
 oyj
 tao
@@ -141313,11 +141384,11 @@ pUu
 pUu
 tYD
 cWc
-qYl
+uIZ
 uDw
 vGb
 uDw
-tow
+aAY
 oyj
 pZu
 pZu
@@ -142511,7 +142582,7 @@ dSH
 iQQ
 dSH
 dSH
-xVl
+qWa
 cWc
 tYD
 pUu
@@ -158784,7 +158855,7 @@ mGZ
 rbE
 jbd
 igx
-jbd
+txt
 jbd
 jbd
 mGZ
@@ -162466,7 +162537,7 @@ jcZ
 jcZ
 jcZ
 jcZ
-jcZ
+gmz
 jcZ
 jcZ
 jcZ
@@ -162668,7 +162739,7 @@ jcZ
 jcZ
 jcZ
 jcZ
-jcZ
+gmz
 jcZ
 jcZ
 jcZ
@@ -162870,7 +162941,7 @@ lKW
 lKW
 lKW
 lKW
-jcZ
+gmz
 jcZ
 jcZ
 jcZ
@@ -163072,7 +163143,7 @@ jcZ
 jcZ
 jcZ
 jcZ
-jcZ
+gmz
 jcZ
 jcZ
 jcZ
@@ -163274,7 +163345,7 @@ jcZ
 jcZ
 jcZ
 jcZ
-jcZ
+gmz
 jcZ
 jcZ
 jcZ
@@ -204646,7 +204717,7 @@ hwU
 bfj
 fHd
 xNI
-iLM
+uhU
 okP
 qwi
 xGi
@@ -204848,7 +204919,7 @@ hwU
 cmX
 sJO
 pjC
-iLM
+llQ
 okP
 kpN
 hwU
@@ -243289,7 +243360,7 @@ mjT
 mjT
 mjT
 mjT
-eDs
+mjT
 mjT
 mjT
 mjT
