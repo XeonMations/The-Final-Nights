@@ -589,7 +589,7 @@
 	if(!proximity)
 		return
 	if (isitem(target))
-		. |= AFTERATTACK_PROCESSED_ITEM
+		. = TRUE
 	if (!check_allowed_items(target))
 		return
 	use_on(target, user, params)
@@ -667,7 +667,7 @@
 	reagent_contents = list(/datum/reagent/consumable/nutriment = 0.5,  /datum/reagent/colorful_reagent/powder/white/crayon = 1.5)
 	dye_color = DYE_WHITE
 
-/obj/item/toy/crayon/white/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+/obj/item/toy/crayon/white/afterattack(atom/interacting_with, mob/living/user, proximity, params)
 	/// Wherein, we draw a chalk body outline vaguely around the dead or "dead" mob
 	if(!ishuman(interacting_with) || user.combat_mode)
 		return ..()
@@ -726,7 +726,6 @@
 	icon_state = "crayonbox"
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/cardboard = SHEET_MATERIAL_AMOUNT)
-	storage_type = /datum/storage/crayon
 
 /obj/item/storage/crayons/PopulateContents()
 	new /obj/item/toy/crayon/red(src)
@@ -846,7 +845,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/toy/crayon/spraycan/use_on(atom/target, mob/user, params)
+/obj/item/toy/crayon/spraycan/use_on(atom/target, mob/user, list/modifiers)
 	if(is_capped)
 		balloon_alert(user, "take the cap off first!")
 		return ITEM_INTERACT_BLOCKING
