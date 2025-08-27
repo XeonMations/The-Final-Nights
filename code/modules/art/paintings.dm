@@ -238,9 +238,6 @@
 		if("finalize")
 			. = TRUE
 			finalize(user)
-		if("patronage")
-			. = TRUE
-			patron(user)
 		if("zoom_in")
 			. = TRUE
 			LAZYINITLIST(zoom_by_observer)
@@ -274,74 +271,6 @@
 	finalized = TRUE
 
 	SStgui.update_uis(src)
-
-#define CURATOR_PERCENTILE_CUT 0.225
-#define SERVICE_PERCENTILE_CUT 0.125
-
-/obj/item/canvas/proc/patron(mob/user)
-	if(!finalized || !isliving(user))
-		return
-	if(!painting_metadata.loaded_from_json)
-		if(tgui_alert(user, "The painting hasn't been archived yet and will be lost at the end of the shift if not placed in an elegible frame. Continue?","Unarchived Painting",list("Yes","No")) != "Yes")
-			return
-	var/mob/living/living_user = user
-	var/obj/item/card/id/id_card = living_user.get_idcard(TRUE)
-	if(!id_card)
-		to_chat(user, span_warning("You don't even have a id and you want to be an art patron?"))
-		return
-	if(!id_card.can_be_used_in_payment(user))
-		to_chat(user, span_warning("No valid non-departmental account found."))
-		return
-	var/datum/bank_account/account = id_card.registered_account
-	if(!account.has_money(painting_metadata.credit_value))
-		to_chat(user, span_warning("You can't afford this."))
-		return
-	var/sniped_amount = painting_metadata.credit_value
-	var/offer_amount = tgui_input_number(user, "How much do you want to offer?", "Patronage Amount", (painting_metadata.credit_value + 1), account.account_balance, painting_metadata.credit_value)
-	if(!offer_amount || QDELETED(user) || QDELETED(src) || !istype(loc, /obj/structure/sign/painting) || !user.can_perform_action(loc, FORBID_TELEKINESIS_REACH))
-		return
-	if(sniped_amount != painting_metadata.credit_value)
-		return
-	if(!account.adjust_money(-offer_amount, "Painting: Patron of [painting_metadata.title]"))
-		to_chat(user, span_warning("Transaction failure. Please try again."))
-		return
-
-	var/datum/bank_account/service_account = SSeconomy.get_dep_account(ACCOUNT_SRV)
-	service_account.adjust_money(offer_amount * SERVICE_PERCENTILE_CUT)
-	///We give the curator(s) a cut (unless they're themselves the patron), as it's their job to curate and promote art among other things.
-	if(SSeconomy.bank_accounts_by_job[/datum/job/curator])
-		var/list/curator_accounts = SSeconomy.bank_accounts_by_job[/datum/job/curator] - account
-		var/curators_length = length(curator_accounts)
-		if(curators_length)
-			var/curator_cut = round(offer_amount * CURATOR_PERCENTILE_CUT / curators_length)
-			if(curator_cut)
-				for(var/datum/bank_account/curator as anything in curator_accounts)
-					curator.adjust_money(curator_cut, "Painting: Patronage cut")
-					curator.bank_card_talk("Cut on patronage received, account now holds [curator.account_balance] cr.")
-
-	if(istype(loc, /obj/structure/sign/painting))
-		var/obj/structure/sign/painting/frame = loc
-		frame.remove_art_element(painting_metadata.credit_value)
-		frame.add_art_element(offer_amount)
-
-	painting_metadata.patron_ckey = user.ckey
-	painting_metadata.patron_name = user.real_name
-	painting_metadata.credit_value = offer_amount
-	last_patron = WEAKREF(user.mind)
-
-	to_chat(user, span_notice("Nanotrasen Trust Foundation thanks you for your contribution. You're now an official patron of this painting."))
-	var/list/possible_frames = SSpersistent_paintings.get_available_frames(offer_amount)
-	if(possible_frames.len <= 1) // Not much room for choices here.
-		return
-	if(tgui_alert(user, "Do you want to change the frame appearance now? You can do so later this shift with Alt-Click as long as you're a patron.","Patronage Frame",list("Yes","No")) != "Yes")
-		return
-	if(!can_select_frame(user))
-		return
-	SStgui.close_uis(src) // Close the examine ui so that the radial menu doesn't end up covered by it and people don't get confused.
-	select_new_frame(user, possible_frames)
-
-#undef CURATOR_PERCENTILE_CUT
-#undef SERVICE_PERCENTILE_CUT
 
 /obj/item/canvas/proc/select_new_frame(mob/user, list/candidates)
 	var/possible_frames = candidates || SSpersistent_paintings.get_available_frames(painting_metadata.credit_value)
@@ -414,7 +343,7 @@
 	else if(istype(painting_implement, /obj/item/pen))
 		var/obj/item/pen/pen = painting_implement
 		return pen.colour
-	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/rag))
+	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
 		return canvas_color
 
 /// Generates medium description
@@ -429,7 +358,7 @@
 		return "Crayon on canvas"
 	else if(istype(painting_implement, /obj/item/pen))
 		return "Ink on canvas"
-	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/rag))
+	else if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
 		return //These are just for cleaning, ignore them
 	else
 		return "Unknown medium"
@@ -441,7 +370,7 @@
 	new_name = reject_bad_name(new_name, allow_numbers = TRUE, ascii_only = FALSE, strict = TRUE, cap_after_symbols = FALSE)
 	if(isnull(new_name))
 		return FALSE
-	if(new_name != painting_metadata.title && user.can_perform_action(src))
+	if(new_name != painting_metadata.title && user.canUseTopic(src))
 		painting_metadata.title = new_name
 	switch(tgui_alert(user, "Do you want to sign it or remain anonymous?", "Sign painting?", list("Yes", "No", "Cancel")))
 		if("Yes")
@@ -727,9 +656,6 @@
 	/// the type of wallframe it 'disassembles' into
 	var/wallframe_type = /obj/item/wallframe/painting
 
-/obj/structure/sign/painting/get_save_vars()
-	return ..() - NAMEOF(src, icon)
-
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
 	SSpersistent_paintings.painting_frames += src
@@ -784,7 +710,7 @@
 		current_canvas = null
 		update_appearance()
 
-/obj/structure/sign/painting/click_alt(mob/user)
+/obj/structure/sign/painting/AltClick(mob/user)
 	if(!current_canvas?.can_select_frame(user))
 		return CLICK_ACTION_BLOCKING
 
