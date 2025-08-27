@@ -11,7 +11,7 @@
 	anchored = FALSE
 	max_integrity = 100
 	material_modifier = 0.5
-	material_flags = MATERIAL_EFFECTS | MATERIAL_AFFECT_STATISTICS
+	material_flags = MATERIAL_AFFECT_STATISTICS
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	/// Beauty component mood modifier
 	var/impressiveness = 15
@@ -23,9 +23,8 @@
 /obj/structure/statue/Initialize(mapload)
 	. = ..()
 	AddElement(art_type, impressiveness)
-	AddElement(/datum/element/beauty, impressiveness * 75)
+	AddComponent(/datum/component/beauty, impressiveness * 75)
 	AddComponent(/datum/component/simple_rotation)
-	AddComponent(/datum/component/marionette)
 
 /obj/structure/statue/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -44,13 +43,14 @@
 	return ..()
 
 
-/obj/structure/statue/atom_deconstruct(disassembled = TRUE)
+/obj/structure/statue/deconstruct(disassembled = TRUE)
 	var/amount_mod = disassembled ? 0 : -2
 	for(var/mat in custom_materials)
 		var/datum/material/custom_material = GET_MATERIAL_REF(mat)
 		var/amount = max(0,round(custom_materials[mat]/SHEET_MATERIAL_AMOUNT) + amount_mod)
 		if(amount > 0)
 			new custom_material.sheet_type(drop_location(), amount)
+	..()
 
 //////////////////////////////////////STATUES/////////////////////////////////////////////////////////////
 
@@ -65,26 +65,13 @@
 	if (prob(25))
 		icon_state = "drake_headless"
 		desc = "Statue of a lesser drake. Time has not been kind."
-	update_appearance(UPDATE_OVERLAYS)
-
-/obj/structure/statue/drake/update_overlays()
-	. = ..()
-	if (icon_state == "drake")
-		. += emissive_appearance(icon, "drake_emissive", src)
+	update_appearance()
 
 /obj/structure/statue/dragonman
 	name = "dragonman statue"
 	desc = "Statue of a draconic humanoid warrior. Its glittering eyes seem to follow you around the room."
 	icon_state = "dragonman"
 	anchored = TRUE
-
-/obj/structure/statue/dragonman/Initialize(mapload)
-	. = ..()
-	update_appearance(UPDATE_OVERLAYS)
-
-/obj/structure/statue/dragonman/update_overlays()
-	. = ..()
-	. += emissive_appearance(icon, "dragonman_emissive", src)
 
 ////////////////////////uranium///////////////////////////////////
 
@@ -281,15 +268,6 @@
 	impressiveness = 100
 	abstract_type = /obj/structure/statue/elder_atmosian //This one is uncarvable
 
-///////////Goliath//////////////////////////////////////////////////
-/obj/structure/statue/goliath
-	desc = "A lifelike statue of a horrifying monster."
-	icon = 'icons/mob/simple/lavaland/lavaland_monsters_wide.dmi'
-	icon_state = "goliath"
-	pixel_x = -12
-	base_pixel_x = -12
-	name = "goliath"
-
 ///////////Other Stuff//////////////////////////////////////////////
 /obj/item/chisel
 	name = "chisel"
@@ -297,10 +275,8 @@
 	icon = 'icons/obj/art/statue.dmi'
 	icon_state = "chisel"
 	inhand_icon_state = "screwdriver_nuke"
-	icon_angle = -90
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -312,10 +288,9 @@
 	attack_verb_simple = list("stab")
 	hitsound = 'sound/items/weapons/bladeslice.ogg'
 	usesound = list('sound/effects/pickaxe/picaxe1.ogg', 'sound/effects/pickaxe/picaxe2.ogg', 'sound/effects/pickaxe/picaxe3.ogg')
-	drop_sound = 'sound/items/handling/tools/screwdriver_drop.ogg'
-	pickup_sound = 'sound/items/handling/tools/screwdriver_pickup.ogg'
+	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
+	pickup_sound = 'sound/items/handling/screwdriver_pickup.ogg'
 	sharpness = SHARP_POINTY
-	tool_behaviour = TOOL_RUSTSCRAPER
 	toolspeed = 3 // You're gonna have a bad time
 
 	/// Block we're currently carving in
@@ -324,13 +299,6 @@
 	var/mob/living/tracked_user
 	/// Currently sculpting
 	var/sculpting = FALSE
-
-/obj/item/chisel/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/eyestab)
-	AddElement(/datum/element/wall_engraver)
-	//deals 200 damage to statues, meaning you can actually kill one in ~250 hits
-	AddElement(/datum/element/bane, target_type = /mob/living/basic/statue, damage_multiplier = 40)
 
 /obj/item/chisel/Destroy()
 	prepared_block = null
@@ -343,11 +311,12 @@ Point with the chisel at the target to choose what to sculpt or hit block to cho
 Hit block again to start sculpting.
 Moving interrupts
 */
-/obj/item/chisel/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+/obj/item/chisel/pre_attack(atom/target, mob/living/user, params)
+	. = ..()
 	if(sculpting)
-		return ITEM_INTERACT_BLOCKING
-	if(istype(interacting_with, /obj/structure/carving_block))
-		var/obj/structure/carving_block/sculpt_block = interacting_with
+		return TRUE
+	if(istype(target, /obj/structure/carving_block))
+		var/obj/structure/carving_block/sculpt_block = target
 
 		if(sculpt_block.completion) // someone already started sculpting this so just finish
 			set_block(sculpt_block, user, silent = TRUE)
@@ -358,20 +327,19 @@ Moving interrupts
 			set_block(sculpt_block, user)
 		else if(sculpt_block == prepared_block)
 			show_generic_statues_prompt(user)
-		return ITEM_INTERACT_SUCCESS
-
+		return TRUE
 	else if(prepared_block) //We're aiming at something next to us with block prepared
-		prepared_block.set_target(interacting_with, user)
-		return ITEM_INTERACT_SUCCESS
-
-	return NONE
+		prepared_block.set_target(target, user)
+		return TRUE
 
 // We aim at something distant.
-/obj/item/chisel/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	if (!sculpting && prepared_block && ismovable(interacting_with) && prepared_block.completion == 0)
-		prepared_block.set_target(interacting_with, user)
-		return ITEM_INTERACT_SUCCESS
-	return ITEM_INTERACT_BLOCKING
+/obj/item/chisel/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+
+	if (!sculpting && prepared_block && ismovable(target) && prepared_block.completion == 0)
+		prepared_block.set_target(target,user)
+
+	return .
 
 /// Starts or continues the sculpting action on the carving block material
 /obj/item/chisel/proc/start_sculpting(mob/living/user)
@@ -453,7 +421,7 @@ Moving interrupts
 	desc = "Ready for sculpting."
 	icon = 'icons/obj/art/statue.dmi'
 	icon_state = "block"
-	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS | MATERIAL_ADD_PREFIX
+	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS | MATERIAL_ADD_PREFIX
 	density = TRUE
 	material_modifier = 0.5 //50% effectiveness of materials
 
@@ -578,7 +546,7 @@ Moving interrupts
 	icon_state = "base"
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	appearance_flags = TILE_BOUND | PIXEL_SCALE | KEEP_TOGETHER | LONG_GLIDE //Added keep together in case targets has weird layering
-	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	/// primary statue overlay
 	var/mutable_appearance/content_ma
 	var/static/list/greyscale_with_value_bump = list(0,0,0, 0,0,0, 0,0,1, 0,0,-0.05)
@@ -590,29 +558,33 @@ Moving interrupts
 /obj/structure/statue/custom/proc/set_visuals(model_appearance)
 	if(content_ma)
 		QDEL_NULL(content_ma)
-	content_ma = copy_appearance_filter_overlays(model_appearance)
+
+	content_ma = new
+	content_ma.appearance = model_appearance
 	content_ma.pixel_x = 0
 	content_ma.pixel_y = 0
 	content_ma.alpha = 255
+
+	var/static/list/plane_whitelist = list(FLOAT_PLANE, GAME_PLANE, FLOOR_PLANE)
+
+	/// Ideally we'd have knowledge what we're removing but i'd have to be done on target appearance retrieval
+	var/list/overlays_to_remove = list()
+	for(var/mutable_appearance/special_overlay as anything in content_ma.overlays)
+		if(special_overlay.plane in plane_whitelist)
+			continue
+		overlays_to_remove += special_overlay
+	content_ma.overlays -= overlays_to_remove
+
+	var/list/underlays_to_remove = list()
+	for(var/mutable_appearance/special_underlay as anything in content_ma.underlays)
+		if(special_underlay.plane in plane_whitelist)
+			continue
+		underlays_to_remove += special_underlay
+	content_ma.underlays -= underlays_to_remove
+
 	content_ma.appearance_flags &= ~KEEP_APART //Don't want this
 	content_ma.filters = filter(type="color",color=greyscale_with_value_bump,space=FILTER_COLOR_HSV)
-	update_content_planes()
 	update_appearance()
-
-/obj/structure/statue/custom/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
-	if(same_z_layer)
-		return ..()
-	update_content_planes()
-	update_appearance()
-
-/obj/structure/statue/custom/proc/update_content_planes()
-	if(!content_ma)
-		return
-	var/turf/our_turf = get_turf(src)
-	// MA's stored in the overlays list are not actually mutable, they've been flattened
-	// This proc unflattens them, updates them, and then reapplies
-	var/list/created = update_appearance_planes(list(content_ma), GET_TURF_PLANE_OFFSET(our_turf))
-	content_ma = created[1]
 
 /obj/structure/statue/custom/update_overlays()
 	. = ..()
