@@ -323,6 +323,7 @@
 #include "code\__HELPERS\mouse_control.dm"
 #include "code\__HELPERS\nameof.dm"
 #include "code\__HELPERS\names.dm"
+#include "code\__HELPERS\piping_colors.lists.dm"
 #include "code\__HELPERS\priority_announce.dm"
 #include "code\__HELPERS\pronouns.dm"
 #include "code\__HELPERS\qdel.dm"
