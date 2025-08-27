@@ -19,12 +19,12 @@
 /datum/component/masquerade_hud/proc/delete_myself(atom/source, mob/player_breacher)
 	SIGNAL_HANDLER
 
-	if(masquerade_breacher == player_breacher.client)
+	if((masquerade_breacher == player_breacher.client) || !masquerade_breacher)
 		qdel(src)
 
 /datum/component/masquerade_hud/Destroy(force)
 	UnregisterSignal(parent, COMSIG_MASQUERADE_HUD_DELETE)
-	masquerade_breacher.images -= new_masquerade_image
+	masquerade_breacher?.images -= new_masquerade_image
 	masquerade_breacher = null
 	new_masquerade_image = null
 	..()
@@ -40,6 +40,6 @@
 		atom_parent.hud_list[HUD_LIST_MASQUERADE] = image(icon = 'icons/obj/closet.dmi', loc = atom_parent, icon_state = "cardboard_special", layer = ABOVE_ALL_MOB_LAYER, pixel_z = 32)
 		atom_parent.hud_list[HUD_LIST_MASQUERADE].appearance_flags |= TILE_BOUND
 	new_masquerade_image = atom_parent.hud_list[HUD_LIST_MASQUERADE]
-	masquerade_breacher.images |= new_masquerade_image
+	masquerade_breacher?.images |= new_masquerade_image
 
 #undef HUD_LIST_MASQUERADE
