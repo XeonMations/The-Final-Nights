@@ -47,6 +47,8 @@
 	breached_players -= player_breacher
 
 /datum/component/violation_observer/proc/on_death(atom/source)
+	SIGNAL_HANDLER
+
 	for(var/player_breacher as anything in breached_players)
 		SEND_SIGNAL(source, COMSIG_MASQUERADE_HUD_DELETE, player_breacher)
 		SSmasquerade.masquerade_reinforce(source, player_breacher)
