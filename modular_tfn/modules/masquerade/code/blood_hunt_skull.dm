@@ -32,6 +32,7 @@
 	var/reason = tgui_input_text(user, "Write the reason of the Blood Hunt:", "Blood Hunt Reason")
 	if(!reason)
 		return
+	reason = sanitize(reason)
 
 	for(var/mob/player_mob in GLOB.kindred_list)
 		if(player_mob.real_name == chosen_name)
