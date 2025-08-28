@@ -635,8 +635,7 @@
 "aip" = (
 /obj/effect/decal/stock{
 	dir = 4;
-	pixel_x = 10;
-	pixel_y = 0
+	pixel_x = 10
 	},
 /turf/open/floor/plating/industrial{
 	icon_state = "canal_concrete"
@@ -718,7 +717,6 @@
 /obj/structure/table/wood,
 /obj/structure/sink{
 	pixel_y = -1;
-	dir = 2;
 	icon_state = "basin"
 	},
 /turf/closed/wall/vampwall/junk/alt/low,
@@ -2566,8 +2564,7 @@
 /area/vtm/fishermanswharf/ghetto)
 "aHV" = (
 /obj/structure/lamppost/sidewalk{
-	pixel_x = 9;
-	density = 0
+	pixel_x = 9
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/financialdistrict/library)
@@ -6980,8 +6977,7 @@
 /area/vtm/interior/endron_facility/restricted)
 "bSL" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 4;
-	density = 0
+	dir = 4
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
@@ -16540,7 +16536,6 @@
 /obj/structure/table,
 /obj/structure/sink{
 	pixel_y = -1;
-	dir = 2;
 	icon_state = "basin"
 	},
 /obj/item/clothing/neck/stethoscope{
@@ -17487,8 +17482,7 @@
 /area/vtm/interior/police/court)
 "eDB" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 1;
-	density = 0
+	dir = 1
 	},
 /turf/open/floor/plating/sidewalk,
 /area/vtm/chinatown)
@@ -25017,8 +25011,7 @@
 	dir = 1
 	},
 /obj/structure/lamppost/one{
-	pixel_y = 16;
-	density = 0
+	pixel_y = 16
 	},
 /turf/open/floor/plating/sidewalk,
 /area/vtm/pacificheights)
@@ -30165,7 +30158,6 @@
 	light_color = "#06402B";
 	name = "green candle";
 	color = "#06402B";
-	pixel_y = 0;
 	pixel_x = 8
 	},
 /obj/item/candle/infinite{
@@ -39781,8 +39773,7 @@
 	pixel_y = 32
 	},
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 1;
-	density = 0
+	dir = 1
 	},
 /obj/effect/landmark/start/citizen,
 /turf/open/floor/plating/sidewalkalt,
@@ -49021,8 +49012,7 @@
 /area/vtm)
 "mzi" = (
 /obj/structure/lamppost/sidewalk{
-	pixel_x = -9;
-	density = 0
+	pixel_x = -9
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/financialdistrict/library)
@@ -51150,8 +51140,7 @@
 /area/vtm/interior)
 "mYL" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 1;
-	density = 0
+	dir = 1
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
@@ -56313,8 +56302,7 @@
 /area/vtm/interior/shop)
 "olI" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 4;
-	density = 0
+	dir = 4
 	},
 /obj/effect/landmark/npcability,
 /obj/effect/landmark/npcbeacon,
@@ -59871,12 +59859,10 @@
 /turf/open/floor/plating/rough/cave,
 /area/vtm/forest/caves)
 "pfw" = (
-/obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/item/camera/detective,
 /obj/machinery/light{
 	pixel_y = 32
 	},
+/obj/machinery/logging_machine,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
 "pfC" = (
@@ -61501,8 +61487,7 @@
 /area/vtm/interior/millennium_tower)
 "pzk" = (
 /obj/structure/lamppost/sidewalk{
-	pixel_x = -9;
-	density = 0
+	pixel_x = -9
 	},
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#802d29";
@@ -65392,8 +65377,7 @@
 /area/vtm/sewer/nosferatu_warren)
 "qye" = (
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 4;
-	density = 0
+	dir = 4
 	},
 /obj/effect/landmark/npcability,
 /obj/effect/landmark/npcbeacon,
@@ -67425,8 +67409,7 @@
 	dir = 1
 	},
 /obj/structure/lamppost/one{
-	pixel_y = 16;
-	density = 0
+	pixel_y = 16
 	},
 /turf/open/floor/plating/sidewalk,
 /area/vtm/financialdistrict)
@@ -70548,8 +70531,7 @@
 /area/vtm/interior/police/upstairs)
 "rOW" = (
 /obj/structure/lamppost/sidewalk{
-	pixel_x = 9;
-	density = 0
+	pixel_x = 9
 	},
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#802d29";
@@ -76526,8 +76508,7 @@
 	dir = 1
 	},
 /obj/structure/lamppost/sidewalk/chinese{
-	dir = 4;
-	density = 0
+	dir = 4
 	},
 /turf/open/floor/plating/sidewalkalt,
 /area/vtm/chinatown)
@@ -81011,7 +80992,6 @@
 	light_color = "#06402B";
 	name = "green candle";
 	color = "#06402B";
-	pixel_y = 0;
 	pixel_x = 8
 	},
 /obj/item/candle/infinite{
@@ -94384,6 +94364,8 @@
 /obj/item/taperecorder{
 	pixel_x = 3
 	},
+/obj/item/camera/detective,
+/obj/item/folder/blue,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/police/upstairs)
 "ycp" = (
