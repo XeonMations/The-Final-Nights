@@ -31,40 +31,31 @@
 	chosen_name = sanitize_name(chosen_name)
 	var/reason = tgui_input_text(user, "Write the reason of the Blood Hunt:", "Blood Hunt Reason")
 	if(!reason)
-		reason = "No reason specified."
+		return
 
 	for(var/mob/player_mob in GLOB.kindred_list)
 		if(player_mob.real_name == chosen_name)
 			if(HAS_TRAIT(player_mob, TRAIT_HUNTED))
 				end_hunt(user, player_mob)
+				break
 			else
 				start_hunt(user, player_mob, reason)
-			return
+				break
 	to_chat(user, span_danger("There is no such name in the city!"))
 
 /obj/item/blood_hunt/proc/start_hunt(mob/user, mob/target, reason)
 	to_chat(user, span_warning("You add [target] to the Hunted list."))
-	SSbloodhunt.hunted |= target
-	SSbloodhunt.update_alert()
-	ADD_TRAIT(target, TRAIT_HUNTED, "bloodhunt")
 	RegisterSignals(target, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_LIVING_GIBBED), TYPE_PROC_REF(/mob, clear_blood_hunt))
 	log_game("[user] started a bloodhunt on [target] for: [reason]")
 	message_admins("[ADMIN_LOOKUPFLW(user)]] started a bloodhunt on [target] for: [reason]")
-	for(var/player_mob in GLOB.kindred_list)
-		to_chat(player_mob, span_bold("The Blood Hunt after <span class='warning'>[target.real_name]</span> has been announced! <br> Reason: [reason]"))
-		SEND_SOUND(player_mob, sound('code/modules/wod13/sounds/announce.ogg'))
+	target.start_blood_hunt(reason)
 
 /obj/item/blood_hunt/proc/end_hunt(mob/user, mob/target)
 	to_chat(user, span_warning("You remove [target] from the Hunted list."))
-	SSbloodhunt.hunted -= target
-	SSbloodhunt.update_alert()
-	REMOVE_TRAIT(target, TRAIT_HUNTED, "bloodhunt")
 	UnregisterSignal(target, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_LIVING_GIBBED))
 	log_game("[user] ended a bloodhunt on [target].")
 	message_admins("[ADMIN_LOOKUPFLW(user)]] ended a bloodhunt on [target].")
-	for(var/player_mob in GLOB.kindred_list)
-		to_chat(player_mob, span_bold("The Blood Hunt after <span class='green'>[target.real_name]</span> is over!"))
-		SEND_SOUND(player_mob, sound('code/modules/wod13/sounds/announce.ogg'))
+	target.clear_blood_hunt()
 
 // This code is for reinforcing a player's masquerade.
 /obj/item/blood_hunt/pre_attack(atom/A, mob/living/user, params)
