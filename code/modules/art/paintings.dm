@@ -688,7 +688,7 @@
 /obj/structure/sign/painting/examine(mob/user)
 	. = ..()
 	if(persistence_id)
-		. += span_notice("Any painting placed here will be archived at the end of the shift.")
+		. += span_notice("Any painting placed here will be archived at the end of the night.")
 	if(current_canvas)
 		current_canvas.ui_interact(user)
 		. += span_notice("Use wirecutters to remove the painting.")
