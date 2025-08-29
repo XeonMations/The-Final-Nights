@@ -12,7 +12,5 @@
 // Use this to fix all masquerade breaches on a player.
 #define COMSIG_PLAYER_MASQUERADE_REINFORCE "player_masquerade_reinforce"
 
-// The actual signal that lowers a player's masquerade by one, because we should never need to do it more than once.
-#define COMSIG_MASQUERADE_BREACH "masquerade_breach"
 // The signal that is sent for when a player deals with a masquerade breach.
 #define COMSIG_MASQUERADE_REINFORCE "masquerade_reinforce"
