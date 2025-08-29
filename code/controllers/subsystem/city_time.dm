@@ -79,6 +79,18 @@ SUBSYSTEM_DEF(city_time)
 				if(role in list("Hound", "Street Janitor", "Bruiser", "Graveyard Keeper"))
 					char_sheet.masquerade_score += 2
 					char_sheet.save_character()
+
+		for(var/dead_mob as anything in GLOB.dead_mob_list)
+			for(var/masquerade_breach as anything in SSmasquerade.masquerade_breachers)
+				if(dead_mob in masquerade_breach)
+					var/list/masquerade_breach_list = masquerade_breach
+					if(islist(masquerade_breach_list[2])) //If its the skull list, then its a long term masq breach. Clear it.
+						for(var/atom/list_object as anything in masquerade_breach_list[2])
+							SSmasquerade.masquerade_reinforce(list_object, masquerade_breach_list[1], MASQUERADE_REASON_PREFERENCES)
+					else
+						var/atom/object = masquerade_breach_list[2]
+						SEND_SIGNAL(object, COMSIG_ALL_MASQUERADE_REINFORCE)
+
 		SSticker.force_ending = 1
 		SSticker.current_state = GAME_STATE_FINISHED
 		GLOB.canon_event = FALSE
