@@ -31,7 +31,6 @@ SUBSYSTEM_DEF(persistence)
 	if(CONFIG_GET(flag/use_antag_rep))
 		LoadAntagReputation()
 	LoadRandomizedRecipes()
-	LoadPaintings()
 	load_panic_bunker() // TFN EDIT ADDITION: from skyrat & bubberstation
 	return ..()
 
