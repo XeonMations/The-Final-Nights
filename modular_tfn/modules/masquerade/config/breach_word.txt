@@ -12,7 +12,6 @@ gangrel
 tremere
 lasombra
 assamite
-baali
 caitiff
 caitiffs
 kiasyd
@@ -93,7 +92,6 @@ dracul
 autarkis
 primogen
 primogens
-stygia
 black spiral dancer
 domitor
 strike force zero
