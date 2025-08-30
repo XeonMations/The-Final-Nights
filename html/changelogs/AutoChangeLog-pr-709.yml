@@ -1,0 +1,5 @@
+author: "bomby, thatguythere03"
+delete-after: True
+changes:
+  - rscadd: "new SFPD outfit variations"
+  - bugfix: "added bodytype sprites for police fatigues"
