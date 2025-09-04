@@ -25,13 +25,13 @@
 
 /datum/discipline_power/daimonion/sense_the_sin/activate(mob/living/carbon/human/target)
 	. = ..()
-	if(target.get_total_social() <= 2)
+	if(target.st_get_stat(STAT_CHARISMA) <= 2)
 		to_chat(owner, span_notice("Victim is not social or influencing."))
-	if(target.get_total_mentality() <= 2)
+	if(target.st_get_stat(STAT_WILLPOWER) <= 2)
 		to_chat(owner, span_notice("Victim lacks appropiate willpower."))
-	if(target.get_total_physique() <= 2)
+	if(target.st_get_stat(STAT_STRENGTH) <= 2)
 		to_chat(owner, span_notice("Victim's body is weak and feeble."))
-	if(target.get_total_dexterity() <= 2)
+	if(target.st_get_stat(STAT_DEXTERITY) <= 2)
 		to_chat(owner, span_notice("Victim's lacks coordination."))
 	if(isgarou(target))
 		to_chat(owner, span_notice("Victim's natural banishment is silver..."))
@@ -169,7 +169,7 @@
 	duration_length = 3 SECONDS
 
 /datum/discipline_power/daimonion/fear_of_the_void_below/pre_activation_checks(mob/living/target)
-	if(SSroll.storyteller_roll(owner.get_total_social(), target.get_total_mentality(), mobs_to_show_output = owner) == !ROLL_SUCCESS)
+	if(SSroll.storyteller_roll(owner.st_get_stat(STAT_CHARISMA), target.st_get_stat(STAT_WILLPOWER), mobs_to_show_output = owner) == !ROLL_SUCCESS)
 		to_chat(owner, span_warning("[target] has too much willpower to induce fear into them!"))
 		return FALSE
 	return TRUE
@@ -251,7 +251,7 @@
 
 /datum/discipline_power/daimonion/psychomachia/activate(mob/living/target)
 	. = ..()
-	if(SSroll.storyteller_roll(owner.get_total_mentality(), 6, mobs_to_show_output = owner) == ROLL_SUCCESS)
+	if(SSroll.storyteller_roll(owner.st_get_stat(STAT_WILLPOWER), 6, mobs_to_show_output = owner) == ROLL_SUCCESS)
 		to_chat(target, span_boldwarning("You hear an infernal laugh!"))
 		new /datum/hallucination/baali(target, TRUE)
 		return TRUE
@@ -291,7 +291,7 @@
 			return
 		for(var/datum/curse/daimonion/C in curses)
 			if(C.name == chosencurse)
-				if(SSroll.storyteller_roll(owner.get_total_social(), target.get_total_mentality(), mobs_to_show_output = owner) == !ROLL_SUCCESS)
+				if(SSroll.storyteller_roll(owner.st_get_stat(STAT_CHARISMA), target.st_get_stat(STAT_WILLPOWER), mobs_to_show_output = owner) == !ROLL_SUCCESS)
 					to_chat(owner, span_warning("Your mind fails to pierce their mind!"))
 					to_chat(target, span_warning("You resists something that tried to pierce your mind."))
 					return

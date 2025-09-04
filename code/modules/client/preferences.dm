@@ -193,12 +193,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	///Ranks of the Disciplines this character knows, corresponding to discipline_types.
 	var/list/discipline_levels = list()
 
-	var/blood = 1
-
-	//Skills
-	var/lockpicking = 0
-	var/athletics = 0
-
 	var/info_known = INFO_KNOWN_UNKNOWN
 
 	var/friend = FALSE
@@ -3643,8 +3637,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if (FAT_BODY_MODEL_NUMBER)
 			character.set_body_model(FAT_BODY_MODEL)
 
-	character.maxHealth = round((initial(character.maxHealth)+(initial(character.maxHealth)/4)*(character.physique + character.additional_physique)))
-	character.health = character.maxHealth
+	character.recalculate_max_health(TRUE)
 
 	if (pref_species.name == "Kuei-Jin")
 		character.yang_chi = yang
@@ -3778,10 +3771,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				lupus.true_real_name = real_name
 				lupus.name = real_name
 
-			lupus.maxHealth = round((lupus::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
-			lupus.health = lupus.maxHealth
-			crinos.maxHealth = round((crinos::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
-			crinos.health = crinos.maxHealth
+			lupus.recalculate_max_health(TRUE)
+			crinos.recalculate_max_health(TRUE)
 		else if(HAS_TRAIT(character,TRAIT_CORAX)/*character.transformator?.corax_form && character.transformator?.corvid_form*/) // if we have the Corax tribe, use the Corax forms instead..
 			var/mob/living/carbon/werewolf/corax/corax_crinos/cor_crinos = character.transformator.corax_form?.resolve()
 			var/mob/living/carbon/werewolf/lupus/corvid/corvid = character.transformator.corvid_form?.resolve()
@@ -3809,10 +3800,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				cor_crinos.name = real_name
 				corvid.name = real_name
 
-			corvid.maxHealth = round((corvid::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
-			corvid.health = corvid.maxHealth
-			cor_crinos.maxHealth = round((cor_crinos::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
-			cor_crinos.health = cor_crinos.maxHealth
+			corvid.recalculate_max_health(TRUE)
+			cor_crinos.recalculate_max_health(TRUE)
 
 	// TFN ADDITION START: loadout
 	if(loadout)

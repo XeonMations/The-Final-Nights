@@ -1400,7 +1400,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			else
 				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
-		var/damage = (rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)/3)*(user.get_total_physique())
+		var/damage = (rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)/3)*(user.st_get_stat(STAT_STRENGTH))
 
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
 
@@ -1440,8 +1440,8 @@ GLOBAL_LIST_EMPTY(selectable_races)
 
 		var/meleemod = 1
 		meleemod = user.dna.species.meleemod
-		if(user.get_total_physique() > 4)
-			meleemod = (meleemod)+((user.get_total_physique() + 1)/5 - 1) //1.2x at Physique 5, increasing by 0.2x per point higher than that.
+		if(user.st_get_stat(STAT_STRENGTH) > 4)
+			meleemod = (meleemod)+((user.st_get_stat(STAT_STRENGTH) + 1)/5 - 1) //1.2x at Physique 5, increasing by 0.2x per point higher than that.
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.1x raw damage
 			target.apply_damage(damage*1.1*meleemod, user.dna.species.attack_type, affecting, armor_block)
@@ -1458,8 +1458,8 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		if((target.stat != DEAD) && (!target.IsKnockdown()))
 			//Compare puncher's physique to the greater between the target's physique (robust enough to tank it) or dexterity (rolls with the punches)
 			var/roll = SSroll.storyteller_roll(
-			dice = target.get_total_physique() + round(min(target.get_total_athletics(), target.get_total_dexterity()) / 2),
-			difficulty = clamp(user.get_total_physique(), 1, 4),
+			dice = target.st_get_stat(STAT_STRENGTH) + round(min(target.st_get_stat(STAT_ATHLETICS), target.st_get_stat(STAT_DEXTERITY)) / 2),
+			difficulty = clamp(user.st_get_stat(STAT_STRENGTH), 1, 4),
 			mobs_to_show_output = user)
 
 			if(roll == ROLL_FAILURE)
