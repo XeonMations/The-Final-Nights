@@ -145,7 +145,7 @@
 				human_transformation.remove_overlay(PROTEAN_LAYER)
 			G.punchdamagelow = G.punchdamagelow-15
 			G.punchdamagehigh = G.punchdamagehigh-15
-			human_transformation.trait_holder.remove_buff(ST_TRAIT_STRENGTH, "glabro_form")
+			human_transformation.physique = human_transformation.physique-2
 			human_transformation.physiology.armor.melee = human_transformation.physiology.armor.melee-15
 			human_transformation.physiology.armor.bullet = human_transformation.physiology.armor.bullet-15
 			var/matrix/M = matrix()
@@ -377,7 +377,7 @@
 	crinos.mind = trans.mind
 	crinos.gender = trans.gender
 	crinos.update_blood_hud()
-	crinos.trait_holder.set_buff(3, ST_TRAIT_STRENGTH, "crinos_form")
+	crinos.physique = crinos.physique+3
 	transfer_damage_and_traits(trans, crinos)
 	crinos.add_movespeed_modifier(/datum/movespeed_modifier/crinosform)
 	crinos.update_sight()

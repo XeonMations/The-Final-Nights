@@ -483,7 +483,7 @@
 				H.remove_overlay(PROTEAN_LAYER)
 			G.punchdamagelow -= 15
 			G.punchdamagehigh -= 15
-			H.trait_holder.remove_buff(ST_TRAIT_STRENGTH, "glabro_form")
+			H.physique = H.physique-2
 			H.physiology.armor.melee -= 15
 			H.physiology.armor.bullet -= 15
 			var/matrix/M = matrix()
@@ -504,7 +504,7 @@
 					H.apply_overlay(PROTEAN_LAYER)
 				G.punchdamagelow += 15
 				G.punchdamagehigh += 15
-				H.trait_holder.set_buff(3, ST_TRAIT_STRENGTH, "glabro_form")
+				H.physique = H.physique+2
 				H.physiology.armor.melee += 15
 				H.physiology.armor.bullet += 15
 				var/matrix/M = matrix()

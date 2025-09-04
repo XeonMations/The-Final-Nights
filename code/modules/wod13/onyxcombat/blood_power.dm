@@ -1,84 +1,47 @@
-/datum/action/cooldown/blood_power
-	name = "Blood Power"
-	desc = "Use vitae to gain supernatural abilities."
-	icon_icon = 'code/modules/wod13/disciplines.dmi'
-	button_icon_state = "bloodpower"
-	button_icon = 'code/modules/wod13/disciplines.dmi'
-	background_icon_state = "discipline"
-	check_flags = AB_CHECK_HANDS_BLOCKED | AB_CHECK_IMMOBILE | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
-	cooldown_time = 10 SECONDS
-	vampiric = TRUE
+/atom/movable/screen/bloodpower
+	name = "Bloodpower"
+	icon = 'code/modules/wod13/disciplines.dmi'
+	icon_state = "bloodpower"
+	layer = HUD_LAYER
+	plane = HUD_PLANE
 
-	var/datum/armor/old_armor
-	var/list/obj/item/bodypart/strengthened_limbs
+/atom/movable/screen/bloodpower/Click()
+	SEND_SOUND(usr, sound('code/modules/wod13/sounds/highlight.ogg', 0, 0, 50))
+	if(ishuman(usr))
+		var/mob/living/carbon/human/BD = usr
+		if(world.time < BD.last_bloodpower_use+110)
+			return
+		if(world.time < BD.last_bloodpower_click+10)
+			return
+		BD.last_bloodpower_click = world.time
+		var/plus = 0
+		if(HAS_TRAIT(BD, TRAIT_HUNGRY))
+			plus = 1
+		if(BD.bloodpool >= 3+plus)
+			playsound(usr, 'code/modules/wod13/sounds/bloodhealing.ogg', 50, FALSE)
+			BD.last_bloodpower_use = world.time
+			BD.bloodpool = max(0, BD.bloodpool-(3+plus))
+			icon_state = "[initial(icon_state)]-on"
+			to_chat(BD, "<span class='notice'>You use blood to become more powerful.</span>")
+			BD.dna.species.punchdamagehigh = BD.dna.species.punchdamagehigh+5
+			BD.physiology.armor.melee = BD.physiology.armor.melee+15
+			BD.physiology.armor.bullet = BD.physiology.armor.bullet+15
+			if(!HAS_TRAIT(BD, TRAIT_IGNORESLOWDOWN))
+				ADD_TRAIT(BD, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
+			BD.update_blood_hud()
+			addtimer(CALLBACK(src, PROC_REF(end_bloodpower)), 100+BD.discipline_time_plus+BD.bloodpower_time_plus)
+		else
+			SEND_SOUND(BD, sound('code/modules/wod13/sounds/need_blood.ogg', 0, 0, 75))
+			to_chat(BD, "<span class='warning'>You don't have enough <b>BLOOD</b> to become more powerful.</span>")
 
-/datum/action/cooldown/blood_power/IsAvailable(feedback)
-	. = ..()
-
-	if (HAS_TRAIT(owner, TRAIT_TORPOR))
-		if (feedback)
-			owner.balloon_alert(owner, "in Torpor!")
-		return FALSE
-
-	if (!ishuman(owner))
-		if (feedback)
-			owner.balloon_alert(owner, "not human!")
-		return FALSE
-
-	var/mob/living/carbon/human/human_owner = owner
-	var/cost = HAS_TRAIT(human_owner, TRAIT_HUNGRY) ? 3 : 2
-	if (human_owner.bloodpool < cost)
-		if (feedback)
-			SEND_SOUND(human_owner, sound('modular_darkpack/modules/deprecated/sounds/need_blood.ogg', 0, 0, 75))
-			owner.balloon_alert(owner, "not enough BLOOD!")
-		return FALSE
-
-/datum/action/cooldown/blood_power/Activate(mob/living/target)
-	cooldown_time = 10 SECONDS + target.discipline_time_plus + target.bloodpower_time_plus
-
-	. = ..()
-
-	var/mob/living/carbon/human/human_owner = owner
-
-	playsound(human_owner, 'modular_darkpack/modules/deprecated/sounds/bloodhealing.ogg', 50, FALSE)
-	to_chat(human_owner, span_notice("You use blood to become more powerful."))
-
-	for (var/obj/item/bodypart/limb in human_owner.bodyparts)
-		limb.unarmed_damage_low += 5
-		limb.unarmed_damage_high += 5
-		LAZYADD(strengthened_limbs, limb)
-
-	old_armor = human_owner.physiology.armor
-	human_owner.physiology.armor = old_armor.generate_new_with_modifiers(list(MELEE = 15, BULLET = 15))
-
-	human_owner.trait_holder.set_buff(2, ST_TRAIT_STRENGTH, "blood_power")
-	human_owner.trait_holder.set_buff(2, ST_TRAIT_DEXTERITY, "blood_power")
-	human_owner.trait_holder.set_buff(2, ST_TRAIT_STAMINA, "blood_power")
-
-	var/cost = HAS_TRAIT(owner, TRAIT_HUNGRY) ? 3 : 2
-	human_owner.bloodpool = max(0, human_owner.bloodpool - cost)
-	human_owner.update_blood_hud()
-
-	ADD_TRAIT(human_owner, TRAIT_IGNORESLOWDOWN, MAGIC_TRAIT)
-
-	addtimer(CALLBACK(src, PROC_REF(end_bloodpower)), cooldown_time)
-
-/datum/action/cooldown/blood_power/proc/end_bloodpower()
-	if (!owner || !ishuman(owner))
-		return
-
-	var/mob/living/carbon/human/human_owner = owner
-	to_chat(human_owner, span_warning("You feel like your <b>BLOOD</b> power slowly decreases."))
-
-	for (var/obj/item/bodypart/limb in strengthened_limbs)
-		limb.unarmed_damage_low -= 5
-		limb.unarmed_damage_high -= 5
-	strengthened_limbs = null
-
-	human_owner.physiology.armor = old_armor
-
-	human_owner.trait_holder.remove_buff(ST_TRAIT_STRENGTH, "blood_power")
-	human_owner.trait_holder.remove_buff(ST_TRAIT_DEXTERITY, "blood_power")
-	human_owner.trait_holder.remove_buff(ST_TRAIT_STAMINA, "blood_power")
-
-	REMOVE_TRAIT(human_owner, TRAIT_IGNORESLOWDOWN, MAGIC_TRAIT)
+/atom/movable/screen/bloodpower/proc/end_bloodpower()
+	if(ishuman(usr))
+		var/mob/living/carbon/human/BD = usr
+		to_chat(BD, "<span class='warning'>You feel like your <b>BLOOD</b>-powers slowly decrease.</span>")
+		if(BD.dna.species)
+			BD.dna.species.punchdamagehigh = BD.dna.species.punchdamagehigh-5
+			BD.physiology.armor.melee = BD.physiology.armor.melee-15
+			BD.physiology.armor.bullet = BD.physiology.armor.bullet-15
+			if(HAS_TRAIT(BD, TRAIT_IGNORESLOWDOWN))
+				REMOVE_TRAIT(BD, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
+	icon_state = initial(icon_state)
