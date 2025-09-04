@@ -27,7 +27,7 @@
 
 	var/frenzy_chance_boost = 10
 
-	COOLDOWN_DECLARE(bloodpool_restore)
+	var/last_bloodpool_restore = 0
 
 	var/list/knowscontacts = list()
 
@@ -53,12 +53,7 @@
 	var/harm_focus = SOUTH
 	var/masquerade_votes = 0
 	var/list/voted_for = list()
-	var/headshot_link = null
 	var/flavor_text
-	var/flavor_text_nsfw
-	var/character_notes
-	var/ooc_notes
-	var/show_flavor_text_when_masked
 	var/true_real_name
 	var/died_already = FALSE
 
