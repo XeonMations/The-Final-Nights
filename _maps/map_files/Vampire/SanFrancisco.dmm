@@ -432,13 +432,6 @@
 /obj/effect/decal/graffiti,
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/ghetto)
-"afA" = (
-/obj/effect/decal/bordur{
-	dir = 1
-	},
-/obj/effect/landmark/npcactivity,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/financialdistrict/library)
 "afB" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/bowl/mushroom_bowl{
@@ -6952,13 +6945,6 @@
 	color = "#EADDCA"
 	},
 /area/vtm/interior/shop)
-"bSr" = (
-/obj/effect/decal/bordur{
-	dir = 4
-	},
-/obj/effect/landmark/npcactivity,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/pacificheights/industrial)
 "bSv" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
@@ -7320,14 +7306,6 @@
 /obj/item/bedsheet/dorms,
 /turf/open/floor/plating/parquetry/old,
 /area/vtm)
-"bXY" = (
-/obj/effect/decal/bordur/corner{
-	dir = 8
-	},
-/obj/effect/landmark/npcability,
-/obj/effect/landmark/npcbeacon,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/ghetto)
 "bXZ" = (
 /obj/structure/stairs/south,
 /turf/open/floor/plating/sidewalk,
@@ -7461,14 +7439,6 @@
 	},
 /turf/open/floor/plating/parquetry/old,
 /area/vtm/interior/chantry)
-"bZu" = (
-/obj/structure/lattice/grate{
-	dir = 4
-	},
-/obj/effect/landmark/npcability,
-/obj/effect/landmark/npcbeacon,
-/turf/open/openspace,
-/area/vtm/financialdistrict/library)
 "bZx" = (
 /obj/effect/decal/pallet,
 /obj/structure/closet/crate/large,
@@ -9000,7 +8970,6 @@
 	pixel_x = 16;
 	pixel_y = 40
 	},
-/obj/effect/landmark/npcability,
 /obj/effect/landmark/npcbeacon,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/financialdistrict)
@@ -12502,6 +12471,8 @@
 /area/vtm/interior/bianchiBank)
 "dle" = (
 /mob/living/carbon/human/npc/bandit,
+/obj/effect/landmark/npcability,
+/obj/effect/landmark/npcbeacon,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/ghetto)
 "dln" = (
@@ -15340,14 +15311,6 @@
 	},
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm/interior)
-"dYt" = (
-/obj/effect/decal/bordur/corner{
-	dir = 1
-	},
-/obj/effect/landmark/npcability,
-/obj/effect/landmark/npcbeacon,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/ghetto)
 "dYC" = (
 /obj/effect/decal/rugs,
 /obj/machinery/light{
@@ -29589,6 +29552,11 @@
 	},
 /turf/open/floor/plating/vampwood,
 /area/vtm/fishermanswharf/lower)
+"hHd" = (
+/obj/effect/decal/bordur,
+/obj/effect/landmark/npcbeacon,
+/turf/open/floor/plating/sidewalk,
+/area/vtm/pacificheights/industrial)
 "hHe" = (
 /obj/structure/table,
 /obj/item/ammo_box/magazine/vamp9mp5,
@@ -29939,6 +29907,14 @@
 /obj/machinery/photocopier,
 /turf/open/floor/plating/parquetry,
 /area/vtm/clinic)
+"hMv" = (
+/obj/effect/decal/bordur{
+	dir = 8
+	},
+/obj/effect/landmark/npcbeacon,
+/obj/effect/landmark/npcability,
+/turf/open/floor/plating/sidewalk,
+/area/vtm/ghetto)
 "hMA" = (
 /turf/open/floor/plating/concrete{
 	color = "#bfbfbf"
@@ -32140,14 +32116,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/vtm/interior)
-"inq" = (
-/obj/effect/decal/bordur{
-	dir = 10
-	},
-/obj/effect/landmark/npcability,
-/obj/effect/landmark/npcbeacon,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/pacificheights)
 "inv" = (
 /obj/effect/decal/wallpaper/stone/low{
 	pixel_y = 24
@@ -37802,13 +37770,6 @@
 	},
 /turf/open/floor/carpet,
 /area/vtm/interior/chantry)
-"jJU" = (
-/obj/effect/decal/bordur{
-	dir = 1
-	},
-/obj/effect/landmark/npcactivity,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/pacificheights)
 "jKa" = (
 /obj/machinery/photocopier,
 /turf/open/floor/plating/parquetry/old,
@@ -43543,7 +43504,6 @@
 /obj/effect/decal/bordur/corner{
 	dir = 1
 	},
-/obj/effect/landmark/npcability,
 /obj/effect/landmark/npcbeacon,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/pacificheights/industrial)
@@ -45848,7 +45808,6 @@
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/secure_closet/freezer,
@@ -47332,6 +47291,13 @@
 	},
 /turf/open/floor/plating/vampdirt,
 /area/vtm/sewer)
+"lXZ" = (
+/obj/effect/decal/bordur{
+	dir = 4
+	},
+/obj/effect/landmark/npcbeacon,
+/turf/open/floor/plating/sidewalk,
+/area/vtm/pacificheights/industrial)
 "lYh" = (
 /obj/structure/curtain/bounty{
 	pixel_y = 6
@@ -49133,13 +49099,6 @@
 	},
 /turf/open/floor/plating/circled,
 /area/vtm/interior)
-"mtM" = (
-/obj/effect/decal/bordur{
-	dir = 1
-	},
-/obj/effect/landmark/npcactivity,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/ghetto)
 "mtU" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
@@ -51825,7 +51784,6 @@
 /turf/open/floor/plating/parquetry,
 /area/vtm/interior/shop)
 "mZz" = (
-/obj/effect/landmark/npcability,
 /obj/effect/landmark/npcbeacon,
 /obj/effect/decal/litter,
 /turf/open/floor/plating/sidewalk,
@@ -53800,11 +53758,6 @@
 /obj/effect/decal/rugs,
 /turf/open/floor/plating/concrete,
 /area/vtm/graveyard/interior)
-"nAu" = (
-/obj/effect/decal/trash,
-/obj/effect/landmark/npcactivity,
-/turf/open/floor/plating/sidewalk/poor,
-/area/vtm/ghetto)
 "nAv" = (
 /turf/open/floor/plating/vampwood,
 /area/vtm/interior/shop)
@@ -58705,11 +58658,6 @@
 /obj/structure/roadsign/speedlimit40,
 /turf/open/floor/plating/sidewalk/old,
 /area/vtm/financialdistrict)
-"oGN" = (
-/obj/effect/decal/bordur,
-/obj/effect/landmark/npcactivity,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/pacificheights)
 "oGQ" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -59818,7 +59766,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/railing{
@@ -69685,6 +69632,8 @@
 	dir = 8
 	},
 /mob/living/carbon/human/npc/bandit,
+/obj/effect/landmark/npcability,
+/obj/effect/landmark/npcbeacon,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/ghetto)
 "rsy" = (
@@ -72078,7 +72027,6 @@
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/crate/freezer/fridge,
@@ -77733,7 +77681,6 @@
 /obj/item/reagent_containers/food/condiment/sugar,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/crate/freezer/fridge,
@@ -78755,8 +78702,6 @@
 /obj/structure/lamppost/one{
 	dir = 1
 	},
-/obj/effect/landmark/npcability,
-/obj/effect/landmark/npcbeacon,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/ghetto)
 "tKp" = (
@@ -82883,14 +82828,6 @@
 /obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/interior/strip)
-"uPq" = (
-/obj/effect/decal/bordur{
-	dir = 9
-	},
-/obj/effect/landmark/npcability,
-/obj/effect/landmark/npcbeacon,
-/turf/open/floor/plating/sidewalk,
-/area/vtm/pacificheights)
 "uPv" = (
 /obj/structure/chair/greyscale{
 	dir = 8
@@ -84078,13 +84015,6 @@
 "veZ" = (
 /turf/open/floor/plating/asphalt,
 /area/vtm/interior)
-"vfn" = (
-/obj/effect/decal/bordur{
-	dir = 1
-	},
-/obj/effect/landmark/npcability,
-/turf/open/floor/plating/sidewalk/old,
-/area/vtm/financialdistrict)
 "vfE" = (
 /obj/structure/stairs/south{
 	color = "#635d52";
@@ -85389,6 +85319,11 @@
 /obj/structure/fluff/hedge,
 /turf/open/floor/plating/vampplating/mono,
 /area/vtm/clinic)
+"vAz" = (
+/obj/effect/decal/bordur,
+/obj/effect/landmark/npcbeacon,
+/turf/open/floor/plating/sidewalk,
+/area/vtm/financialdistrict/library)
 "vAM" = (
 /turf/closed/wall/vampwall/city,
 /area/vtm/clinic/haven)
@@ -87536,7 +87471,6 @@
 	dir = 1
 	},
 /obj/structure/roadsign/crosswalk,
-/obj/effect/landmark/npcactivity,
 /turf/open/floor/plating/sidewalk,
 /area/vtm/ghetto)
 "wee" = (
@@ -88258,6 +88192,12 @@
 	},
 /turf/open/floor/plating/shit,
 /area/vtm/sewer)
+"wnp" = (
+/obj/effect/decal/litter,
+/obj/effect/landmark/npcbeacon,
+/obj/effect/landmark/npcability,
+/turf/open/floor/plating/sidewalk,
+/area/vtm/ghetto)
 "wnw" = (
 /obj/structure/railing{
 	dir = 8;
@@ -90170,6 +90110,14 @@
 	},
 /turf/open/water,
 /area/vtm/interior/bianchiBank)
+"wMm" = (
+/obj/effect/decal/bordur{
+	dir = 1
+	},
+/obj/effect/landmark/npcbeacon,
+/obj/effect/landmark/npcability,
+/turf/open/floor/plating/sidewalk,
+/area/vtm/ghetto)
 "wMo" = (
 /mob/living/carbon/human/npc/hobo,
 /turf/open/floor/plating/rough,
@@ -139409,7 +139357,7 @@ msi
 iUX
 hPa
 luG
-tYD
+lLR
 qYl
 dSH
 dSH
@@ -139611,7 +139559,7 @@ mAx
 oWx
 iUX
 hGm
-cWc
+pUu
 qYl
 dSH
 dSH
@@ -139813,7 +139761,7 @@ kda
 jeD
 iUX
 auw
-tYD
+lLR
 qYl
 dSH
 dSH
@@ -146681,7 +146629,7 @@ uBm
 fax
 gwG
 gpu
-tYD
+lLR
 qYl
 dSH
 dSH
@@ -146883,7 +146831,7 @@ uBm
 ryy
 dBS
 gpu
-cWc
+pUu
 qYl
 dSH
 dSH
@@ -147085,7 +147033,7 @@ vnc
 qNt
 gpu
 gpu
-tYD
+lLR
 oDJ
 dSH
 dSH
@@ -147342,7 +147290,7 @@ uDw
 vGb
 uDw
 tow
-oyj
+tML
 oYt
 hjZ
 wRn
@@ -147544,7 +147492,7 @@ uDw
 vGb
 uDw
 tow
-oqM
+tao
 oYt
 lnT
 bWr
@@ -147746,7 +147694,7 @@ uDw
 vGb
 uDw
 tow
-oyj
+tML
 oYt
 foR
 hVU
@@ -151958,9 +151906,9 @@ pUu
 lLR
 pUu
 pUu
-tYD
-cWc
-inq
+lLR
+pUu
+vVs
 psY
 dSH
 dSH
@@ -151972,7 +151920,7 @@ wcI
 dSH
 dSH
 vlH
-uPq
+gsw
 cWc
 tYD
 pUu
@@ -151988,14 +151936,14 @@ iKe
 tao
 tao
 mZz
-oqM
-aJL
+tao
+hHd
 jJq
 jJq
 jJq
 lds
-bSr
-nmd
+tlM
+lXZ
 vau
 tML
 mmB
@@ -152161,10 +152109,10 @@ oQL
 oQL
 oQL
 oQL
-tYD
 pUu
+lLR
 vVs
-xqp
+lbR
 lbR
 lbR
 lbR
@@ -152174,8 +152122,8 @@ lbR
 lbR
 lbR
 gsw
-pUu
 tYD
+pUu
 inG
 inG
 kpf
@@ -152366,12 +152314,12 @@ oQL
 ryh
 pUu
 pUu
-pUu
+lLR
 gzb
 pUu
-tYD
-cWc
-tYD
+lLR
+pUu
+lLR
 pUu
 lLR
 pUu
@@ -157590,13 +157538,13 @@ mjT
 mjT
 mjT
 pga
-oGN
+qYl
 dSH
 dSH
 iQQ
 dSH
 dSH
-jJU
+rQf
 vqk
 mjT
 mjT
@@ -157792,13 +157740,13 @@ mjT
 mjT
 mjT
 mcn
-aec
+mDD
 jcZ
 jcZ
 xVP
 jcZ
 jcZ
-brT
+qtm
 lCY
 mjT
 mjT
@@ -164013,9 +163961,9 @@ vtC
 kMI
 vtC
 vtC
-tvt
-dCc
-tvt
+kMI
+vtC
+kMI
 vtC
 kMI
 vtC
@@ -164036,9 +163984,9 @@ mNz
 rWU
 mNz
 mNz
-fpd
-bYY
-fpd
+rWU
+mNz
+rWU
 mNz
 mNz
 mNz
@@ -164073,9 +164021,9 @@ uux
 uux
 ptV
 uux
-uVC
-mhu
-uVC
+ptV
+uux
+ptV
 uux
 uux
 ptV
@@ -164094,9 +164042,9 @@ uux
 ptV
 uux
 uux
-uVC
-gtD
-djk
+ptV
+fzy
+jOf
 fzy
 fzy
 jOf
@@ -165372,7 +165320,7 @@ mOb
 wQF
 pJF
 dJr
-bXY
+gle
 rsw
 lCn
 nzR
@@ -165574,9 +165522,9 @@ rbQ
 nDM
 nDM
 nDM
-mtM
-vZu
-giq
+fdl
+wkP
+kCn
 ape
 hFS
 pGs
@@ -165584,9 +165532,9 @@ keR
 rlp
 keR
 keR
-xIi
-pIV
-xIi
+rlp
+keR
+rlp
 keR
 keR
 rlp
@@ -165614,19 +165562,19 @@ ape
 hFS
 pGs
 keR
-xIi
-pIV
-tvt
-vtC
-vtC
+rlp
+keR
 kMI
 vtC
 vtC
 kMI
 vtC
-tvt
-dCc
-tvt
+vtC
+kMI
+vtC
+kMI
+vtC
+kMI
 vtC
 aec
 luB
@@ -165652,9 +165600,9 @@ luB
 xmu
 lEF
 ehs
-qeX
-iIy
-qeX
+kvH
+lEF
+kvH
 lEF
 lEF
 lEF
@@ -165694,9 +165642,9 @@ iEh
 xSz
 eMw
 hjP
-bZu
-afA
-yhJ
+eXE
+hAN
+xSz
 iEh
 lxz
 yhJ
@@ -165707,12 +165655,12 @@ syl
 vVY
 iEh
 iEh
-eMw
+vAz
 hjP
 hjP
-gKT
-aNO
-gLp
+vVY
+eWO
+mLG
 eWO
 aFw
 ovZ
@@ -166180,8 +166128,8 @@ eIo
 pJF
 afs
 pJF
-wuM
-xEh
+jdO
+vmo
 vPz
 oDT
 qVw
@@ -166584,8 +166532,8 @@ eIo
 pJF
 afs
 pJF
-wuM
-xEh
+jdO
+vmo
 vPz
 vSF
 vSF
@@ -166989,7 +166937,7 @@ pJF
 afs
 pJF
 jdO
-xEh
+vmo
 vPz
 lLb
 hkv
@@ -167190,7 +167138,7 @@ eIo
 pJF
 afs
 pJF
-wuM
+jdO
 xEh
 vPz
 onx
@@ -167393,7 +167341,7 @@ pJF
 afs
 pJF
 jdO
-xEh
+vmo
 vPz
 xXX
 xYL
@@ -167791,13 +167739,13 @@ ycd
 ycd
 ycd
 ycd
-qMh
+nUY
 isX
 pJF
 afs
 pJF
 tKi
-xEh
+vZu
 bMY
 hub
 hub
@@ -167855,7 +167803,7 @@ xQB
 xQB
 vZA
 sWU
-dCc
+vtC
 mDD
 jcZ
 uTa
@@ -167993,14 +167941,14 @@ ycd
 qqZ
 agC
 dHf
-iCi
-rbQ
+agC
+eIo
 pJF
 afs
 pJF
 wec
+wkP
 vZu
-xEh
 keR
 rlp
 keR
@@ -168057,7 +168005,7 @@ xQB
 xQB
 gbf
 vWT
-tvt
+kMI
 eww
 jcZ
 uTa
@@ -168195,13 +168143,13 @@ ycd
 cdF
 agC
 kfo
-qMh
+nUY
 eIo
 pJF
 afs
 pJF
-dYt
-reJ
+xRl
+qIU
 reJ
 pKA
 kzZ
@@ -168353,7 +168301,7 @@ jAH
 avn
 rwP
 joX
-gLp
+mLG
 cyJ
 adJ
 sjP
@@ -168402,8 +168350,8 @@ eIo
 pJF
 afs
 pJF
-wEc
 pJF
+wEc
 pJF
 kQM
 kQM
@@ -168555,7 +168503,7 @@ mdl
 mdl
 tAZ
 joX
-aNO
+eWO
 cyJ
 adJ
 sjP
@@ -168604,8 +168552,8 @@ eIo
 pJF
 afs
 pJF
+pJF
 wEc
-jee
 jee
 vMq
 vMq
@@ -168757,7 +168705,7 @@ qgQ
 jeW
 pIa
 joX
-gLp
+mLG
 cyJ
 adJ
 sjP
@@ -168806,8 +168754,8 @@ eIo
 pJF
 afs
 pJF
-wEc
 pJF
+wEc
 pJF
 kQM
 kQM
@@ -169009,7 +168957,7 @@ pJF
 afs
 pJF
 gle
-jgM
+hMv
 jgM
 wxq
 pmF
@@ -169210,11 +169158,11 @@ eIo
 pJF
 afs
 pJF
-wuM
-xEh
-sEW
-rlp
+wMm
+wkP
+wnp
 keR
+rlp
 keR
 rlp
 keR
@@ -169678,7 +169626,7 @@ aXs
 jcZ
 uTa
 jcZ
-vfn
+gPC
 iIy
 uNH
 fXQ
@@ -170619,12 +170567,12 @@ fAa
 fAa
 fAa
 mge
-qMh
+nUY
 jhy
 pJF
 afs
 pJF
-fdl
+wuM
 ciH
 wmq
 wcF
@@ -170821,12 +170769,12 @@ gsY
 hsS
 fAa
 qAt
-nAu
+jpZ
 eIo
 pJF
 afs
 pJF
-mtM
+jdO
 ciH
 kxb
 wcF
@@ -171023,12 +170971,12 @@ unO
 hsS
 fAa
 fAa
-qMh
+nUY
 jTJ
 pJF
 afs
 pJF
-fdl
+wuM
 ciH
 oPn
 wcF
@@ -171383,7 +171331,7 @@ fXH
 fXH
 lei
 joX
-gLp
+mLG
 pdi
 adJ
 sjP
@@ -171585,7 +171533,7 @@ fXH
 fXH
 sza
 bEV
-aNO
+eWO
 cyJ
 adJ
 sjP
@@ -171787,7 +171735,7 @@ fXH
 fXH
 ooK
 bEV
-gLp
+mLG
 pdi
 adJ
 sjP
@@ -171866,7 +171814,7 @@ kQM
 vTs
 kQM
 pGs
-xIi
+rlp
 oAD
 oAD
 oAD
@@ -172062,13 +172010,13 @@ cGH
 cGH
 xUM
 oPE
-xIi
+rlp
 rnX
 kQM
 vTs
 kQM
 pGs
-pIV
+keR
 tIJ
 xGA
 qnG
@@ -172264,13 +172212,13 @@ cGH
 cGH
 hCX
 oPE
-pIV
+keR
 rnX
 kQM
 vTs
 kQM
 pGs
-xIi
+keR
 nnG
 vdj
 qnG
@@ -172466,13 +172414,13 @@ vdd
 cGH
 cGH
 oPE
-xIi
+rlp
 rnX
 kQM
 vTs
 kQM
 pGs
-keR
+rlp
 tIJ
 qnG
 qnG
@@ -173264,9 +173212,9 @@ keR
 rlp
 keR
 keR
-xIi
-pIV
-xIi
+rlp
+keR
+rlp
 keR
 keR
 rlp
@@ -173296,7 +173244,7 @@ vtC
 kMI
 vtC
 tvt
-dCc
+vtC
 tvt
 vtC
 kMI
@@ -173330,9 +173278,9 @@ lEF
 kvH
 lEF
 lEF
-qeX
-iIy
-qeX
+kvH
+lEF
+kvH
 lEF
 kvH
 lEF
@@ -173372,9 +173320,9 @@ iEh
 xSz
 iEh
 iEh
-yhJ
-lMh
-yhJ
+xSz
+iEh
+xSz
 iEh
 xSz
 iEh
@@ -173385,22 +173333,22 @@ iEh
 xSz
 iEh
 iEh
-yhJ
-lMh
-gLp
+xSz
+iEh
+mLG
 eWO
 eWO
 mLG
 eWO
-eWO
+mLG
 eWO
 mLG
 eWO
-eWO
+mLG
 eWO
 uYM
 eWO
-eWO
+mLG
 eWO
 gLp
 aNO
@@ -174476,9 +174424,9 @@ kQM
 tsR
 keR
 keR
-xIi
-pIV
-xIi
+rlp
+keR
+rlp
 keR
 keR
 rlp
@@ -174508,7 +174456,7 @@ ojT
 vtC
 vtC
 tvt
-dCc
+vtC
 tvt
 vtC
 vtC
@@ -174542,9 +174490,9 @@ jcZ
 hpH
 rhP
 vtC
-tvt
-dCc
-tvt
+kMI
+vtC
+kMI
 vtC
 drv
 kMI
@@ -174597,19 +174545,19 @@ iEh
 iEh
 xSz
 iEh
-yhJ
-lMh
-gLp
-eWO
-eWO
+xSz
+iEh
+mLG
 eWO
 mLG
 eWO
-eWO
+mLG
 eWO
 mLG
 eWO
+mLG
 eWO
+mLG
 eWO
 mLG
 xAV
@@ -174936,9 +174884,9 @@ vtC
 vtC
 kMI
 vtC
-tvt
-dCc
-tvt
+kMI
+vtC
+kMI
 vtC
 kMI
 vtC
