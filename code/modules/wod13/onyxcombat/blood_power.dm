@@ -4,20 +4,8 @@
 	icon_state = "bloodpower"
 	layer = HUD_LAYER
 	plane = HUD_PLANE
-	var/datum/action/cooldown/blood_power/bloodpower
-
-/atom/movable/screen/bloodpower/Initialize(mapload, datum/hud/hud_owner)
-	. = ..()
-	bloodpower = new(hud_owner.mymob)
 
 /atom/movable/screen/bloodpower/Click()
-	bloodpower.Trigger()
-
-/atom/movable/screen/bloodpower/Destroy()
-	qdel(bloodpower)
-	..()
-
-/datum/action/cooldown/blood_power/Trigger()
 	SEND_SOUND(usr, sound('code/modules/wod13/sounds/highlight.ogg', 0, 0, 50))
 	if(ishuman(usr))
 		var/mob/living/carbon/human/BD = usr
@@ -33,6 +21,7 @@
 			playsound(usr, 'code/modules/wod13/sounds/bloodhealing.ogg', 50, FALSE)
 			BD.last_bloodpower_use = world.time
 			BD.bloodpool = max(0, BD.bloodpool-(3+plus))
+			icon_state = "[initial(icon_state)]-on"
 			to_chat(BD, "<span class='notice'>You use blood to become more powerful.</span>")
 			BD.dna.species.punchdamagehigh = BD.dna.species.punchdamagehigh+5
 			BD.physiology.armor.melee = BD.physiology.armor.melee+15
@@ -45,7 +34,7 @@
 			SEND_SOUND(BD, sound('code/modules/wod13/sounds/need_blood.ogg', 0, 0, 75))
 			to_chat(BD, "<span class='warning'>You don't have enough <b>BLOOD</b> to become more powerful.</span>")
 
-/datum/action/cooldown/blood_power/proc/end_bloodpower()
+/atom/movable/screen/bloodpower/proc/end_bloodpower()
 	if(ishuman(usr))
 		var/mob/living/carbon/human/BD = usr
 		to_chat(BD, "<span class='warning'>You feel like your <b>BLOOD</b>-powers slowly decrease.</span>")
@@ -55,3 +44,4 @@
 			BD.physiology.armor.bullet = BD.physiology.armor.bullet-15
 			if(HAS_TRAIT(BD, TRAIT_IGNORESLOWDOWN))
 				REMOVE_TRAIT(BD, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
+	icon_state = initial(icon_state)

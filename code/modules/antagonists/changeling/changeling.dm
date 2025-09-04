@@ -300,6 +300,11 @@
 	prof.undershirt = H.undershirt
 	prof.socks = H.socks
 	prof.age = H.age
+	prof.physique = H.physique
+	prof.dexterity = H.dexterity
+	prof.social = H.social
+	prof.mentality = H.mentality
+	prof.athletics = H.athletics
 	prof.base_body_mod = H.base_body_mod
 	prof.headshot_link = H.headshot_link
 	prof.flavor_text = H.flavor_text
@@ -570,6 +575,11 @@
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks
 	newprofile.age = age
+	newprofile.physique = physique
+	newprofile.dexterity = dexterity
+	newprofile.social = social
+	newprofile.mentality = mentality
+	newprofile.athletics = athletics
 	newprofile.base_body_mod = base_body_mod
 	newprofile.headshot_link = headshot_link
 	newprofile.flavor_text = flavor_text

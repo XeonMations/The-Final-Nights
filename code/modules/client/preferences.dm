@@ -3642,7 +3642,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if (FAT_BODY_MODEL_NUMBER)
 			character.set_body_model(FAT_BODY_MODEL)
 
-	character.maxHealth = round((initial(character.maxHealth)+(initial(character.maxHealth)/4)*(character.trait_holder.get_stat(ST_TRAIT_STRENGTH))))
+	character.maxHealth = round((initial(character.maxHealth)+(initial(character.maxHealth)/4)*(character.physique + character.additional_physique)))
 	character.health = character.maxHealth
 
 	if (pref_species.name == "Kuei-Jin")
@@ -3777,9 +3777,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				lupus.true_real_name = real_name
 				lupus.name = real_name
 
-			lupus.maxHealth = round((lupus::maxHealth + (character::maxHealth / 4) * (character.trait_holder.get_stat(ST_TRAIT_STRENGTH)))) + (character.auspice.level - 1) * 50
+			crinos.blood = blood
+			lupus.blood = blood
+
+			lupus.maxHealth = round((lupus::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
 			lupus.health = lupus.maxHealth
-			crinos.maxHealth = round((crinos::maxHealth + (character::maxHealth / 4) * (character.trait_holder.get_stat(ST_TRAIT_STRENGTH)))) + (character.auspice.level - 1) * 50
+			crinos.maxHealth = round((crinos::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
 			crinos.health = crinos.maxHealth
 		else if(HAS_TRAIT(character,TRAIT_CORAX)/*character.transformator?.corax_form && character.transformator?.corvid_form*/) // if we have the Corax tribe, use the Corax forms instead..
 			var/mob/living/carbon/werewolf/corax/corax_crinos/cor_crinos = character.transformator.corax_form?.resolve()
@@ -3808,10 +3811,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				cor_crinos.name = real_name
 				corvid.name = real_name
 
+			cor_crinos.blood = blood
+			corvid.blood = blood
 
-			corvid.maxHealth = round((corvid::maxHealth + (character::maxHealth / 4) * (character.trait_holder.get_stat(ST_TRAIT_STRENGTH)))) + (character.auspice.level - 1) * 50
+			corvid.maxHealth = round((corvid::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
 			corvid.health = corvid.maxHealth
-			cor_crinos.maxHealth = round((cor_crinos::maxHealth + (character::maxHealth / 4) * (character.trait_holder.get_stat(ST_TRAIT_STRENGTH)))) + (character.auspice.level - 1) * 50
+			cor_crinos.maxHealth = round((cor_crinos::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
 			cor_crinos.health = cor_crinos.maxHealth
 
 	// TFN ADDITION START: loadout
