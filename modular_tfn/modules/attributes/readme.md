@@ -2,7 +2,7 @@ https://github.com/The-Final-Nights/The-Final-Nights/pull/
 
 ## \<Attribute Refactor>
 
-Module ID: ATTRIBBTES
+Module ID: ATTRIBUTES
 
 ### Description:
 
