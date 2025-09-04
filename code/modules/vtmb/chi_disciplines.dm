@@ -1233,27 +1233,28 @@
 	playsound(caster.loc, sound_gender, 100, FALSE)
 	var/mypower = caster.trait_holder.get_stat(ST_TRAIT_CHARISMA)
 	var/theirpower = target.trait_holder.get_stat(ST_TRAIT_WILLPOWER)
+	var/total_power = 1 //The proportion of your Social to their Mentality. Higher social means higher total_power and higher effect. If this is 1 or more, our social is at least as high as their mentality
 	if(theirpower >= mypower)
 		to_chat(caster, span_warning("[target]'s mind is too powerful to affect!"))
 		return
 	switch(level_casting)
 		if(1)
-			caster.physique += 2
-			caster.dexterity += 2
-			caster.athletics += 2
+			caster.st_add_stat_mod(STAT_STRENGTH, 2, "kiai")
+			caster.st_add_stat_mod(STAT_DEXTERITY, 2, "kiai")
+			caster.st_add_stat_mod(STAT_ATHLETICS, 2, "kiai")
 			caster.add_movespeed_modifier(/datum/movespeed_modifier/kiai)
 			ADD_TRAIT(caster, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 			caster.do_jitter_animation(1 SECONDS)
 			spawn(delay+caster.discipline_time_plus)
 				if(caster)
-					caster.physique -= 2
-					caster.dexterity -= 2
-					caster.athletics -= 2
+					caster.st_remove_stat_mod(STAT_STRENGTH, "kiai")
+					caster.st_remove_stat_mod(STAT_DEXTERITY, "kiai")
+					caster.st_remove_stat_mod(STAT_ATHLETICS, "kiai")
 					caster.remove_movespeed_modifier(/datum/movespeed_modifier/kiai)
 					REMOVE_TRAIT(caster, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 		if(2)
 			for(var/mob/living/carbon/hearer in ohearers(2, caster))
-				total_power = mypower / hearer.get_total_mentality()
+				total_power = mypower / hearer.trait_holder.get_stat(ST_TRAIT_WILLPOWER)
 				step_away(hearer, caster)
 				hearer.apply_effect(total_power * 2, EFFECT_EYE_BLUR)
 				if(total_power >= 1)
