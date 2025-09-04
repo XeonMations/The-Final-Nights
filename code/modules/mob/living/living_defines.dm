@@ -315,3 +315,5 @@
 
 	//List for icons created for obfuscated mobs
 	var/list/obf_icons // TFN ADDITION - Adding an Obfuscate Indicator
+
+	var/datum/storyteller_stats/storyteller_stat_holder

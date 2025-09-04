@@ -529,6 +529,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	////////////////////////////////////////////// Attributes
 
+/*
 	//Physical
 	READ_FILE(S["strength"], strength)
 	READ_FILE(S["dexterity"], dexterity)
@@ -546,7 +547,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	/////////////////////////////////////////////// Abilities
 
-/*
 	//Talents
 	READ_FILE(S["alertness"], alertness)
 	READ_FILE(S["athletics"], athletics)
@@ -741,6 +741,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	////////////////////////////////////////////// Attributes
 
+/*
 	//Physical
 	strength = sanitize_integer(strength, 1, 5, initial(strength))
 	dexterity = sanitize_integer(dexterity, 1, 5, initial(dexterity))
@@ -757,8 +758,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	wits = sanitize_integer(wits, 1, 5, initial(wits))
 
 	/////////////////////////////////////////////// Abilities
-
-/*
 
 	//Talents
 	strength = sanitize_integer(strength, 1, 5, initial(strength))
@@ -985,6 +984,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	////////////////////////////////////////////// Attributes
 
+/*
 	//Physical
 	WRITE_FILE(S["strength"], strength)
 	WRITE_FILE(S["dexterity"], dexterity)
@@ -1002,7 +1002,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	/////////////////////////////////////////////// Abilities
 
-/*
+
 	//Talents
 	WRITE_FILE(S["alertness"], alertness)
 	WRITE_FILE(S["athletics"], athletics)
