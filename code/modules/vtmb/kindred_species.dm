@@ -99,6 +99,8 @@
 		dat += "The Camarilla thinks I[masquerade_level]<BR>"
 		var/humanity = "I'm out of my mind."
 
+		dat += "<BR>"
+
 		if(!host.clan.is_enlightened)
 			switch(host.morality_path.score)
 				if(8 to 10)
