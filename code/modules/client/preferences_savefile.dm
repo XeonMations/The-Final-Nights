@@ -535,7 +535,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["stamina"], stamina)
 
 	//Social
-	READ_FILE(S["charisma"], charisma)
+	READ_FILE(S["charismma"], charismma)
 	READ_FILE(S["manipulation"], manipulation)
 	READ_FILE(S["appearance"], appearance)
 
@@ -546,7 +546,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	/////////////////////////////////////////////// Abilities
 
-/*
 	//Talents
 	READ_FILE(S["alertness"], alertness)
 	READ_FILE(S["athletics"], athletics)
@@ -582,7 +581,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["politics"], politics)
 	READ_FILE(S["science"], science)
 	READ_FILE(S["technology"], technology)
-*/
+
 
 
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
@@ -758,7 +757,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	/////////////////////////////////////////////// Abilities
 
-/*
 	//Talents
 	strength = sanitize_integer(strength, 1, 5, initial(strength))
 	strength = sanitize_integer(strength, 1, 5, initial(strength))
@@ -791,7 +789,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	strength = sanitize_integer(strength, 1, 5, initial(strength))
 	strength = sanitize_integer(strength, 1, 5, initial(strength))
 	subterfuge = sanitize_integer(subterfuge, 1, 5, initial(subterfuge))
-*/
+
 
 	hair_color			= sanitize_hexcolor(hair_color)
 	facial_hair_color			= sanitize_hexcolor(facial_hair_color)
@@ -990,7 +988,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["stamina"], stamina)
 
 	//Social
-	WRITE_FILE(S["charisma"], charisma)
+	WRITE_FILE(S["charismma"], charismma)
 	WRITE_FILE(S["manipulation"], manipulation)
 	WRITE_FILE(S["appearance"], appearance)
 
@@ -1001,7 +999,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	/////////////////////////////////////////////// Abilities
 
-/*
 	//Talents
 	WRITE_FILE(S["alertness"], alertness)
 	WRITE_FILE(S["athletics"], athletics)
@@ -1037,7 +1034,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["politics"], politics)
 	WRITE_FILE(S["science"], science)
 	WRITE_FILE(S["technology"], technology)
-*/
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
