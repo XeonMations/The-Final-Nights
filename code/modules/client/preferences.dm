@@ -257,13 +257,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	diablerist = 0
 	torpor_count = 0
 	generation_bonus = 0
-	physique = 1
-	dexterity = 1
-	mentality = 1
-	social = 1
-	blood = 1
-	lockpicking = 0
-	athletics = 0
 	info_known = INFO_KNOWN_UNKNOWN
 	masquerade_score = initial(masquerade_score)
 	generation = initial(generation)
@@ -607,23 +600,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<h2>[make_font_cool("ATTRIBUTES")]</h2>"
 
-			//Prices for each ability, can be adjusted, multiplied by current attribute level
-			var/physique_price = 4
-			var/dexterity_price = 4
-			var/social_price = 4
-			var/mentality_price = 4
-			var/blood_price = 6
-			//Lockpicking and Athletics have an initial price of 3
-			var/lockpicking_price = !lockpicking ? 3 : 2
-			var/athletics_price = !athletics ? 3 : 2
-
-			dat += "<b>Physique:</b> [build_attribute_score(physique, 0, physique_price, "physique")]"
-			dat += "<b>Dexterity:</b> [build_attribute_score(dexterity, 0, dexterity_price, "dexterity")]"
-			dat += "<b>Social:</b> [build_attribute_score(social, 0, social_price, "social")]"
-			dat += "<b>Mentality:</b> [build_attribute_score(mentality, 0, mentality_price, "mentality")]"
-			dat += "<b>Cruelty:</b> [build_attribute_score(blood, 0, blood_price, "blood")]"
-			dat += "<b>Lockpicking:</b> [build_attribute_score(lockpicking, 0, lockpicking_price, "lockpicking")]"
-			dat += "<b>Athletics:</b> [build_attribute_score(athletics, 0, athletics_price, "athletics")]"
 			dat += "Experience rewarded: [player_experience]<BR>"
 			if(pref_species.name == "Werewolf")
 				dat += "<h2>[make_font_cool("TRIBE")]</h2>"
@@ -2651,34 +2627,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					experience_used_on_character += cost
 					auspice_level = max(1, auspice_level + 1)
 
-				if("physique")
-					if(handle_upgrade(physique, physique * 4))
-						physique++
-
-				if("dexterity")
-					if(handle_upgrade(dexterity, dexterity * 4))
-						dexterity++
-
-				if("social")
-					if(handle_upgrade(social, social * 4))
-						social++
-
-				if("mentality")
-					if(handle_upgrade(mentality, mentality * 4))
-						mentality++
-
-				if("blood")
-					if(handle_upgrade(blood, blood * 6))
-						blood++
-
-				if("lockpicking")
-					if(handle_upgrade(lockpicking, lockpicking ? lockpicking*2 : 3))
-						lockpicking++
-
-				if("athletics")
-					if(handle_upgrade(athletics, athletics ? athletics*2 : 3))
-						athletics++
-
 				if("tribe")
 					if(slotlocked || !(pref_species.id == "garou"))
 						return
@@ -3681,13 +3629,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	character.diablerist = diablerist
 
-	character.physique = physique
-	character.dexterity = dexterity
-	character.social = social
-	character.mentality = mentality
-	character.blood = blood
-	character.lockpicking = lockpicking
-	character.athletics = athletics
 
 	if(!character_setup && !istype(character, /mob/living/carbon/human/dummy))
 		for(var/i = 5; i > masquerade_score; i--)
@@ -3836,17 +3777,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				lupus.real_name = real_name
 				lupus.true_real_name = real_name
 				lupus.name = real_name
-			crinos.physique = physique
-			crinos.dexterity = dexterity
-			crinos.mentality = mentality
-			crinos.social = social
-			crinos.blood = blood
-
-			lupus.physique = physique
-			lupus.dexterity = dexterity
-			lupus.mentality = mentality
-			lupus.social = social
-			lupus.blood = blood
 
 			lupus.maxHealth = round((lupus::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
 			lupus.health = lupus.maxHealth
@@ -3878,19 +3808,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			else
 				cor_crinos.name = real_name
 				corvid.name = real_name
-
-			cor_crinos.physique = physique
-			cor_crinos.dexterity = dexterity
-			cor_crinos.mentality = mentality
-			cor_crinos.social = social
-			cor_crinos.blood = blood
-
-			corvid.physique = physique
-			corvid.dexterity = dexterity
-			corvid.mentality = mentality
-			corvid.social = social
-			corvid.athletics = athletics // corvid also get athletics so that they can jump further, might be absolutely batshit though
-			corvid.blood = blood
 
 			corvid.maxHealth = round((corvid::maxHealth + (character::maxHealth / 4) * (character.physique + character.additional_physique))) + (character.auspice.level - 1) * 50
 			corvid.health = corvid.maxHealth
