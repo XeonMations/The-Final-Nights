@@ -46,7 +46,7 @@
 /datum/curse/daimonion/mental_weakness/activate(mob/living/target)
 	. = ..()
 	target.st_add_stat_mod(STAT_CHARISMA, -1, "mental_weakness")
-	target.st_add_stat_mod(STAT_WILLPOWER, -1, "mental_weakness")
+	target.st_add_stat_mod(STAT_TEMPORARY_WILLPOWER, -1, "mental_weakness")
 	to_chat(target, span_userdanger(span_bold("You feel like a great curse was placed on you!")))
 
 /datum/curse/daimonion/offspring_weakness/activate(mob/living/target)

@@ -2,7 +2,8 @@
 	var/stat_points = 35
 
 	// Pooled
-	var/willpower = 1
+	var/permanent_willpower = 1
+	var/temporary_willpower = 1
 
 	// Physical
 	var/strength = 1
@@ -55,16 +56,21 @@
 	var/science = 1
 	var/technology = 1
 
+	//"So, while a character with Conscience, Self-Control, and Courage is created with one free dot in each Virtue,
+	// then has seven points to spend on Virtues, a character with Conviction, Self-Control, and Courage begins with
+	// only two free dots (in Self-Control and Courage)."
 	//Virtues
 	var/conscience = 1
 	var/self_control = 1
 	var/conviction = 0
 	var/instinct = 0
+	var/courage = 1
 
 /datum/preferences/proc/load_stats(savefile/S)
 	READ_FILE(S["stat_points"], stat_points)
 
-	READ_FILE(S["willpower"], willpower)
+	READ_FILE(S["permanent_willpower"], permanent_willpower)
+	READ_FILE(S["temporary_willpower"], temporary_willpower)
 
 	//Physical
 	READ_FILE(S["strength"], strength)
@@ -122,11 +128,13 @@
 	READ_FILE(S["self_control"], self_control)
 	READ_FILE(S["conviction"], conviction)
 	READ_FILE(S["instinct"], instinct)
+	READ_FILE(S["courage"], courage)
 
 /datum/preferences/proc/save_stats(savefile/S)
 	WRITE_FILE(S["stat_points"], stat_points)
 
-	WRITE_FILE(S["willpower"], willpower)
+	WRITE_FILE(S["permanent_willpower"], permanent_willpower)
+	WRITE_FILE(S["temporary_willpower"], temporary_willpower)
 
 	//Physical
 	WRITE_FILE(S["strength"], strength)
@@ -184,13 +192,15 @@
 	WRITE_FILE(S["self_control"], self_control)
 	WRITE_FILE(S["conviction"], conviction)
 	WRITE_FILE(S["instinct"], instinct)
+	WRITE_FILE(S["courage"], courage)
 
 
 /datum/preferences/proc/reset_stats()
 	stat_points = initial(stat_points)
 
 	// Pooled
-	willpower = initial(willpower)
+	permanent_willpower = initial(permanent_willpower)
+	temporary_willpower = initial(temporary_willpower)
 
 	// Physical
 	strength = initial(strength)
@@ -248,11 +258,13 @@
 	self_control = initial(self_control)
 	conviction = initial(conviction)
 	instinct = initial(instinct)
+	courage = initial(courage)
 
 /datum/preferences/proc/sanitize_stats()
 	stat_points = sanitize_integer(stat_points, 0, 35, initial(stat_points))
 
-	willpower = sanitize_integer(strength, 1, 10, initial(willpower))
+	permanent_willpower = sanitize_integer(permanent_willpower, 0, 10, initial(permanent_willpower))
+	temporary_willpower = sanitize_integer(temporary_willpower, 0, 10, initial(temporary_willpower))
 
 	//Physical
 	strength = sanitize_integer(strength, 1, 5, initial(strength))
@@ -306,7 +318,8 @@
 	technology = sanitize_integer(technology, 1, 5, initial(technology))
 
 	//Virtues
-	conscience = sanitize_integer(conscience, 1, 5, initial(conscience))
-	self_control = sanitize_integer(self_control, 1, 5, initial(self_control))
-	conviction = sanitize_integer(conviction, 1, 5, initial(conviction))
-	instinct = sanitize_integer(instinct, 1, 5, initial(instinct))
+	conscience = sanitize_integer(conscience, 0, 5, initial(conscience))
+	self_control = sanitize_integer(self_control, 0, 5, initial(self_control))
+	conviction = sanitize_integer(conviction, 0, 5, initial(conviction))
+	instinct = sanitize_integer(instinct, 0, 5, initial(instinct))
+	courage = sanitize_integer(courage, 1, 5, initial(courage))

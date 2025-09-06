@@ -1032,13 +1032,13 @@
 	if(!HAS_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN))
 		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, SPECIES_TRAIT)
 	owner.st_add_stat_mod(STAT_DEXTERITY, -2, "diablerie_high")
-	owner.st_add_stat_mod(STAT_WILLPOWER, -1, "diablerie_high")
+	owner.st_add_stat_mod(STAT_TEMPORARY_WILLPOWER, -1, "diablerie_high")
 
 /datum/status_effect/diablerie_high/on_remove()
 	. = ..()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/diablerie_high)
 	owner.st_remove_stat_mod(STAT_DEXTERITY, "diablerie_high")
-	owner.st_remove_stat_mod(STAT_WILLPOWER, "diablerie_high")
+	owner.st_remove_stat_mod(STAT_TEMPORARY_WILLPOWER, "diablerie_high")
 	if(HAS_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN))
 		REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, SPECIES_TRAIT)
 

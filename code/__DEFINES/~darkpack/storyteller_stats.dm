@@ -49,4 +49,12 @@
 
 // Advantages
 #define STAT_BLOOD_POOL /datum/st_stat/pooled/blood_pool
-#define STAT_WILLPOWER /datum/st_stat/pooled/willpower
+#define STAT_PERMANENT_WILLPOWER /datum/st_stat/pooled/permanent_willpower
+#define STAT_TEMPORARY_WILLPOWER /datum/st_stat/pooled/temporary_willpower
+
+// Virtues
+#define STAT_CONSCIENCE /datum/st_stat/virtue/conscience
+#define STAT_SELF_CONTROL /datum/st_stat/virtue/self_control
+#define STAT_CONVICTION /datum/st_stat/virtue/conviction
+#define STAT_INSTINCT /datum/st_stat/virtue/instinct
+#define STAT_COURAGE /datum/st_stat/virtue/courage

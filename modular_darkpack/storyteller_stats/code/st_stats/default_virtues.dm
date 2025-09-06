@@ -9,3 +9,6 @@
 
 /datum/st_stat/virtue/instinct
 	name = "Instinct"
+
+/datum/st_stat/virtue/courage
+	name = "Courage"

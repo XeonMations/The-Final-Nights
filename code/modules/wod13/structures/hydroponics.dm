@@ -36,7 +36,7 @@
 		to_chat(user, "<span class='notice'>You pull the grown weed out of [src].</span>")
 		var/mob/living/carbon/human/H = user
 		var/amount
-		switch(SSroll.storyteller_roll(H.st_get_stat(STAT_WILLPOWER), 6, TRUE))
+		switch(SSroll.storyteller_roll(H.st_get_stat(STAT_PERMANENT_WILLPOWER), 6, TRUE))
 			if(3 to INFINITY)
 				amount = 4
 			if(2)

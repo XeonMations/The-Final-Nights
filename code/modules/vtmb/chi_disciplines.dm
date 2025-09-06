@@ -1140,8 +1140,8 @@
 
 /datum/chi_discipline/hellweaving/activate(mob/living/target, mob/living/carbon/human/caster)
 	..()
-	var/mypower = caster.st_get_stat(STAT_CHARISMA)
-	var/theirpower = caster.st_get_stat(STAT_WILLPOWER)
+	var/mypower = (caster.st_get_stat(STAT_PERCEPTION) + caster.st_get_stat(STAT_OCCULT))
+	var/theirpower = caster.st_get_stat(STAT_PERMANENT_WILLPOWER)
 	if(theirpower >= mypower)
 		to_chat(caster, "<span class='warning'>[target]'s mind is too powerful to cause flashbacks for!</span>")
 		return
@@ -1233,7 +1233,7 @@
 	playsound(caster.loc, sound_gender, 100, FALSE)
 	caster.visible_message("<span class='danger'>[caster] SCREAMS!</span>")
 	var/mypower = caster.st_get_stat(STAT_CHARISMA)
-	var/theirpower = target.st_get_stat(STAT_WILLPOWER)
+	var/theirpower = target.st_get_stat(STAT_PERMANENT_WILLPOWER)
 	var/total_power = 1 //The proportion of your Social to their Mentality. Higher social means higher total_power and higher effect. If this is 1 or more, our social is at least as high as their mentality
 	switch(level_casting)
 		if(1)
@@ -1252,7 +1252,7 @@
 					REMOVE_TRAIT(caster, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 		if(2)
 			for(var/mob/living/carbon/hearer in ohearers(2, caster))
-				total_power = mypower / hearer.st_get_stat(STAT_WILLPOWER)
+				total_power = mypower / hearer.st_get_stat(STAT_PERMANENT_WILLPOWER)
 				step_away(hearer, caster)
 				hearer.apply_effect(total_power * 2, EFFECT_EYE_BLUR)
 				if(total_power >= 1)
@@ -1279,7 +1279,7 @@
 					target.visible_message("<span class='danger'>Bleeding wounds open up on [target]!</span>", "<span class='userdanger'>[caster]'s scream tears at your flesh!</span>")
 		if(5)
 			for(var/mob/living/carbon/hearer in ohearers(5, caster))
-				theirpower = hearer.st_get_stat(STAT_WILLPOWER)
+				theirpower = hearer.st_get_stat(STAT_PERMANENT_WILLPOWER)
 				total_power = (mypower - 2) / theirpower //same as dot 3, but your power is treated as 2 points lower for determining the effects)
 				step_away(hearer, caster)
 				if(total_power > 1)
