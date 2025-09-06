@@ -284,6 +284,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	real_name = random_unique_name(gender)
 	equipped_gear = list() // TFN ADDITION
 	headshot_link = null // TFN ADDITION
+	reset_stats()
 	save_character()
 
 /datum/preferences/New(client/C)
@@ -1141,12 +1142,83 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</tr></table>"
 
 		if(1) // Attributes
+			dat += "<center><h3>Points left: [stat_points]</h3></center>"
+
 			dat += "<table align='center' width='100%'>"
-			dat += "<td>"
-			dat += "<h3>Test Attribute</h3><br>"
-			dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat'>+</a>"
-			dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat'>-</a><br>"
-			dat += "</td>"
+			dat += "<h2>[make_font_cool("Pooled Stats")]</h2>"
+			dat += "<tr>"
+			for(var/datum/st_stat/pooled/stat as anything in subtypesof(/datum/st_stat/pooled))
+				dat += "<td>"
+				dat += "<h4>[stat.name]: [stat.score]</h4>"
+				dat += "<h5>[stat.description]</h5>"
+				dat += "</td>"
+			dat += "</tr>"
+			dat += "</table>"
+
+			dat += "<hr>"
+
+			dat += "<table align='center' width='100%'>"
+			dat += "<h2>[make_font_cool("Attributes")]</h2>"
+			dat += "<tr>"
+			var/newattributeline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
+			for(var/datum/st_stat/attribute/stat as anything in subtypesof(/datum/st_stat/attribute))
+				dat += "<td>"
+				dat += "<h4>[stat.name]: [stat.score]</h4>"
+				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
+				dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat;stat=[stat]'>-</a><br>"
+				dat += "<h5>[stat.description]</h5>"
+				dat += "</td>"
+
+				newattributeline++
+				if(newattributeline == 3)
+					dat += "</tr>"
+					dat += "<tr>"
+					newattributeline = 0
+			dat += "</tr>"
+			dat += "</table>"
+
+			dat += "<hr>"
+
+			dat += "<table align='center' width='100%'>"
+			dat += "<h2>[make_font_cool("Abilities")]</h2>"
+			dat += "<tr>"
+			var/newstatline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
+			for(var/datum/st_stat/ability/stat as anything in subtypesof(/datum/st_stat/ability))
+				dat += "<td>"
+				dat += "<h4>[stat.name]: [stat.score]</h4>"
+				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
+				dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat;stat=[stat]'>-</a><br>"
+				dat += "<h5>[stat.description]</h5>"
+				dat += "</td>"
+
+				newstatline++
+				if(newstatline == 5)
+					dat += "</tr>"
+					dat += "<tr>"
+					newstatline = 0
+			dat += "</tr>"
+			dat += "</table>"
+
+			dat += "<hr>"
+
+			dat += "<table align='center' width='100%'>"
+			dat += "<h2>[make_font_cool("Virtues")]</h2>"
+			dat += "<tr>"
+			var/newvirtueline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
+			for(var/datum/st_stat/virtue/stat as anything in subtypesof(/datum/st_stat/virtue))
+				dat += "<td>"
+				dat += "<h4>[stat.name]: [stat.score]</h4>"
+				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
+				dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat;stat=[stat]'>-</a><br>"
+				dat += "<h5>[stat.description]</h5>"
+				dat += "</td>"
+
+				newvirtueline++
+				if(newvirtueline == 4)
+					dat += "</tr>"
+					dat += "<tr>"
+					newvirtueline = 0
+			dat += "</tr>"
 			dat += "</table>"
 
 		// TFN ADDITION START: loadout
