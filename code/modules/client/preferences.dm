@@ -411,9 +411,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		dat += "<a href='byond://?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>[make_font_cool("CHARACTER SETTINGS")]</a>"
 		dat += "<a href='byond://?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>[make_font_cool("ATTRIBUTES")]</a>" //TFN ADDITION - attributes
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>[make_font_cool("LOADOUT")]</a>" // TFN ADDITION - loadout
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=1' [current_tab == 3 ? "class='linkOn'" : ""]>[make_font_cool("GAME PREFERENCES")]</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=3' [current_tab == 4 ? "class='linkOn'" : ""]>[make_font_cool("OOC PREFERENCES")]</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=4' [current_tab == 5 ? "class='linkOn'" : ""]>[make_font_cool("CUSTOM KEYBINDINGS")]</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=3' [current_tab == 3 ? "class='linkOn'" : ""]>[make_font_cool("GAME PREFERENCES")]</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=4' [current_tab == 4 ? "class='linkOn'" : ""]>[make_font_cool("OOC PREFERENCES")]</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=5' [current_tab == 5 ? "class='linkOn'" : ""]>[make_font_cool("CUSTOM KEYBINDINGS")]</a>"
 
 	if(!path)
 		dat += "<div class='notice'>Please create an account to save your preferences</div>"
@@ -1145,12 +1145,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<center><h3>Points left: [stat_points]</h3></center>"
 
 			dat += "<table align='center' width='100%'>"
-			dat += "<h2>[make_font_cool("Pooled Stats")]</h2>"
+			dat += "<h1>[make_font_cool("Pooled Stats")]</h1>"
 			dat += "<tr>"
 			for(var/datum/st_stat/pooled/stat as anything in subtypesof(/datum/st_stat/pooled))
 				dat += "<td>"
-				dat += "<h4>[stat.name]: [stat.score]</h4>"
-				dat += "<h5>[stat.description]</h5>"
+				dat += "[stat.name]: [stat.score] "
+				dat += "[stat.description]"
 				dat += "</td>"
 			dat += "</tr>"
 			dat += "</table>"
@@ -1158,15 +1158,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<hr>"
 
 			dat += "<table align='center' width='100%'>"
-			dat += "<h2>[make_font_cool("Attributes")]</h2>"
+			dat += "<h1>[make_font_cool("Attributes")]</h1>"
 			dat += "<tr>"
 			var/newattributeline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
 			for(var/datum/st_stat/attribute/stat as anything in subtypesof(/datum/st_stat/attribute))
 				dat += "<td>"
-				dat += "<h4>[stat.name]: [stat.score]</h4>"
+				dat += "[stat.name]: [stat.score] "
 				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
 				dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat;stat=[stat]'>-</a><br>"
-				dat += "<h5>[stat.description]</h5>"
+				dat += "[stat.description]"
 				dat += "</td>"
 
 				newattributeline++
@@ -1180,15 +1180,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<hr>"
 
 			dat += "<table align='center' width='100%'>"
-			dat += "<h2>[make_font_cool("Abilities")]</h2>"
+			dat += "<h1>[make_font_cool("Abilities")]</h1>"
 			dat += "<tr>"
 			var/newstatline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
 			for(var/datum/st_stat/ability/stat as anything in subtypesof(/datum/st_stat/ability))
 				dat += "<td>"
-				dat += "<h4>[stat.name]: [stat.score]</h4>"
+				dat += "[stat.name]: [stat.score] "
 				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
 				dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat;stat=[stat]'>-</a><br>"
-				dat += "<h5>[stat.description]</h5>"
+				dat += "[stat.description]"
 				dat += "</td>"
 
 				newstatline++
@@ -1202,15 +1202,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<hr>"
 
 			dat += "<table align='center' width='100%'>"
-			dat += "<h2>[make_font_cool("Virtues")]</h2>"
+			dat += "<h1>[make_font_cool("Virtues")]</h1>"
 			dat += "<tr>"
-			var/newvirtueline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
+			var/newvirtueline = 0 //Purely used just so it doesn't overflow from the amount.
 			for(var/datum/st_stat/virtue/stat as anything in subtypesof(/datum/st_stat/virtue))
 				dat += "<td>"
-				dat += "<h4>[stat.name]: [stat.score]</h4>"
+				dat += "[stat.name]: [stat.score] "
 				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
 				dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat;stat=[stat]'>-</a><br>"
-				dat += "<h5>[stat.description]</h5>"
+				dat += "[stat.description]"
 				dat += "</td>"
 
 				newvirtueline++
