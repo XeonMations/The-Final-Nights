@@ -1162,6 +1162,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<tr>"
 			var/newattributeline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
 			for(var/datum/st_stat/attribute/stat as anything in subtypesof(/datum/st_stat/attribute))
+				if(stat.type == stat.base_type)
+					continue
 				dat += "<td>"
 				dat += "[stat.name]: [stat.score] "
 				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
