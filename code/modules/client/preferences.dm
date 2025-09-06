@@ -408,10 +408,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	if(istype(user, /mob/dead/new_player))
 		dat += "<a href='byond://?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>[make_font_cool("CHARACTER SETTINGS")]</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>[make_font_cool("GAME PREFERENCES")]</a>"
+		dat += "<a href='byond://?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>[make_font_cool("ATTRIBUTES")]</a>" //TFN ADDITION - attributes
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>[make_font_cool("LOADOUT")]</a>" // TFN ADDITION - loadout
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=3' [current_tab == 3 ? "class='linkOn'" : ""]>[make_font_cool("OOC PREFERENCES")]</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=4' [current_tab == 4 ? "class='linkOn'" : ""]>[make_font_cool("CUSTOM KEYBINDINGS")]</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=1' [current_tab == 3 ? "class='linkOn'" : ""]>[make_font_cool("GAME PREFERENCES")]</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=3' [current_tab == 4 ? "class='linkOn'" : ""]>[make_font_cool("OOC PREFERENCES")]</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=4' [current_tab == 5 ? "class='linkOn'" : ""]>[make_font_cool("CUSTOM KEYBINDINGS")]</a>"
 
 	if(!path)
 		dat += "<div class='notice'>Please create an account to save your preferences</div>"
@@ -1139,8 +1140,100 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				mutant_category = 0
 			dat += "</tr></table>"
 
+		if(1) // Attributes
+			dat += "<table align='center' width='100%'>"
+			dat += "<td>"
+			dat += "<h3>Test Attribute</h3><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat'>+</a>"
+			dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat'>-</a><br>"
+			dat += "</td>"
+			dat += "</table>"
 
-		if (1) // Game Preferences
+		// TFN ADDITION START: loadout
+		if(2) //Loadout
+			if(path)
+				var/savefile/S = new /savefile(path)
+				if(S)
+					dat += "<center>"
+					var/name
+					var/unspaced_slots = 0
+					for(var/i=1, i<=max_save_slots, i++)
+						unspaced_slots++
+						if(unspaced_slots > 4)
+							dat += "<br>"
+							unspaced_slots = 0
+						S.cd = "/character[i]"
+						S["real_name"] >> name
+						if(!name)
+							name = "Character[i]"
+						dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[i];' [i == default_slot ? "class='linkOn'" : ""]>[name]</a> "
+					dat += "</center>"
+					dat += "<HR>"
+			var/list/type_blacklist = list()
+			var/list/slot_blacklist = list()
+			if(equipped_gear && length(equipped_gear))
+				for(var/i = 1, i <= length(equipped_gear), i++)
+					var/datum/gear/G = GLOB.gear_datums[equipped_gear[i]]
+					if(G)
+						if((G.subtype_path in type_blacklist) || (G.slot in slot_blacklist))
+							continue
+						type_blacklist += G.subtype_path
+						slot_blacklist += G.slot
+					else
+						equipped_gear.Cut(i,i+1)
+
+			dat += "<table align='center' width='100%'>"
+			dat += "<tr><td colspan=4><center><b>Experience: [player_experience]. Current loadout usage: [length(equipped_gear)]/[CONFIG_GET(number/max_loadout_items)].</b><br>\[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\] | \[<a href='?_src_=prefs;preference=gear;toggle_loadout=1'>Toggle Loadout</a>\]</center></td></tr>"
+			dat += "<tr><td colspan=4><center><b>"
+
+			var/firstcat = 1
+			for(var/category in GLOB.loadout_categories)
+				if(firstcat)
+					firstcat = 0
+				else
+					dat += " |"
+				if(category == gear_tab)
+					dat += " <span class='linkOff'>[category]</span> "
+				else
+					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
+			dat += "</b></center></td></tr>"
+
+			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td><b>Name</b></td>"
+			dat += "<td><b>Cost</b></td>"
+			dat += "<td><b>Restricted Jobs</b></td>"
+			dat += "<td><b>Description</b></td>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			for(var/gear_name in LC.gear)
+				var/datum/gear/G = LC.gear[gear_name]
+				var/ticked = (G.display_name in equipped_gear)
+
+				dat += "<tr style='vertical-align:top;'><td width=35%>[G.display_name] "
+				if(G.display_name in purchased_gear)
+					dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>" + (ticked ? "Unequip" : "Equip") + "</a></td>"
+				else
+					dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.display_name]'>Purchase</a>"
+					if(G.sort_category != "General")
+						dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>" + (ticked ? "Stop Preview" : "Preview") + "</a></td>"
+				dat += "<td width = 5% style='vertical-align:top;'>[G.cost]</td><td>"
+
+				if(G.allowed_roles)
+					dat += "<font size=2>"
+					var/list/allowedroles = list()
+					for(var/role in G.allowed_roles)
+						allowedroles += role
+					dat += english_list(allowedroles, null, ", ")
+					dat += "</font>"
+				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
+			dat += "</table>"
+		// TFN ADDITION END: loadout
+
+		if (3) // Game Preferences
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>[make_font_cool("GENERAL")]</h2>"
 			dat += "<b>UI Style:</b> <a href='byond://?_src_=prefs;task=input;preference=ui'>[UI_style]</a><br>"
@@ -1255,91 +1348,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(CONFIG_GET(flag/preference_map_voting))
 					dat += "<b>Preferred Map:</b> <a href='byond://?_src_=prefs;preference=preferred_map;task=input'>[p_map]</a><br>"
 
-		// TFN ADDITION START: loadout
-		if(2) //Loadout
-			if(path)
-				var/savefile/S = new /savefile(path)
-				if(S)
-					dat += "<center>"
-					var/name
-					var/unspaced_slots = 0
-					for(var/i=1, i<=max_save_slots, i++)
-						unspaced_slots++
-						if(unspaced_slots > 4)
-							dat += "<br>"
-							unspaced_slots = 0
-						S.cd = "/character[i]"
-						S["real_name"] >> name
-						if(!name)
-							name = "Character[i]"
-						dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[i];' [i == default_slot ? "class='linkOn'" : ""]>[name]</a> "
-					dat += "</center>"
-					dat += "<HR>"
-			var/list/type_blacklist = list()
-			var/list/slot_blacklist = list()
-			if(equipped_gear && length(equipped_gear))
-				for(var/i = 1, i <= length(equipped_gear), i++)
-					var/datum/gear/G = GLOB.gear_datums[equipped_gear[i]]
-					if(G)
-						if((G.subtype_path in type_blacklist) || (G.slot in slot_blacklist))
-							continue
-						type_blacklist += G.subtype_path
-						slot_blacklist += G.slot
-					else
-						equipped_gear.Cut(i,i+1)
 
-			dat += "<table align='center' width='100%'>"
-			dat += "<tr><td colspan=4><center><b>Experience: [player_experience]. Current loadout usage: [length(equipped_gear)]/[CONFIG_GET(number/max_loadout_items)].</b><br>\[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\] | \[<a href='?_src_=prefs;preference=gear;toggle_loadout=1'>Toggle Loadout</a>\]</center></td></tr>"
-			dat += "<tr><td colspan=4><center><b>"
-
-			var/firstcat = 1
-			for(var/category in GLOB.loadout_categories)
-				if(firstcat)
-					firstcat = 0
-				else
-					dat += " |"
-				if(category == gear_tab)
-					dat += " <span class='linkOff'>[category]</span> "
-				else
-					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
-			dat += "</b></center></td></tr>"
-
-			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
-			dat += "<tr><td colspan=4><hr></td></tr>"
-
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td><b>Name</b></td>"
-			dat += "<td><b>Cost</b></td>"
-			dat += "<td><b>Restricted Jobs</b></td>"
-			dat += "<td><b>Description</b></td>"
-			dat += "<tr><td colspan=4><hr></td></tr>"
-			for(var/gear_name in LC.gear)
-				var/datum/gear/G = LC.gear[gear_name]
-				var/ticked = (G.display_name in equipped_gear)
-
-				dat += "<tr style='vertical-align:top;'><td width=35%>[G.display_name] "
-				if(G.display_name in purchased_gear)
-					dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>" + (ticked ? "Unequip" : "Equip") + "</a></td>"
-				else
-					dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.display_name]'>Purchase</a>"
-					if(G.sort_category != "General")
-						dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>" + (ticked ? "Stop Preview" : "Preview") + "</a></td>"
-				dat += "<td width = 5% style='vertical-align:top;'>[G.cost]</td><td>"
-
-				if(G.allowed_roles)
-					dat += "<font size=2>"
-					var/list/allowedroles = list()
-					for(var/role in G.allowed_roles)
-						allowedroles += role
-					dat += english_list(allowedroles, null, ", ")
-					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
-			dat += "</table>"
-		// TFN ADDITION END: loadout
-
-		if(3) //OOC Preferences
+		if(4) //OOC Preferences
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>[make_font_cool("OOC")]</h2>"
 			dat += "<b>Window Flashing:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(windowflashing) ? "Enabled":"Disabled"]</a><br>"
@@ -1416,7 +1426,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "</td>"
 			dat += "</tr></table>"
-		if(4) // Custom keybindings
+		if(5) // Custom keybindings
 			// Create an inverted list of keybindings -> key
 			var/list/user_binds = list()
 			for (var/key in key_bindings)
@@ -1918,7 +1928,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(C)
 			C.clear_character_previews()
 
-/datum/preferences/proc/process_link(mob/user, list/href_list)
+/datum/preferences/proc/process_link(mob/living/user, list/href_list)
 	if(href_list["bancheck"])
 		var/list/ban_details = is_banned_from_with_details(user.ckey, user.client.address, user.client.computer_id, href_list["bancheck"])
 		var/admin = FALSE
@@ -2018,6 +2028,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			else
 				SetQuirks(user)
 		return TRUE
+	// TFN ADDITION START: attributes
+
+	if(href_list["preference"] == "attributes")
+		switch(href_list["task"])
+			if("increase_stat")
+				to_chat(world, "INCREASE")
+				return
+
+			if("decrease_stat")
+				to_chat(world, "DECREASE")
+				return
+
+
+	// TFN DDITION END
 
 	// TFN ADDITION START: loadout
 	if(href_list["preference"] == "gear")
