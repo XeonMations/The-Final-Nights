@@ -21,6 +21,7 @@
 #define TRAIT_DEBTOR			"debtor"
 #define TRAIT_ANIMAL_REPULSION	"animal_repulsion"
 #define TRAIT_WYRMTAINTED		"wyrm_tainted"
+#define TRAIT_FAIR_GLABRO		"fair_glabro"
 #define TRAIT_ILLEGAL_IDENTITY	"illegal_identity"
 #define TRAIT_LAZY				"lazy"
 #define TRAIT_HOMOSEXUAL		"homosexual"
@@ -30,6 +31,7 @@
 #define TRAIT_CHARMER			"charmer"
 #define TRAIT_PERMAFANGS        "permafangs"
 #define TRAIT_ORGANOVORE		"organovore"
+#define TRAIT_UNLIVING_HIVE		"unliving_hive"
 #define TRAIT_SALUBRI_EYE_OPEN	"eye_open" //This is for Salubri Stuff in regards to oepning and closing it
 #define TRAIT_SALUBRI_EYE		"salubri_eye" //This is for whhen you want to like actually know if you have the eye or not
 #define TRAIT_UNMASQUERADE		"unmasquerade"	//For tzi clothing

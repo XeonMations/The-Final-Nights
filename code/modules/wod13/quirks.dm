@@ -278,6 +278,14 @@ Dancer
 	allowed_species = list("Werewolf")
 	allowed_tribes = list("Galestalkers","Ronin", "Glass Walkers", "Ghost Council", "Hart Wardens", "Children of Gaia", "Bone Gnawers", "Get of Fenris", "Black Furies", "Silver Fangs", "Silent Striders", "Shadow Lords", "Red Talons", "Stargazers", "Corax")
 
+/datum/quirk/fair_glabro
+	name = "Fair Glabro"
+	desc = "Your Glabro Form is less bestial than others. Allowing you to use it in public"
+	mob_trait = TRAIT_FAIR_GLABRO
+	value = 4
+	allowed_species = list("Werewolf")
+	allowed_tribes = list("Galestalkers","Ronin", "Glass Walkers", "Ghost Council", "Hart Wardens", "Children of Gaia", "Bone Gnawers", "Get of Fenris", "Black Furies", "Silver Fangs", "Silent Striders", "Shadow Lords", "Red Talons", "Stargazers", "Black Spiral Dancers")
+
 /datum/quirk/illegal_identity
 	name = "Illegal Identity"
 	desc = "Illegal immigrant? Died legally? Born a wolf? The cops aren't happy."
@@ -640,6 +648,18 @@ Dancer
 	gain_text = "<span class='notice'>Your fangs become stuck.</span>"
 	lose_text = "<span class='notice'>You feel your fangs retract again.</span>"
 	allowed_species = list("Vampire")
+
+/datum/quirk/unliving_hive
+	name = "(Un)living Hive"
+	desc = "You, for one reason or another, have a horrible infestation of insects living on your person. They might be able to help you out in combat, if you're able to command them. Otherwise, they'll just continue to make you itchy."
+	value = -1
+	mob_trait = TRAIT_UNLIVING_HIVE
+	gain_text = span_danger("You feel skittering across your skin.")
+	lose_text = span_notice("You feel an itch fade away.")
+
+/datum/quirk/unliving_hive/on_process(delta_time) //don't want it to be TOO annoying, but a few bug bites will happen.
+	if(prob(2))
+		quirk_holder.adjustBruteLoss(2, TRUE)
 
 /datum/quirk/diablerist
 	name = "Diablerist"
