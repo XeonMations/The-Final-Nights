@@ -726,7 +726,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(generation <= 7)
 						dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"][discipline_level > 5 ? "•" : "o"][discipline_level > 6 ? "•" : "o"][discipline_level > 7 ? "•" : "o"][discipline_level > 8 ? "•" : "o"][discipline_level > 9 ? "•" : "o"]([discipline_level])"
 					else
-						dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"])"				
+						dat += "<b>[discipline.name]</b>: [discipline_level > 0 ? "•" : "o"][discipline_level > 1 ? "•" : "o"][discipline_level > 2 ? "•" : "o"][discipline_level > 3 ? "•" : "o"][discipline_level > 4 ? "•" : "o"])"
 					if((player_experience >= cost) && (discipline_level != max_discipline_level))
 						dat += "<a href='byond://?_src_=prefs;preference=discipline;task=input;upgradediscipline=[i]'>Learn ([cost])</a><BR>"
 					else
@@ -1547,15 +1547,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</body>"
 	dat += "<hr><center>"
 
-	if(slotlocked)
-		dat += "Your character is saved. You can't change name and appearance, but your progress will be saved.<br>"
-	if(!IsGuestKey(user.key) && !slotlocked)
-		dat += "<a href='byond://?_src_=prefs;preference=load'>Undo</a> "
-		dat += "<a href='byond://?_src_=prefs;preference=save'>Save Character</a> "
-//	dat += "<a href='byond://?_src_=prefs;preference=save_pref'>Save Preferences</a> "
+	if((current_tab == 0))
+		if(slotlocked)
+			dat += "Your character is saved. You can't change name and appearance, but your progress will be saved.<br>"
+		if(!IsGuestKey(user.key) && !slotlocked)
+			dat += "<a href='byond://?_src_=prefs;preference=load'>Undo</a> "
+			dat += "<a href='byond://?_src_=prefs;preference=save'>Save Character</a> "
+	//	dat += "<a href='byond://?_src_=prefs;preference=save_pref'>Save Preferences</a> "
 
-	if(istype(user, /mob/dead/new_player))
-		dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Reset Setup</a>"
+		if(istype(user, /mob/dead/new_player))
+			dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
 	winshow(user, "preferences_window", TRUE)
