@@ -280,14 +280,13 @@
 			BD.dna.species.punchdamagehigh = BD.dna.species.punchdamagehigh+5
 			BD.physiology.armor.melee = BD.physiology.armor.melee+15
 			BD.physiology.armor.bullet = BD.physiology.armor.bullet+15
-			BD.dexterity = BD.dexterity+BD.bloodquality
-			BD.athletics = BD.athletics+BD.bloodquality
-			BD.lockpicking = BD.lockpicking+BD.bloodquality
+			BD.st_add_stat_mod(STAT_DEXTERITY, BD.bloodquality, "blood_power")
+			BD.st_add_stat_mod(STAT_ATHLETICS, BD.bloodquality, "blood_power")
+			BD.st_add_stat_mod(STAT_LARCENY, BD.bloodquality, "blood_power")
 			if(!HAS_TRAIT(BD, TRAIT_IGNORESLOWDOWN))
 				ADD_TRAIT(BD, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 			BD.update_blood_hud()
-			spawn(100+BD.discipline_time_plus+BD.bloodpower_time_plus)
-				end_bloodpower()
+			addtimer(CALLBACK(src, PROC_REF(end_bloodpower)), (1 SCENES + BD.discipline_time_plus + BD.bloodpower_time_plus))
 		else
 			SEND_SOUND(BD, sound('code/modules/wod13/sounds/need_blood.ogg', 0, 0, 75))
 			to_chat(BD, span_warning("You don't have enough <b>BLOOD</b> to become more powerful."))
@@ -302,9 +301,9 @@
 			BD.physiology.armor.bullet = BD.physiology.armor.bullet-15
 			if(HAS_TRAIT(BD, TRAIT_IGNORESLOWDOWN))
 				REMOVE_TRAIT(BD, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
-		BD.dexterity = BD.dexterity-BD.bloodquality
-		BD.athletics = BD.athletics-BD.bloodquality
-		BD.lockpicking = BD.lockpicking-BD.bloodquality
+		BD.st_remove_stat_mod(STAT_DEXTERITY, "blood_power")
+		BD.st_remove_stat_mod(STAT_ATHLETICS, "blood_power")
+		BD.st_remove_stat_mod(STAT_LARCENY, "blood_power")
 
 /datum/action/give_vitae
 	name = "Give Vitae"
