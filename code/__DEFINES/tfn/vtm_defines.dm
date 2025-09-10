@@ -18,6 +18,9 @@
 #define MAX_TRUSTED_GENERATION 8
 /// The default generation everyone begins at
 #define DEFAULT_GENERATION 13
+// The generation a human is.
+#define HUMAN_GENERATION HIGHEST_GENERATION_LIMIT + 1
+
 
 //Rank definitions.
 
