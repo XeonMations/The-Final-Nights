@@ -34,9 +34,9 @@
 
 /// Sanitizes every stat, mainly used for preference sanity.
 /datum/storyteller_stats/proc/sanitize_stats()
-	for(var/datum/st_stat/A as anything in st_stats)
-		var/datum/st_stat/changed_stat = get_stat_datum(A)
-		changed_stat.set_score(clamp(changed_stat.score, changed_stat.min_score, changed_stat.max_score))
+	for(var/datum/st_stat/A in st_stats)
+		var/datum/st_stat/stat = st_stats[A]
+		stat.set_score(clamp(stat.score, stat.min_score, stat.max_score))
 	return TRUE
 
 /datum/storyteller_stats/proc/add_stat_mod(stat_path, amount, source)
