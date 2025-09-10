@@ -239,6 +239,7 @@
 
 	owner.celerity_visual = FALSE
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/celerity5)
+	owner.st_remove_stat_mod(STAT_DEXTERITY, "celerity")
 
 /datum/discipline_power/celerity/six
 	name = "Flawless Parry"
@@ -267,7 +268,7 @@
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCK_PROJECTILES, MAGIC_TRAIT)
 
 	owner.status_flags |= GODMODE //Temp fix until hands_block_projectiles gets fixed.
-	owner.dexterity += 6
+	owner.st_add_stat_mod(STAT_DEXTERITY, 6, "celerity")
 
 	for(var/obj/stuff in owner.contents) //no disarm
 		ADD_TRAIT(stuff, TRAIT_NODROP, MAGIC)
@@ -284,7 +285,7 @@
 	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCK_PROJECTILES, MAGIC_TRAIT)
 
 	owner.status_flags &= ~GODMODE
-	owner.dexterity -= 6
+	owner.st_remove_stat_mod(STAT_DEXTERITY, "celerity")
 
 	for(var/obj/stuff in owner.contents)
 		REMOVE_TRAIT(stuff, TRAIT_NODROP, MAGIC)
