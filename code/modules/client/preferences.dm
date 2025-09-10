@@ -284,7 +284,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	real_name = random_unique_name(gender)
 	equipped_gear = list() // TFN ADDITION
 	headshot_link = null // TFN ADDITION
-	reset_stats()
+	storyteller_stat_holder = null
+	storyteller_stat_holder = new()
 	save_character()
 
 /datum/preferences/New(client/C)
@@ -593,8 +594,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						dat += "<BR>"
 				if("Ghoul")
 					dat += "<b>Masquerade:</b> [masquerade_score]/5<BR>"
-
-			dat += "<h2>[make_font_cool("ATTRIBUTES")]</h2>"
 
 			dat += "Experience rewarded: [player_experience]<BR>"
 			if(pref_species.name == "Werewolf")
@@ -1146,15 +1145,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</tr></table>"
 
 		if(1) // Attributes
-			dat += "<center><h3>Points left: [stat_points]</h3></center>"
+			//dat += "<center><h3>Points left: [storyteller_stat_holder.stat_points]</h3></center>"
 
 			dat += "<table align='center' width='100%'>"
 			dat += "<h1>[make_font_cool("Pooled Stats")]</h1>"
 			dat += "<tr>"
 			for(var/datum/st_stat/pooled/stat as anything in subtypesof(/datum/st_stat/pooled))
 				dat += "<td>"
-				dat += "[stat.name]: [stat.score] "
-				dat += "[stat.description]"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [stat.score] </div>"
 				dat += "</td>"
 			dat += "</tr>"
 			dat += "</table>"
@@ -1169,10 +1167,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(stat.type == stat.base_type)
 					continue
 				dat += "<td>"
-				dat += "[stat.name]: [stat.score] "
-				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat;stat=[stat]'>-</a><br>"
-				dat += "[stat.description]"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [stat.score] </div>"
+				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
+				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
 
 				newattributeline++
@@ -1191,10 +1188,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/newstatline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
 			for(var/datum/st_stat/ability/stat as anything in subtypesof(/datum/st_stat/ability))
 				dat += "<td>"
-				dat += "[stat.name]: [stat.score] "
-				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat;stat=[stat]'>-</a><br>"
-				dat += "[stat.description]"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [stat.score] </div>"
+				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
+				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
 
 				newstatline++
@@ -1207,25 +1203,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<hr>"
 
-			dat += "<table align='center' width='100%'>"
-			dat += "<h1>[make_font_cool("Virtues")]</h1>"
-			dat += "<tr>"
-			var/newvirtueline = 0 //Purely used just so it doesn't overflow from the amount.
-			for(var/datum/st_stat/virtue/stat as anything in subtypesof(/datum/st_stat/virtue))
-				dat += "<td>"
-				dat += "[stat.name]: [stat.score] "
-				dat += "<a href='byond://?_src_=prefs;preference=trait;task=increase_stat;stat=[stat]'>+</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=trait;task=decrease_stat;stat=[stat]'>-</a><br>"
-				dat += "[stat.description]"
-				dat += "</td>"
-
-				newvirtueline++
-				if(newvirtueline == 4)
-					dat += "</tr>"
-					dat += "<tr>"
-					newvirtueline = 0
-			dat += "</tr>"
-			dat += "</table>"
+			dat += add_virtue_stats()
 
 		// TFN ADDITION START: loadout
 		if(2) //Loadout
@@ -2112,11 +2090,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(href_list["preference"] == "attributes")
 		switch(href_list["task"])
 			if("increase_stat")
-				to_chat(world, "INCREASE")
+				var/datum/st_stat/increased_stat = storyteller_stat_holder.get_stat_datum(href_list["stat"])
+				storyteller_stat_holder.set_stat(increased_stat, increased_stat.score + 1)
+				save_character()
 				return
 
 			if("decrease_stat")
-				to_chat(world, "DECREASE")
+				var/datum/st_stat/decreased_stat = storyteller_stat_holder.get_stat_datum(href_list["stat"])
+				storyteller_stat_holder.set_stat(decreased_stat, decreased_stat.score - 1)
+				save_character()
 				return
 
 

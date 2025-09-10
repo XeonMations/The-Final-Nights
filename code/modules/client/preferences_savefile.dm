@@ -525,7 +525,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["chi_types"], chi_types)
 	READ_FILE(S["chi_levels"], chi_levels)
 
-	load_stats(S)
+	READ_FILE(S["storyteller_stat_holder"], storyteller_stat_holder)
+
+	if(!storyteller_stat_holder)
+		storyteller_stat_holder = new()
 
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
@@ -678,7 +681,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	honor = sanitize_integer(honor, 0, 10, initial(honor))
 	renownrank = sanitize_integer(renownrank, 0, 5, initial(renownrank))
 	extra_gnosis = sanitize_integer(extra_gnosis, 0, 5, initial(extra_gnosis))
-	sanitize_stats()
+	storyteller_stat_holder.sanitize_stats()
 	// TFN EDIT END
 
 
@@ -870,7 +873,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["chi_levels"], chi_levels)
 	WRITE_FILE(S["path"], morality_path.name)
 
-	save_stats(S)
+	WRITE_FILE(S["storyteller_stat_holder"], storyteller_stat_holder)
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)

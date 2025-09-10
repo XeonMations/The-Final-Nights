@@ -32,6 +32,13 @@
 	var/datum/st_stat/A = st_stats[stat_path]
 	return A
 
+/// Sanitizes every stat, mainly used for preference sanity.
+/datum/storyteller_stats/proc/sanitize_stats()
+	for(var/datum/st_stat/A as anything in st_stats)
+		var/datum/st_stat/changed_stat = get_stat_datum(A)
+		changed_stat.set_score(clamp(changed_stat.score, changed_stat.min_score, changed_stat.max_score))
+	return TRUE
+
 /datum/storyteller_stats/proc/add_stat_mod(stat_path, amount, source)
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	LAZYSET(A.modifiers, source, amount)

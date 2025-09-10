@@ -4,6 +4,10 @@
 	var/description = ""
 	var/score = 0
 	var/bonus_score = 0
+	//The minimum score this stat can be.
+	var/min_score = 0
+	//The maximum score this stat can be.
+	var/max_score = 5
 
 	//determines the base type for this class, so we don't add in empty types
 	var/base_type = /datum/st_stat
@@ -13,6 +17,9 @@
 
 	/// A dictionary of modifiers to this attribute.
 	var/list/modifiers = list()
+
+	//How many points this stat category the player can use to upgrade the stats in this category.
+	var/points = 0
 
 /datum/st_stat/proc/get_score(include_bonus = TRUE)
 	if(include_bonus)
