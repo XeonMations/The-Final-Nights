@@ -20,9 +20,10 @@
 
 	level = 1
 	vitae_cost = 0
-	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_SPEAK
+	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_SPEAK | DISC_CHECK_DIRECT_SEE
 	target_type = TARGET_OBJ | TARGET_LIVING
 	range = 7
+	custom_logging = TRUE
 
 	cooldown_length = 5 SECONDS
 
@@ -44,6 +45,7 @@
 		return
 
 	target.melpominee_say(owner, message = new_say)
+	do_logging(target, new_say)
 
 	if (!isliving(target))
 		return
@@ -96,6 +98,9 @@
 			else
 				to_chat(hearer, span_warning("[target]'s lips aren't moving to match [target.p_their()] words."))
 
+/datum/discipline_power/melpominee/the_missing_voice/do_logging(target, message)
+	. = ..()
+	log_combat(owner, target, "Forced [target] to say [message]")
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
