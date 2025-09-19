@@ -348,9 +348,4 @@ GLOBAL_VAR(restart_counter)
 	if (init_result != "0")
 		CRASH("Error initializing byond-tracy: [init_result]")
 
-
-/world/Profile(command, type, format)
-	if((command & PROFILE_STOP) || !global.config?.loaded || !CONFIG_GET(flag/forbid_all_profiling))
-		. = ..()
-
 #undef RESTART_COUNTER_PATH
