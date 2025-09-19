@@ -1,4 +1,10 @@
 #define RESTART_COUNTER_PATH "data/round_counter.txt"
+/// Load byond-tracy. If USE_BYOND_TRACY is defined, then this is ignored and byond-tracy is always loaded.
+#define USE_TRACY_PARAMETER "tracy"
+/// Force the log directory to be something specific in the data/logs folder
+#define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"
+/// Prevent the master controller from starting automatically
+#define NO_INIT_PARAMETER "no-init"
 
 GLOBAL_VAR(restart_counter)
 GLOBAL_VAR(tracy_log)
@@ -218,6 +224,9 @@ GLOBAL_PROTECT(tracy_init_reason)
 		GLOB.picture_log_directory = "data/picture_logs/[override_dir]"
 
 	GLOB.logger.init_logging()
+
+	if(GLOB.tracy_log)
+		rustg_file_write("[GLOB.tracy_log]", "[GLOB.log_directory]/tracy.loc")
 
 	var/latest_changelog = file("[global.config.directory]/../html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM", TIMEZONE_UTC) + ".yml")
 	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently

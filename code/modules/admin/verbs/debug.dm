@@ -1000,6 +1000,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				actual_file_name = 'icons/mob/clothing/belt_mirror.dmi'
 				if(!(sprite.icon_state in icon_states(actual_file_name)))
 					to_chat(user, span_warning("ERROR sprites for [sprite.type]. Suit Storage slot."), confidential = TRUE)
+#endif
 
 #ifndef OPENDREAM
 /client/proc/start_tracy()
@@ -1011,24 +1012,24 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		return
 
 	if(GLOB.tracy_initialized)
-		to_chat(user, span_warning("byond-tracy is already running!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
+		to_chat(usr, span_warning("byond-tracy is already running!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
 		return
 	else if(GLOB.tracy_init_error)
-		to_chat(user, span_danger("byond-tracy failed to initialize during an earlier attempt: [GLOB.tracy_init_error]"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
+		to_chat(usr, span_danger("byond-tracy failed to initialize during an earlier attempt: [GLOB.tracy_init_error]"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
 		return
-	message_admins(span_adminnotice("[key_name_admin(user)] is trying to start the byond-tracy profiler."))
-	log_admin("[key_name(user)] is trying to start the byond-tracy profiler.")
+	message_admins(span_adminnotice("[key_name_admin(usr)] is trying to start the byond-tracy profiler."))
+	log_admin("[key_name(usr)] is trying to start the byond-tracy profiler.")
 	GLOB.tracy_initialized = FALSE
-	GLOB.tracy_init_reason = "[user.ckey]"
+	GLOB.tracy_init_reason = "[usr.ckey]"
 	world.init_byond_tracy()
 	if(GLOB.tracy_init_error)
-		to_chat(user, span_danger("byond-tracy failed to initialize: [GLOB.tracy_init_error]"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
-		message_admins(span_adminnotice("[key_name_admin(user)] tried to start the byond-tracy profiler, but it failed to initialize ([GLOB.tracy_init_error])"))
-		log_admin("[key_name(user)] tried to start the byond-tracy profiler, but it failed to initialize ([GLOB.tracy_init_error])")
+		to_chat(usr, span_danger("byond-tracy failed to initialize: [GLOB.tracy_init_error]"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
+		message_admins(span_adminnotice("[key_name_admin(usr)] tried to start the byond-tracy profiler, but it failed to initialize ([GLOB.tracy_init_error])"))
+		log_admin("[key_name(usr)] tried to start the byond-tracy profiler, but it failed to initialize ([GLOB.tracy_init_error])")
 		return
-	to_chat(user, span_notice("byond-tracy successfully started!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
-	message_admins(span_adminnotice("[key_name_admin(user)] started the byond-tracy profiler."))
-	log_admin("[key_name(user)] started the byond-tracy profiler.")
+	to_chat(usr, span_notice("byond-tracy successfully started!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
+	message_admins(span_adminnotice("[key_name_admin(usr)] started the byond-tracy profiler."))
+	log_admin("[key_name(usr)] started the byond-tracy profiler.")
 	if(GLOB.tracy_log)
 		rustg_file_write("[GLOB.tracy_log]", "[GLOB.log_directory]/tracy.loc")
 
@@ -1043,7 +1044,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(fexists(TRACY_ENABLE_PATH))
 		fdel(TRACY_ENABLE_PATH)
 	else
-		rustg_file_write("[user.ckey]", TRACY_ENABLE_PATH)
-	message_admins(span_adminnotice("[key_name_admin(user)] [fexists(TRACY_ENABLE_PATH) ? "enabled" : "disabled"] the byond-tracy profiler for next round."))
-	log_admin("[key_name(user)] [fexists(TRACY_ENABLE_PATH) ? "enabled" : "disabled"] the byond-tracy profiler for next round.")
+		rustg_file_write("[usr.ckey]", TRACY_ENABLE_PATH)
+	message_admins(span_adminnotice("[key_name_admin(usr)] [fexists(TRACY_ENABLE_PATH) ? "enabled" : "disabled"] the byond-tracy profiler for next round."))
+	log_admin("[key_name(usr)] [fexists(TRACY_ENABLE_PATH) ? "enabled" : "disabled"] the byond-tracy profiler for next round.")
 #endif
