@@ -594,15 +594,27 @@
 
 /datum/config_entry/string/adminhelp_ahelp_link
 
+/// Enables sending certain actions to a Discord webhook for review
+/datum/config_entry/flag/discord_overwatch
+
+/datum/config_entry/string/discord_overwatch_webhook
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/flag/forbid_all_profiling
+
+/datum/config_entry/flag/forbid_admin_profiling
+
+/// If admins with +DEBUG can initialize byond-tracy midround.
+/datum/config_entry/flag/allow_tracy_start
+	protection = CONFIG_ENTRY_LOCKED
+
+/// If admins with +DEBUG can queue byond-tracy to run the next round.
+/datum/config_entry/flag/allow_tracy_queue
+	protection = CONFIG_ENTRY_LOCKED
+
 /**
  * Tgui ui_act payloads larger than 2kb are split into chunks a maximum of 1kb in size.
  * This flag represents the maximum chunk count the server is willing to receive.
  */
 /datum/config_entry/number/tgui_max_chunk_count
 	default = 32
-
-/// Enables sending certain actions to a Discord webhook for review
-/datum/config_entry/flag/discord_overwatch
-
-/datum/config_entry/string/discord_overwatch_webhook
-	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN

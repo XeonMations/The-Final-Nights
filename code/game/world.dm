@@ -410,7 +410,7 @@ GLOBAL_VAR(restart_counter)
 /world/proc/init_debugger()
 	var/dll = GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (dll)
-		LIBCALL(dll, "auxtools_init")()
+		call(dll, "auxtools_init")()
 		enable_debugging()
 
 /world/Profile(command, type, format)

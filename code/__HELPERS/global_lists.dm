@@ -77,6 +77,7 @@ GLOBAL_LIST_EMPTY(glyph_list)
 
 /// Inits GLOB.surgeries
 /proc/init_surgeries()
+	var/surgeries = list()
 	for(var/path in subtypesof(/datum/surgery))
 		surgeries += new path()
 	sort_list(surgeries, GLOBAL_PROC_REF(cmp_typepaths_asc))
