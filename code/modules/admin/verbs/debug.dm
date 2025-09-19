@@ -999,7 +999,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(sprite.slot_flags & ITEM_SLOT_SUITSTORE)
 				actual_file_name = 'icons/mob/clothing/belt_mirror.dmi'
 				if(!(sprite.icon_state in icon_states(actual_file_name)))
-					to_chat(user, span_warning("ERROR sprites for [sprite.type]. Suit Storage slot."), confidential = TRUE)
+					to_chat(src, span_warning("ERROR sprites for [sprite.type]. Suit Storage slot."), confidential = TRUE)
 #endif
 
 #ifndef OPENDREAM
