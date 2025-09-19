@@ -1,5 +1,6 @@
 /// Init this specific atom
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, from_template = FALSE, list/arguments)
+
 	var/the_type = A.type
 
 	if(QDELING(A))
@@ -24,7 +25,7 @@
 
 	switch(result)
 		if (INITIALIZE_HINT_NORMAL)
-			// pass
+			EMPTY_BLOCK_GUARD // Pass
 		if(INITIALIZE_HINT_LATELOAD)
 			if(arguments[1]) //mapload
 				late_loaders += A
@@ -47,9 +48,6 @@
 		if(location)
 			/// Sends a signal that the new atom `src`, has been created at `loc`
 			SEND_SIGNAL(location, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, A, arguments[1])
-			var/area/atom_area = get_area(location)
-			if(atom_area)
-				SEND_SIGNAL(atom_area, COMSIG_AREA_INITIALIZED_IN, A)
 		if(created_atoms && from_template && ispath(the_type, /atom/movable))//we only want to populate the list with movables
 			created_atoms += A.get_all_contents()
 
@@ -74,10 +72,6 @@
  * If the item is being created at runtime any time after the Atom subsystem is intialized then
  * it's false.
  *
- * The mapload argument occupies the same position as loc when Initialize() is called by New().
- * loc will no longer be needed after it passed New(), and thus it is being overwritten
- * with mapload at the end of atom/New() before this proc (atom/Initialize()) is called.
- *
  * You must always call the parent of this proc, otherwise failures will occur as the item
  * will not be seen as initalized (this can lead to all sorts of strange behaviour, like
  * the item being completely unclickable)
@@ -96,14 +90,14 @@
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_NOT_SLEEP(TRUE)
 	SHOULD_CALL_PARENT(TRUE)
-
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-	SET_PLANE_IMPLICIT(src, plane)
+	if(loc)
+		SEND_SIGNAL(loc, COMSIG_ATOM_CREATED, src) /// Sends a signal that the new atom `src`, has been created at `loc`
 
-	if(greyscale_config && greyscale_colors) //we'll check again at item/init for inhand/belt/worn configs.
+	if(greyscale_config && greyscale_colors)
 		update_greyscale()
 
 	//atom color stuff
@@ -113,19 +107,28 @@
 	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
-	SETUP_SMOOTHING()
-
-	if(uses_integrity)
-		atom_integrity = max_integrity
-	TEST_ONLY_ASSERT((!armor || istype(armor)), "[type] has an armor that contains an invalid value at intialize")
+	if (length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if (length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
 
 	// apply materials properly from the default custom_materials value
-	// This MUST come after atom_integrity is set above, as if old materials get removed,
-	// atom_integrity is checked against max_integrity and can BREAK the atom.
-	// The integrity to max_integrity ratio is still preserved.
 	set_custom_materials(custom_materials)
 
-	if(ispath(ai_controller))
-		ai_controller = new ai_controller(src)
+	if(uses_integrity)
+		if (islist(armor))
+			armor = getArmor(arglist(armor))
+		else if (!armor)
+			armor = getArmor()
+		else if (!istype(armor, /datum/armor))
+			stack_trace("Invalid type [armor.type] found in .armor during /atom Initialize()")
+		atom_integrity = max_integrity
+
+	ComponentInitialize()
+	InitializeAIController()
 
 	return INITIALIZE_HINT_NORMAL
