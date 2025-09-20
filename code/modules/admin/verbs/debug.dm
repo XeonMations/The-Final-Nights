@@ -1011,6 +1011,14 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG))
 		return
 
+	if(!CONFIG_GET(flag/allow_tracy_start))
+		to_chat(usr, span_warning("byond-tracy config disabled!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
+		return
+
+	if(!fexists(TRACY_DLL_PATH))
+		to_chat(usr, span_warning("byond-tracy not found!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
+		return
+
 	if(Tracy.enabled)
 		to_chat(usr, span_warning("byond-tracy is already running!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
 		return
@@ -1037,6 +1045,14 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set desc = "Toggle running the byond-tracy profiler next round."
 
 	if(!check_rights(R_DEBUG))
+		return
+
+	if(!CONFIG_GET(flag/allow_tracy_queue))
+		to_chat(usr, span_warning("byond-tracy config disabled!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
+		return
+
+	if(!fexists(TRACY_DLL_PATH))
+		to_chat(usr, span_warning("byond-tracy not found!"), avoid_highlighting = TRUE, type = MESSAGE_TYPE_DEBUG, confidential = TRUE)
 		return
 
 	if(fexists(TRACY_ENABLE_PATH))
