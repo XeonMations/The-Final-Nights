@@ -1,5 +1,5 @@
 /proc/log_href(text, list/data)
-	logger.Log(LOG_CATEGORY_DEBUG_HREF, text, data)
+	logger.Log(LOG_CATEGORY_HREF_TGUI, text, data)
 
 /**
  * Appends a tgui-related log entry. All arguments are optional.
