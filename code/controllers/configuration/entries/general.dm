@@ -104,18 +104,16 @@
 /// log emotes
 /datum/config_entry/flag/log_emote
 
-/datum/config_entry/flag/log_subtle
+/// log ghost polling
+/datum/config_entry/flag/log_ghost_poll
+	default = TRUE
 
-/datum/config_entry/flag/log_subtler
-
-/datum/config_entry/flag/log_attack	// log attack messages
-
-/datum/config_entry/flag/log_emote	// log emotes
 // TFN EDIT ADDITION START
 /datum/config_entry/flag/log_subtle  // TFN EDIT: log subtle emotes
 
 /datum/config_entry/flag/log_subtler  // TFN EDIT: log subtler emotes
 // TFN EDIT ADDITION END
+
 /datum/config_entry/flag/log_econ	// log economy actions
 
 /datum/config_entry/flag/log_traitor /// log traitor objectives

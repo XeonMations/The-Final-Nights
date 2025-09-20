@@ -88,6 +88,9 @@ GLOBAL_VAR(restart_counter)
 	// Init the debugger first so we can debug Master
 	Debugger = new
 
+	// Create the logger
+	logger = new
+
 	// THAT'S IT, WE'RE DONE, THE. FUCKING. END.
 	Master = new
 
@@ -185,7 +188,7 @@ GLOBAL_VAR(restart_counter)
 	data["tick_usage"] = world.tick_usage
 	data["tick_lag"] = world.tick_lag
 	data["time"] = world.time
-	data["timestamp"] = GLOB.logger.unix_timestamp_string()
+	data["timestamp"] = logger.unix_timestamp_string()
 	return data
 
 /world/proc/SetupLogs()
@@ -210,7 +213,7 @@ GLOBAL_VAR(restart_counter)
 		GLOB.picture_logging_prefix = "O_[override_dir]_"
 		GLOB.picture_log_directory = "data/picture_logs/[override_dir]"
 
-	GLOB.logger.init_logging()
+	logger.init_logging()
 
 	if(Tracy.trace_path)
 		rustg_file_write("[Tracy.trace_path]", "[GLOB.log_directory]/tracy.loc")
