@@ -433,4 +433,7 @@ GLOBAL_VAR(restart_counter)
 	if((command & PROFILE_STOP) || !global.config?.loaded || !CONFIG_GET(flag/forbid_all_profiling))
 		. = ..()
 
+#undef NO_INIT_PARAMETER
+#undef OVERRIDE_LOG_DIRECTORY_PARAMETER
+#undef USE_TRACY_PARAMETER
 #undef RESTART_COUNTER_PATH
