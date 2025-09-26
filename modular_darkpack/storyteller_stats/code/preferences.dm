@@ -5,7 +5,8 @@
 	var/list/dat = list()
 	if(pref_species.id == "kindred")
 		dat += "<table align='center' width='100%'>"
-		dat += "<h1>[make_font_cool("Virtues")]</h1>"
+		var/datum/st_stat/virtue_stat = storyteller_stat_holder.get_stat_datum(STAT_VIRTUE)
+		dat += "<h1>[make_font_cool("Virtues")] - Points remaining: [virtue_stat.points]</h1>"
 		dat += "<tr>"
 		var/newvirtueline = 0 //Purely used just so it doesn't overflow from the amount.
 		for(var/datum/st_stat/virtue/stat as anything in subtypesof(/datum/st_stat/virtue))

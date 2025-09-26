@@ -1160,7 +1160,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<hr>"
 
 			dat += "<table align='center' width='100%'>"
-			dat += "<h1>[make_font_cool("Attributes")]</h1>"
+			var/datum/st_stat/attribute_stat = storyteller_stat_holder.get_stat_datum(STAT_ATTRIBUTE)
+			dat += "<h1>[make_font_cool("Attributes")] - Points remaining: [attribute_stat.points]</h1>"
 			dat += "<tr>"
 			var/newattributeline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
 			for(var/datum/st_stat/attribute/stat as anything in subtypesof(/datum/st_stat/attribute))
@@ -1183,7 +1184,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<hr>"
 
 			dat += "<table align='center' width='100%'>"
-			dat += "<h1>[make_font_cool("Abilities")]</h1>"
+			var/datum/st_stat/ability_stat = storyteller_stat_holder.get_stat_datum(STAT_ABILITY)
+			dat += "<h1>[make_font_cool("Abilities")] - Points remaining: [ability_stat.points]</h1>"
 			dat += "<tr>"
 			var/newstatline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
 			for(var/datum/st_stat/ability/stat as anything in subtypesof(/datum/st_stat/ability))

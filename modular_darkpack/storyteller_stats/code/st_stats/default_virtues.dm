@@ -6,7 +6,7 @@
 /datum/st_stat/virtue/self_control
 	name = "Self-Control"
 	starting_score = 1 //All vampires by default start out with this.
-	description = "Remorse and atonement for your path's transgressions. Requires Instinct to be zero."
+	description = "Forceful control of the Beast through self discipline. Requires Instinct to be zero."
 
 /datum/st_stat/virtue/conviction
 	name = "Conviction"
