@@ -9,6 +9,13 @@
 		var/datum/st_stat/new_trait = new path
 		st_stats[path] = new_trait
 
+	var/datum/st_stat/courage = get_stat_datum(STAT_COURAGE)
+	var/datum/st_stat/permanant_willpower = get_stat_datum(STAT_PERMANENT_WILLPOWER)
+	var/datum/st_stat/temporary_willpower = get_stat_datum(STAT_TEMPORARY_WILLPOWER)
+	permanant_willpower.set_score(courage.score)
+	temporary_willpower.set_score(permanant_willpower.score)
+
+
 /datum/storyteller_stats/Destroy()
 	QDEL_LIST(st_stats)
 	return ..()
