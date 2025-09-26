@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	real_name = random_unique_name(gender)
 	equipped_gear = list() // TFN ADDITION
 	headshot_link = null // TFN ADDITION
-	qdel(storyteller_stat_holder)
+	storyteller_stat_holder = null
 	storyteller_stat_holder = new()
 	save_character()
 
@@ -3037,7 +3037,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						SetQuirks(user)
 						var/newtype = GLOB.species_list[result]
 						pref_species = new newtype()
-						qdel(storyteller_stat_holder)
+						storyteller_stat_holder = null
 						storyteller_stat_holder = new()
 						switch(pref_species.id)
 							if("ghoul","human","kuei-jin")
