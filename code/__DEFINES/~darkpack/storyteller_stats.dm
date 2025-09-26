@@ -58,3 +58,10 @@
 #define STAT_CONVICTION /datum/st_stat/virtue/conviction
 #define STAT_INSTINCT /datum/st_stat/virtue/instinct
 #define STAT_COURAGE /datum/st_stat/virtue/courage
+
+// Parent stats, mainly used for point allocation in preferences.
+
+#define STAT_ATTRIBUTE /datum/st_stat/attribute
+#define STAT_ABILITY /datum/st_stat/ability
+#define STAT_POOLED /datum/st_stat/pooled
+#define STAT_VIRTUE /datum/st_stat/virtue

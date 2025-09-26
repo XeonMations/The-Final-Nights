@@ -2085,8 +2085,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/st_stat/decrease_stat = text2path(href_list["stat"])
 				var/datum/st_stat/decreased_stat = storyteller_stat_holder.get_stat_datum(decrease_stat)
 				var/datum/st_stat/decrease_base_type_stat = storyteller_stat_holder.get_stat_datum(decreased_stat.base_type)
-				if(!decrease_base_type_stat.points)
-					return
 				if(storyteller_stat_holder.set_stat(decrease_stat, decreased_stat.score - 1))
 					decrease_base_type_stat.points += 1
 
