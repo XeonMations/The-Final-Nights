@@ -28,7 +28,7 @@
 		return score
 
 /datum/st_stat/proc/set_score(amount)
-	score = amount
+	score = clamp(amount, min_score, max_score)
 
 /datum/st_stat/proc/update_modifiers()
 	SHOULD_NOT_OVERRIDE(TRUE)

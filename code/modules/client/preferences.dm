@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	real_name = random_unique_name(gender)
 	equipped_gear = list() // TFN ADDITION
 	headshot_link = null // TFN ADDITION
-	storyteller_stat_holder = null
+	qdel(storyteller_stat_holder)
 	storyteller_stat_holder = new()
 	save_character()
 
@@ -1152,7 +1152,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<tr>"
 			for(var/datum/st_stat/pooled/stat as anything in subtypesof(/datum/st_stat/pooled))
 				dat += "<td>"
-				dat += "<div title=\"[stat.description]\">[stat.name]: [stat.score] </div>"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.get_stat(stat)] </div>"
 				dat += "</td>"
 			dat += "</tr>"
 			dat += "</table>"
@@ -1167,7 +1167,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(stat.type == stat.base_type)
 					continue
 				dat += "<td>"
-				dat += "<div title=\"[stat.description]\">[stat.name]: [stat.score] </div>"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.get_stat(stat)] </div>"
 				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
 				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
@@ -1188,7 +1188,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/newstatline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
 			for(var/datum/st_stat/ability/stat as anything in subtypesof(/datum/st_stat/ability))
 				dat += "<td>"
-				dat += "<div title=\"[stat.description]\">[stat.name]: [stat.score] </div>"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.get_stat(stat)] </div>"
 				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
 				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
@@ -2085,27 +2085,24 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			else
 				SetQuirks(user)
 		return TRUE
-	// TFN ADDITION START: attributes
 
-	if(href_list["preference"] == "attributes")
+	// TFN ADDITION START: attributes
+	else if(href_list["preference"] == "attributes")
 		switch(href_list["task"])
 			if("increase_stat")
-				var/datum/st_stat/increased_stat = storyteller_stat_holder.get_stat_datum(href_list["stat"])
-				storyteller_stat_holder.set_stat(increased_stat, increased_stat.score + 1)
-				save_character()
-				return
+				var/datum/st_stat/increase_stat = text2path(href_list["stat"])
+				var/datum/st_stat/increased_stat = storyteller_stat_holder.get_stat_datum(increase_stat)
+				storyteller_stat_holder.set_stat(increase_stat, increased_stat.score + 1)
 
 			if("decrease_stat")
-				var/datum/st_stat/decreased_stat = storyteller_stat_holder.get_stat_datum(href_list["stat"])
-				storyteller_stat_holder.set_stat(decreased_stat, decreased_stat.score - 1)
-				save_character()
-				return
+				var/datum/st_stat/decrease_stat = text2path(href_list["stat"])
+				var/datum/st_stat/decreased_stat = storyteller_stat_holder.get_stat_datum(decrease_stat)
+				storyteller_stat_holder.set_stat(decrease_stat, decreased_stat.score - 1)
 
-
-	// TFN DDITION END
+	// TFN ADDITION END
 
 	// TFN ADDITION START: loadout
-	if(href_list["preference"] == "gear")
+	else if(href_list["preference"] == "gear")
 		if(href_list["purchase_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["purchase_gear"]]
 			if(TG.cost <= player_experience)
@@ -3040,6 +3037,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						SetQuirks(user)
 						var/newtype = GLOB.species_list[result]
 						pref_species = new newtype()
+						qdel(storyteller_stat_holder)
+						storyteller_stat_holder = new()
 						switch(pref_species.id)
 							if("ghoul","human","kuei-jin")
 								discipline_types.Cut()

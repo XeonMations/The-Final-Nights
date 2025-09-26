@@ -13,8 +13,8 @@
 		st_stats[path] = new_trait
 
 /datum/storyteller_stats/Destroy()
-	. = ..()
 	QDEL_LIST(st_stats)
+	return ..()
 
 /// Return the total or pure score of the given stat.
 /datum/storyteller_stats/proc/get_stat(stat_path, include_bonus = TRUE)
@@ -31,13 +31,6 @@
 	RETURN_TYPE(/datum/st_stat)
 	var/datum/st_stat/A = st_stats[stat_path]
 	return A
-
-/// Sanitizes every stat, mainly used for preference sanity.
-/datum/storyteller_stats/proc/sanitize_stats()
-	for(var/datum/st_stat/A in st_stats)
-		var/datum/st_stat/stat = st_stats[A]
-		stat.set_score(clamp(stat.score, stat.min_score, stat.max_score))
-	return TRUE
 
 /datum/storyteller_stats/proc/add_stat_mod(stat_path, amount, source)
 	var/datum/st_stat/A = get_stat_datum(stat_path)

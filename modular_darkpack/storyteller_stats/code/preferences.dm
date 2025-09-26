@@ -10,7 +10,7 @@
 		var/newvirtueline = 0 //Purely used just so it doesn't overflow from the amount.
 		for(var/datum/st_stat/virtue/stat as anything in subtypesof(/datum/st_stat/virtue))
 			dat += "<td>"
-			dat += "<div title=\"[stat.description]\">[stat.name]: [stat.score] </div>"
+			dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.get_stat(stat)] </div>"
 			dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
 			dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 			dat += "</td>"

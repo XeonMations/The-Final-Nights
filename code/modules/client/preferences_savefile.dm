@@ -681,7 +681,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	honor = sanitize_integer(honor, 0, 10, initial(honor))
 	renownrank = sanitize_integer(renownrank, 0, 5, initial(renownrank))
 	extra_gnosis = sanitize_integer(extra_gnosis, 0, 5, initial(extra_gnosis))
-	storyteller_stat_holder.sanitize_stats()
 	// TFN EDIT END
 
 
