@@ -223,7 +223,7 @@
 /datum/discipline_power/temporis/clothos_gift/activate()
 	. = ..()
 
-	var/success = SSroll.storyteller_roll(owner.get_st_stat(STAT_INTELLIGENCE) + owner.get_st_stat(STAT_OCCULT), difficulty = 7, mobs_to_show_output = owner, numerical = TRUE)
+	var/success = SSroll.storyteller_roll(owner.st_get_stat(STAT_INTELLIGENCE) + owner.st_get_stat(STAT_OCCULT), difficulty = 7, mobs_to_show_output = owner, numerical = TRUE)
 	if(success > 0)
 		cancelable = TRUE
 	else
