@@ -1152,7 +1152,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<tr>"
 			for(var/datum/st_stat/pooled/stat as anything in subtypesof(/datum/st_stat/pooled))
 				dat += "<td>"
-				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.get_stat(stat)] </div>"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat)] </div>"
 				dat += "</td>"
 			dat += "</tr>"
 			dat += "</table>"
@@ -1167,7 +1167,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(stat.type == stat.base_type)
 					continue
 				dat += "<td>"
-				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.get_stat(stat)] </div>"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat)] </div>"
 				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
 				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
@@ -1188,7 +1188,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/newstatline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
 			for(var/datum/st_stat/ability/stat as anything in subtypesof(/datum/st_stat/ability))
 				dat += "<td>"
-				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.get_stat(stat)] </div>"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat)] </div>"
 				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
 				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
@@ -1542,23 +1542,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	popup.set_content(dat.Join())
 	popup.open(FALSE)
 	onclose(user, "preferences_window", src)
-
-//A proc that creates the score circles based on attribute and the additional bonus for the attribute
-//
-/datum/preferences/proc/build_attribute_score(attribute, bonus_number, price, variable_name)
-	var/dat
-	for(var/a in 1 to attribute)
-		dat += "•"
-	for(var/b in 1 to bonus_number)
-		dat += "•"
-	var/leftover_circles = ATTRIBUTE_BASE_LIMIT - attribute //5 is the default number of blank circles
-	for(var/c in 1 to leftover_circles)
-		dat += "o"
-	var/real_price = attribute ? (attribute*price) : price //In case we have an attribute of 0, we don't multiply by 0
-	if((player_experience >= real_price) && (attribute < ATTRIBUTE_BASE_LIMIT))
-		dat += "<a href='byond://?_src_=prefs;preference=[variable_name];task=input'>Increase ([real_price])</a>"
-	dat += "<br>"
-	return dat
 
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
@@ -3708,6 +3691,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.real_name = character.real_name
 
 	character.diablerist = diablerist
+	character.storyteller_stat_holder = storyteller_stat_holder
 
 
 	if(!character_setup && !istype(character, /mob/living/carbon/human/dummy))

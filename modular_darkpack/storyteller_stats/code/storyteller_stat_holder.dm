@@ -58,3 +58,13 @@
 /datum/storyteller_stats/proc/is_health_affecting(stat_path)
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	return A.affects_health_pool
+
+/datum/storyteller_stats/proc/build_attribute_score(stat_path)
+	var/datum/st_stat/A = get_stat_datum(stat_path)
+	var/dots
+	for(var/a in 1 to (A.score + A.bonus_score))
+		dots += "•"
+	var/leftover_circles = A.max_score - (A.score + A.bonus_score) //5 is the default number of blank circles
+	for(var/c in 1 to leftover_circles)
+		dots += "o"
+	return dots

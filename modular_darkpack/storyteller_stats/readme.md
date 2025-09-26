@@ -1,5 +1,4 @@
-https://github.com/DarkPack13/SecondCity/pull/38
-https://github.com/DarkPack13/SecondCity/pull/58
+https://github.com/The-Final-Nights/The-Final-Nights/pull/687
 
 ## Storyteller stats
 
@@ -7,7 +6,9 @@ Module ID: STORYTELLER_STATS <!-- Uppercase, UNDERSCORE_CONNECTED name of your m
 
 ### Description:
 
-Not to be confused with TG traits. A stat system based heavily on WoD
+Not to be confused with TG traits; A stat system based heavily on WoD.
+
+https://hackmd.io/-dkDQrjuTLOImoTIHr_RBA
 
 <!-- Here, try to describe what your PR does, what features it provides and any other directly useful information. -->
 
