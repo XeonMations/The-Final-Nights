@@ -24,7 +24,7 @@
 /// Sets the score of the given stat.
 /datum/storyteller_stats/proc/set_stat(stat_path, amount)
 	var/datum/st_stat/A = st_stats[stat_path]
-	A.set_score(amount)
+	return A.set_score(amount)
 
 /// Return the instance of the given stat.
 /datum/storyteller_stats/proc/get_stat_datum(stat_path)

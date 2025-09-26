@@ -18,8 +18,15 @@
 	/// A dictionary of modifiers to this attribute.
 	var/list/modifiers = list()
 
+	//What score does this stat start out with at character creation.
+	var/starting_score = 0
+
 	//How many points this stat category the player can use to upgrade the stats in this category.
 	var/points = 0
+
+/datum/st_stat/New()
+	. = ..()
+	set_score(starting_score)
 
 /datum/st_stat/proc/get_score(include_bonus = TRUE)
 	if(include_bonus)
@@ -29,6 +36,9 @@
 
 /datum/st_stat/proc/set_score(amount)
 	score = clamp(amount, min_score, max_score)
+	if(score == amount)
+		return TRUE
+	return FALSE
 
 /datum/st_stat/proc/update_modifiers()
 	SHOULD_NOT_OVERRIDE(TRUE)
@@ -36,3 +46,9 @@
 	for(var/source in modifiers)
 		bonus_score += modifiers[source]
 	bonus_score = clamp(bonus_score, 0, 10)
+
+/datum/st_stat/proc/set_points(amount)
+	points = max(amount, 0)
+	if(points == amount)
+		return TRUE
+	return FALSE
