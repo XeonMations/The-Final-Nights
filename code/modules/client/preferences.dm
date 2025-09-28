@@ -1145,7 +1145,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</tr></table>"
 
 		if(1) // Attributes
-			//dat += "<center><h3>Points left: [storyteller_stat_holder.stat_points]</h3></center>"
+			var/datum/st_stat/freebie_stat = storyteller_stat_holder.get_stat_datum(STAT_FREEBIE_POINTS)
+			dat += "<center><h3>Freebie points left: [freebie_stat.points]</h3></center>"
+			dat += "<hr>"
 
 			dat += "<table align='center' width='100%'>"
 			dat += "<h1>[make_font_cool("Pooled Stats")]</h1>"
