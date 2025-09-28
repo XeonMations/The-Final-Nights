@@ -9,13 +9,6 @@
 		var/datum/st_stat/new_trait = new path
 		st_stats[path] = new_trait
 
-	var/datum/st_stat/courage = get_stat_datum(STAT_COURAGE)
-	var/datum/st_stat/permanant_willpower = get_stat_datum(STAT_PERMANENT_WILLPOWER)
-	var/datum/st_stat/temporary_willpower = get_stat_datum(STAT_TEMPORARY_WILLPOWER)
-	permanant_willpower.set_score(courage.score)
-	temporary_willpower.set_score(permanant_willpower.score)
-
-
 /datum/storyteller_stats/Destroy()
 	QDEL_LIST(st_stats)
 	return ..()
@@ -28,7 +21,9 @@
 /// Sets the score of the given stat.
 /datum/storyteller_stats/proc/set_stat(stat_path, amount)
 	var/datum/st_stat/A = st_stats[stat_path]
-	return A.set_score(amount)
+	var/score_applied = A.set_score(amount)
+	recalculate_stats(stat_path)
+	return score_applied
 
 /// Return the instance of the given stat.
 /datum/storyteller_stats/proc/get_stat_datum(stat_path)
@@ -40,12 +35,14 @@
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	LAZYSET(A.modifiers, source, amount)
 	A.update_modifiers()
+	recalculate_stats(stat_path)
 
 /datum/storyteller_stats/proc/remove_stat_mod(stat_path, source)
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	if(LAZYACCESS(A.modifiers, source))
 		A.modifiers -= source
 		A.update_modifiers()
+		recalculate_stats(stat_path)
 
 /datum/storyteller_stats/proc/get_stat_mod(trait, source)
 	var/datum/st_stat/checking_trait = get_stat_datum(trait)
@@ -62,6 +59,10 @@
 /datum/storyteller_stats/proc/is_health_affecting(stat_path)
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	return A.affects_health_pool
+
+/datum/storyteller_stats/proc/is_willpower_affecting(stat_path)
+	var/datum/st_stat/A = get_stat_datum(stat_path)
+	return A.affects_willpower
 
 /datum/storyteller_stats/proc/decrease_score(stat_path, amount)
 	var/datum/st_stat/A = get_stat_datum(stat_path)
@@ -80,3 +81,14 @@
 	for(var/c in 1 to leftover_circles)
 		dots += "o"
 	return dots
+
+/datum/storyteller_stats/proc/recalculate_stats(stat_path)
+	if(is_willpower_affecting(stat_path))
+		recalculate_willpower()
+
+/datum/storyteller_stats/proc/recalculate_willpower()
+	var/datum/st_stat/courage = get_stat_datum(STAT_COURAGE)
+	var/datum/st_stat/permanant_willpower = get_stat_datum(STAT_PERMANENT_WILLPOWER)
+	var/datum/st_stat/temporary_willpower = get_stat_datum(STAT_TEMPORARY_WILLPOWER)
+	permanant_willpower.set_score(courage.score)
+	temporary_willpower.set_score(permanant_willpower.score)

@@ -15,6 +15,9 @@
 	//if a stat affects the hp pool, recalculate the hp of the mob when changed.
 	var/affects_health_pool = FALSE
 
+	//if a stat affects the willpower pool, recalculate the hp of the mob when changed.
+	var/affects_willpower = FALSE
+
 	/// A dictionary of modifiers to this attribute.
 	var/list/modifiers = list()
 

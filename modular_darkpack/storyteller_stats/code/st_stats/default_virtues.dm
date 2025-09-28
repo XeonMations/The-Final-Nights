@@ -19,3 +19,4 @@
 /datum/st_stat/virtue/courage
 	name = "Courage"
 	starting_score = 1 //All vampires by default start out with this.
+	affects_willpower = TRUE
