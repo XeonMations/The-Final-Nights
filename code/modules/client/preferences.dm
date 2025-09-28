@@ -2075,24 +2075,37 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	// TFN ADDITION START: attributes
 	else if(href_list["preference"] == "attributes")
+		var/datum/st_stat/freebie_stat = storyteller_stat_holder.get_stat_datum(STAT_FREEBIE_POINTS)
+		var/datum/st_stat/chosen_stat = text2path(href_list["stat"])
+		var/freebie_point_usage = 0
+		if(chosen_stat.type == STAT_PERMANENT_WILLPOWER)
+			freebie_point_usage = 1
+		if(chosen_stat.type in subtypesof(STAT_VIRTUE))
+			freebie_point_usage = 2
+		if(chosen_stat.type in subtypesof(STAT_ABILITY))
+			freebie_point_usage = 2
+		if(chosen_stat.type in subtypesof(STAT_ATTRIBUTE))
+			freebie_point_usage = 5
+
 		switch(href_list["task"])
 			if("increase_stat")
-				var/datum/st_stat/increase_stat = text2path(href_list["stat"])
-				var/datum/st_stat/increased_stat = storyteller_stat_holder.get_stat_datum(increase_stat)
+				var/datum/st_stat/increased_stat = storyteller_stat_holder.get_stat_datum(chosen_stat)
 				var/datum/st_stat/increase_base_type_stat = storyteller_stat_holder.get_stat_datum(increased_stat.base_type)
 				if(increased_stat.score < increased_stat.starting_score)
 					increase_base_type_stat.points += 1
-				if(!increase_base_type_stat.points)
+				if(!increase_base_type_stat.points && !freebie_stat.points)
 					return
-				if(!storyteller_stat_holder.set_stat(increase_stat, increased_stat.score + 1))
+				if(!storyteller_stat_holder.set_stat(chosen_stat, increased_stat.score + 1))
 					return
-				increase_base_type_stat.points -= 1
+				if(increase_base_type_stat.points > 0)
+					increase_base_type_stat.points -= 1
+				else
+					freebie_stat.points -= freebie_point_usage
 
 			if("decrease_stat")
-				var/datum/st_stat/decrease_stat = text2path(href_list["stat"])
-				var/datum/st_stat/decreased_stat = storyteller_stat_holder.get_stat_datum(decrease_stat)
+				var/datum/st_stat/decreased_stat = storyteller_stat_holder.get_stat_datum(chosen_stat)
 				var/datum/st_stat/decrease_base_type_stat = storyteller_stat_holder.get_stat_datum(decreased_stat.base_type)
-				if(!storyteller_stat_holder.set_stat(decrease_stat, decreased_stat.score - 1))
+				if(!storyteller_stat_holder.set_stat(chosen_stat, decreased_stat.score - 1))
 					return
 				decrease_base_type_stat.points += 1
 				if(decreased_stat.score < decreased_stat.starting_score)
