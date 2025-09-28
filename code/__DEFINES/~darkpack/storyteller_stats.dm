@@ -61,6 +61,7 @@
 
 // Parent stats, mainly used for point allocation in preferences.
 
+#define STAT_FREEBIE_POINTS /datum/st_stat/freebie
 #define STAT_ATTRIBUTE /datum/st_stat/attribute
 #define STAT_ABILITY /datum/st_stat/ability
 #define STAT_POOLED /datum/st_stat/pooled

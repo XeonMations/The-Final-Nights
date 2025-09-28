@@ -1,5 +1,5 @@
 /datum/preferences
-	var/datum/storyteller_stats/storyteller_stat_holder
+	var/datum/storyteller_stats/storyteller_stat_holder = new /datum/storyteller_stats()
 
 /datum/preferences/proc/add_virtue_stats()
 	var/list/dat = list()

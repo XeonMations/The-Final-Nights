@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	///Whether emotes will be displayed on runechat. Requires chat_on_map to have effect. Boolean.
 	var/see_rc_emotes = TRUE
 	//Клан вампиров
-	var/datum/vampire_clan/clan
+	var/datum/vampire_clan/clan = new /datum/vampire_clan/brujah()
 	var/datum/morality/morality_path = new /datum/morality/humanity()
 	// Custom Keybindings
 	var/list/key_bindings = list()
