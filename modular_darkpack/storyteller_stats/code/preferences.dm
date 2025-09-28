@@ -29,7 +29,6 @@
 	var/datum/st_stat/virtue_stat = storyteller_stat_holder.get_stat_datum(STAT_COURAGE)
 	dat += "<h1>[make_font_cool("Virtues")] - Points remaining: [virtue_stat.points]</h1>"
 	dat += "<tr>"
-	var/newvirtueline = 0 //Purely used just so it doesn't overflow from the amount.
 	dat += "<td>"
 	dat += "<div title=\"[virtue_stat.description]\">[virtue_stat.name]: [storyteller_stat_holder.build_attribute_score(virtue_stat)] - [storyteller_stat_holder.get_stat(virtue_stat)] </div>"
 	dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[virtue_stat]'>+</a>"
