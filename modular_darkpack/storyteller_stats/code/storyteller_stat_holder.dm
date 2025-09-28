@@ -63,6 +63,14 @@
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	return A.affects_health_pool
 
+/datum/storyteller_stats/proc/decrease_score(stat_path, amount)
+	var/datum/st_stat/A = get_stat_datum(stat_path)
+	return A.decrease_score(amount)
+
+/datum/storyteller_stats/proc/increase_score(stat_path, amount)
+	var/datum/st_stat/A = get_stat_datum(stat_path)
+	return A.increase_score(amount)
+
 /datum/storyteller_stats/proc/build_attribute_score(stat_path)
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	var/dots

@@ -40,6 +40,22 @@
 		return TRUE
 	return FALSE
 
+/datum/st_stat/proc/increase_score(amount)
+	var/temp_score = score
+	score = score + amount
+	score = clamp(amount, min_score, max_score)
+	if(score == temp_score)
+		return TRUE
+	return FALSE
+
+/datum/st_stat/proc/decrease_score(amount)
+	var/temp_score = score
+	score = score - amount
+	score = clamp(amount, min_score, max_score)
+	if(score == temp_score)
+		return TRUE
+	return FALSE
+
 /datum/st_stat/proc/update_modifiers()
 	SHOULD_NOT_OVERRIDE(TRUE)
 	bonus_score = initial(bonus_score)

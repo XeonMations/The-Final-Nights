@@ -227,9 +227,16 @@
 
 	level = 5
 	check_flags = DISC_CHECK_CONSCIOUS
-	vitae_cost = 1
+	vitae_cost = 0
+
+/datum/discipline_power/auspex/psychic_projection/can_afford()
+	return owner.st_get_stat(STAT_TEMPORARY_WILLPOWER)
+
+/datum/discipline_power/auspex/psychic_projection/do_afford_alert()
+	to_chat(owner, span_warning("You do not have enough willpower to cast [src]!"))
 
 /datum/discipline_power/auspex/psychic_projection/activate()
 	. = ..()
+	owner.st_decrease_stat_score(STAT_TEMPORARY_WILLPOWER, 1)
 	owner.enter_avatar()
 	owner.soul_state = SOUL_PROJECTING

@@ -41,3 +41,13 @@
 	if(!storyteller_stat_holder)
 		return
 	return storyteller_stat_holder.get_stat_mod(stat_path, source)
+
+/mob/living/proc/st_increase_stat_score(stat_path, amount)
+	if(!storyteller_stat_holder)
+		return
+	storyteller_stat_holder.increase_score(stat_path, amount)
+
+/mob/living/proc/st_decrease_stat_score(stat_path, amount)
+	if(!storyteller_stat_holder)
+		return
+	storyteller_stat_holder.decrease_score(stat_path, amount)

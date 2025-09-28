@@ -186,7 +186,7 @@
 	//the user cannot afford the power's vitae expenditure
 	if (!can_afford())
 		if (alert)
-			to_chat(owner, span_warning("You do not have enough blood to cast [src]!"))
+			do_afford_alert()
 		return FALSE
 
 	//the power's cooldown has not elapsed
@@ -756,3 +756,7 @@
 
 	deltimer(duration_timers[to_clear])
 	duration_timers.Cut(to_clear, to_clear + 1)
+
+// For certain discipline alerts, for example auspex 5 requiring willpower instead of blood points.
+/datum/discipline_power/proc/do_afford_alert()
+	to_chat(owner, span_warning("You do not have enough blood to cast [src]!"))
