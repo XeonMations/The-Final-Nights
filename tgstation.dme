@@ -2361,6 +2361,7 @@
 #include "code\modules\language\hebrew.dm"
 #include "code\modules\language\italian.dm"
 #include "code\modules\language\japanese.dm"
+#include "modular_darkpack\storyteller_stats\code\st_stats\_freebie.dm"
 #include "modular_darkpack\storyteller_stats\code\st_stats\_virtue.dm"
 #include "modular_tfn\modules\language\irish.dm"
 #include "modular_tfn\modules\language\scottish.dm"
