@@ -92,7 +92,7 @@
 /datum/storyteller_stats/proc/recalculate_all_willpower(updating_permanent_willpower = FALSE)
 	if(updating_permanent_willpower)
 		remove_stat_mod(STAT_PERMANENT_WILLPOWER, "COURAGE")
-		add_stat_mod(STAT_PERMANENT_WILLPOWER, get_stat(STAT_COURAGE), "COURAGE")
+		add_stat_mod(STAT_PERMANENT_WILLPOWER, clamp((get_stat(STAT_PERMANENT_WILLPOWER, include_bonus = FALSE) - get_stat(STAT_COURAGE)), 0, 10), "COURAGE")
 	remove_stat_mod(STAT_TEMPORARY_WILLPOWER, "PERMANENT_WILLPOWER")
 	add_stat_mod(STAT_TEMPORARY_WILLPOWER, get_stat(STAT_PERMANENT_WILLPOWER), "PERMANENT_WILLPOWER")
 
