@@ -93,17 +93,14 @@
 /datum/discipline_power/auspex/psychic_projection/do_afford_alert()
 	to_chat(owner, span_warning("You do not have enough willpower to cast [src]!"))
 
-/datum/discipline_power/quietus/dagons_call/pre_activation_checks(atom/target)
-	if(SSroll.storyteller_roll(victim.st_get_stat(STAT_STAMINA), victim.st_get_stat(STAT_PERMANENT_WILLPOWER), FALSE, owner))
-		return FALSE
-	return TRUE
-
 /datum/discipline_power/quietus/dagons_call/activate()
 	. = ..()
 	if(owner.lastattacked)
 		if(isliving(owner.lastattacked))
 			owner.st_decrease_stat_score(STAT_TEMPORARY_WILLPOWER, 1)
 			var/mob/living/L = owner.lastattacked
+			if(SSroll.storyteller_roll(L.st_get_stat(STAT_STAMINA), L.st_get_stat(STAT_PERMANENT_WILLPOWER), FALSE, owner))
+				return
 			L.adjustStaminaLoss(80)
 			L.adjustFireLoss(10)
 			to_chat(owner, "You send your curse on [L], the last creature you attacked.")
