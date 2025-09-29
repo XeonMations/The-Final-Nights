@@ -27,6 +27,9 @@
 	//How many points this stat category the player can use to upgrade the stats in this category.
 	var/points = 0
 
+	//At what score amount further upgrades require freebie point expendature to level up.
+	var/max_level_before_freebie_points = 5
+
 /datum/st_stat/New()
 	. = ..()
 	set_score(starting_score)
