@@ -2098,7 +2098,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					increase_base_type_stat.points += 1
 				if(!increase_base_type_stat.points && !freebie_stat.points)
 					return
-				if(storyteller_stat_holder.get_stat(chosen_stat) > increase_base_type_stat.max_score)
+				if(storyteller_stat_holder.get_stat(chosen_stat) >= increase_base_type_stat.max_score)
 					return
 				if(!storyteller_stat_holder.set_stat(chosen_stat, increased_stat.score + 1))
 					return
