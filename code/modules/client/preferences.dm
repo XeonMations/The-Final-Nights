@@ -2103,7 +2103,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(increase_base_type_stat.points > 0 && (increase_base_type_stat.score > increase_base_type_stat.max_level_before_freebie_points))
 					increase_base_type_stat.points -= 1
 				else
-					if(freebie_stat.points - freebie_point_usage < 0)
+					if((freebie_stat.points - freebie_point_usage) < 0)
 						storyteller_stat_holder.set_stat(chosen_stat, increased_stat.score - 1)
 						return
 					freebie_stat.points -= freebie_point_usage

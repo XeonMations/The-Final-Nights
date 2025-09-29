@@ -84,11 +84,15 @@
 
 /datum/storyteller_stats/proc/recalculate_stats(stat_path)
 	if(is_willpower_affecting(stat_path))
-		recalculate_willpower()
+		if(stat_path == STAT_PERMANENT_WILLPOWER)
+			recalculate_all_willpower()
+		else
+			recalculate_all_willpower(TRUE)
 
-/datum/storyteller_stats/proc/recalculate_willpower()
-	var/datum/st_stat/courage = get_stat_datum(STAT_COURAGE)
-	var/datum/st_stat/permanant_willpower = get_stat_datum(STAT_PERMANENT_WILLPOWER)
-	var/datum/st_stat/temporary_willpower = get_stat_datum(STAT_TEMPORARY_WILLPOWER)
-	permanant_willpower.set_score(courage.score)
-	temporary_willpower.set_score(permanant_willpower.score)
+/datum/storyteller_stats/proc/recalculate_all_willpower(updating_permanent_willpower = FALSE)
+	if(updating_permanent_willpower)
+		remove_stat_mod(STAT_PERMANENT_WILLPOWER, "COURAGE")
+		add_stat_mod(STAT_PERMANENT_WILLPOWER, get_stat(STAT_COURAGE), "COURAGE")
+	remove_stat_mod(STAT_TEMPORARY_WILLPOWER, "PERMANENT_WILLPOWER")
+	add_stat_mod(STAT_TEMPORARY_WILLPOWER, get_stat(STAT_PERMANENT_WILLPOWER), "PERMANENT_WILLPOWER")
+
