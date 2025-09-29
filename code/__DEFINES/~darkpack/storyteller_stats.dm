@@ -66,3 +66,5 @@
 #define STAT_ABILITY /datum/st_stat/ability
 #define STAT_POOLED /datum/st_stat/pooled
 #define STAT_VIRTUE /datum/st_stat/virtue
+
+#define STAT_MORALITY_PATH /datum/st_stat/morality_path
