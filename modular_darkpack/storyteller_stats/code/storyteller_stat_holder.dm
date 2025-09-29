@@ -9,6 +9,10 @@
 		var/datum/st_stat/new_trait = new path
 		st_stats[path] = new_trait
 
+	for(var/datum/path as anything in subtypesof(/datum/st_stat))
+		var/datum/st_stat/A = st_stats[path]
+		set_stat(path, A.starting_score)
+
 /datum/storyteller_stats/Destroy()
 	QDEL_LIST(st_stats)
 	return ..()
@@ -92,7 +96,6 @@
 /datum/storyteller_stats/proc/recalculate_all_willpower(updating_permanent_willpower = FALSE)
 	if(updating_permanent_willpower)
 		remove_stat_mod(STAT_PERMANENT_WILLPOWER, "COURAGE")
-		add_stat_mod(STAT_PERMANENT_WILLPOWER, clamp((get_stat(STAT_PERMANENT_WILLPOWER, include_bonus = FALSE) - get_stat(STAT_COURAGE)), 0, 10), "COURAGE")
+		add_stat_mod(STAT_PERMANENT_WILLPOWER, clamp(-(get_stat(STAT_PERMANENT_WILLPOWER, include_bonus = FALSE) - 10), 0, get_stat(STAT_COURAGE)), "COURAGE")
 	remove_stat_mod(STAT_TEMPORARY_WILLPOWER, "PERMANENT_WILLPOWER")
 	add_stat_mod(STAT_TEMPORARY_WILLPOWER, get_stat(STAT_PERMANENT_WILLPOWER), "PERMANENT_WILLPOWER")
-
