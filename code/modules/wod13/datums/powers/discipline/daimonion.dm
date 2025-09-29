@@ -23,6 +23,11 @@
 
 	cancelable = TRUE
 
+/datum/discipline_power/daimonion/sense_the_sin/pre_activation_checks(mob/living/target)
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_PERCEPTION) + owner.st_get_stat(STAT_EMPATHY)), (ceil(target.st_get_stat(STAT_SELF_CONTROL), target.st_get_stat(STAT_INSTINCT)) + 4), mobs_to_show_output = owner) == !ROLL_SUCCESS)
+		return FALSE
+	return TRUE
+
 /datum/discipline_power/daimonion/sense_the_sin/activate(mob/living/carbon/human/target)
 	. = ..()
 	if(target.st_get_stat(STAT_CHARISMA) <= 2)

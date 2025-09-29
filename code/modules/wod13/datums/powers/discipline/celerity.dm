@@ -11,6 +11,9 @@
 	activate_sound = 'code/modules/wod13/sounds/celerity_activate.ogg'
 	deactivate_sound = 'code/modules/wod13/sounds/celerity_deactivate.ogg'
 
+/datum/discipline/celerity/post_gain()
+	. = ..()
+	owner.st_add_stat_mod(STAT_DEXTERITY, discipline.level, "celerity_passive")
 
 /datum/discipline_power/celerity/proc/celerity_visual(datum/discipline_power/celerity/source, atom/newloc, dir)
 	SIGNAL_HANDLER
