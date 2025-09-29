@@ -1155,6 +1155,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			for(var/datum/st_stat/pooled/stat as anything in subtypesof(/datum/st_stat/pooled))
 				dat += "<td>"
 				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat)] </div>"
+				if(stat.type == STAT_PERMANENT_WILLPOWER)
+					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
+					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
 			dat += "</tr>"
 			dat += "</table>"
@@ -2097,7 +2100,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					return
 				if(!storyteller_stat_holder.set_stat(chosen_stat, increased_stat.score + 1))
 					return
-				if(increase_base_type_stat.points > 0 && (increase_base_type_stat.score < increase_base_type_stat.max_level_before_freebie_points))
+				if(increase_base_type_stat.points > 0 && (increase_base_type_stat.score > increase_base_type_stat.max_level_before_freebie_points))
 					increase_base_type_stat.points -= 1
 				else
 					if(freebie_stat.points - freebie_point_usage < 0)

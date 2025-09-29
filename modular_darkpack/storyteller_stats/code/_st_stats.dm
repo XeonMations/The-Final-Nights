@@ -68,9 +68,3 @@
 	for(var/source in modifiers)
 		bonus_score += modifiers[source]
 	bonus_score = clamp(bonus_score, 0, 10)
-
-/datum/st_stat/proc/set_points(amount)
-	points = max(amount, 0)
-	if(points == amount)
-		return TRUE
-	return FALSE
