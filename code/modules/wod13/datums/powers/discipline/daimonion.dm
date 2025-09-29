@@ -24,7 +24,7 @@
 	cancelable = TRUE
 
 /datum/discipline_power/daimonion/sense_the_sin/pre_activation_checks(mob/living/target)
-	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_PERCEPTION) + owner.st_get_stat(STAT_EMPATHY)), (ceil(target.st_get_stat(STAT_SELF_CONTROL), target.st_get_stat(STAT_INSTINCT)) + 4), mobs_to_show_output = owner) == !ROLL_SUCCESS)
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_PERCEPTION) + owner.st_get_stat(STAT_EMPATHY)), (max(target.st_get_stat(STAT_SELF_CONTROL), target.st_get_stat(STAT_INSTINCT)) + 4), mobs_to_show_output = owner) == !ROLL_SUCCESS)
 		return FALSE
 	return TRUE
 
@@ -265,7 +265,7 @@
 	var/datum/st_stat/virtue/lowest_virtue
 	for(var/datum/st_stat/virtue/virtue as anything in subtypesof(/datum/st_stat/virtue))
 		var/datum/st_stat/virtue/owner_stat = owner.st_get_stat(virtue)
-		if(owner_stat.score < lowest_virtue.score)
+		if(owner_stat.score < lowest_virtue?.score || !lowest_virtue)
 			lowest_virtue = owner_stat
 
 	if(SSroll.storyteller_roll(owner.st_get_stat(lowest_virtue), 6, mobs_to_show_output = owner) == !ROLL_SUCCESS)

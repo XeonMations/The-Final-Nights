@@ -83,7 +83,7 @@
 
 /datum/discipline_power/dementation/the_haunting/pre_activation_checks(mob/living/target)
 
-	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_SUBTERFUGE)), difficulty = (target.st_get_stat(STAT_PERCEPTION) + ceil(target.st_get_stat(STAT_SELF_CONTROL) + target.st_get_stat(STAT_INSTINCT))), mobs_to_show_output = owner, numerical = TRUE))
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_SUBTERFUGE)), difficulty = (target.st_get_stat(STAT_PERCEPTION) + max(target.st_get_stat(STAT_SELF_CONTROL) + target.st_get_stat(STAT_INSTINCT))), mobs_to_show_output = owner, numerical = TRUE))
 		return TRUE
 	else
 		do_cooldown(cooldown_length)
@@ -314,7 +314,7 @@
 
 /datum/discipline_power/dementation/total_insanity/pre_activation_checks(mob/living/target)
 
-	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_INTIMIDATION)), difficulty = victim.st_get_stat(STAT_PERMANENT_WILLPOWER), mobs_to_show_output = owner, numerical = TRUE))
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_INTIMIDATION)), difficulty = target.st_get_stat(STAT_PERMANENT_WILLPOWER), mobs_to_show_output = owner, numerical = TRUE))
 		return TRUE
 	else
 		do_cooldown(cooldown_length)
@@ -378,7 +378,7 @@
 
 /datum/discipline_power/dementation/stain_the_soul/pre_activation_checks(mob/living/target)
 
-	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_EMPATHY)), difficulty = victim.st_get_stat(STAT_TEMPORARY_WILLPOWER), mobs_to_show_output = owner, numerical = TRUE))
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_EMPATHY)), difficulty = target.st_get_stat(STAT_TEMPORARY_WILLPOWER), mobs_to_show_output = owner, numerical = TRUE))
 		return TRUE
 	else
 		do_cooldown(cooldown_length)
