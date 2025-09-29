@@ -152,6 +152,11 @@
 	duration_length = 2 SECONDS
 	duration_override = TRUE
 
+/datum/discipline_power/melpominee/madrigal/pre_activation_checks(atom/target)
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_CHARISMA) + owner.st_get_stat(STAT_PERFORMANCE)), 7, FALSE, owner))
+		return TRUE
+	return FALSE
+
 /datum/discipline_power/melpominee/madrigal/activate()
 	. = ..()
 	for(var/mob/living/carbon/human/listener in oviewers(7, owner))
@@ -189,6 +194,11 @@
 	duration_length = 2 SECONDS
 	cooldown_length = 7.5 SECONDS
 	duration_override = TRUE
+
+/datum/discipline_power/melpominee/madrigal/pre_activation_checks(atom/target)
+	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_MANIPULATION) + owner.st_get_stat(STAT_PERFORMANCE)), target.st_get_stat(STAT_TEMPORARY_WILLPOWER), FALSE, owner))
+		return TRUE
+	return FALSE
 
 /datum/discipline_power/melpominee/sirens_beckoning/activate()
 	. = ..()

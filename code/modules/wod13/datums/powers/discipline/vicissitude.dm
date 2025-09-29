@@ -122,8 +122,8 @@
 
 /datum/discipline_power/vicissitude/malleable_visage/pre_activation_checks(atom/target)
 	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_INTELLIGENCE) + owner.st_get_stat(STAT_MEDICINE)), 6, FALSE, owner))
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /datum/discipline_power/vicissitude/malleable_visage/activate()
 	. = ..()
@@ -260,8 +260,8 @@
 
 /datum/discipline_power/vicissitude/fleshcrafting/pre_activation_checks(atom/target)
 	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_DEXTERITY) + owner.st_get_stat(STAT_MEDICINE)), 6, FALSE, owner))
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /datum/discipline_power/vicissitude/fleshcrafting/activate(mob/living/target)
 	. = ..()
@@ -313,8 +313,8 @@
 
 /datum/discipline_power/vicissitude/bonecrafting/pre_activation_checks(atom/target)
 	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_STRENGTH) + owner.st_get_stat(STAT_MEDICINE)), 6, FALSE, owner))
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /datum/discipline_power/vicissitude/bonecrafting/activate(mob/living/target)
 	. = ..()

@@ -334,7 +334,8 @@
 
 // Start the Total Insanity effect
 /proc/start_total_insanity_effect(mob/living/carbon/human/target)
-	if(!target) return
+	if(!target)
+		return
 
 	target.remove_overlay(MUTATIONS_LAYER)
 	var/mutable_appearance/dementation_overlay = mutable_appearance('code/modules/wod13/icons.dmi', "dementation", -MUTATIONS_LAYER)
@@ -347,7 +348,8 @@
 		addtimer(CALLBACK(target, /mob/living/carbon/human/proc/attack_myself_command), i * 1.5 SECONDS)
 
 /proc/stop_total_insanity_effect(mob/living/carbon/human/target)
-	if(!target) return
+	if(!target)
+		return
 
 	target.remove_overlay(MUTATIONS_LAYER)
 

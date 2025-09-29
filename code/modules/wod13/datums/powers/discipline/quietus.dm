@@ -232,8 +232,8 @@
 
 /datum/discipline_power/quietus/taste_of_death/pre_activation_checks(atom/target)
 	if(SSroll.storyteller_roll((owner.st_get_stat(STAT_STAMINA) + owner.st_get_stat(STAT_ATHLETICS)), 6, FALSE, owner))
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /datum/discipline_power/quietus/taste_of_death/activate()
 	. = ..()
