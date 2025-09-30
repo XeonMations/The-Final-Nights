@@ -53,11 +53,13 @@
 	return LAZYACCESS(checking_trait.modifiers, source)
 
 /datum/storyteller_stats/proc/randomize_attributes(min_score, max_score)
-	for(var/datum/st_stat/attribute/A in st_stats)
+	for(var/datum/path as anything in subtypesof(/datum/st_stat/attribute))
+		var/datum/st_stat/A = st_stats[path]
 		A.set_score(rand(min_score, max_score))
 
 /datum/storyteller_stats/proc/randomize_abilities(min_score, max_score)
-	for(var/datum/st_stat/ability/A in st_stats)
+	for(var/datum/path as anything in subtypesof(/datum/st_stat/ability))
+		var/datum/st_stat/A = st_stats[path]
 		A.set_score(rand(min_score, max_score))
 
 /datum/storyteller_stats/proc/is_health_affecting(stat_path)
