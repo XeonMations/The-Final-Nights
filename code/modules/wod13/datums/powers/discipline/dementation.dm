@@ -368,15 +368,10 @@
 	target_type = TARGET_HUMAN
 	range = 7
 
+	willpower_cost = 1
 	multi_activate = TRUE
 	duration_length = 3 SECONDS
 	cooldown_length = 1 MINUTES
-
-/datum/discipline_power/dementation/stain_the_soul/can_afford()
-	return owner.st_get_stat(STAT_TEMPORARY_WILLPOWER)
-
-/datum/discipline_power/dementation/stain_the_soul/do_afford_alert()
-	to_chat(owner, span_warning("You do not have enough willpower to cast [src]!"))
 
 /datum/discipline_power/dementation/stain_the_soul/pre_activation_checks(mob/living/target)
 

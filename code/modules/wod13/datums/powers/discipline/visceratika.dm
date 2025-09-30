@@ -51,21 +51,15 @@
 /datum/discipline_power/visceratika/scry_the_hearthstone
 	name = "Scry the Hearthstone"
 	desc = "Sense the exact locations of individuals around you."
+	willpower_cost = 1
 
 	level = 2
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_SEE
 	toggled = TRUE
 	var/area/starting_area
 
-/datum/discipline_power/auspex/psychic_projection/can_afford()
-	return owner.st_get_stat(STAT_TEMPORARY_WILLPOWER)
-
-/datum/discipline_power/auspex/psychic_projection/do_afford_alert()
-	to_chat(owner, span_warning("You do not have enough willpower to cast [src]!"))
-
 /datum/discipline_power/visceratika/scry_the_hearthstone/activate()
 	. = ..()
-	owner.st_decrease_stat_score(STAT_TEMPORARY_WILLPOWER, 1)
 	starting_area = get_area(owner)
 	ADD_TRAIT(owner, TRAIT_THERMAL_VISION, "Visceratika Scry the Hearthstone")
 	owner.update_sight()

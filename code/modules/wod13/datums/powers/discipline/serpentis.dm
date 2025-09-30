@@ -117,21 +117,15 @@
 	level = 3
 	check_flags = DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_LYING
 	vitae_cost = 1
+	willpower_cost = 1
 	violates_masquerade = TRUE
 
 	duration_length = 5 SECONDS
 	cooldown_length = 15 SECONDS
 
-/datum/discipline_power/serpentis/the_skin_of_the_adder/can_afford()
-	return owner.st_get_stat(STAT_TEMPORARY_WILLPOWER)
-
-/datum/discipline_power/serpentis/the_skin_of_the_adder/do_afford_alert()
-	to_chat(owner, span_warning("You do not have enough willpower to cast [src]!"))
-
 /datum/discipline_power/serpentis/the_skin_of_the_adder/activate()
 	. = ..()
 	//this is bad and needs to allow for actual cancelling/deactivation rather than just a timer in the proc
-	owner.st_decrease_stat_score(STAT_TEMPORARY_WILLPOWER, 1)
 	owner.Stun(duration_length)
 	owner.petrify(duration_length, "Serpentis")
 

@@ -84,20 +84,13 @@
 
 	level = 3
 	check_flags = DISC_CHECK_CONSCIOUS | DISC_CHECK_CAPABLE | DISC_CHECK_IMMOBILE | DISC_CHECK_LYING
-
+	willpower_cost = 1
 	cooldown_length = 5 SECONDS
-
-/datum/discipline_power/auspex/psychic_projection/can_afford()
-	return owner.st_get_stat(STAT_TEMPORARY_WILLPOWER)
-
-/datum/discipline_power/auspex/psychic_projection/do_afford_alert()
-	to_chat(owner, span_warning("You do not have enough willpower to cast [src]!"))
 
 /datum/discipline_power/quietus/dagons_call/activate()
 	. = ..()
 	if(owner.lastattacked)
 		if(isliving(owner.lastattacked))
-			owner.st_decrease_stat_score(STAT_TEMPORARY_WILLPOWER, 1)
 			var/mob/living/L = owner.lastattacked
 			if(SSroll.storyteller_roll(L.st_get_stat(STAT_STAMINA), L.st_get_stat(STAT_PERMANENT_WILLPOWER), FALSE, owner))
 				return
