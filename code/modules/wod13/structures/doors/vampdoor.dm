@@ -17,7 +17,6 @@
 	var/locked = FALSE
 	var/lock_id = null
 	var/glass = FALSE
-	var/hacking = FALSE
 	var/lockpick_timer = 17 //[Lucifernix] - Never have the lockpick timer lower than 7. At 7 it will unlock instantly!!
 	var/lockpick_difficulty = 2
 
@@ -189,30 +188,22 @@
 /obj/structure/vampdoor/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/vamp/keys/hack))
 		if(locked)
-			hacking = TRUE
 			playsound(src, 'code/modules/wod13/sounds/hack.ogg', 100, TRUE)
 			for(var/mob/living/carbon/human/npc/police/P in oviewers(7, src))
 				P.Aggro(user)
-			var/total_lockpicking = user.st_get_stat(STAT_LARCENY)
-			if(do_after(user, (lockpick_timer - total_lockpicking * 2) SECONDS, src))
-				var/roll = rand(1, 20) + (total_lockpicking * 2 + user.st_get_stat(STAT_DEXTERITY)) - lockpick_difficulty
-				if(roll <=1)
+			var/total_lockpicking = user.st_get_stat(STAT_LARCENY) + user.st_get_stat(STAT_DEXTERITY)
+			if(do_after(user, (lockpick_timer - total_lockpicking) SECONDS, src))
+				var/roll = SSroll.storyteller_roll(total_lockpicking, (lockpick_difficulty / 3), TRUE, user)
+				if(roll < 0)
 					to_chat(user, span_warning("Your lockpick broke!"))
 					qdel(W)
-					hacking = FALSE
-				if(roll >=10)
+					return
+				if(roll > 1)
 					to_chat(user, span_notice("You pick the lock."))
 					locked = FALSE
-					hacking = FALSE
 					return
-				else
-					to_chat(user, span_warning("You failed to pick the lock."))
-					hacking = FALSE
-					return
-			else
-				to_chat(user, span_warning("You failed to pick the lock."))
-				hacking = FALSE
-				return
+			to_chat(user, span_warning("You failed to pick the lock."))
+			return
 		else
 			if (closed && lock_id) //yes, this is a thing you can extremely easily do in real life... FOR DOORS WITH LOCKS!
 				to_chat(user, span_notice("You re-lock the door with your lockpick."))
