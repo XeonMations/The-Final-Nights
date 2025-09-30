@@ -354,9 +354,7 @@
 	storyteller_stat_holder.randomize_attributes(1, max_stat)
 	storyteller_stat_holder.randomize_abilities(0, max_stat)
 
-	maxHealth = round(initial(maxHealth)+(initial(maxHealth)/3)*(st_get_stat(STAT_STAMINA)))
-	health = round(initial(health)+(initial(health)/3)*(st_get_stat(STAT_STAMINA)))
-	last_health = health
+	recalculate_max_health(TRUE)
 	socialrole = new S()
 
 	is_criminal = socialrole.is_criminal
