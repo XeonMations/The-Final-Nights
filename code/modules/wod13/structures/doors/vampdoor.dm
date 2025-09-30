@@ -191,9 +191,9 @@
 			playsound(src, 'code/modules/wod13/sounds/hack.ogg', 100, TRUE)
 			for(var/mob/living/carbon/human/npc/police/P in oviewers(7, src))
 				P.Aggro(user)
-			var/total_lockpicking = user.st_get_stat(STAT_LARCENY) + user.st_get_stat(STAT_DEXTERITY)
-			if(do_after(user, (lockpick_timer - total_lockpicking) SECONDS, src))
-				var/roll = SSroll.storyteller_roll(total_lockpicking, (lockpick_difficulty / 3), TRUE, user)
+			var/total_lockpicking = (user.st_get_stat(STAT_LARCENY) * user.st_get_stat(STAT_DEXTERITY)) / 5
+			if(do_after(user, (lockpick_timer - total_lockpicking*2) SECONDS, src))
+				var/roll = SSroll.storyteller_roll((total_lockpicking*2), (lockpick_difficulty / 3), TRUE, user)
 				if(roll < 0)
 					to_chat(user, span_warning("Your lockpick broke!"))
 					qdel(W)
