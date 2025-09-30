@@ -265,7 +265,7 @@
 	var/datum/st_stat/virtue/lowest_virtue
 	for(var/datum/st_stat/virtue/virtue as anything in subtypesof(/datum/st_stat/virtue))
 		var/datum/st_stat/virtue/owner_stat = owner.st_get_stat(virtue)
-		if(owner_stat.score < lowest_virtue?.score || !lowest_virtue)
+		if(owner_stat < lowest_virtue?.score || !lowest_virtue)
 			lowest_virtue = owner_stat
 
 	if(SSroll.storyteller_roll(owner.st_get_stat(lowest_virtue), 6, mobs_to_show_output = owner) == !ROLL_SUCCESS)
