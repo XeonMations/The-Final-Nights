@@ -573,7 +573,7 @@
 		return
 	if(firer && ishuman(firer))
 		var/mob/living/carbon/human/frer = firer
-		if(prob(frer.st_get_stat(STAT_FIREARMS)*15))
+		if(prob(frer.st_get_stat(STAT_FIREARMS)*10))
 			damage *= cruelty_multiplier
 	if(temporary_unstoppable_movement)
 		temporary_unstoppable_movement = FALSE
