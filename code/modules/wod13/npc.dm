@@ -351,10 +351,7 @@
 /mob/living/carbon/human/npc/proc/AssignSocialRole(datum/socialrole/S, var/dont_random = FALSE)
 	if(!S)
 		return
-	storyteller_stat_holder.randomize_attributes(1, max_stat)
-	storyteller_stat_holder.randomize_abilities(0, max_stat)
 
-	st_recalculate_stats(null, TRUE)
 	socialrole = new S()
 
 	is_criminal = socialrole.is_criminal
