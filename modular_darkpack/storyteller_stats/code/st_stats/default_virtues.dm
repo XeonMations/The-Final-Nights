@@ -18,5 +18,6 @@
 
 /datum/st_stat/virtue/courage
 	name = "Courage"
+	description = "Courage is the quality that allows characters to stand in the face of fear or daunting adversity. It is bravery, mettle, and stoicism combined."
 	starting_score = 1 //All vampires by default start out with this.
 	affects_willpower = TRUE
