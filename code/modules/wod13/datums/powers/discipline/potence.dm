@@ -86,7 +86,7 @@
 	. = ..()
 	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
 	owner.remove_overlay(POTENCE_LAYER)
-	oowner.st_remove_stat_mod(STAT_STRENGTH, "potence_2")
+	owner.st_remove_stat_mod(STAT_STRENGTH, "potence_2")
 	owner.potential = 0
 	qdel(tackler)
 	REMOVE_TRAIT(owner, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
@@ -126,7 +126,7 @@
 	. = ..()
 	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
 	owner.remove_overlay(POTENCE_LAYER)
-	oowner.st_remove_stat_mod(STAT_STRENGTH, "potence_3")
+	owner.st_remove_stat_mod(STAT_STRENGTH, "potence_3")
 	owner.potential = 0
 	qdel(tackler)
 	REMOVE_TRAIT(owner, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
@@ -167,7 +167,7 @@
 	. = ..()
 	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
 	owner.remove_overlay(POTENCE_LAYER)
-	oowner.st_remove_stat_mod(STAT_STRENGTH, "potence_4")
+	owner.st_remove_stat_mod(STAT_STRENGTH, "potence_4")
 	owner.potential = 0
 	qdel(tackler)
 	REMOVE_TRAIT(owner, TRAIT_NONMASQUERADE, TRAUMA_TRAIT)
@@ -207,7 +207,7 @@
 /datum/discipline_power/potence/five/deactivate()
 	. = ..()
 	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
-	oowner.st_remove_stat_mod(STAT_STRENGTH, "potence_5")
+	owner.st_remove_stat_mod(STAT_STRENGTH, "potence_5")
 	owner.remove_overlay(POTENCE_LAYER)
 	owner.potential = 0
 	qdel(tackler)
@@ -249,7 +249,7 @@
 /datum/discipline_power/potence/six/deactivate()
 	. = ..()
 	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
-	oowner.st_remove_stat_mod(STAT_STRENGTH, "potence_6")
+	owner.st_remove_stat_mod(STAT_STRENGTH, "potence_6")
 	owner.remove_overlay(POTENCE_LAYER)
 	owner.potential = 0
 	qdel(tackler)
