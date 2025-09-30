@@ -1439,9 +1439,7 @@ GLOBAL_LIST_EMPTY(selectable_races)
 			target.dismembering_strike(user, affecting.body_zone)
 
 		var/meleemod = 1
-		meleemod = user.dna.species.meleemod
-		if(user.st_get_stat(STAT_STRENGTH) > 4)
-			meleemod = (meleemod)+((user.st_get_stat(STAT_STRENGTH) + 1)/5 - 1) //1.2x at Physique 5, increasing by 0.2x per point higher than that.
+		meleemod = (user.dna.species.meleemod)+((user.st_get_stat(STAT_STRENGTH) + 1)/5 - 1)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.1x raw damage
 			target.apply_damage(damage*1.1*meleemod, user.dna.species.attack_type, affecting, armor_block)
@@ -1458,9 +1456,9 @@ GLOBAL_LIST_EMPTY(selectable_races)
 		if((target.stat != DEAD) && (!target.IsKnockdown()))
 			//Compare puncher's physique to the greater between the target's physique (robust enough to tank it) or dexterity (rolls with the punches)
 			var/roll = SSroll.storyteller_roll(
-			dice = target.st_get_stat(STAT_STRENGTH) + round(min(target.st_get_stat(STAT_ATHLETICS), target.st_get_stat(STAT_DEXTERITY)) / 2),
-			difficulty = clamp(user.st_get_stat(STAT_STRENGTH), 1, 4),
-			mobs_to_show_output = user)
+			dice = user.st_get_stat(STAT_STRENGTH) + user.st_get_stat(STAT_MELEE),
+			difficulty = target.st_get_stat(STAT_DEXTERITY),
+			mobs_to_show_output = list(target, user))
 
 			if(roll == ROLL_FAILURE)
 				target.visible_message("<span class='danger'>[user] knocks [target] down!</span>", "<span class='userdanger'>You're knocked down by [user]!</span>", "<span class='hear'>You hear aggressive shuffling followed by a loud thud!</span>", COMBAT_MESSAGE_RANGE, user)
