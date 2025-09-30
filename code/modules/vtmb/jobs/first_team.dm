@@ -40,7 +40,7 @@
 	H.st_set_stat(7, STAT_TEMPORARY_WILLPOWER)
 	H.st_set_stat(5, STAT_LARCENY)
 	H.st_set_stat(5, STAT_ATHLETICS)
-	H.recalculate_max_health()
+	H.st_recalculate_stats(null, TRUE)
 
 	for(var/datum/action/A in H.actions)
 		if(A.vampiric)

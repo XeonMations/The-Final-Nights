@@ -354,7 +354,7 @@
 	storyteller_stat_holder.randomize_attributes(1, max_stat)
 	storyteller_stat_holder.randomize_abilities(0, max_stat)
 
-	recalculate_max_health(TRUE)
+	st_recalculate_stats(null, TRUE)
 	socialrole = new S()
 
 	is_criminal = socialrole.is_criminal

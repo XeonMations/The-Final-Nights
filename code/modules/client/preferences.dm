@@ -3748,7 +3748,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if (FAT_BODY_MODEL_NUMBER)
 			character.set_body_model(FAT_BODY_MODEL)
 
-	character.recalculate_max_health(TRUE)
+	character.st_recalculate_stats(null, TRUE)
 
 	if (pref_species.name == "Kuei-Jin")
 		character.yang_chi = yang
@@ -3884,8 +3884,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				lupus.true_real_name = real_name
 				lupus.name = real_name
 
-			lupus.recalculate_max_health(TRUE)
-			crinos.recalculate_max_health(TRUE)
+			lupus.st_recalculate_stats(null, TRUE)
+			crinos.st_recalculate_stats(null, TRUE)
 		else if(HAS_TRAIT(character,TRAIT_CORAX)/*character.transformator?.corax_form && character.transformator?.corvid_form*/) // if we have the Corax tribe, use the Corax forms instead..
 			var/mob/living/carbon/werewolf/corax/corax_crinos/cor_crinos = character.transformator.corax_form?.resolve()
 			var/mob/living/carbon/werewolf/lupus/corvid/corvid = character.transformator.corvid_form?.resolve()
@@ -3913,8 +3913,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				cor_crinos.name = real_name
 				corvid.name = real_name
 
-			corvid.recalculate_max_health(TRUE)
-			cor_crinos.recalculate_max_health(TRUE)
+			corvid.st_recalculate_stats(null, TRUE)
+			cor_crinos.st_recalculate_stats(null, TRUE)
 
 	// TFN ADDITION START: loadout
 	if(loadout)
