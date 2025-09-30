@@ -193,7 +193,7 @@
 				P.Aggro(user)
 			var/total_lockpicking = (user.st_get_stat(STAT_LARCENY) * user.st_get_stat(STAT_DEXTERITY)) / 5
 			if(do_after(user, (lockpick_timer - total_lockpicking*2) SECONDS, src))
-				var/roll = SSroll.storyteller_roll((total_lockpicking*2), (lockpick_difficulty / 3), TRUE, user)
+				var/roll = SSroll.storyteller_roll((max(total_lockpicking, 1)*2), (lockpick_difficulty / 3), TRUE, user)
 				if(roll < 0)
 					to_chat(user, span_warning("Your lockpick broke!"))
 					qdel(W)
