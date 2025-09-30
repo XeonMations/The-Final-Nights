@@ -97,5 +97,4 @@
 	if(updating_permanent_willpower)
 		remove_stat_mod(STAT_PERMANENT_WILLPOWER, "COURAGE")
 		add_stat_mod(STAT_PERMANENT_WILLPOWER, clamp(-(get_stat(STAT_PERMANENT_WILLPOWER, include_bonus = FALSE) - 10), 0, get_stat(STAT_COURAGE)), "COURAGE")
-	remove_stat_mod(STAT_TEMPORARY_WILLPOWER, "PERMANENT_WILLPOWER")
-	add_stat_mod(STAT_TEMPORARY_WILLPOWER, get_stat(STAT_PERMANENT_WILLPOWER), "PERMANENT_WILLPOWER")
+	set_stat(STAT_TEMPORARY_WILLPOWER, get_stat(STAT_PERMANENT_WILLPOWER))
