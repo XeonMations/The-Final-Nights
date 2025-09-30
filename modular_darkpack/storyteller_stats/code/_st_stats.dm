@@ -37,7 +37,7 @@
 		return score
 
 /datum/st_stat/proc/set_score(amount)
-	score = clamp(score, min_score, max_score)
+	score = clamp(amount, min_score, max_score)
 	if(score == amount)
 		return FALSE
 	return TRUE
