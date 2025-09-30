@@ -13,6 +13,8 @@
 		var/datum/st_stat/A = st_stats[path]
 		set_stat(path, A.starting_score)
 
+	recalculate_all_willpower()
+
 /datum/storyteller_stats/Destroy()
 	QDEL_LIST(st_stats)
 	return ..()
