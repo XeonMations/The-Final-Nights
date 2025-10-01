@@ -82,16 +82,16 @@
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	return A.increase_score(amount)
 
-/datum/storyteller_stats/proc/build_attribute_score(stat_path, show_bonus = FALSE)
+/datum/storyteller_stats/proc/build_attribute_score(stat_path)
 	var/datum/st_stat/A = get_stat_datum(stat_path)
+	var/max_score = A.max_score
 	var/dots
-	var/score = A.score
-	if(show_bonus)
-		score += A.bonus_score
-	for(var/a in 1 to score)
+	for(var/x in 1 to A.score + A.bonus_score)
 		dots += "•"
-	var/leftover_circles = A.max_score - (A.score + A.bonus_score) //5 is the default number of blank circles
-	for(var/c in 1 to leftover_circles)
+		max_score--
+		if(max_score <= 0)
+			break
+	for(var/y in 1 to max_score)
 		dots += "o"
 	return dots
 
