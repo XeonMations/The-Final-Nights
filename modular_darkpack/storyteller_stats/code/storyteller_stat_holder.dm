@@ -82,11 +82,14 @@
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	return A.increase_score(amount)
 
-/datum/storyteller_stats/proc/build_attribute_score(stat_path)
+/datum/storyteller_stats/proc/build_attribute_score(stat_path, show_bonus_score)
 	var/datum/st_stat/A = get_stat_datum(stat_path)
 	var/max_score = A.max_score
 	var/dots
-	for(var/x in 1 to A.score + A.bonus_score)
+	var/to_show = A.score
+	if(show_bonus_score)
+		to_show += A.bonus_score
+	for(var/x in 1 to to_show)
 		dots += "•"
 		max_score--
 		if(max_score <= 0)

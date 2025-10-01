@@ -30,6 +30,9 @@
 	//At what score amount further upgrades require freebie point expendature to level up.
 	var/max_level_before_freebie_points = 5
 
+	//If the preferences menu should count the bonus score as a normal score, used for things like willpower.
+	var/count_bonus_score = FALSE
+
 /datum/st_stat/proc/get_score(include_bonus = TRUE)
 	if(include_bonus)
 		return score + bonus_score

@@ -1154,7 +1154,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<tr>"
 			for(var/datum/st_stat/pooled/stat as anything in subtypesof(/datum/st_stat/pooled))
 				dat += "<td>"
-				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat)] </div>"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat, TRUE)] - [storyteller_stat_holder.get_stat(stat)] ([storyteller_stat_holder.get_stat(stat)])</div>"
 				if(stat.type == STAT_PERMANENT_WILLPOWER && !slotlocked)
 					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
 					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
@@ -1173,7 +1173,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(stat.type == stat.base_type)
 					continue
 				dat += "<td>"
-				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat, FALSE)] </div>"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat, FALSE)] ([storyteller_stat_holder.get_stat(stat)])</div>"
 				if(!slotlocked)
 					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
 					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
@@ -1196,7 +1196,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/newstatline = 0 //Purely used just so it doesn't overflow from the amount of abilities we have.
 			for(var/datum/st_stat/ability/stat as anything in subtypesof(/datum/st_stat/ability))
 				dat += "<td>"
-				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat, FALSE)] </div>"
+				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat, FALSE)] ([storyteller_stat_holder.get_stat(stat)])</div>"
 				if(!slotlocked)
 					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
 					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
@@ -2100,7 +2100,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					increase_base_type_stat.points += 1
 				if(!increase_base_type_stat.points && !freebie_stat.points)
 					return
-				if(storyteller_stat_holder.get_stat(chosen_stat) >= increase_base_type_stat.max_score)
+				if(storyteller_stat_holder.get_stat(chosen_stat, FALSE) >= increase_base_type_stat.max_score)
+					return
+				if((storyteller_stat_holder.get_stat(chosen_stat) >= increase_base_type_stat.max_score) && increase_base_type_stat.count_bonus_score)
 					return
 				if(!storyteller_stat_holder.set_stat(chosen_stat, increased_stat.score + 1))
 					return
