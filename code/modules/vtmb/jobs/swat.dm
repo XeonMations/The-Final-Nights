@@ -22,7 +22,9 @@
 	H.set_clan(null)
 	H.generation = 13
 	H.st_set_stat(5, STAT_LARCENY)
+	H.st_set_stat(4, STAT_STAMINA)
 	H.st_set_stat(4, STAT_STRENGTH)
+	H.recalculate_max_health(TRUE)
 
 	for(var/datum/action/A in H.actions)
 		if(A.vampiric)
