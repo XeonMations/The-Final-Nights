@@ -261,12 +261,12 @@
 	violates_masquerade = FALSE
 
 /datum/discipline_power/daimonion/psychomachia/pre_activation_checks(mob/living/target)
-	//forces the subject’s player to roll her lowest Virtue
+	//forces the subject's player to roll her lowest Virtue
 	var/datum/st_stat/virtue/lowest_virtue
 	for(var/datum/st_stat/virtue/virtue as anything in subtypesof(/datum/st_stat/virtue))
 		var/datum/st_stat/virtue/owner_stat = owner.st_get_stat(virtue)
-		if(owner_stat < lowest_virtue?.score || !lowest_virtue)
-			lowest_virtue = owner_stat
+		if(!lowest_virtue || owner_stat < lowest_virtue.score)
+			lowest_virtue = owner.st_get_stat_datum(virtue)
 
 	if(SSroll.storyteller_roll(owner.st_get_stat(lowest_virtue), 6, mobs_to_show_output = owner) == !ROLL_SUCCESS)
 		to_chat(owner, span_warning("[target] is too pure to manifest their fears!"))
