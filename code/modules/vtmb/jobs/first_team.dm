@@ -35,7 +35,7 @@
 	H.generation = HUMAN_GENERATION
 	H.st_set_stat(5, STAT_STAMINA)
 	H.st_set_stat(5, STAT_DEXTERITY)
-	H.st_set_stat(6, STAT_FIREARMS)
+	H.st_set_stat(5, STAT_FIREARMS)
 	H.st_set_stat(7, STAT_PERMANENT_WILLPOWER)
 	H.st_set_stat(7, STAT_TEMPORARY_WILLPOWER)
 	H.st_set_stat(5, STAT_LARCENY)
