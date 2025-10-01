@@ -1155,7 +1155,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			for(var/datum/st_stat/pooled/stat as anything in subtypesof(/datum/st_stat/pooled))
 				dat += "<td>"
 				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat, TRUE)] - [storyteller_stat_holder.get_stat(stat)] </div>"
-				if(stat.type == STAT_PERMANENT_WILLPOWER)
+				if(stat.type == STAT_PERMANENT_WILLPOWER && !slotlocked)
 					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
 					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
@@ -1174,8 +1174,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					continue
 				dat += "<td>"
 				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat, FALSE)] </div>"
-				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
+				if(!slotlocked)
+					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
+					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
 
 				newattributeline++
@@ -1196,8 +1197,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			for(var/datum/st_stat/ability/stat as anything in subtypesof(/datum/st_stat/ability))
 				dat += "<td>"
 				dat += "<div title=\"[stat.description]\">[stat.name]: [storyteller_stat_holder.build_attribute_score(stat)] - [storyteller_stat_holder.get_stat(stat, FALSE)] </div>"
-				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
-				dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
+				if(!slotlocked)
+					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=increase_stat;stat=[stat]'>+</a>"
+					dat += "<a href='byond://?_src_=prefs;preference=attributes;task=decrease_stat;stat=[stat]'>-</a><br>"
 				dat += "</td>"
 
 				newstatline++
