@@ -264,11 +264,11 @@
 	//forces the subject's player to roll her lowest Virtue
 	var/datum/st_stat/virtue/lowest_virtue
 	for(var/datum/st_stat/virtue/virtue as anything in subtypesof(/datum/st_stat/virtue))
-		var/datum/st_stat/virtue/owner_stat = owner.st_get_stat(virtue)
-		if(!lowest_virtue || owner_stat < lowest_virtue.score)
-			lowest_virtue = owner.st_get_stat_datum(virtue)
+		var/datum/st_stat/virtue/target_stat = target.st_get_stat(virtue)
+		if(!lowest_virtue || target_stat < lowest_virtue.score)
+			lowest_virtue = target.st_get_stat_datum(virtue)
 
-	if(SSroll.storyteller_roll(owner.st_get_stat(lowest_virtue), 6, mobs_to_show_output = owner) == !ROLL_SUCCESS)
+	if(SSroll.storyteller_roll(target.st_get_stat(lowest_virtue), 6, mobs_to_show_output = list(owner, target)) == !ROLL_SUCCESS)
 		to_chat(owner, span_warning("[target] is too pure to manifest their fears!"))
 		return FALSE
 	to_chat(owner, span_cult("[target] will suffer greatly."))
