@@ -13,6 +13,11 @@
 
 	power_group = DISCIPLINE_POWER_GROUP_COMBAT
 
+
+/datum/discipline/potence/post_gain()
+	. = ..()
+	owner.st_add_stat_mod(STAT_STRENGTH, level, "potence_passive")
+
 //POTENCE 1
 /datum/discipline_power/potence/one
 	name = "Potence 1"
