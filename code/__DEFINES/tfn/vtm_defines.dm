@@ -20,7 +20,8 @@
 #define DEFAULT_GENERATION 13
 // The generation a human is.
 #define HUMAN_GENERATION HIGHEST_GENERATION_LIMIT + 1
-
+// The lowest generation that anyone using Blood of Potency can go down to.
+#define BLOOD_POTENCY_GENERATION 4
 
 //Rank definitions.
 
