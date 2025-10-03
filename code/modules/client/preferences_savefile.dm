@@ -530,6 +530,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(!storyteller_stat_holder)
 		storyteller_stat_holder = new()
 
+	storyteller_stat_holder.recalculate_all_willpower()
+
+
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
 		features["ears"] = "none"
