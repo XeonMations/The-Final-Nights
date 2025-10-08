@@ -864,10 +864,11 @@
 		stack_trace("WARNING: Projectile [type] fired without either mouse parameters, or a target atom to aim at!")
 		qdel(src)
 
-/proc/calculate_projectile_angle_and_pixel_offsets(mob/user, modifiers)
+/proc/calculate_projectile_angle_and_pixel_offsets(mob/user, params)
 	var/p_x = 0
 	var/p_y = 0
 	var/angle = 0
+	var/list/modifiers = params2list(params) //TFN EDIT ADD
 	if(LAZYACCESS(modifiers, ICON_X))
 		p_x = text2num(LAZYACCESS(modifiers, ICON_X))
 	if(LAZYACCESS(modifiers, ICON_Y))
