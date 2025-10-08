@@ -571,10 +571,6 @@
 	. = ..()
 	if(!fired)
 		return
-	if(firer && ishuman(firer))
-		var/mob/living/carbon/human/frer = firer
-		if(prob(frer.st_get_stat(STAT_FIREARMS)*10))
-			damage *= cruelty_multiplier
 	if(temporary_unstoppable_movement)
 		temporary_unstoppable_movement = FALSE
 		movement_type &= ~PHASING
@@ -664,6 +660,12 @@
 		AddElement(/datum/element/embed, projectile_payload = shrapnel_type)
 	if(!log_override && firer && original)
 		log_combat(firer, original, "fired at", src, "from [get_area_name(src, TRUE)]")
+	// TFN EDIT START
+	if(firer && ishuman(firer))
+		var/mob/living/carbon/human/frer = firer
+		if(prob(frer.st_get_stat(STAT_FIREARMS)*10))
+			damage *= cruelty_multiplier
+	// TFN EDIT END
 	if(direct_target && (get_dist(direct_target, get_turf(src)) <= 1))		// point blank shots
 		process_hit(get_turf(direct_target), direct_target)
 		if(QDELETED(src))
