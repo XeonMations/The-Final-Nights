@@ -1,12 +1,12 @@
-https://github.com/The-Final-Nights/The-Final-Nights/pull/709
+https://github.com/The-Final-Nights/The-Final-Nights/pull/889
 
-## \<SFPD Gear Overhaul>
+## \<Battering Ram>
 
-Module ID: sfpd_gear
+Module ID: battering_ram
 
 ### Description:
 
-This module holds the new/improved police clothes/armour.
+This module holds a battering ram, in compliance with attributes.
 
 ### TG Proc/File Changes:
 
@@ -22,10 +22,8 @@ This module holds the new/improved police clothes/armour.
 
 ### Included files that are not contained in this module:
 
-- Icons in: `code/modules/wod13/worn_fat.dmi` / `code/modules/wod13/worn_slim_f.dmi` / `code/modules/wod13/worn_slim_m.dmi` 
-
-- Icons are named 'police' 'policepants' 'policefatigues' 'policelongsleeve' 'policeturtleneck' 'policecoat' 'pdvest' 'sgtvest' 'chiefvest' 'law'. These need to be in their respective core files so that they function on alt bodysprites.
+- N/A
 
 ### Credits:
 
-bomby, thatguythere03
+bomby, XeonMations

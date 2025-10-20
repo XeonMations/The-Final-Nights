@@ -14,15 +14,15 @@
 
 /obj/item/battering_ram/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=20, require_twohands=TRUE, icon_wielded=righthand_file)
+	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=20, require_twohands=TRUE, icon_wielded="battering_ram")
 
 /obj/item/battering_ram/pre_attack(atom/A, mob/living/user, params)
 	if(istype(A, /obj/structure/vampdoor))
 		var/dice_result = SSroll.storyteller_roll(user.st_get_stat(STAT_STRENGTH), 6, TRUE, user)
-		if(!do_after(user, ((5 SECONDS) / dice_result), A))
+		if(!do_after(user, ((5 SECONDS) / max(1, dice_result)), A))
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 		var/obj/structure/vampdoor/target_door = A
-		if(prob(80 / dice_result))
+		if(prob(80 / max(1, dice_result)) || !dice_result)
 			target_door.pixel_z = target_door.pixel_z+rand(-1, 1)
 			target_door.pixel_w = target_door.pixel_w+rand(-1, 1)
 			addtimer(CALLBACK(target_door, TYPE_PROC_REF(/obj/structure/vampdoor, reset_transform)), 2)
