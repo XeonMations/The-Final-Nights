@@ -1164,5 +1164,5 @@ VENTORY!
 	grid_height = 2 GRID_BOXES
 
 /obj/item/battering_ram
-	grid_width = 7 GRID_BOXES
+	grid_width = 8 GRID_BOXES
 	grid_height = 3 GRID_BOXES
