@@ -678,6 +678,28 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		VALUES(null,Now(),INET_ATON(:internet_address),:port,:round_id,:ckey,INET_ATON(:ip),:computerid)
 	"}, list("internet_address" = world.internet_address || "0", "port" = world.port, "round_id" = GLOB.round_id, "ckey" = ckey, "ip" = address, "computerid" = computer_id))
 
+	//TFN EDIT START
+	var/datum/db_query/query_get_player_age_verified = SSdbcore.NewQuery(
+		"SELECT age_verified FROM [format_table_name("player")] WHERE ckey = :ckey AND age_verified = 1",
+		list("ckey" = ckey)
+	)
+	if(!query_get_player_age_verified.Execute())
+		log_access("Failed Login: [key] - [address] - Age unverified account attempting connection.")
+		message_admins("<span class='adminnotice'>Failed Login: [key] - [address] - Age unverified account attempting connection.</span>")
+		var/forumurl = CONFIG_GET(string/forumurl)
+		to_chat_immediate(src, {"<span class='notice'>Hi! This server requires age verification. <br> <br> To join our community, apply through the Discord: <a href=' [forumurl] '>[forumurl]</a></span>"})
+		var/list/connectiontopic_a = params2list(connectiontopic)
+		var/list/panic_addr = CONFIG_GET(string/panic_server_address)
+		if(panic_addr && !connectiontopic_a["redirect"])
+			var/panic_name = CONFIG_GET(string/panic_server_name)
+			to_chat(src, "<span class='notice'>Sending you to [panic_name ? panic_name : panic_addr].</span>")
+			winset(src, null, "command=.options")
+			src << link("[panic_addr]?redirect=1")
+		qdel(query_get_player_age_verified)
+		return
+	qdel(query_get_player_age_verified)
+	//TFN EDIT END
+
 	SSserver_maint.UpdateHubStatus()
 
 	if(new_player)
