@@ -691,14 +691,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		message_admins("<span class='adminnotice'>Failed Login: [key] - [address] - Age unverified account attempting connection.</span>")
 		var/forumurl = CONFIG_GET(string/forumurl)
 		to_chat_immediate(src, {"<span class='notice'>Hi! This server requires age verification. <br> <br> To join our community, apply through the Discord: <a href=' [forumurl] '>[forumurl]</a></span>"})
-		var/list/connectiontopic_a = params2list(connectiontopic)
-		var/list/panic_addr = CONFIG_GET(string/panic_server_address)
-		if(panic_addr && !connectiontopic_a["redirect"])
-			var/panic_name = CONFIG_GET(string/panic_server_name)
-			to_chat(src, "<span class='notice'>Sending you to [panic_name ? panic_name : panic_addr].</span>")
-			winset(src, null, "command=.options")
-			src << link("[panic_addr]?redirect=1")
 		qdel(query_get_player_age_verified)
+		qdel(src)
 		return
 	qdel(query_get_player_age_verified)
 	//TFN EDIT END
