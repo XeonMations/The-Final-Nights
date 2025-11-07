@@ -690,9 +690,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		log_access("Failed Login: [key] - [address] - Age unverified account attempting connection.")
 		message_admins(span_adminnotice("Failed Login: [key] - [address] - Age unverified account attempting connection."))
 		var/forumurl = CONFIG_GET(string/forumurl)
-		to_chat_immediate(src, span_reallybig(span_danger(("Hi! This server requires age verification. <br><br> To join our community, apply through the Discord: [forumurl]"))))
+		to_chat_immediate(src, span_reallybig(span_danger(("Hi! This server requires age verification. <br><br>To join our community, apply through the Discord: [forumurl]"))))
 		qdel(query_get_player_age_verified)
-		sleep(5 SECONDS)
+		sleep(3 SECONDS)
 		qdel(src)
 		return
 	qdel(query_get_player_age_verified)
