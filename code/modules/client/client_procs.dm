@@ -684,6 +684,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		list("ckey" = ckey)
 	)
 	if(!query_get_player_age_verified.Execute())
+		qdel(query_get_player_age_verified)
+		return
+	if(!query_get_player_age_verified.NextRow())
 		log_access("Failed Login: [key] - [address] - Age unverified account attempting connection.")
 		message_admins("<span class='adminnotice'>Failed Login: [key] - [address] - Age unverified account attempting connection.</span>")
 		var/forumurl = CONFIG_GET(string/forumurl)
