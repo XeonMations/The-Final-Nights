@@ -1326,7 +1326,7 @@
 		if(istype(get_area(src), /area/vtm))
 			var/area/vtm/V = get_area(src)
 			if(V.upper)
-				icon_state = "[initial(icon_state)][rand(1, 11)]-snow"
+				icon_state = "tree[rand(1, 11)]-snow"
 
 /obj/structure/vamptree/proc/burnshit()
 	if(!burned)
