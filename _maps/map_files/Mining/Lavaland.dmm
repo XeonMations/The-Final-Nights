@@ -136,10 +136,6 @@
 	},
 /turf/closed/wall/vampwall/bar,
 /area/vtm/interior/penumbra)
-"bH" = (
-/obj/effect/decal/coastline,
-/turf/open/floor/plating/dirt,
-/area/vtm/interior/penumbra)
 "bI" = (
 /obj/effect/decal/cleanable/confetti,
 /turf/open/floor/plating/granite/black,
@@ -189,10 +185,6 @@
 	pixel_y = 11
 	},
 /turf/open/floor/plating/ice,
-/area/vtm/interior/penumbra)
-"ch" = (
-/obj/effect/decal/coastline,
-/turf/open/floor/plating/vampdirt,
 /area/vtm/interior/penumbra)
 "cm" = (
 /obj/structure/vampipe{
@@ -339,12 +331,6 @@
 /obj/effect/decal/pallet,
 /turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
-"dL" = (
-/obj/effect/decal/coastline{
-	dir = 4
-	},
-/turf/open/floor/plating/vampbeach,
-/area/vtm/interior/penumbra)
 "dT" = (
 /obj/structure/vampipe{
 	icon_state = "piping32"
@@ -468,16 +454,6 @@
 	dir = 8
 	},
 /turf/open/floor/plating/vampplating/mono,
-/area/vtm/interior/penumbra)
-"eZ" = (
-/obj/effect/decal/coastline{
-	dir = 6
-	},
-/obj/structure/flora/ausbushes/reedbush{
-	pixel_x = 15;
-	pixel_y = 11
-	},
-/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "fa" = (
 /obj/structure/flora/ausbushes/fernybush,
@@ -784,12 +760,6 @@
 /turf/open/floor/plating/circled{
 	color = "#EADDCA"
 	},
-/area/vtm/interior/penumbra)
-"hz" = (
-/obj/effect/decal/coastline{
-	dir = 4
-	},
-/turf/open/floor/plating/vampdirt,
 /area/vtm/interior/penumbra)
 "hA" = (
 /obj/structure/vampipe{
@@ -1497,9 +1467,6 @@
 /turf/open/floor/plating/vampcarpet,
 /area/vtm/interior/penumbra)
 "nZ" = (
-/obj/effect/decal/coastline{
-	dir = 4
-	},
 /obj/effect/decal/wallpaper/stone/low{
 	pixel_y = 24
 	},
@@ -2832,12 +2799,6 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/plating/vampdirt,
 /area/vtm/interior/penumbra)
-"BH" = (
-/obj/effect/decal/coastline{
-	dir = 6
-	},
-/turf/open/floor/plating/dirt,
-/area/vtm/interior/penumbra)
 "BK" = (
 /obj/structure/stone_tile/surrounding,
 /turf/open/floor/plating/stone,
@@ -3163,12 +3124,6 @@
 	dir = 4
 	},
 /turf/open/floor/plating/sidewalk/rich,
-/area/vtm/interior/penumbra)
-"Fv" = (
-/obj/effect/decal/coastline{
-	dir = 1
-	},
-/turf/open/floor/plating/vampbeach,
 /area/vtm/interior/penumbra)
 "Fy" = (
 /obj/structure/railing/metal{
@@ -3778,12 +3733,6 @@
 /obj/effect/decal/wallpaper/light/low,
 /turf/closed/wall/vampwall/painted/low,
 /area/vtm/interior/penumbra)
-"Mi" = (
-/obj/effect/decal/coastline{
-	dir = 5
-	},
-/turf/open/floor/plating/vampbeach,
-/area/vtm/interior/penumbra)
 "Ml" = (
 /obj/structure/foodrack{
 	dir = 4;
@@ -3885,12 +3834,6 @@
 	color = "#6e635a"
 	},
 /turf/open/water,
-/area/vtm/interior/penumbra)
-"NN" = (
-/obj/effect/decal/coastline{
-	dir = 6
-	},
-/turf/open/floor/plating/vampdirt,
 /area/vtm/interior/penumbra)
 "NO" = (
 /turf/open/indestructible/necropolis/air,
@@ -39232,11 +39175,11 @@ qF
 qF
 EV
 nZ
-dL
-dL
-dL
-dL
-Mi
+qP
+qP
+qP
+qP
+qP
 Cg
 Cg
 Cg
@@ -39494,7 +39437,7 @@ qP
 qP
 qP
 EC
-Mi
+qP
 Cg
 Cg
 Cg
@@ -39752,8 +39695,8 @@ qP
 xX
 qP
 EC
-dL
-Mi
+qP
+qP
 Cg
 Cg
 Cg
@@ -40011,8 +39954,8 @@ qP
 qP
 qP
 EC
-dL
-Mi
+qP
+qP
 Cg
 Cg
 Cg
@@ -40270,10 +40213,10 @@ qP
 qP
 qP
 EC
-dL
-dL
-dL
-Mi
+qP
+qP
+qP
+qP
 Cg
 Cg
 Cg
@@ -40531,13 +40474,13 @@ qP
 qP
 qP
 EC
-dL
-dL
-dL
-dL
-dL
-dL
-Mi
+qP
+qP
+qP
+qP
+qP
+qP
+qP
 Cg
 qF
 qF
@@ -40795,7 +40738,7 @@ qP
 qP
 qP
 EC
-Mi
+qP
 qF
 qF
 qF
@@ -41053,7 +40996,7 @@ qP
 qP
 qP
 EC
-Mi
+qP
 qF
 qF
 qF
@@ -41310,7 +41253,7 @@ qP
 qP
 qP
 qP
-Fv
+qP
 qF
 qF
 qF
@@ -41567,7 +41510,7 @@ qP
 qP
 Wm
 qP
-Fv
+qP
 qF
 qF
 qF
@@ -41824,7 +41767,7 @@ qP
 HW
 aI
 qP
-Fv
+qP
 qF
 qF
 qF
@@ -45025,7 +44968,7 @@ em
 my
 ru
 dV
-bH
+ki
 ki
 Uh
 Uh
@@ -45282,7 +45225,7 @@ em
 pP
 ne
 JO
-ch
+Fd
 Fd
 Fd
 mg
@@ -45538,7 +45481,7 @@ kw
 Sz
 fG
 Pe
-eZ
+IX
 uC
 ki
 QY
@@ -45795,7 +45738,7 @@ RV
 UY
 Pe
 vu
-bH
+ki
 Fd
 ki
 jM
@@ -46051,7 +45994,7 @@ fG
 Pe
 XE
 yu
-NN
+Fd
 uC
 KO
 Fd
@@ -46306,8 +46249,8 @@ qF
 Uh
 Pe
 Gp
-BH
-hz
+ki
+Fd
 tI
 Fd
 QY
@@ -46562,7 +46505,7 @@ qF
 qF
 Uh
 Uh
-hz
+Fd
 tI
 Fd
 Fd
