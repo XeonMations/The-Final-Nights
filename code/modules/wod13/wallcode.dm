@@ -1193,9 +1193,11 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	density = TRUE
 
-/turf/open/floor/plating/vampocean/Initialize()
-	..()
-	set_light(1, 0.5, "#a4b7ff")
+/turf/open/floor/plating/vampocean/LateInitialize()
+	. = ..()
+	var/turf/open/floor/plating/ice/ice_turf = new(get_turf(src))
+	ice_turf.set_light(1, 0.5, "#1a1a1a")
+	qdel(src)
 
 /turf/open/floor/plating/vampcrossableocean
 	gender = PLURAL
@@ -1210,6 +1212,12 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	density = FALSE
+
+/turf/open/floor/plating/vampcrossableocean/LateInitialize()
+	. = ..()
+	var/turf/open/floor/plating/ice/ice_turf = new(get_turf(src))
+	ice_turf.set_light(1, 0.5, "#1a1a1a")
+	qdel(src)
 
 /turf/open/floor/plating/vampacid
 	gender = PLURAL
