@@ -188,9 +188,7 @@
 	pixel_x = 15;
 	pixel_y = 11
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "ch" = (
 /obj/effect/decal/coastline,
@@ -339,10 +337,7 @@
 "dK" = (
 /obj/structure/lattice,
 /obj/effect/decal/pallet,
-/turf/open/floor/plating/vampocean{
-	color = "#9ab577";
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "dL" = (
 /obj/effect/decal/coastline{
@@ -384,9 +379,7 @@
 	pixel_x = -2;
 	pixel_y = -4
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "eb" = (
 /obj/effect/decal/bordur/corner{
@@ -428,10 +421,7 @@
 /obj/structure/vampipe{
 	icon_state = "piping41"
 	},
-/turf/open/floor/plating/vampocean{
-	color = "#9ab577";
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "ex" = (
 /obj/structure/chair/wood{
@@ -487,9 +477,7 @@
 	pixel_x = 15;
 	pixel_y = 11
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "fa" = (
 /obj/structure/flora/ausbushes/fernybush,
@@ -785,9 +773,7 @@
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "hv" = (
 /obj/structure/stone_tile/block/cracked,
@@ -1055,10 +1041,7 @@
 /obj/structure/railing/metal{
 	dir = 8
 	},
-/turf/open/floor/plating/vampocean{
-	color = "#789156";
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "ke" = (
 /obj/structure/table/wood,
@@ -1205,11 +1188,6 @@
 	id = 662
 	},
 /turf/open/floor/plating/sidewalkalt,
-/area/vtm/interior/penumbra)
-"lj" = (
-/turf/open/floor/plating/vampocean{
-	color = "#9ab577"
-	},
 /area/vtm/interior/penumbra)
 "lk" = (
 /obj/structure/foodrack{
@@ -1630,9 +1608,7 @@
 /obj/structure/flora/ausbushes/reedbush{
 	pixel_x = 12
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "oY" = (
 /obj/transfer_point_vamp/umbral{
@@ -2098,9 +2074,7 @@
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "ti" = (
 /turf/open/floor/plating/circled{
@@ -2315,9 +2289,7 @@
 	pixel_x = 13;
 	pixel_y = 25
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "vA" = (
 /obj/structure/table/wood,
@@ -2381,9 +2353,7 @@
 	pixel_x = -2;
 	pixel_y = -4
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "wi" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -2611,9 +2581,7 @@
 	pixel_x = 1;
 	pixel_y = 10
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "yx" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -2783,10 +2751,7 @@
 /obj/structure/railing/metal{
 	dir = 4
 	},
-/turf/open/floor/plating/vampocean{
-	color = "#9ab577";
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "Ax" = (
 /obj/structure/table,
@@ -2912,7 +2877,7 @@
 /turf/open/floor/plating/stone,
 /area/vtm/interior/penumbra)
 "Cg" = (
-/turf/open/floor/plating/vampocean,
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "Cl" = (
 /obj/effect/decal/litter,
@@ -3140,12 +3105,6 @@
 /obj/effect/decal/shadow,
 /turf/open/floor/plating/granite/black,
 /area/vtm/interior/penumbra)
-"ET" = (
-/turf/open/floor/plating/vampocean{
-	color = "#789156";
-	density = 0
-	},
-/area/vtm/interior/penumbra)
 "EV" = (
 /obj/structure/railing{
 	dir = 8;
@@ -3277,9 +3236,7 @@
 /obj/structure/flora/ausbushes/reedbush{
 	pixel_x = 13
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "Gr" = (
 /obj/effect/decal/bordur{
@@ -3552,14 +3509,7 @@
 	pixel_x = 15;
 	pixel_y = 11
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
-/area/vtm/interior/penumbra)
-"Jd" = (
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "Je" = (
 /obj/structure/fluff/beach_umbrella/engine,
@@ -3588,16 +3538,6 @@
 	},
 /turf/open/floor/plating/church,
 /area/vtm/interior/penumbra)
-"Jv" = (
-/obj/structure/lattice/grate,
-/obj/structure/railing/metal{
-	dir = 8
-	},
-/turf/open/floor/plating/vampocean{
-	color = "#9ab577";
-	density = 0
-	},
-/area/vtm/interior/penumbra)
 "JG" = (
 /obj/effect/turf_decal/siding/wideplating{
 	color = "#004136";
@@ -3620,9 +3560,7 @@
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "JP" = (
 /obj/effect/turf_decal/trimline/blue/warning,
@@ -4091,9 +4029,7 @@
 /obj/effect/turf_decal/weather/dirt{
 	dir = 9
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "Pi" = (
 /obj/effect/decal/bordur/corner{
@@ -4478,9 +4414,7 @@
 /obj/structure/flora/ausbushes/reedbush{
 	pixel_x = -10
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "Sz" = (
 /obj/effect/turf_decal/weather/dirt{
@@ -4686,9 +4620,7 @@
 /obj/transfer_point_vamp/umbral{
 	id = 603
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "UT" = (
 /turf/open/water,
@@ -4980,9 +4912,7 @@
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
 	},
-/turf/open/floor/plating/vampocean{
-	density = 0
-	},
+/turf/open/floor/plating/ice,
 /area/vtm/interior/penumbra)
 "XI" = (
 /obj/structure/stone_tile/surrounding_tile/cracked,
@@ -17092,9 +17022,9 @@ qF
 qF
 Uh
 Uh
-Jd
+Cg
 IX
-Jd
+Cg
 cg
 sn
 gf
@@ -17349,8 +17279,8 @@ qF
 qF
 Uh
 IX
-Jd
-Jd
+Cg
+Cg
 Gp
 hu
 rV
@@ -17605,9 +17535,9 @@ qF
 qF
 Uh
 Uh
-Jd
+Cg
 oX
-Jd
+Cg
 hu
 zw
 Fd
@@ -39268,9 +39198,9 @@ QO
 eC
 eC
 qF
-lj
-lj
-lj
+Cg
+Cg
+Cg
 qF
 qF
 qF
@@ -39525,10 +39455,10 @@ eC
 eC
 QO
 qF
-ET
-lj
-ET
-lj
+Cg
+Cg
+Cg
+Cg
 qF
 eC
 eC
@@ -39781,11 +39711,11 @@ Xb
 Ul
 eC
 QO
-ET
-lj
-lj
-lj
-lj
+Cg
+Cg
+Cg
+Cg
+Cg
 qF
 qF
 qF
@@ -40039,9 +39969,9 @@ Ld
 UI
 xj
 ew
-Jv
+jV
 Av
-Jv
+jV
 jV
 eC
 eC
@@ -44837,7 +44767,7 @@ em
 Ra
 fG
 Sy
-Jd
+Cg
 qF
 qF
 qF

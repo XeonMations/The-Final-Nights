@@ -1,0 +1,2 @@
+/turf/open/floor/plating/vampocean : /turf/open/floor/plating/ice
+/turf/open/floor/plating/vampcrossableocean : /turf/open/floor/plating/ice
