@@ -1105,6 +1105,22 @@
  * Snowballs
  */
 
+/datum/crafting_recipe/snowball
+	name = "Snowball"
+	time = 5
+	reqs = list(/obj/item/stack/sheet/mineral/snow = 1)
+	result = /obj/item/toy/snowball
+	always_available = TRUE
+	category = "Winter"
+
+/datum/crafting_recipe/snowman
+	name = "Snowman"
+	time = 20
+	reqs = list(/obj/item/stack/sheet/mineral/snow = 20)
+	result = /obj/structure/statue/snow/snowman
+	always_available = TRUE
+	category = "Winter"
+
 /obj/item/toy/snowball
 	name = "snowball"
 	desc = "A compact ball of snow. Good for throwing at people."

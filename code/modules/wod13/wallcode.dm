@@ -666,6 +666,13 @@
 					user.visible_message("<span class='warning'>[user] digs a hole in [src].</span>", "<span class='warning'>You dig a hole in [src].</span>")
 					new /obj/structure/bury_pit(src)
 
+/turf/open/floor/plating/vampgrass/attack_hand(mob/living/user, list/modifiers)
+	if(!user.combat_mode && footstep == "snow") //unarmed, not in combat, and this grass turf has a footstep sound of snow
+		if(!do_after(user, 5 SECONDS, target = src))
+			return
+		var/snowsheet = new /obj/item/stack/sheet/mineral/snow(user.loc)
+		user.put_in_hands(snowsheet)
+
 
 /turf/open/floor/plating/vampgrass/Initialize()
 	..()

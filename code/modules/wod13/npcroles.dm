@@ -228,37 +228,30 @@
 	)
 
 	male_phrases = list(
-		"Need something? Or are you just trying to waste my time?",
+		"Need something? It's cold out here, go away.",
 		"What's up?",
 		"What'd you say?",
-		"I'm late, my wife is gonna kill me.",
-		"You heard about the new place in town..?",
-		"Can't speak right now.",
-		"Good night I guess?",
+		"I'm late, and my heater is busted.",
+		"You know any warm bars open this late..?",
+		"Cold...",
+		"Stay warm I guess?",
 		"Guh...",
 		"I dunno what to say.",
 		"That's all, folks."
 	)
 	neutral_phrases = list(
-		"What do you need, mate?",
-		"Do you need something?",
-		"Can you repeat what you were saying?",
-		"I'm late, don't interrupt me.",
-		"Check the bar if you want somebody to bother...",
-		"Can't speak right now.",
-		"It's 2015, get over it.",
-		"Goodnight, I guess?",
-		"Guh...",
-		"I dunno what to say.",
-		"That's all, folks."
+		"It's cold...",
+		"So cold...",
+		"I hope my heater still works.",
+		"Why is it snowing? What are the odds?"
 	)
 	random_phrases = list(
 		"Hey, mate!",
-		"I miss my beer...",
-		"Everything okay?",
+		"I miss the heat...",
+		"Staying warm?",
 		"Hello.",
 		"Haven't I seen you around before?",
-		"Something wrong here.",
+		"Something's wrong with my heater.",
 		"Oooh, dude..."
 	)
 	answer_phrases = list(
@@ -276,7 +269,7 @@
 		"What the hell is happening?!",
 		"Stop!",
 		"Someone, help!",
-		"Mommy!"
+		"It's too cold for this!"
 	)
 
 /datum/socialrole/usualfemale
@@ -368,12 +361,12 @@
 					/obj/item/stack/dollar/rand)
 
 	female_phrases = list(
-		"What do you need?",
+		"What do you need? It's cold.",
 		"Do you need something?",
-		"Do I really need to answer?",
-		"I'm late.",
-		"Can't speak right now.",
-		"Buy yourself an iPhone or something.",
+		"Please move, I need to get home where it's warm.",
+		"I'm late. It's cold. Move.",
+		"C-C-Can't s-speak right now... Cold...",
+		"Buy yourself some warm gloves.",
 		"Hey.",
 		"Go away."
 	)
@@ -381,8 +374,8 @@
 		"What do you need?",
 		"Do you need something?",
 		"Do I really need to answer?",
-		"I'm late.",
-		"Can't speak right now.",
+		"I'm freezing!",
+		"Can't speak right now, it's so cold!",
 		"Buy yourself an iPhone or something.",
 		"It's 2015, get over it.",
 		"Hey.",
@@ -395,14 +388,14 @@
 		"Heyyyyy.",
 		"Do I know you?",
 		"There's something wrong with this city, you know?",
-		"Oh, wow."
+		"Oh, wow. It's cold, and you're an asshole."
 	)
 	answer_phrases = list(
 		"I'm trying...",
 		"Crazy.",
 		"Things aren't good, baby.",
 		"You mixed me up with someone else.",
-		"Yeah, exactly.",
+		"It's freezing...",
 		"Okay...",
 		"Fine."
 	)
@@ -410,7 +403,7 @@
 		"Oh God!",
 		"Go away!!",
 		"What the heck is happening?!",
-		"Stop!",
+		"It's too cold for this!",
 		"Someone, help!",
 		"Mommy!"
 	)
