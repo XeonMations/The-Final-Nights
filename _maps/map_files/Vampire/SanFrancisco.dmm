@@ -3975,10 +3975,8 @@
 /turf/closed/wall/vampwall/junk,
 /area/vtm/sewer/nosferatu_warren)
 "aVb" = (
-/obj/structure/vamptree{
-	icon_state = "tree8"
-	},
 /obj/item/vtm_artifact/rand,
+/obj/structure/flora/tree/pine/xmas/presents,
 /turf/open/floor/plating/dirt/dark,
 /area/vtm/park)
 "aVe" = (
