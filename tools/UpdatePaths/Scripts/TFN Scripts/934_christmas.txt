@@ -1,3 +1,4 @@
 /turf/open/floor/plating/vampocean : /turf/open/floor/plating/ice
 /turf/open/floor/plating/vampcrossableocean : /turf/open/floor/plating/ice
 /obj/effect/decal/coastline : @DELETE
+/obj/effect/decal/coastline/corner : @DELETE

@@ -2122,10 +2122,6 @@
 	},
 /turf/open/floor/plating/vampplating,
 /area/vtm/interior/penumbra)
-"tI" = (
-/obj/effect/decal/coastline/corner,
-/turf/open/floor/plating/dirt,
-/area/vtm/interior/penumbra)
 "tL" = (
 /obj/structure/bed/maint,
 /obj/item/clothing/suit/vampire/coat,
@@ -2180,10 +2176,6 @@
 	id = 609
 	},
 /turf/open/floor/plating/sidewalk,
-/area/vtm/interior/penumbra)
-"uC" = (
-/obj/effect/decal/coastline/corner,
-/turf/open/floor/plating/vampdirt,
 /area/vtm/interior/penumbra)
 "uH" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
@@ -3045,12 +3037,6 @@
 	color = "#636363"
 	},
 /turf/open/floor/plating/vampplating,
-/area/vtm/interior/penumbra)
-"EC" = (
-/obj/effect/decal/coastline/corner{
-	dir = 4
-	},
-/turf/open/floor/plating/vampbeach,
 /area/vtm/interior/penumbra)
 "EF" = (
 /obj/effect/decal/cleanable/blood{
@@ -39436,7 +39422,7 @@ qP
 qP
 qP
 qP
-EC
+qP
 qP
 Cg
 Cg
@@ -39694,7 +39680,7 @@ qP
 qP
 xX
 qP
-EC
+qP
 qP
 qP
 Cg
@@ -39953,7 +39939,7 @@ zy
 qP
 qP
 qP
-EC
+qP
 qP
 qP
 Cg
@@ -40212,7 +40198,7 @@ qP
 qP
 qP
 qP
-EC
+qP
 qP
 qP
 qP
@@ -40473,7 +40459,7 @@ rZ
 qP
 qP
 qP
-EC
+qP
 qP
 qP
 qP
@@ -40737,7 +40723,7 @@ qP
 qP
 qP
 qP
-EC
+qP
 qP
 qF
 qF
@@ -40995,7 +40981,7 @@ qP
 qP
 qP
 qP
-EC
+qP
 qP
 qF
 qF
@@ -45482,7 +45468,7 @@ Sz
 fG
 Pe
 IX
-uC
+Fd
 ki
 QY
 Uh
@@ -45995,7 +45981,7 @@ Pe
 XE
 yu
 Fd
-uC
+Fd
 KO
 Fd
 sk
@@ -46251,7 +46237,7 @@ Pe
 Gp
 ki
 Fd
-tI
+ki
 Fd
 QY
 bB
@@ -46506,7 +46492,7 @@ qF
 Uh
 Uh
 Fd
-tI
+ki
 Fd
 Fd
 Hg
