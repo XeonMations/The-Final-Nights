@@ -77635,10 +77635,7 @@
 /turf/open/floor/plating/roofwalk,
 /area/vtm)
 "rYf" = (
-/obj/effect/decal/fakelattice{
-	density = 0
-	},
-/turf/open/floor/plating/ice,
+/turf/closed/wall/vampwall/market/low,
 /area/vtm)
 "rYp" = (
 /obj/effect/turf_decal/weather/dirt{
@@ -102349,14 +102346,6 @@
 	},
 /turf/open/floor/plating/sidewalk/poor,
 /area/vtm)
-"xUK" = (
-/obj/structure/lattice,
-/obj/effect/decal/pallet,
-/obj/machinery/light/small{
-	pixel_y = 32
-	},
-/turf/open/floor/plating/ice,
-/area/vtm/fishermanswharf/lower)
 "xUM" = (
 /obj/structure/table,
 /turf/open/floor/plating/parquetry/old,
@@ -122984,7 +122973,7 @@ apJ
 apJ
 apJ
 cqA
-hwO
+efH
 efH
 cqA
 cqA
@@ -127656,7 +127645,7 @@ sGt
 dnp
 cnQ
 nxn
-xUK
+hGY
 bEj
 cbX
 tuX
