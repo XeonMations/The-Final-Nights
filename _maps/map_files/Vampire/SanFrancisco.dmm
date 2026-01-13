@@ -3970,7 +3970,7 @@
 /area/vtm/sewer/nosferatu_warren)
 "aVb" = (
 /obj/item/vtm_artifact/rand,
-/obj/structure/flora/tree/pine/xmas/presents,
+/obj/structure/flora/tree/pine/xmas,
 /turf/open/floor/plating/vampgrass,
 /area/vtm/park)
 "aVe" = (
