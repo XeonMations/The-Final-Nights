@@ -33,7 +33,6 @@
 	name = "Doctor"
 	jobtype = /datum/job/vamp/vdoctor
 
-	ears = /obj/item/p25radio
 	id = /obj/item/card/id/clinic
 	uniform = /obj/item/clothing/under/vampire/nurse
 	shoes = /obj/item/clothing/shoes/vampire/white
@@ -88,7 +87,6 @@
 	name = "Clinic Director"
 	jobtype = /datum/job/vamp/vdirector
 
-	ears = /obj/item/p25radio
 	id = /obj/item/card/id/clinic/director
 	uniform = /obj/item/clothing/under/vampire/nurse
 	shoes = /obj/item/clothing/shoes/vampire/white
@@ -136,7 +134,6 @@
 /datum/outfit/job/mortattendant
 	name = "Mortuary Attendant"
 	jobtype = /datum/job/vamp/mortattendant
-	ears = /obj/item/p25radio
 	id = /obj/item/card/id/clinic/mortattendant
 	uniform = /obj/item/clothing/under/vampire/nurse/nurseb
 	shoes = /obj/item/clothing/shoes/vampire/white
