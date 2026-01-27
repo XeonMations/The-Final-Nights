@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(pagers)
 
 /obj/item/pager/examine(mob/user)
 	. = ..()
-	to_chat(user, span_notice("It seems you can [RUNECHAT_BOLD("Alt-Click")] the [src] to send a pager to a specific pager ID."))
+	. += span_notice("You can [span_bold("Alt-Click")] the [src] to send a pager to a specified pager ID.")
 
 /obj/item/pager/AltClick(mob/user)
 	. = ..()
