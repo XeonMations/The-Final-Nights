@@ -18,3 +18,14 @@
 2026-01-23:
   buffyuwu:
   - bugfix: '1984'
+2026-01-27:
+  theselfish:
+  - spellcheck: Interior no longer appears on Bloodhunt-o-vision or Scrolls.
+2026-01-28:
+  Stutternov:
+  - rscadd: Adds new cropped leather jackets, one for each color
+  - rscadd: Adds new red leather jacket with a cropped variant
+  - rscadd: Adds all new cropped leather jackets to the loadout screen.
+2026-01-30:
+  Somniworld:
+  - image: New sprites for the "corvid form" UI element.
